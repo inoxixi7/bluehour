@@ -1,0 +1,207 @@
+import React from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  RefreshControl,
+  TouchableOpacity,
+  Alert,
+} from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
+import { useLocation } from '../hooks/useLocation';
+import { useSunTimes } from '../hooks/useSunTimes';
+import { CurrentStatus } from '../components/CurrentStatus';
+import { TimeDisplay } from '../components/TimeDisplay';
+
+export default function PhotographyTimerScreen() {
+  const { location, loading: locationLoading, error: locationError, refreshLocation } = useLocation();
+  const { sunTimes, currentPeriodInfo, timeUntilNextPhase, loading: sunTimesLoading, error: sunTimesError, refreshSunTimes } = useSunTimes(location);
+
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(async () => {
+    setRefreshing(true);
+    await refreshLocation();
+    if (location) {
+      await refreshSunTimes();
+    }
+    setRefreshing(false);
+  }, [refreshLocation, refreshSunTimes, location]);
+
+  const handleLocationError = () => {
+    Alert.alert(
+      '位置获取失败',
+      locationError || '无法获取您的位置信息，请检查位置权限设置。',
+      [
+        { text: '重试', onPress: refreshLocation },
+        { text: '取消', style: 'cancel' },
+      ]
+    );
+  };
+
+  const getGradientColors = () => {
+    if (!currentPeriodInfo) {
+      return ['#1a1a2e', '#16213e'];
+    }
+    
+    const baseColor = currentPeriodInfo.color;
+    return [baseColor, '#0f0f1e'];
+  };
+
+  if (locationLoading || sunTimesLoading) {
+    return (
+      <LinearGradient colors={['#1a1a2e', '#16213e']} style={styles.container}>
+        <View style={styles.loadingContainer}>
+          <Text style={styles.loadingText}>
+            {locationLoading ? '获取位置信息中...' : '计算摄影时间中...'}
+          </Text>
+        </View>
+      </LinearGradient>
+    );
+  }
+
+  if (locationError || sunTimesError) {
+    return (
+      <LinearGradient colors={['#1a1a2e', '#16213e']} style={styles.container}>
+        <View style={styles.errorContainer}>
+          <Text style={styles.errorText}>
+            {locationError ? '无法获取位置信息' : '无法获取太阳时间'}
+          </Text>
+          <Text style={styles.errorSubtext}>{locationError || sunTimesError}</Text>
+          <TouchableOpacity style={styles.retryButton} onPress={locationError ? handleLocationError : onRefresh}>
+            <Text style={styles.retryButtonText}>重试</Text>
+          </TouchableOpacity>
+        </View>
+      </LinearGradient>
+    );
+  }
+
+  if (!location || !sunTimes || !currentPeriodInfo) {
+    return (
+      <LinearGradient colors={['#1a1a2e', '#16213e']} style={styles.container}>
+        <View style={styles.loadingContainer}>
+          <Text style={styles.loadingText}>计算摄影时间中...</Text>
+        </View>
+      </LinearGradient>
+    );
+  }
+
+  return (
+    <LinearGradient colors={getGradientColors()} style={styles.container}>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} tintColor="#ffffff" />
+        }
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.header}>
+          <Text style={styles.appTitle}>📸 BlueHour</Text>
+          <Text style={styles.subtitle}>摄影黄金时刻</Text>
+        </View>
+
+        <CurrentStatus 
+          periodInfo={currentPeriodInfo} 
+          timeUntilNext={timeUntilNextPhase} 
+        />
+
+        <TimeDisplay sunTimes={sunTimes} />
+
+        <View style={styles.locationInfo}>
+          <Text style={styles.locationText}>
+            📍 位置: {location.latitude.toFixed(4)}, {location.longitude.toFixed(4)}
+          </Text>
+          {sunTimes && (
+            <Text style={styles.locationText}>
+              🌍 时区: {sunTimes.timezone}
+            </Text>
+          )}
+        </View>
+      </ScrollView>
+    </LinearGradient>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 20,
+    paddingTop: 60,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 30,
+  },
+  appTitle: {
+    fontSize: 36,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginBottom: 5,
+  },
+  subtitle: {
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.7)',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    fontSize: 18,
+    color: '#ffffff',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20,
+  },
+  errorText: {
+    fontSize: 20,
+    color: '#ff6b6b',
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  errorSubtext: {
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.7)',
+    textAlign: 'center',
+    marginBottom: 20,
+  },
+  retryButton: {
+    backgroundColor: '#4dabf7',
+    paddingHorizontal: 30,
+    paddingVertical: 12,
+    borderRadius: 25,
+  },
+  retryButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  locationInfo: {
+    marginTop: 20,
+    padding: 15,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 12,
+  },
+  locationText: {
+    color: 'rgba(255, 255, 255, 0.8)',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  timezoneText: {
+    color: 'rgba(255, 255, 255, 0.6)',
+    fontSize: 12,
+    textAlign: 'center',
+    marginTop: 4,
+  },
+});
