@@ -44,14 +44,7 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
       description: '拍摄星空、城市夜景',
       nextPhase: 'first-light' as PhotographyPhase,
       nextTime: sunTimes.firstLight,
-      isIdeal: false,
-      tips: [
-        '使用三脚架确保稳定',
-        '尝试长曝光拍摄星轨',
-        '拍摄城市夜景和光轨',
-        '使用手动对焦到无穷远'
-      ],
-      color: '#1a1a2e'
+      isIdeal: false
     };
   }
   
@@ -62,14 +55,7 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
       description: '天空开始泛亮，适合拍摄山峦剪影',
       nextPhase: 'dawn' as PhotographyPhase,
       nextTime: sunTimes.dawn,
-      isIdeal: false,
-      tips: [
-        '拍摄建筑剪影',
-        '捕捉天空的深蓝色调',
-        '使用较长曝光时间',
-        '注意白平衡设置'
-      ],
-      color: '#16213e'
+      isIdeal: false
     };
   }
   
@@ -80,14 +66,7 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
       description: '光线柔和，适合风景摄影',
       nextPhase: 'sunrise' as PhotographyPhase,
       nextTime: sunTimes.sunrise,
-      isIdeal: true,
-      tips: [
-        '拍摄人像，光线柔和',
-        '捕捉温暖的色调',
-        '逆光拍摄营造氛围',
-        '注意阴影细节'
-      ],
-      color: '#ff6b35'
+      isIdeal: true
     };
   }
   
@@ -98,14 +77,7 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
       description: '温暖的光线，最佳摄影时机',
       nextPhase: 'day' as PhotographyPhase,
       nextTime: minutesToTimeString(goldenHourEndMinutes),
-      isIdeal: true,
-      tips: [
-        '拍摄日出剪影',
-        '捕捉温暖的光线',
-        '人像摄影的最佳时间',
-        '注意测光和曝光'
-      ],
-      color: '#ff922b'
+      isIdeal: true
     };
   }
   
@@ -116,14 +88,7 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
       description: '光线较强，适合建筑、人像摄影',
       nextPhase: 'golden-hour' as PhotographyPhase,
       nextTime: sunTimes.goldenHour,
-      isIdeal: false,
-      tips: [
-        '使用偏振镜减少反光',
-        '注意高对比度场景',
-        '寻找有趣的阴影',
-        '街头摄影的好时机'
-      ],
-      color: '#4dabf7'
+      isIdeal: false
     };
   }
   
@@ -134,14 +99,7 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
       description: '傍晚温暖光线，最佳摄影时机',
       nextPhase: 'sunset' as PhotographyPhase,
       nextTime: sunTimes.sunset,
-      isIdeal: true,
-      tips: [
-        '拍摄日落剪影',
-        '捕捉温暖的光线',
-        '人像摄影的最佳时间',
-        '注意测光和曝光'
-      ],
-      color: '#ff922b'
+      isIdeal: true
     };
   }
   
@@ -152,14 +110,7 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
       description: '日落景观，剪影效果',
       nextPhase: 'blue-hour' as PhotographyPhase,
       nextTime: sunTimes.dusk,
-      isIdeal: true,
-      tips: [
-        '拍摄日落剪影',
-        '捕捉温暖的光线',
-        '人像摄影的最佳时间',
-        '注意测光和曝光'
-      ],
-      color: '#ff922b'
+      isIdeal: true
     };
   }
   
@@ -170,14 +121,7 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
       description: '天空呈现深蓝色，城市灯光开始亮起',
       nextPhase: 'night' as PhotographyPhase,
       nextTime: sunTimes.lastLight,
-      isIdeal: true,
-      tips: [
-        '拍摄城市夜景',
-        '捕捉天空的蓝紫色调',
-        '建筑灯光开始亮起',
-        '使用三脚架拍摄'
-      ],
-      color: '#364fc7'
+      isIdeal: true
     };
   }
   
@@ -188,15 +132,81 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
     description: '拍摄星空、城市夜景',
     nextPhase: 'first-light' as PhotographyPhase,
     nextTime: sunTimes.firstLight, // 这里应该是明天的时间，但为了简化，先用今天的
-    isIdeal: false,
-    tips: [
-      '使用三脚架确保稳定',
-      '尝试长曝光拍摄星轨',
-      '拍摄城市夜景和光轨',
-      '使用手动对焦到无穷远'
-    ],
-    color: '#1a1a2e'
+    isIdeal: false
   };
+};
+
+export const getPhotographyPeriodInfo = (phase: PhotographyPhase): PhotographyPeriod => {
+  const periods: Record<PhotographyPhase, PhotographyPeriod> = {
+    'night': {
+      name: '夜晚',
+      description: '深夜时段，适合拍摄星空和夜景',
+      tips: [
+        '使用三脚架确保稳定',
+        '尝试长曝光拍摄星轨',
+        '拍摄城市夜景和光轨',
+        '使用手动对焦到无穷远'
+      ],
+      color: '#1a1a2e'
+    },
+    'blue-hour-morning': {
+      name: '晨蓝时刻',
+      description: '日出前的蓝调时光，天空呈现深蓝色',
+      tips: [
+        '拍摄建筑剪影',
+        '捕捉天空的深蓝色调',
+        '使用较长曝光时间',
+        '注意白平衡设置'
+      ],
+      color: '#16213e'
+    },
+    'golden-hour-morning': {
+      name: '晨金时刻',
+      description: '日出后的黄金时光，光线柔和温暖',
+      tips: [
+        '拍摄人像，光线柔和',
+        '捕捉温暖的色调',
+        '逆光拍摄营造氛围',
+        '注意阴影细节'
+      ],
+      color: '#ff6b35'
+    },
+    'day': {
+      name: '白天',
+      description: '正常日光时段',
+      tips: [
+        '使用偏振镜减少反光',
+        '注意高对比度场景',
+        '寻找有趣的阴影',
+        '街头摄影的好时机'
+      ],
+      color: '#4dabf7'
+    },
+    'golden-hour-evening': {
+      name: '黄昏金时刻',
+      description: '日落前的黄金时光，最佳拍摄时段',
+      tips: [
+        '拍摄日落剪影',
+        '捕捉温暖的光线',
+        '人像摄影的最佳时间',
+        '注意测光和曝光'
+      ],
+      color: '#ff922b'
+    },
+    'blue-hour-evening': {
+      name: '黄昏蓝时刻',
+      description: '日落后的蓝调时光，天空呈现迷人蓝色',
+      tips: [
+        '拍摄城市夜景',
+        '捕捉天空的蓝紫色调',
+        '建筑灯光开始亮起',
+        '使用三脚架拍摄'
+      ],
+      color: '#364fc7'
+    }
+  };
+  
+  return periods[phase];
 };
 
 export const formatTime = (timeStr: string): string => {

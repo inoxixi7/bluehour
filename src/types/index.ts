@@ -24,8 +24,6 @@ export interface PhotographyPeriod {
   nextPhase: PhotographyPhase;
   nextTime: string;
   isIdeal: boolean;
-  tips: string[];
-  color: string;
 }
 
 export type PhotographyPhase = 

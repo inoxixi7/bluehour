@@ -34,7 +34,7 @@ export const useSunTimes = (location: LocationCoords | null) => {
 
   const fetchSunTimesData = async () => {
     if (!location) {
-      console.log('等待位置信息获取中...');
+      console.log('没有位置信息，跳过获取太阳时间');
       return;
     }
 

@@ -44,8 +44,20 @@ export default function PhotographyTimerScreen() {
     if (!currentPeriodInfo) {
       return ['#1a1a2e', '#16213e'];
     }
-    
-    const baseColor = currentPeriodInfo.color;
+
+    const phase = currentPeriodInfo.phase;
+    const colorMap: Record<string, string> = {
+      night: '#0b132b',
+      'first-light': '#1c2541',
+      dawn: '#3a506b',
+      sunrise: '#f6ae2d',
+      day: '#4dabf7',
+      'golden-hour': '#f4a261',
+      sunset: '#e76f51',
+      'blue-hour': '#4361ee',
+    };
+
+    const baseColor = colorMap[phase] || '#1a1a2e';
     return [baseColor, '#0f0f1e'];
   };
 
@@ -97,11 +109,6 @@ export default function PhotographyTimerScreen() {
         }
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.header}>
-          <Text style={styles.appTitle}>📸 BlueHour</Text>
-          <Text style={styles.subtitle}>摄影黄金时刻</Text>
-        </View>
-
         <CurrentStatus 
           periodInfo={currentPeriodInfo} 
           timeUntilNext={timeUntilNextPhase} 
@@ -113,11 +120,11 @@ export default function PhotographyTimerScreen() {
           <Text style={styles.locationText}>
             📍 位置: {location.latitude.toFixed(4)}, {location.longitude.toFixed(4)}
           </Text>
-          {sunTimes && (
+          {/* {sunTimes && (
             <Text style={styles.locationText}>
               🌍 时区: {sunTimes.timezone}
             </Text>
-          )}
+          )} */}
         </View>
       </ScrollView>
     </LinearGradient>
@@ -135,20 +142,7 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 60,
   },
-  header: {
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  appTitle: {
-    fontSize: 36,
-    fontWeight: 'bold',
-    color: '#ffffff',
-    marginBottom: 5,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.7)',
-  },
+  
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
