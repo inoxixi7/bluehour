@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SunTimes, PhotographyPhase } from '../types';
+import { deriveDynamicPeriods } from '../utils/sunCalculations';
 
 interface TimeDisplayProps {
   sunTimes: SunTimes;
@@ -8,54 +9,37 @@ interface TimeDisplayProps {
 }
 
 export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase }) => {
-  // 计算黄金时刻结束时间（日出后1小时）
-  const calculateGoldenHourEnd = (sunriseStr: string): string => {
-    const parts = sunriseStr.split(':').map(Number);
-    const hours = parts[0] || 0;
-    const minutes = parts[1] || 0;
-    const totalMinutes = hours * 60 + minutes + 60; // +1小时
-    const newHours = Math.floor(totalMinutes / 60) % 24;
-    const newMinutes = totalMinutes % 60;
-    return `${newHours.toString().padStart(2, '0')}:${newMinutes.toString().padStart(2, '0')}`;
-  };
-
-  const goldenHourEnd = calculateGoldenHourEnd(sunTimes.sunrise);
-
-  // 基础项（更常用）
-  const baseItems = [
-    { key: 'firstLight', label: '第一道光', value: sunTimes.firstLight },
-    { key: 'dawn', label: '黎明', value: sunTimes.dawn },
-    // { key: 'sunrise', label: '日出', value: sunTimes.sunrise },
-    { key: 'goldenMorning', label: '黄金时刻（早）', value: `${sunTimes.sunrise} - ${goldenHourEnd}` },
-    // { key: 'solarNoon', label: '正午', value: sunTimes.solarNoon },
-    { key: 'goldenHour', label: '黄金时刻（晚）', value: `${sunTimes.goldenHour} - 日落` },
-    // { key: 'sunset', label: '日落',value: sunTimes.sunset },
-  ] as const;
-
-  // 额外项（默认展示）
-  const extraItems = [
-    { key: 'dusk', label: '蓝色时刻', value: sunTimes.dusk },
-    { key: 'lastLight', label: '最后的光', value: sunTimes.lastLight },
-  ] as const;
+  // 使用动态推导的光照区间
+  const dynamic = deriveDynamicPeriods(sunTimes);
 
   const formatHHMM = (t?: string) => (t ? t.slice(0,5) : '--:--');
-  
-  // 直接展示全部
-  const items = [...baseItems, ...extraItems];
 
-  // 将摄影阶段映射到时间轴 key
+  // 合并后的全部时刻条目（保持原先顺序）
+  const items = [
+    { key: 'firstLight', label: '第一道光', value: formatHHMM(sunTimes.firstLight) },
+    { key: 'morningBlue', label: '蓝色时刻（早）', value: `${formatHHMM(dynamic.morningBlue.start)} - ${formatHHMM(dynamic.morningBlue.end)}` },
+    { key: 'civilTwilightMorning', label: '曙光', value: `${formatHHMM(sunTimes.dawn)} - ${formatHHMM(sunTimes.sunrise)}` },
+    { key: 'goldenMorning', label: '黄金时刻（早）', value: `${formatHHMM(dynamic.morningGolden.start)} - ${formatHHMM(dynamic.morningGolden.end)}` },
+    { key: 'solarNoon', label: '白天', value: `${formatHHMM(sunTimes.sunrise)} - ${formatHHMM(sunTimes.sunset)}` },
+    { key: 'goldenHour', label: '黄金时刻（晚）', value: `${formatHHMM(dynamic.eveningGolden.start)} - ${formatHHMM(dynamic.eveningGolden.end)}` },
+    { key: 'civilTwilightEvening', label: '暮光', value: `${formatHHMM(sunTimes.sunset)} - ${formatHHMM(sunTimes.dusk)}` },
+    { key: 'eveningBlue', label: '蓝色时刻（晚）', value: `${formatHHMM(dynamic.eveningBlue.start)} - ${formatHHMM(dynamic.eveningBlue.end)}` },
+    { key: 'lastLight', label: '最后的光', value: formatHHMM(sunTimes.lastLight) },
+  ] as const;
+
+  // 将摄影阶段映射到时间轴 key（匹配现有 items）
   const phaseToKey: Record<Exclude<PhotographyPhase, 'night' | 'day'>, string> = {
     'first-light': 'firstLight',
-    'dawn': 'dawn',
-    'sunrise': 'sunrise',
-    'golden-hour': 'goldenHour',
-    'sunset': 'sunset',
-    'blue-hour': 'dusk',
+    'dawn': 'civilTwilightMorning',      // 曙光区间
+    'sunrise': 'goldenMorning',          // 早黄金
+    'golden-hour': 'goldenHour',         // 晚黄金
+    'sunset': 'civilTwilightEvening',    // 暮光区间
+    'blue-hour': 'eveningBlue',          // 晚蓝调
   };
   const activeKey = currentPhase && (currentPhase === 'night' || currentPhase === 'day') ? null : (currentPhase ? phaseToKey[currentPhase as Exclude<PhotographyPhase, 'night' | 'day'>] : null);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.wrapper}>
       <Text style={styles.blockTitle}>今日时刻表</Text>
 
       <View style={styles.timeline}>
@@ -68,7 +52,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase
               <View style={[styles.itemContent, isActive && styles.itemActive]}>
                 <View style={styles.itemHeader}>
                   <View style={styles.titleWrap}>
-                    <Text style={styles.itemTitle}>{it.icon} {it.label}</Text>
+                    <Text style={styles.itemTitle}>{it.label}</Text>
                     {isActive && (
                       <View style={styles.activePill}>
                         <Text style={styles.activePillText}>当前</Text>
@@ -90,6 +74,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase
 };
 
 const styles = StyleSheet.create({
+  wrapper: { },
   blockTitle: {
     fontSize: 16,
     fontWeight: 'bold',
