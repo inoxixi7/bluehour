@@ -1,3 +1,4 @@
+// Backup of previous useSunTimes before timezone adjustments
 import { useState, useEffect, useMemo, useRef } from 'react';
 import { LocationCoords, SunTimes, PhotographyPhase, PhotographyPeriod } from '../types';
 import { 
@@ -72,19 +73,13 @@ export const useSunTimes = (location: LocationCoords | null, manualLocation?: Lo
   // 计算当前摄影阶段
   const currentPhase = useMemo(() => {
     if (!sunTimes) return null;
-    const nowUtc = new Date();
-    const utcMinutes = nowUtc.getUTCHours()*60 + nowUtc.getUTCMinutes();
-    const localMinutes = utcMinutes + (sunTimes.utcOffset || 0);
-    // 仅构造一个日期对象（日期部分不重要），并把分钟 override 传入
-    return getCurrentPhotographyPhase(sunTimes, nowUtc, localMinutes);
+    return getCurrentPhotographyPhase(sunTimes, currentTime);
   }, [sunTimes, currentTime]);
 
+  // 获取当前时段信息
   const currentPeriodInfo = useMemo(() => {
     if (!sunTimes) return null;
-    const nowUtc = new Date();
-    const utcMinutes = nowUtc.getUTCHours()*60 + nowUtc.getUTCMinutes();
-    const localMinutes = utcMinutes + (sunTimes.utcOffset || 0);
-    return getNextPhotographyPeriod(sunTimes, nowUtc, localMinutes);
+    return getNextPhotographyPeriod(sunTimes, currentTime);
   }, [sunTimes, currentTime]);
 
   // 下一个阶段的时间
@@ -94,18 +89,36 @@ export const useSunTimes = (location: LocationCoords | null, manualLocation?: Lo
 
   // 计算到下一个阶段的时间差
   const timeUntilNextPhase = useMemo(() => {
-    if (!nextPhaseTime || !sunTimes) return null;
-    const nowUtc = new Date();
-    const utcMinutes = nowUtc.getUTCHours()*60 + nowUtc.getUTCMinutes();
-    const localMinutesNow = utcMinutes + (sunTimes.utcOffset || 0);
-    const [hNext, mNext] = nextPhaseTime.split(':').map(Number);
-    let nextMinutes = hNext*60 + mNext; // 已经是当地时间字符串
-    let diffMinutes = nextMinutes - localMinutesNow;
-    if (diffMinutes < 0) diffMinutes += 24*60;
-    const hours = Math.floor(diffMinutes/60);
+    if (!nextPhaseTime) return null;
+    
+    const currentTimeStr = currentTime.toLocaleTimeString('en-US', { 
+      hour12: false, 
+      hour: '2-digit', 
+      minute: '2-digit' 
+    });
+    
+    const timeToMinutes = (timeStr: string): number => {
+      const [hours, minutes] = timeStr.split(':').map(Number);
+      return hours * 60 + minutes;
+    };
+    
+    const currentMinutes = timeToMinutes(currentTimeStr);
+    const nextMinutes = timeToMinutes(nextPhaseTime);
+    
+    let diffMinutes = nextMinutes - currentMinutes;
+    if (diffMinutes < 0) {
+      diffMinutes += 24 * 60; // 如果是明天，加上一天的分钟数
+    }
+    
+    const hours = Math.floor(diffMinutes / 60);
     const minutes = diffMinutes % 60;
-    return hours > 0 ? `${hours}小时${minutes}分钟` : `${minutes}分钟`;
-  }, [nextPhaseTime, currentTime, sunTimes]);
+    
+    if (hours > 0) {
+      return `${hours}小时${minutes}分钟`;
+    } else {
+      return `${minutes}分钟`;
+    }
+  }, [nextPhaseTime, currentTime]);
 
   return {
     sunTimes,

@@ -6,7 +6,7 @@ export const calculateSunTimes = async (coords: LocationCoords, date?: Date): Pr
   return await fetchSunTimes(coords, dateString);
 };
 
-export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date = new Date()): PhotographyPeriod | null => {
+export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date = new Date(), currentMinutesOverride?: number): PhotographyPeriod | null => {
   const currentTimeStr = currentTime.toLocaleTimeString('en-US', { 
     hour12: false, 
     hour: '2-digit', 
@@ -26,7 +26,7 @@ export const getNextPhotographyPeriod = (sunTimes: SunTimes, currentTime: Date =
     return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
   };
   
-  const currentMinutes = timeToMinutes(currentTimeStr);
+  const currentMinutes = currentMinutesOverride !== undefined ? currentMinutesOverride : timeToMinutes(currentTimeStr);
   const firstLightMinutes = timeToMinutes(sunTimes.firstLight);
   const dawnMinutes = timeToMinutes(sunTimes.dawn);
   const sunriseMinutes = timeToMinutes(sunTimes.sunrise);
@@ -177,7 +177,7 @@ export const getTimeUntilNext = (targetTimeStr: string, currentTime: Date = new 
   return `${minutes}分钟后`;
 };
 
-export const getCurrentPhotographyPhase = (sunTimes: SunTimes, currentTime: Date = new Date()): PhotographyPhase => {
+export const getCurrentPhotographyPhase = (sunTimes: SunTimes, currentTime: Date = new Date(), currentMinutesOverride?: number): PhotographyPhase => {
   const currentTimeStr = currentTime.toLocaleTimeString('en-US', { 
     hour12: false, 
     hour: '2-digit', 
@@ -190,7 +190,7 @@ export const getCurrentPhotographyPhase = (sunTimes: SunTimes, currentTime: Date
     return hours * 60 + minutes;
   };
   
-  const currentMinutes = timeToMinutes(currentTimeStr);
+  const currentMinutes = currentMinutesOverride !== undefined ? currentMinutesOverride : timeToMinutes(currentTimeStr);
   const firstLightMinutes = timeToMinutes(sunTimes.firstLight);
   const dawnMinutes = timeToMinutes(sunTimes.dawn);
   const sunriseMinutes = timeToMinutes(sunTimes.sunrise);
