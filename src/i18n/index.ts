@@ -86,6 +86,11 @@ const resources: Record<AppLocale, Record<string, string>> = {
     clear: '清空',
     noResults: '暂无结果',
     searchFailed: '搜索失败',
+  locationServiceDisabled: '定位服务未开启',
+  locationPermissionDenied: '定位权限被拒绝',
+  locationTimeout: '定位超时，请重试',
+  locationUsingLast: '已使用上次已知位置',
+  locationGenericError: '获取位置失败',
   },
   en: {
     appName: 'BlueHour',
@@ -167,6 +172,11 @@ const resources: Record<AppLocale, Record<string, string>> = {
     clear: 'Clear',
     noResults: 'No results',
     searchFailed: 'Search failed',
+  locationServiceDisabled: 'Location services disabled',
+  locationPermissionDenied: 'Location permission denied',
+  locationTimeout: 'Location request timed out',
+  locationUsingLast: 'Using last known location',
+  locationGenericError: 'Failed to get location',
   },
   ja: {
     appName: 'BlueHour',
@@ -248,6 +258,11 @@ const resources: Record<AppLocale, Record<string, string>> = {
     clear: 'クリア',
     noResults: '結果なし',
     searchFailed: '検索失敗',
+  locationServiceDisabled: '位置サービスが無効です',
+  locationPermissionDenied: '位置情報の権限が拒否されました',
+  locationTimeout: '位置取得がタイムアウトしました',
+  locationUsingLast: '最後の既知位置を使用',
+  locationGenericError: '位置情報の取得に失敗しました',
   },
   de: {
     appName: 'BlueHour',
@@ -329,6 +344,11 @@ const resources: Record<AppLocale, Record<string, string>> = {
     clear: 'Leeren',
     noResults: 'Keine Ergebnisse',
     searchFailed: 'Suche fehlgeschlagen',
+  locationServiceDisabled: 'Standortdienste deaktiviert',
+  locationPermissionDenied: 'Standortberechtigung verweigert',
+  locationTimeout: 'Standortanfrage Zeitüberschreitung',
+  locationUsingLast: 'Letzten bekannten Standort verwendet',
+  locationGenericError: 'Standort konnte nicht ermittelt werden',
   },
 };
 
@@ -395,12 +415,25 @@ export function getPhaseTips(locale: AppLocale, phase: string): string[] {
 }
 
 export function detectSystemLocale(): AppLocale {
-  const sys = Localization.locale.split('-')[0].toLowerCase();
-  if (sys.startsWith('zh')) return 'zh';
-  if (sys.startsWith('en')) return 'en';
-  if (sys.startsWith('ja')) return 'ja';
-  if (sys.startsWith('de')) return 'de';
-  return 'en';
+  try {
+    // Newer expo-localization exposes getLocales(); older has locale string
+    const locales: any = (Localization as any).getLocales?.();
+    let code: string | undefined;
+    if (Array.isArray(locales) && locales.length > 0) {
+      code = (locales[0].languageCode || locales[0].languageTag || locales[0].locale)?.toLowerCase();
+    }
+    if (!code && (Localization as any).locale) {
+      code = (Localization as any).locale.split('-')[0].toLowerCase();
+    }
+    if (!code) return 'en';
+    if (code.startsWith('zh')) return 'zh';
+    if (code.startsWith('en')) return 'en';
+    if (code.startsWith('ja')) return 'ja';
+    if (code.startsWith('de')) return 'de';
+    return 'en';
+  } catch {
+    return 'en';
+  }
 }
 
 export const i18n = { resources };

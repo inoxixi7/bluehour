@@ -86,7 +86,7 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
   const { t, locale } = React.useContext(I18nContext);
   const [expandTips, setExpandTips] = useState(false);
   const bgColor = getPhaseColor(periodInfo.phase);
-  const icon = getPhaseIcon(periodInfo.phase);
+  // const icon = getPhaseIcon(periodInfo.phase); // 图标已移除
   const tips = (I18nHelpers.getPhaseTips ? I18nHelpers.getPhaseTips(locale, periodInfo.phase) : []);
   const tipsToShow = expandTips ? tips : tips.slice(0, 3);
 
@@ -146,22 +146,7 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
   const formatHHMM = (t?: string) => (t ? t.slice(0, 5) : "--:--");
 
   return (
-    <View style={[styles.container, { backgroundColor: bgColor }]}>      
-      {/* 顶部行：阶段图标徽章 + 下一阶段信息 */}
-      <View style={styles.topRow}>
-        <View style={styles.badge}>
-          <Text style={styles.badgeText}>
-            {icon} {I18nHelpers.getPhaseLabel ? I18nHelpers.getPhaseLabel(periodInfo.phase, t) : periodInfo.phase}
-          </Text>
-        </View>
-        {timeUntilNext && (
-          <View style={styles.nextPill}>
-            <Text style={styles.nextPillText}>
-              {t('nextPhase')} · {(I18nHelpers.getPhaseLabel ? I18nHelpers.getPhaseLabel(periodInfo.nextPhase, t) : periodInfo.nextPhase)} · {timeUntilNext}
-            </Text>
-          </View>
-        )}
-      </View>
+  <View style={[styles.container, { backgroundColor: bgColor }]}>      
 
       {/* 时区与本地时间 */}
       <View style={styles.timezoneRow}>
@@ -213,15 +198,24 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
         </View>
       )}
 
-      {/* 微型进度条 */}
+      {/* 加大进度条并整合下一阶段倒计时 */}
       {progress !== null && (
-        <View style={styles.progressTrack}>
-          <View
-            style={[
-              styles.progressFill,
-              { width: `${Math.round(progress * 100)}%` },
-            ]}
-          />
+        <View style={styles.bigProgressWrapper}>
+          <View style={styles.bigProgressTrack}>
+            <View
+              style={[
+                styles.bigProgressFill,
+                { width: `${Math.round(progress * 100)}%` },
+              ]}
+            />
+            {timeUntilNext && (
+              <View style={styles.progressLabelOverlay} pointerEvents="none">
+                <Text style={styles.progressLabelText} numberOfLines={1}>
+                  {t('nextPhase')} · {(I18nHelpers.getPhaseLabel ? I18nHelpers.getPhaseLabel(periodInfo.nextPhase, t) : periodInfo.nextPhase)} · {timeUntilNext}
+                </Text>
+              </View>
+            )}
+          </View>
         </View>
       )}
 
@@ -257,49 +251,40 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginTop: 30,
     borderRadius: 16,
     padding: 16,
     marginVertical: 10,
   },
-  topRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    marginBottom: 8,
+  /* 新进度条样式 */
+  bigProgressWrapper: { marginTop: 4, marginBottom: 8 },
+  bigProgressTrack: {
+    height: 20,
+    borderRadius: 14,
+    backgroundColor: 'rgba(0,0,0,0.28)',
+    overflow: 'hidden',
+    position: 'relative',
   },
-  badge: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    backgroundColor: "rgba(255,255,255,0.18)",
-    borderRadius: 999,
+  bigProgressFill: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    backgroundColor: '#ffd43b',
   },
-  badgeText: {
+  progressLabelOverlay: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: 'center',
+    paddingHorizontal: 12,
+  },
+  progressLabelText: {
     fontSize: 12,
-    color: "#fff",
-    textTransform: "uppercase",
-    letterSpacing: 0.5,
-  },
-  nextPill: {
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    backgroundColor: "rgba(0,0,0,0.25)",
-    borderRadius: 999,
-  },
-  nextPillText: {
-    fontSize: 12,
-    color: "#ffd43b",
-  },
-  progressTrack: {
-    height: 6,
-    borderRadius: 999,
-    backgroundColor: "rgba(0,0,0,0.25)",
-    overflow: "hidden",
-    marginBottom: 8,
-  },
-  progressFill: {
-    height: 6,
-    backgroundColor: "#ffd43b",
+    fontWeight: '600',
+    color: '#3a2d00',
   },
   periodName: {
     fontSize: 32,

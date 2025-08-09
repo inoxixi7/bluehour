@@ -60,11 +60,13 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase
         <View style={styles.line} />
         {items.map((it, idx) => {
           const isActive = it.key === activeKey;
+          // 如果标题过长则换行显示时间
+          const shouldWrap = it.label.length > 16; // 简单阈值，可根据需要调整
           return (
             <View key={it.key} style={styles.itemRow}>
               <View style={[styles.dot, idx === 0 && styles.dotStart, isActive && styles.dotActive]} />
               <View style={[styles.itemContent, isActive && styles.itemActive]}>
-                <View style={styles.itemHeader}>
+                <View style={shouldWrap ? styles.itemHeaderColumn : styles.itemHeader}>
                   <View style={styles.titleWrap}>
                     <Text style={styles.itemTitle}>{it.label}</Text>
                     {isActive && (
@@ -73,7 +75,11 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase
                       </View>
                     )}
                   </View>
-                  <Text numberOfLines={1} style={styles.itemTime}>{it.value}</Text>
+                  {shouldWrap ? (
+                    <Text style={[styles.itemTime, styles.itemTimeWrapped]}>{it.value}</Text>
+                  ) : (
+                    <Text numberOfLines={1} style={styles.itemTime}>{it.value}</Text>
+                  )}
                 </View>
                 {/* ...existing code... */}
               </View>
@@ -156,6 +162,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 0,
   },
+  itemHeaderColumn: {
+    flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'flex-start',
+  alignSelf: 'stretch',
+  width: '100%',
+    marginBottom: 0,
+  },
   titleWrap: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -185,5 +199,11 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     marginLeft: 8,
     flexShrink: 0,
+  },
+  itemTimeWrapped: {
+  textAlign: 'right',
+  marginLeft: 0,
+  marginTop: 4,
+  alignSelf: 'stretch',
   },
 });
