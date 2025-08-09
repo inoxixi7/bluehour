@@ -17,7 +17,7 @@ interface UseSunTimesResult {
   refreshSunTimes: () => Promise<void>;
 }
 
-export const useSunTimes = (location: LocationCoords | null) => {
+export const useSunTimes = (location: LocationCoords | null, manualLocation?: LocationCoords | null): UseSunTimesResult => {
   const [sunTimes, setSunTimes] = useState<SunTimes | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,17 +32,19 @@ export const useSunTimes = (location: LocationCoords | null) => {
     return () => clearInterval(timer);
   }, []);
 
+  const effectiveLocation = manualLocation || location; // 手动选择优先
+
   const fetchSunTimesData = async () => {
-    if (!location) {
-      console.log('没有位置信息，跳过获取太阳时间');
+    if (!effectiveLocation) {
+      console.log('没有有效位置信息，跳过获取太阳时间');
       return;
     }
 
     try {
       setLoading(true);
       setError(null);
-      console.log('开始获取太阳时间数据，位置:', location);
-      const times = await calculateSunTimes(location);
+      console.log('开始获取太阳时间数据，位置:', effectiveLocation);
+      const times = await calculateSunTimes(effectiveLocation);
       console.log('获取到太阳时间数据:', times);
       setSunTimes(times);
     } catch (err) {
@@ -56,7 +58,7 @@ export const useSunTimes = (location: LocationCoords | null) => {
 
   useEffect(() => {
     fetchSunTimesData();
-  }, [location]);
+  }, [effectiveLocation?.latitude, effectiveLocation?.longitude]);
 
   // 计算当前摄影阶段
   const currentPhase = useMemo(() => {

@@ -13,12 +13,16 @@ import { useLocation } from '../hooks/useLocation';
 import { useSunTimes } from '../hooks/useSunTimes';
 import { CurrentStatus } from '../components/CurrentStatus';
 import { TimeDisplay } from '../components/TimeDisplay';
+import { CitySearchModal } from '../components/CitySearchModal';
+import { LocationCoords } from '../types';
 
 export default function PhotographyTimerScreen() {
   const { location, loading: locationLoading, error: locationError, refreshLocation } = useLocation();
-  const { sunTimes, currentPeriodInfo, timeUntilNextPhase, loading: sunTimesLoading, error: sunTimesError, refreshSunTimes } = useSunTimes(location);
-
+  const [manualLocation, setManualLocation] = React.useState<LocationCoords | null>(null); // 手动选定位置
+  const { sunTimes, currentPeriodInfo, timeUntilNextPhase, loading: sunTimesLoading, error: sunTimesError, refreshSunTimes } = useSunTimes(location, manualLocation);
+  const [searchVisible, setSearchVisible] = React.useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
+  const [selectedCityName, setSelectedCityName] = React.useState<string | null>(null);
 
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
@@ -61,6 +65,15 @@ export default function PhotographyTimerScreen() {
     return [baseColor, '#0f0f1e'];
   };
 
+  // 当用户选择城市后，记录并触发刷新
+  const handleCitySelect = (res: { latitude: number; longitude: number; displayName: string }) => {
+    setManualLocation({ latitude: res.latitude, longitude: res.longitude });
+    setSelectedCityName(res.displayName);
+    setTimeout(() => {
+      refreshSunTimes();
+    }, 10);
+  };
+
   if (locationLoading || sunTimesLoading) {
     return (
       <LinearGradient colors={['#1a1a2e', '#16213e']} style={styles.container}>
@@ -101,6 +114,13 @@ export default function PhotographyTimerScreen() {
 
   return (
     <LinearGradient colors={getGradientColors()} style={styles.container}>
+      {/* 顶部右上角搜索按钮 */}
+      <View style={styles.headerBar}>
+        <View style={{ flex: 1 }} />
+        <TouchableOpacity style={styles.searchBtn} onPress={() => setSearchVisible(true)}>
+          <Text style={styles.searchIcon}>🔍</Text>
+        </TouchableOpacity>
+      </View>
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
@@ -119,22 +139,40 @@ export default function PhotographyTimerScreen() {
 
         <View style={styles.locationInfo}>
           <Text style={styles.locationText}>
-            📍 位置: {location.latitude.toFixed(4)}, {location.longitude.toFixed(4)}
+            {selectedCityName ? `📍 ${selectedCityName}` : `📍 位置: ${location?.latitude.toFixed(4)}, ${location?.longitude.toFixed(4)}`}
           </Text>
-          {/* {sunTimes && (
-            <Text style={styles.locationText}>
-              🌍 时区: {sunTimes.timezone}
-            </Text>
-          )} */}
         </View>
       </ScrollView>
+      <CitySearchModal
+        visible={searchVisible}
+        onClose={() => setSearchVisible(false)}
+        onSelect={(item) => handleCitySelect(item)}
+      />
     </LinearGradient>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  container: { flex: 1 },
+  headerBar: {
+    position: 'absolute',
+    top: 40,
+    right: 16,
+    left: 0,
+    zIndex: 20,
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    paddingHorizontal: 16,
+  },
+  searchBtn: {
+    backgroundColor: 'rgba(255,255,255,0.15)',
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 999,
+  },
+  searchIcon: {
+    fontSize: 18,
+    color: '#fff',
   },
   scrollView: {
     flex: 1,
