@@ -1,4 +1,5 @@
 import React from 'react';
+import { Ionicons } from '@expo/vector-icons';
 import {
   View,
   Text,
@@ -67,11 +68,10 @@ export default function PhotographyTimerScreen() {
 
   // 当用户选择城市后，记录并触发刷新
   const handleCitySelect = (res: { latitude: number; longitude: number; displayName: string }) => {
+    // 先设置手动位置（自动触发 useSunTimes 的 effect 按新坐标获取数据）
     setManualLocation({ latitude: res.latitude, longitude: res.longitude });
     setSelectedCityName(res.displayName);
-    setTimeout(() => {
-      refreshSunTimes();
-    }, 10);
+    // 删除原先 setTimeout + refreshSunTimes 的手动刷新，避免在 state 尚未提交时用旧的有效坐标生成请求，造成随后新请求被标记为过期。
   };
 
   if (locationLoading || sunTimesLoading) {
@@ -114,11 +114,16 @@ export default function PhotographyTimerScreen() {
 
   return (
     <LinearGradient colors={getGradientColors()} style={styles.container}>
-      {/* 顶部右上角搜索按钮 */}
+      {/* 顶部栏：左侧地点，右侧搜索 */}
       <View style={styles.headerBar}>
+        <View style={styles.locationBadge}>
+          <Text style={styles.locationBadgeText} numberOfLines={1}>
+            {selectedCityName ? `${selectedCityName}` : (location ? `${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)}` : '获取位置中')}
+          </Text>
+        </View>
         <View style={{ flex: 1 }} />
         <TouchableOpacity style={styles.searchBtn} onPress={() => setSearchVisible(true)}>
-          <Text style={styles.searchIcon}>🔍</Text>
+          <Ionicons name="search" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
       <ScrollView
@@ -135,13 +140,9 @@ export default function PhotographyTimerScreen() {
           sunTimes={sunTimes} // 传递 sunTimes 以避免 undefined
         />
 
-        <TimeDisplay sunTimes={sunTimes} />
+        <TimeDisplay sunTimes={sunTimes} currentPhase={currentPeriodInfo.phase} />
 
-        <View style={styles.locationInfo}>
-          <Text style={styles.locationText}>
-            {selectedCityName ? `📍 ${selectedCityName}` : `📍 位置: ${location?.latitude.toFixed(4)}, ${location?.longitude.toFixed(4)}`}
-          </Text>
-        </View>
+        {/* 移除原底部位置信息显示 */}
       </ScrollView>
       <CitySearchModal
         visible={searchVisible}
@@ -165,10 +166,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   searchBtn: {
-    backgroundColor: 'rgba(255,255,255,0.15)',
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 999,
+    paddingHorizontal: 1,
+    paddingVertical: 12,
   },
   searchIcon: {
     fontSize: 18,
@@ -220,21 +219,14 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-  locationInfo: {
-    marginTop: 20,
-    padding: 15,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    borderRadius: 12,
+  locationBadge: { 
+    maxWidth: '55%', 
+    paddingHorizontal: 12, 
+    paddingVertical: 12, 
   },
-  locationText: {
-    color: 'rgba(255, 255, 255, 0.8)',
-    fontSize: 14,
-    textAlign: 'center',
-  },
-  timezoneText: {
-    color: 'rgba(255, 255, 255, 0.6)',
-    fontSize: 12,
-    textAlign: 'center',
-    marginTop: 4,
+  locationBadgeText: { 
+    color: 'rgba(255,255,255,0.85)', 
+    fontSize: 16 ,
+    fontWeight: '600',
   },
 });

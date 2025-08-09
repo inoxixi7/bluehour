@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import { LocationCoords, SunTimes, PhotographyPhase, PhotographyPeriod } from '../types';
 import { 
   calculateSunTimes, 
@@ -22,6 +22,7 @@ export const useSunTimes = (location: LocationCoords | null, manualLocation?: Lo
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const fetchIdRef = useRef(0); // 竞态控制
 
   // 更新当前时间
   useEffect(() => {
@@ -39,20 +40,28 @@ export const useSunTimes = (location: LocationCoords | null, manualLocation?: Lo
       console.log('没有有效位置信息，跳过获取太阳时间');
       return;
     }
-
+    const currentFetchId = ++fetchIdRef.current; // 递增请求ID
     try {
       setLoading(true);
       setError(null);
       console.log('开始获取太阳时间数据，位置:', effectiveLocation);
       const times = await calculateSunTimes(effectiveLocation);
-      console.log('获取到太阳时间数据:', times);
-      setSunTimes(times);
+      if (currentFetchId === fetchIdRef.current) { // 仅在最新请求时更新
+        console.log('获取到太阳时间数据:', times);
+        setSunTimes(times);
+      } else {
+        console.log('忽略过期的太阳时间数据响应');
+      }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : '获取太阳时间失败';
       console.error('获取太阳时间失败:', err);
-      setError(errorMessage);
+      if (currentFetchId === fetchIdRef.current) {
+        setError(errorMessage);
+      }
     } finally {
-      setLoading(false);
+      if (currentFetchId === fetchIdRef.current) {
+        setLoading(false);
+      }
     }
   };
 

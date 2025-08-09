@@ -23,21 +23,23 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase
 
   // 基础项（更常用）
   const baseItems = [
-    { key: 'firstLight', label: '第一道光', icon: '🌄', value: sunTimes.firstLight },
-    { key: 'dawn', label: '黎明', icon: '🌅', value: sunTimes.dawn },
-    { key: 'sunrise', label: '日出', icon: '☀️', value: sunTimes.sunrise },
-    { key: 'goldenMorning', label: '黄金时刻（早）', icon: '✨', value: `${sunTimes.sunrise} - ${goldenHourEnd}` },
-    { key: 'solarNoon', label: '正午', icon: '🕛', value: sunTimes.solarNoon },
-    { key: 'goldenHour', label: '黄金时刻（晚）', icon: '🌇', value: `${sunTimes.goldenHour} - 日落` },
-    { key: 'sunset', label: '日落', icon: '🌇', value: sunTimes.sunset },
+    { key: 'firstLight', label: '第一道光', value: sunTimes.firstLight },
+    { key: 'dawn', label: '黎明', value: sunTimes.dawn },
+    // { key: 'sunrise', label: '日出', value: sunTimes.sunrise },
+    { key: 'goldenMorning', label: '黄金时刻（早）', value: `${sunTimes.sunrise} - ${goldenHourEnd}` },
+    // { key: 'solarNoon', label: '正午', value: sunTimes.solarNoon },
+    { key: 'goldenHour', label: '黄金时刻（晚）', value: `${sunTimes.goldenHour} - 日落` },
+    // { key: 'sunset', label: '日落',value: sunTimes.sunset },
   ] as const;
 
   // 额外项（默认展示）
   const extraItems = [
-    { key: 'dusk', label: '蓝色时刻', icon: '🌆', value: sunTimes.dusk },
-    { key: 'lastLight', label: '最后的光', icon: '🌃', value: sunTimes.lastLight },
+    { key: 'dusk', label: '蓝色时刻', value: sunTimes.dusk },
+    { key: 'lastLight', label: '最后的光', value: sunTimes.lastLight },
   ] as const;
 
+  const formatHHMM = (t?: string) => (t ? t.slice(0,5) : '--:--');
+  
   // 直接展示全部
   const items = [...baseItems, ...extraItems];
 

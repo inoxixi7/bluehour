@@ -135,6 +135,8 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
     return done / total;
   }, [periodInfo.phase, sunTimes]);
 
+  const formatHHMM = (t?: string) => (t ? t.slice(0,5) : '--:--');
+
   return (
     <View style={[styles.container, { backgroundColor: bgColor }]}> 
       {/* 顶部行：阶段图标徽章 + 下一阶段信息 */}
@@ -148,6 +150,23 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
           </View>
         )}
       </View>
+
+      {periodInfo.phase === 'day' && (
+        <View style={styles.sunTripleRow}>
+          <View style={styles.sunTripleItem}>
+            <Text style={styles.sunTripleLabel}>日出</Text>
+            <Text style={styles.sunTripleValue}>{formatHHMM(sunTimes.sunrise)}</Text>
+          </View>
+          <View style={styles.sunTripleItem}>
+            <Text style={styles.sunTripleLabel}>正午</Text>
+            <Text style={styles.sunTripleValue}>{formatHHMM(sunTimes.solarNoon)}</Text>
+          </View>
+          <View style={styles.sunTripleItem}>
+            <Text style={styles.sunTripleLabel}>日落</Text>
+            <Text style={styles.sunTripleValue}>{formatHHMM(sunTimes.sunset)}</Text>
+          </View>
+        </View>
+      )}
 
       {/* 微型进度条 */}
       {progress !== null && (
@@ -181,6 +200,7 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 20,
     borderRadius: 16,
     padding: 16,
     marginVertical: 10,
@@ -267,4 +287,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 12,
   },
+  sunTripleRow: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 8, marginTop: 4 },
+  sunTripleItem: { flex:1, alignItems:'center' },
+  sunTripleLabel: { fontSize:10, color:'rgba(255,255,255,0.65)', marginBottom:2 },
+  sunTripleValue: { fontSize:16, fontWeight:'600', color:'#fff' },
 });
