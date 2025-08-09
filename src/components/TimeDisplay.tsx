@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   itemTitle: {
-    fontSize: 13,
+    fontSize: 16,
     color: 'rgba(255,255,255,0.9)',
   },
   activePill: {

@@ -112,6 +112,7 @@ export default function PhotographyTimerScreen() {
         <CurrentStatus 
           periodInfo={currentPeriodInfo} 
           timeUntilNext={timeUntilNextPhase} 
+          sunTimes={sunTimes} // 传递 sunTimes 以避免 undefined
         />
 
         <TimeDisplay sunTimes={sunTimes} />
