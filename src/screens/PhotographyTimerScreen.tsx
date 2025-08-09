@@ -16,12 +16,14 @@ import { CurrentStatus } from '../components/CurrentStatus';
 import { TimeDisplay } from '../components/TimeDisplay';
 import { CitySearchModal } from '../components/CitySearchModal';
 import { LocationCoords } from '../types';
+import AppInfoModal from '../components/AppInfoModal';
 
 export default function PhotographyTimerScreen() {
   const { location, loading: locationLoading, error: locationError, refreshLocation } = useLocation();
   const [manualLocation, setManualLocation] = React.useState<LocationCoords | null>(null); // 手动选定位置
   const { sunTimes, currentPeriodInfo, timeUntilNextPhase, loading: sunTimesLoading, error: sunTimesError, refreshSunTimes } = useSunTimes(location, manualLocation);
   const [searchVisible, setSearchVisible] = React.useState(false);
+  const [infoVisible, setInfoVisible] = React.useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [selectedCityName, setSelectedCityName] = React.useState<string | null>(null);
 
@@ -116,14 +118,16 @@ export default function PhotographyTimerScreen() {
     <LinearGradient colors={getGradientColors()} style={styles.container}>
       {/* 顶部栏：左侧地点，右侧搜索 */}
       <View style={styles.headerBar}>
-        <View style={styles.locationBadge}>
+        <TouchableOpacity style={styles.iconBtn} onPress={() => setSearchVisible(true)}>
+          <Ionicons name="search" size={20} color="#fff" />
+        </TouchableOpacity>
+        <View style={styles.locationBadgeCentered}>
           <Text style={styles.locationBadgeText} numberOfLines={1}>
             {selectedCityName ? `${selectedCityName}` : (location ? `${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)}` : '获取位置中')}
           </Text>
         </View>
-        <View style={{ flex: 1 }} />
-        <TouchableOpacity style={styles.searchBtn} onPress={() => setSearchVisible(true)}>
-          <Ionicons name="search" size={20} color="#fff" />
+        <TouchableOpacity style={styles.iconBtn} onPress={() => setInfoVisible(true)}>
+          <Ionicons name="settings-outline" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
       <ScrollView
@@ -149,6 +153,7 @@ export default function PhotographyTimerScreen() {
         onClose={() => setSearchVisible(false)}
         onSelect={(item) => handleCitySelect(item)}
       />
+      <AppInfoModal visible={infoVisible} onClose={() => setInfoVisible(false)} />
     </LinearGradient>
   );
 }
@@ -158,13 +163,15 @@ const styles = StyleSheet.create({
   headerBar: {
     position: 'absolute',
     top: 40,
-    right: 16,
     left: 0,
+    right: 0,
     zIndex: 20,
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingHorizontal: 16,
   },
+  iconBtn: { paddingHorizontal: 6, paddingVertical: 12 },
   searchBtn: {
     paddingHorizontal: 1,
     paddingVertical: 12,
@@ -224,9 +231,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12, 
     paddingVertical: 12, 
   },
+  locationBadgeCentered: {
+    flex: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 12,
+    alignItems: 'center',
+  },
   locationBadgeText: { 
     color: 'rgba(255,255,255,0.85)', 
-    fontSize: 16 ,
+    fontSize: 16,
     fontWeight: '600',
   },
 });

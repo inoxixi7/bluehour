@@ -28,15 +28,27 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase
   ] as const;
 
   // 将摄影阶段映射到时间轴 key（匹配现有 items）
-  const phaseToKey: Record<Exclude<PhotographyPhase, 'night' | 'day'>, string> = {
-    'first-light': 'firstLight',
-    'dawn': 'civilTwilightMorning',      // 曙光区间
-    'sunrise': 'goldenMorning',          // 早黄金
-    'golden-hour': 'goldenHour',         // 晚黄金
-    'sunset': 'civilTwilightEvening',    // 暮光区间
-    'blue-hour': 'eveningBlue',          // 晚蓝调
-  };
-  const activeKey = currentPhase && (currentPhase === 'night' || currentPhase === 'day') ? null : (currentPhase ? phaseToKey[currentPhase as Exclude<PhotographyPhase, 'night' | 'day'>] : null);
+  let activeKey: string | null = null;
+  if (currentPhase) {
+    switch (currentPhase) {
+      case 'first-light':
+        activeKey = 'firstLight'; break;
+      case 'dawn':
+        activeKey = 'civilTwilightMorning'; break;
+      case 'sunrise':
+        activeKey = 'goldenMorning'; break; // 早黄金区间
+      case 'day':
+        activeKey = 'solarNoon'; break; // 白天区间整体高亮
+      case 'golden-hour':
+        activeKey = 'goldenHour'; break;
+      case 'sunset':
+        activeKey = 'civilTwilightEvening'; break; // 暮光区间
+      case 'blue-hour':
+        activeKey = 'eveningBlue'; break;
+      default:
+        activeKey = null; // night 不高亮
+    }
+  }
 
   return (
     <View style={styles.wrapper}>
@@ -103,22 +115,25 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#ffd43b',
+    backgroundColor: '#4dabf7',
     borderWidth: 2,
     borderColor: 'rgba(0,0,0,0.25)',
     position: 'absolute',
-    left: 6,
+    left: 0,
     top: 14,
   },
   dotStart: {
     backgroundColor: '#4dabf7',
   },
   dotActive: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: '#22d3ee',
-    borderColor: 'rgba(34,211,238,0.4)',
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    backgroundColor: '#ffd43b',
+    borderColor: 'rgba(255,255,255,0.35)',
+    position: 'absolute',
+    left: -2,
+    top: 14,
   },
   itemContent: {
     marginLeft: 14,
@@ -130,8 +145,8 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255, 255, 255, 0.16)',
   },
   itemActive: {
-    backgroundColor: 'rgba(34,211,238,0.12)',
-    borderColor: 'rgba(34,211,238,0.4)',
+    backgroundColor: 'rgba(255,212,59,0.18)',
+    borderColor: 'rgba(255,212,59,0.55)',
   },
   itemHeader: {
     flexDirection: 'row',
