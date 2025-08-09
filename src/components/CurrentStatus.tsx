@@ -78,6 +78,19 @@ const calcGoldenEnd = (sunrise: string): string => {
   return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
 };
 
+// 进度条配色（提高对比度）
+const BAR_COLORS: Record<string, { fill: string; text: string }> = {
+  night:        { fill: '#2e4a6b', text: '#ffffff' },
+  'first-light':{ fill: '#35597a', text: '#ffffff' },
+  dawn:         { fill: '#50749a', text: '#ffffff' },
+  sunrise:      { fill: '#ffcf66', text: '#3a2500' },
+  day:          { fill: '#90d0ff', text: '#0d2b45' }, // 亮一些与背景区分
+  'golden-hour':{ fill: '#ffbe63', text: '#422100' },
+  sunset:       { fill: '#ff8a6c', text: '#2e0f0b' },
+  'blue-hour':  { fill: '#6b8dff', text: '#ffffff' },
+};
+const getBarColors = (phase: string) => BAR_COLORS[phase] || { fill: '#ffd43b', text: '#1a1a1a' };
+
 export const CurrentStatus: React.FC<CurrentStatusProps> = ({
   periodInfo,
   timeUntilNext,
@@ -124,24 +137,24 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
 
     if (!start || !end) return null;
 
-    const now = new Date();
-    const nowStr = now.toLocaleTimeString("en-US", {
-      hour12: false,
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+    // 使用目标地点当地时间 (UTC + 偏移)，避免设备所在时区影响
+    const nowUtc = new Date();
+    const utcMinutes = nowUtc.getUTCHours() * 60 + nowUtc.getUTCMinutes();
+    const localMinutes = utcMinutes + (sunTimes.utcOffset || 0); // 可能超出 0~1440
+    let n = ((localMinutes % (24*60)) + 24*60) % (24*60); // 归一化到 0-1439
+
     let s = timeToMinutes(start);
     let e = timeToMinutes(end);
-    let n = timeToMinutes(nowStr);
 
-    // 处理跨天（一般用不到，此处仅兜底）
+    // 若跨天，简单处理：结束时间小于开始则加 24h
     if (e < s) e += 24 * 60;
-    if (n < s) n += n > e ? 0 : e > 24 * 60 ? 24 * 60 : 0;
+    // 若当前时间逻辑落在下一天区间，也平移
+    if (n < s) n += (e > 24*60 ? 24*60 : 0);
 
     const total = Math.max(1, e - s);
     const done = Math.max(0, Math.min(total, n - s));
     return done / total;
-  }, [periodInfo.phase, sunTimes]);
+  }, [periodInfo.phase, sunTimes.firstLight, sunTimes.dawn, sunTimes.sunrise, sunTimes.goldenHour, sunTimes.sunset, sunTimes.dusk, sunTimes.lastLight, sunTimes.utcOffset]);
 
   const formatHHMM = (t?: string) => (t ? t.slice(0, 5) : "--:--");
 
@@ -175,47 +188,41 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
         })()}
       </View>
 
-      {periodInfo.phase === "day" && (
-        <View style={styles.sunTripleRow}>
-          <View style={styles.sunTripleItem}>
-            <Text style={styles.sunTripleLabel}>日出</Text>
-            <Text style={styles.sunTripleValue}>
-              {formatHHMM(sunTimes.sunrise)}
-            </Text>
-          </View>
-          <View style={styles.sunTripleItem}>
-            <Text style={styles.sunTripleLabel}>正午</Text>
-            <Text style={styles.sunTripleValue}>
-              {formatHHMM(sunTimes.solarNoon)}
-            </Text>
-          </View>
-          <View style={styles.sunTripleItem}>
-            <Text style={styles.sunTripleLabel}>日落</Text>
-            <Text style={styles.sunTripleValue}>
-              {formatHHMM(sunTimes.sunset)}
-            </Text>
-          </View>
+      <View style={styles.sunTripleRow}>
+        <View style={styles.sunTripleItem}>
+          <Text style={styles.sunTripleLabel}>{t('sunrise')}</Text>
+          <Text style={styles.sunTripleValue}>{formatHHMM(sunTimes.sunrise)}</Text>
         </View>
-      )}
+        <View style={styles.sunTripleItem}>
+          <Text style={styles.sunTripleLabel}>{t('solarNoon')}</Text>
+          <Text style={styles.sunTripleValue}>{formatHHMM(sunTimes.solarNoon)}</Text>
+        </View>
+        <View style={styles.sunTripleItem}>
+          <Text style={styles.sunTripleLabel}>{t('sunset')}</Text>
+          <Text style={styles.sunTripleValue}>{formatHHMM(sunTimes.sunset)}</Text>
+        </View>
+      </View>
 
       {/* 加大进度条并整合下一阶段倒计时 */}
       {progress !== null && (
         <View style={styles.bigProgressWrapper}>
-          <View style={styles.bigProgressTrack}>
+      {(() => { const c = getBarColors(periodInfo.phase); return (
+      <View style={styles.bigProgressTrack}>
             <View
               style={[
                 styles.bigProgressFill,
-                { width: `${Math.round(progress * 100)}%` },
+        { width: `${Math.round(progress * 100)}%`, backgroundColor: c.fill } ,
               ]}
             />
             {timeUntilNext && (
               <View style={styles.progressLabelOverlay} pointerEvents="none">
-                <Text style={styles.progressLabelText} numberOfLines={1}>
+        <Text style={[styles.progressLabelText, { color: c.text }]} numberOfLines={1}>
                   {t('nextPhase')} · {(I18nHelpers.getPhaseLabel ? I18nHelpers.getPhaseLabel(periodInfo.nextPhase, t) : periodInfo.nextPhase)} · {timeUntilNext}
                 </Text>
               </View>
             )}
           </View>
+      )})()}
         </View>
       )}
 
@@ -260,17 +267,19 @@ const styles = StyleSheet.create({
   bigProgressWrapper: { marginTop: 4, marginBottom: 8 },
   bigProgressTrack: {
     height: 20,
-    borderRadius: 14,
-    backgroundColor: 'rgba(0,0,0,0.28)',
+    borderRadius: 20,
+  backgroundColor: 'rgba(0,0,0,0.35)',
     overflow: 'hidden',
     position: 'relative',
+  borderWidth: 1,
+  borderColor: 'rgba(255,255,255,0.35)',
   },
   bigProgressFill: {
     position: 'absolute',
     left: 0,
     top: 0,
     bottom: 0,
-    backgroundColor: '#ffd43b',
+  // backgroundColor 动态设置
   },
   progressLabelOverlay: {
     position: 'absolute',
@@ -284,7 +293,10 @@ const styles = StyleSheet.create({
   progressLabelText: {
     fontSize: 12,
     fontWeight: '600',
-    color: '#3a2d00',
+  color: '#1a1a1a',
+  textShadowColor: 'rgba(0,0,0,0.35)',
+  textShadowOffset: { width: 0, height: 1 },
+  textShadowRadius: 2,
   },
   periodName: {
     fontSize: 32,

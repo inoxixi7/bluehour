@@ -62,24 +62,28 @@ export const CitySearchModal: React.FC<CitySearchModalProps> = ({
         setError(null);
         return;
       }
+      // 根据输入内容猜测语言：优先检测日文假名，然后中文汉字，再德语特殊字符，其它默认英文
+      const detectLang = (q: string): string => {
+        if (/[\u3040-\u309F\u30A0-\u30FF]/.test(q)) return 'ja-JP'; // 日文假名
+        if (/[\u4e00-\u9fff]/.test(q)) return 'zh-CN'; // 中日韩汉字范围（这里按中文处理）
+        if (/[äöüßÄÖÜ]/.test(q)) return 'de-DE';
+        // 简单判断：纯字母且包含常见英文地名字符 => 英文
+        return 'en';
+      };
+      const acceptLang = detectLang(text);
       try {
         setLoading(true);
         setError(null);
-        const url = `https://nominatim.openstreetmap.org/search?format=json&limit=${limit}&q=${encodeURIComponent(
-          text
-        )}`;
+        const url = `https://nominatim.openstreetmap.org/search?format=json&limit=${limit}&q=${encodeURIComponent(text)}`;
         const resp = await fetch(url, {
-          headers: { "Accept-Language": "zh-CN" },
+          headers: { 'Accept-Language': acceptLang },
         });
         if (!resp.ok) throw new Error(`network ${resp.status}`);
         const data = await resp.json();
-        const mapped: GeocodeResult[] = (Array.isArray(data) ? data : []).map(
-          normalizeNominatim
-        );
+        const mapped: GeocodeResult[] = (Array.isArray(data) ? data : []).map(normalizeNominatim);
         const uniqMap = new Map<string, GeocodeResult>();
-        mapped.forEach((item) => {
-          if (!uniqMap.has(item.displayName))
-            uniqMap.set(item.displayName, item);
+        mapped.forEach(item => {
+          if (!uniqMap.has(item.displayName)) uniqMap.set(item.displayName, item);
         });
         setResults(Array.from(uniqMap.values()));
       } catch (e) {

@@ -40,31 +40,40 @@ export const AppInfoModal: React.FC<AppInfoModalProps> = ({
     >
       <TouchableWithoutFeedback onPress={onClose}>
         <View style={styles.backdrop}>
-          <TouchableWithoutFeedback onPress={() => { /* 阻止冒泡，点击内容不关闭 */ }}>
-            <View style={styles.card}>
+            <View style={styles.card} pointerEvents="box-none">
               {/* 增加了 ScrollView 的内边距，优化视觉效果 */}
               <ScrollView
-                contentContainerStyle={{ paddingHorizontal: 4 }}
-                style={{ maxHeight: 420 }}
-                showsVerticalScrollIndicator={false}
+                style={styles.scroll}
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={true}
+                keyboardShouldPersistTaps="handled"
+                nestedScrollEnabled
+                alwaysBounceVertical
+                scrollEventThrottle={16}
               >
                 <Text style={styles.title}>{t('settings')}</Text>
 
-                {/* 语言选择 */}
-                <Text style={styles.sectionTitle}>{t('language')}</Text>
-                <TouchableOpacity style={styles.dropdownHeader} onPress={()=>setLangOpen(o=>!o)}>
-                  <Text style={styles.dropdownHeaderText}>{t(`lang_${locale}`)}</Text>
-                  <Text style={styles.dropdownArrow}>{langOpen ? '▲' : '▼'}</Text>
-                </TouchableOpacity>
-                {langOpen && (
-                  <View style={styles.dropdownList}>
-                    {(['zh','en','ja','de'] as const).map(l => (
-                      <TouchableOpacity key={l} style={styles.dropdownItem} onPress={()=>{setLocale(l); setLangOpen(false);}}>
-                        <Text style={[styles.dropdownItemText, locale===l && styles.dropdownItemTextActive]}>{t(`lang_${l}`)}</Text>
-                      </TouchableOpacity>
-                    ))}
+                {/* 语言选择（浮层下拉，不挤压布局） */}
+                <View style={styles.dropdownBlock}>
+                  <Text style={styles.sectionTitle}>{t('language')}</Text>
+                  <View style={styles.dropdownContainer}>
+                    <TouchableOpacity style={styles.dropdownHeader} onPress={()=>setLangOpen(o=>!o)} activeOpacity={0.8}>
+                      <Text style={styles.dropdownHeaderText}>{t(`lang_${locale}`)}</Text>
+                      <Text style={styles.dropdownArrow}>{langOpen ? '▲' : '▼'}</Text>
+                    </TouchableOpacity>
+                    {langOpen && (
+                      <View style={styles.dropdownOverlay} pointerEvents="box-none">
+                        <View style={styles.dropdownList}>
+                          {(['zh','en','ja','de'] as const).map(l => (
+                            <TouchableOpacity key={l} style={styles.dropdownItem} onPress={()=>{setLocale(l); setLangOpen(false);}}>
+                              <Text style={[styles.dropdownItemText, locale===l && styles.dropdownItemTextActive]}>{t(`lang_${l}`)}</Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+                      </View>
+                    )}
                   </View>
-                )}
+                </View>
 
                 <Text style={styles.sectionTitle}>{t('appInfoTitle')}</Text>
                 <Text style={styles.sectionTitle}>{t('appSlogan')}</Text>
@@ -105,7 +114,6 @@ export const AppInfoModal: React.FC<AppInfoModalProps> = ({
                 <Text style={styles.closeText}>{t('close')}</Text>
               </TouchableOpacity>
             </View>
-          </TouchableWithoutFeedback>
         </View>
       </TouchableWithoutFeedback>
     </Modal>
@@ -127,6 +135,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16, // 微调内边距
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.08)",
+    maxHeight: '85%',
+  },
+  scroll: {
+    maxHeight: '100%',
+  },
+  scrollContent: {
+    paddingHorizontal: 4,
+    paddingBottom: 40,
+  flexGrow: 1,
   },
   title: {
     fontSize: 20,
@@ -172,7 +189,10 @@ const styles = StyleSheet.create({
   dropdownHeader: { flexDirection:'row', alignItems:'center', justifyContent:'space-between', backgroundColor:'rgba(255,255,255,0.08)', paddingHorizontal:12, paddingVertical:10, borderRadius:10, borderWidth:1, borderColor:'rgba(255,255,255,0.15)' },
   dropdownHeaderText: { color:'#fff', fontSize:14, fontWeight:'600' },
   dropdownArrow: { color:'rgba(255,255,255,0.7)', fontSize:12, marginLeft:8 },
-  dropdownList: { marginTop:8, borderRadius:10, overflow:'hidden', borderWidth:1, borderColor:'rgba(255,255,255,0.15)' },
+  dropdownBlock: { marginBottom: 4 },
+  dropdownContainer: { position:'relative' },
+  dropdownOverlay: { position:'absolute', left:0, right:0, top:'100%', zIndex:50 },
+  dropdownList: { marginTop:6, borderRadius:10, overflow:'hidden', borderWidth:1, borderColor:'rgba(255,255,255,0.15)', backgroundColor:'#1f2533', shadowColor:'#000', shadowOpacity:0.4, shadowRadius:8, shadowOffset:{width:0,height:4}, elevation:8 },
   dropdownItem: { paddingVertical:10, paddingHorizontal:12, backgroundColor:'rgba(255,255,255,0.05)' },
   dropdownItemText: { color:'rgba(255,255,255,0.85)', fontSize:13 },
   dropdownItemTextActive: { color:'#ffd43b', fontWeight:'600' },

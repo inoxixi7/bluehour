@@ -21,7 +21,7 @@ import { I18nContext } from '../i18n/context';
 import { AppLocale } from '../i18n';
 
 export default function PhotographyTimerScreen() {
-  const { location, loading: locationLoading, error: locationError, refreshLocation } = useLocation();
+  const { location, loading: locationLoading, error: locationError, refreshLocation, placeName } = useLocation();
   const [manualLocation, setManualLocation] = React.useState<LocationCoords | null>(null); // 手动选定位置
   const { sunTimes, currentPeriodInfo, timeUntilNextPhase, loading: sunTimesLoading, error: sunTimesError, refreshSunTimes } = useSunTimes(location, manualLocation);
   const [searchVisible, setSearchVisible] = React.useState(false);
@@ -50,9 +50,9 @@ export default function PhotographyTimerScreen() {
     );
   };
 
-  const getGradientColors = () => {
+  const getGradientColors = (): readonly [string, string] => {
     if (!currentPeriodInfo) {
-      return ['#1a1a2e', '#16213e'];
+      return ['#1a1a2e', '#16213e'] as const;
     }
 
     const phase = currentPeriodInfo.phase;
@@ -68,7 +68,7 @@ export default function PhotographyTimerScreen() {
     };
 
     const baseColor = colorMap[phase] || '#1a1a2e';
-    return [baseColor, '#0f0f1e'];
+  return [baseColor, '#0f0f1e'] as const;
   };
 
   // 当用户选择城市后，记录并触发刷新
@@ -125,7 +125,7 @@ export default function PhotographyTimerScreen() {
         </TouchableOpacity>
         <View style={styles.locationCenterWrapper} pointerEvents="none">
           <Text style={styles.locationBadgeText} numberOfLines={1}>
-            {selectedCityName ? `${selectedCityName}` : (location ? `${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)}` : t('loadingLocation'))}
+            {selectedCityName ? selectedCityName : (placeName || (location ? `${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)}` : t('loadingLocation')))}
           </Text>
         </View>
         <TouchableOpacity style={styles.iconBtnRight} onPress={() => setInfoVisible(true)}>
@@ -172,7 +172,7 @@ const styles = StyleSheet.create({
   container: { flex: 1 },
   headerBar: {
     position: 'absolute',
-    top: 40,
+    top: 45,
     left: 0,
     right: 0,
     zIndex: 20,

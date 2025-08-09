@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import * as Location from 'expo-location';
 import { LocationCoords } from '../types';
+import { I18nContext } from '../i18n/context';
 
 interface UseLocationResult {
   location: LocationCoords | null;
   loading: boolean;
   error: string | null;
+  placeName: string | null; // 区 / 市 名称
   refreshLocation: () => Promise<void>;
 }
 
@@ -13,6 +15,8 @@ export const useLocation = (): UseLocationResult => {
   const [location, setLocation] = useState<LocationCoords | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [placeName, setPlaceName] = useState<string | null>(null);
+  const { locale } = useContext(I18nContext);
 
   const getLocation = async () => {
     try {
@@ -86,10 +90,29 @@ export const useLocation = (): UseLocationResult => {
       }
 
       console.log('最终获取到的位置:', position.coords);
-      setLocation({
+      const finalLoc = {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
-      });
+      };
+      setLocation(finalLoc);
+
+      // 逆地理编码：获取区/市名称
+      (async () => {
+        try {
+          const langMap: Record<string,string> = { zh: 'zh-CN', en: 'en', ja: 'ja', de: 'de' };
+            const lang = langMap[locale] || 'en';
+          const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${finalLoc.latitude}&lon=${finalLoc.longitude}&zoom=12&addressdetails=1&accept-language=${lang}`;
+          const resp = await fetch(url, { headers: { 'User-Agent': 'BlueHourApp/1.0 (reverse-geocode)' } });
+          if (resp.ok) {
+            const data = await resp.json();
+            const addr = data.address || {};
+            const name = addr.city || addr.town || addr.district || addr.county || addr.state_district || addr.region || addr.state || data.name;
+            if (name) setPlaceName(name);
+          }
+        } catch (e) {
+          console.warn('逆地理编码失败', e);
+        }
+      })();
     } catch (err) {
       console.error('位置获取错误:', err);
       setError(err instanceof Error ? err.message : '获取位置失败');
@@ -107,7 +130,8 @@ export const useLocation = (): UseLocationResult => {
   }, []);
 
   return {
-    location,
+  location,
+  placeName,
     loading,
     error,
     refreshLocation,
