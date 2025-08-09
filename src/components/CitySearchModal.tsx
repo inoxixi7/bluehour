@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { GeocodeResult } from "../types";
 import { loadSelectionHistory, saveSelectionHistory } from "../utils/storage";
+import { I18nContext } from '../i18n/context';
 
 /**
  * 城市搜索模态
@@ -34,6 +35,7 @@ export const CitySearchModal: React.FC<CitySearchModalProps> = ({
   debounceMs = 400,
   limit = 8,
 }) => {
+  const { t } = React.useContext(I18nContext);
   const [query, setQuery] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,7 +71,7 @@ export const CitySearchModal: React.FC<CitySearchModalProps> = ({
         const resp = await fetch(url, {
           headers: { "Accept-Language": "zh-CN" },
         });
-        if (!resp.ok) throw new Error(`网络错误: ${resp.status}`);
+        if (!resp.ok) throw new Error(`network ${resp.status}`);
         const data = await resp.json();
         const mapped: GeocodeResult[] = (Array.isArray(data) ? data : []).map(
           normalizeNominatim
@@ -81,12 +83,12 @@ export const CitySearchModal: React.FC<CitySearchModalProps> = ({
         });
         setResults(Array.from(uniqMap.values()));
       } catch (e) {
-        setError(e instanceof Error ? e.message : "搜索失败");
+        setError(t('searchFailed'));
       } finally {
         setLoading(false);
       }
     },
-    [limit, minQueryLength]
+    [limit, minQueryLength, t]
   );
 
   // 输入防抖
@@ -152,11 +154,11 @@ export const CitySearchModal: React.FC<CitySearchModalProps> = ({
             }}
           >
             <View style={styles.modalBox}>
-              <Text style={styles.title}>搜索城市 / 地点</Text>
+              <Text style={styles.title}>{t('searchCityTitle')}</Text>
               <TextInput
                 value={query}
                 onChangeText={handleChange}
-                placeholder="输入城市名称 (如 Beijing, Tokyo, Paris)"
+                placeholder={t('searchPlaceholder')}
                 placeholderTextColor="rgba(255,255,255,0.4)"
                 style={styles.input}
                 autoFocus
@@ -168,14 +170,14 @@ export const CitySearchModal: React.FC<CitySearchModalProps> = ({
               {selectionHistory.length > 0 && (
                 <View style={styles.historyWrap}>
                   <View style={styles.historyHeaderRow}>
-                    <Text style={styles.historyTitle}>最近选择</Text>
+                    <Text style={styles.historyTitle}>{t('recentSelections')}</Text>
                     <TouchableOpacity
                       onPress={() => {
                         setSelectionHistory([]);
                         saveSelectionHistory([]);
                       }}
                     >
-                      <Text style={styles.clearHistory}>清空</Text>
+                      <Text style={styles.clearHistory}>{t('clear')}</Text>
                     </TouchableOpacity>
                   </View>
                   <View style={styles.historyChips}>
@@ -204,7 +206,7 @@ export const CitySearchModal: React.FC<CitySearchModalProps> = ({
                 {!loading &&
                   results.length === 0 &&
                   query.length >= minQueryLength &&
-                  !error && <Text style={styles.noResult}>暂无结果</Text>}
+                  !error && <Text style={styles.noResult}>{t('noResults')}</Text>}
                 <FlatList
                   data={results}
                   keyExtractor={(item, idx) =>
@@ -220,7 +222,7 @@ export const CitySearchModal: React.FC<CitySearchModalProps> = ({
               </View>
 
               <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
-                <Text style={styles.closeBtnText}>关闭</Text>
+                <Text style={styles.closeBtnText}>{t('close')}</Text>
               </TouchableOpacity>
             </View>
           </TouchableWithoutFeedback>

@@ -17,6 +17,8 @@ import { TimeDisplay } from '../components/TimeDisplay';
 import { CitySearchModal } from '../components/CitySearchModal';
 import { LocationCoords } from '../types';
 import AppInfoModal from '../components/AppInfoModal';
+import { I18nContext } from '../i18n/context';
+import { AppLocale } from '../i18n';
 
 export default function PhotographyTimerScreen() {
   const { location, loading: locationLoading, error: locationError, refreshLocation } = useLocation();
@@ -26,6 +28,7 @@ export default function PhotographyTimerScreen() {
   const [infoVisible, setInfoVisible] = React.useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
   const [selectedCityName, setSelectedCityName] = React.useState<string | null>(null);
+  const { t, locale, setLocale } = React.useContext(I18nContext);
 
   const onRefresh = React.useCallback(async () => {
     setRefreshing(true);
@@ -38,11 +41,11 @@ export default function PhotographyTimerScreen() {
 
   const handleLocationError = () => {
     Alert.alert(
-      '位置获取失败',
-      locationError || '无法获取您的位置信息，请检查位置权限设置。',
+      t('errorLocationTitle'),
+      locationError || t('errorLocationMessage'),
       [
-        { text: '重试', onPress: refreshLocation },
-        { text: '取消', style: 'cancel' },
+        { text: t('retry'), onPress: refreshLocation },
+        { text: t('cancel'), style: 'cancel' },
       ]
     );
   };
@@ -81,7 +84,7 @@ export default function PhotographyTimerScreen() {
       <LinearGradient colors={['#1a1a2e', '#16213e']} style={styles.container}>
         <View style={styles.loadingContainer}>
           <Text style={styles.loadingText}>
-            {locationLoading ? '获取位置信息中...' : '计算摄影时间中...'}
+            {locationLoading ? t('loadingLocation') : t('loadingSun')}
           </Text>
         </View>
       </LinearGradient>
@@ -93,11 +96,11 @@ export default function PhotographyTimerScreen() {
       <LinearGradient colors={['#1a1a2e', '#16213e']} style={styles.container}>
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>
-            {locationError ? '无法获取位置信息' : '无法获取太阳时间'}
+            {locationError ? t('errorLocationTitle') : t('errorSunTitle')}
           </Text>
           <Text style={styles.errorSubtext}>{locationError || sunTimesError}</Text>
           <TouchableOpacity style={styles.retryButton} onPress={locationError ? handleLocationError : onRefresh}>
-            <Text style={styles.retryButtonText}>重试</Text>
+            <Text style={styles.retryButtonText}>{t('retry')}</Text>
           </TouchableOpacity>
         </View>
       </LinearGradient>
@@ -108,7 +111,7 @@ export default function PhotographyTimerScreen() {
     return (
       <LinearGradient colors={['#1a1a2e', '#16213e']} style={styles.container}>
         <View style={styles.loadingContainer}>
-          <Text style={styles.loadingText}>计算摄影时间中...</Text>
+          <Text style={styles.loadingText}>{t('loadingSun')}</Text>
         </View>
       </LinearGradient>
     );
@@ -116,20 +119,29 @@ export default function PhotographyTimerScreen() {
 
   return (
     <LinearGradient colors={getGradientColors()} style={styles.container}>
-      {/* 顶部栏：左侧地点，右侧搜索 */}
       <View style={styles.headerBar}>
-        <TouchableOpacity style={styles.iconBtn} onPress={() => setSearchVisible(true)}>
+        <TouchableOpacity style={styles.iconBtnLeft} onPress={() => setSearchVisible(true)}>
           <Ionicons name="search" size={20} color="#fff" />
         </TouchableOpacity>
-        <View style={styles.locationBadgeCentered}>
+        <View style={styles.locationCenterWrapper} pointerEvents="none">
           <Text style={styles.locationBadgeText} numberOfLines={1}>
-            {selectedCityName ? `${selectedCityName}` : (location ? `${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)}` : '获取位置中')}
+            {selectedCityName ? `${selectedCityName}` : (location ? `${location.latitude.toFixed(2)}, ${location.longitude.toFixed(2)}` : t('loadingLocation'))}
           </Text>
         </View>
-        <TouchableOpacity style={styles.iconBtn} onPress={() => setInfoVisible(true)}>
+        <TouchableOpacity style={styles.iconBtnRight} onPress={() => setInfoVisible(true)}>
           <Ionicons name="settings-outline" size={20} color="#fff" />
         </TouchableOpacity>
       </View>
+      {/* 临时语言切换示例，可后续移入真正的设置面板 */}
+      {false && (
+        <View style={{ position: 'absolute', top: 90, right: 10, flexDirection: 'row', gap: 8 }}>
+          {(['zh','en','ja','de'] as AppLocale[]).map(l => (
+            <TouchableOpacity key={l} onPress={()=>setLocale(l)} style={{ padding:4, borderWidth:1, borderColor: l===locale? '#ffd43b':'rgba(255,255,255,0.3)', borderRadius:6 }}>
+              <Text style={{ color:'#fff', fontSize:12 }}>{l}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
@@ -141,12 +153,10 @@ export default function PhotographyTimerScreen() {
         <CurrentStatus 
           periodInfo={currentPeriodInfo} 
           timeUntilNext={timeUntilNextPhase} 
-          sunTimes={sunTimes} // 传递 sunTimes 以避免 undefined
+          sunTimes={sunTimes}
         />
 
         <TimeDisplay sunTimes={sunTimes} currentPhase={currentPeriodInfo.phase} />
-
-        {/* 移除原底部位置信息显示 */}
       </ScrollView>
       <CitySearchModal
         visible={searchVisible}
@@ -166,20 +176,13 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     zIndex: 20,
-    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 16,
+    justifyContent: 'center',
+    height: 48,
   },
-  iconBtn: { paddingHorizontal: 6, paddingVertical: 12 },
-  searchBtn: {
-    paddingHorizontal: 1,
-    paddingVertical: 12,
-  },
-  searchIcon: {
-    fontSize: 18,
-    color: '#fff',
-  },
+  iconBtnLeft: { position: 'absolute', left: 16, paddingHorizontal: 6, paddingVertical: 12 },
+  iconBtnRight: { position: 'absolute', right: 16, paddingHorizontal: 6, paddingVertical: 12 },
+  locationCenterWrapper: { paddingHorizontal: 60, maxWidth: '80%' },
   scrollView: {
     flex: 1,
   },
@@ -241,5 +244,6 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,0.85)', 
     fontSize: 16,
     fontWeight: '600',
+    textAlign: 'center'
   },
 });

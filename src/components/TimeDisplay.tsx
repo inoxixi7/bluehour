@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SunTimes, PhotographyPhase } from '../types';
 import { deriveDynamicPeriods } from '../utils/sunCalculations';
+import { I18nContext } from '../i18n/context';
 
 interface TimeDisplayProps {
   sunTimes: SunTimes;
@@ -9,6 +10,7 @@ interface TimeDisplayProps {
 }
 
 export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase }) => {
+  const { t } = React.useContext(I18nContext);
   // 使用动态推导的光照区间
   const dynamic = deriveDynamicPeriods(sunTimes);
 
@@ -16,15 +18,15 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase
 
   // 合并后的全部时刻条目（保持原先顺序）
   const items = [
-    { key: 'firstLight', label: '第一道光', value: formatHHMM(sunTimes.firstLight) },
-    { key: 'morningBlue', label: '蓝色时刻（早）', value: `${formatHHMM(dynamic.morningBlue.start)} - ${formatHHMM(dynamic.morningBlue.end)}` },
-    { key: 'civilTwilightMorning', label: '曙光', value: `${formatHHMM(sunTimes.dawn)} - ${formatHHMM(sunTimes.sunrise)}` },
-    { key: 'goldenMorning', label: '黄金时刻（早）', value: `${formatHHMM(dynamic.morningGolden.start)} - ${formatHHMM(dynamic.morningGolden.end)}` },
-    { key: 'solarNoon', label: '白天', value: `${formatHHMM(sunTimes.sunrise)} - ${formatHHMM(sunTimes.sunset)}` },
-    { key: 'goldenHour', label: '黄金时刻（晚）', value: `${formatHHMM(dynamic.eveningGolden.start)} - ${formatHHMM(dynamic.eveningGolden.end)}` },
-    { key: 'civilTwilightEvening', label: '暮光', value: `${formatHHMM(sunTimes.sunset)} - ${formatHHMM(sunTimes.dusk)}` },
-    { key: 'eveningBlue', label: '蓝色时刻（晚）', value: `${formatHHMM(dynamic.eveningBlue.start)} - ${formatHHMM(dynamic.eveningBlue.end)}` },
-    { key: 'lastLight', label: '最后的光', value: formatHHMM(sunTimes.lastLight) },
+    { key: 'firstLight', label: t('firstLight'), value: formatHHMM(sunTimes.firstLight) },
+    { key: 'morningBlue', label: t('morningBlue'), value: `${formatHHMM(dynamic.morningBlue.start)} - ${formatHHMM(dynamic.morningBlue.end)}` },
+    { key: 'civilTwilightMorning', label: t('dawnInterval'), value: `${formatHHMM(sunTimes.dawn)} - ${formatHHMM(sunTimes.sunrise)}` },
+    { key: 'goldenMorning', label: t('morningGolden'), value: `${formatHHMM(dynamic.morningGolden.start)} - ${formatHHMM(dynamic.morningGolden.end)}` },
+    { key: 'solarNoon', label: t('dayInterval'), value: `${formatHHMM(sunTimes.sunrise)} - ${formatHHMM(sunTimes.sunset)}` },
+    { key: 'goldenHour', label: t('eveningGolden'), value: `${formatHHMM(dynamic.eveningGolden.start)} - ${formatHHMM(dynamic.eveningGolden.end)}` },
+    { key: 'civilTwilightEvening', label: t('duskInterval'), value: `${formatHHMM(sunTimes.sunset)} - ${formatHHMM(sunTimes.dusk)}` },
+    { key: 'eveningBlue', label: t('eveningBlue'), value: `${formatHHMM(dynamic.eveningBlue.start)} - ${formatHHMM(dynamic.eveningBlue.end)}` },
+    { key: 'lastLight', label: t('lastLight'), value: formatHHMM(sunTimes.lastLight) },
   ] as const;
 
   // 将摄影阶段映射到时间轴 key（匹配现有 items）
@@ -52,7 +54,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase
 
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.blockTitle}>今日时刻表</Text>
+      <Text style={styles.blockTitle}>{t('todayTimeline')}</Text>
 
       <View style={styles.timeline}>
         <View style={styles.line} />
@@ -67,7 +69,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({ sunTimes, currentPhase
                     <Text style={styles.itemTitle}>{it.label}</Text>
                     {isActive && (
                       <View style={styles.activePill}>
-                        <Text style={styles.activePillText}>当前</Text>
+                        <Text style={styles.activePillText}>{t('current')}</Text>
                       </View>
                     )}
                   </View>
@@ -172,8 +174,8 @@ const styles = StyleSheet.create({
     marginLeft: 8,
   },
   activePillText: {
-    color: '#a5f3fc',
-    fontSize: 11,
+    color: '#fff',
+    fontSize: 10,
     fontWeight: '600',
   },
   itemTime: {

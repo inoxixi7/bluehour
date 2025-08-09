@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { PhotographyPeriod, SunTimes } from "../types";
+import { I18nContext } from '../i18n/context';
+import * as I18nHelpers from '../i18n';
 
 interface CurrentStatusProps {
   periodInfo: PhotographyPeriod;
@@ -76,27 +78,16 @@ const calcGoldenEnd = (sunrise: string): string => {
   return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}`;
 };
 
-// 默认拍摄建议
-const defaultTips: Record<string, string[]> = {
-  night: ["尝试长曝光拍摄星空", "使用三脚架与快门线", "提高ISO注意降噪"],
-  "first-light": ["拍摄山峦剪影", "注意光比，降低曝光", "提前到位取景"],
-  dawn: ["光线柔和，适合风景与人像", "使用偏振镜增强天空层次", "尝试云层慢门"],
-  sunrise: ["抓住光线变化的瞬间", "日出前后都值得拍摄", "逆光拍摄剪影"],
-  day: ["利用阴影做构图", "尝试高快门凝固动态", "使用ND镜抑制过曝"],
-  "golden-hour": ["暖色调人像与风景", "逆光拍摄剪影", "善用侧逆光"],
-  sunset: ["注意天空色彩层次", "合理使用包围曝光", "寻找前景元素"],
-  "blue-hour": ["城市灯光与蓝调天空结合", "小光圈制造星芒效果", "白平衡偏冷"],
-};
-
 export const CurrentStatus: React.FC<CurrentStatusProps> = ({
   periodInfo,
   timeUntilNext,
   sunTimes,
 }) => {
+  const { t, locale } = React.useContext(I18nContext);
   const [expandTips, setExpandTips] = useState(false);
   const bgColor = getPhaseColor(periodInfo.phase);
   const icon = getPhaseIcon(periodInfo.phase);
-  const tips = defaultTips[periodInfo.phase] || [];
+  const tips = (I18nHelpers.getPhaseTips ? I18nHelpers.getPhaseTips(locale, periodInfo.phase) : []);
   const tipsToShow = expandTips ? tips : tips.slice(0, 3);
 
   // 计算当前阶段进度（0~1），夜间不显示
@@ -155,18 +146,18 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
   const formatHHMM = (t?: string) => (t ? t.slice(0, 5) : "--:--");
 
   return (
-    <View style={[styles.container, { backgroundColor: bgColor }]}>
+    <View style={[styles.container, { backgroundColor: bgColor }]}>      
       {/* 顶部行：阶段图标徽章 + 下一阶段信息 */}
       <View style={styles.topRow}>
         <View style={styles.badge}>
           <Text style={styles.badgeText}>
-            {icon} {periodInfo.phase}
+            {icon} {I18nHelpers.getPhaseLabel ? I18nHelpers.getPhaseLabel(periodInfo.phase, t) : periodInfo.phase}
           </Text>
         </View>
         {timeUntilNext && (
           <View style={styles.nextPill}>
             <Text style={styles.nextPillText}>
-              下一阶段 · {periodInfo.nextPhase} · {timeUntilNext}
+              {t('nextPhase')} · {(I18nHelpers.getPhaseLabel ? I18nHelpers.getPhaseLabel(periodInfo.nextPhase, t) : periodInfo.nextPhase)} · {timeUntilNext}
             </Text>
           </View>
         )}
@@ -234,9 +225,9 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
         </View>
       )}
 
-      <Text style={styles.periodName}>{periodInfo.name}</Text>
+      <Text style={styles.periodName}>{t(`period_${periodInfo.phase.replace('-','_')}_name`)}</Text>
       <Text style={styles.description} numberOfLines={2}>
-        {periodInfo.description}
+        {t(`period_${periodInfo.phase.replace('-','_')}_desc`)}
       </Text>
 
       {/* 拍摄建议：紧凑标签样式，可展开 */}
@@ -254,7 +245,7 @@ export const CurrentStatus: React.FC<CurrentStatusProps> = ({
               style={styles.moreChip}
             >
               <Text style={styles.moreChipText}>
-                {expandTips ? "收起" : `展开更多 (${tips.length - 3})`}
+                {expandTips ? t('tipsCollapse') : `${t('tipsExpand')} (${tips.length - 3})`}
               </Text>
             </TouchableOpacity>
           )}

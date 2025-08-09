@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "BlueHour Photography",
-    "slug": "bluehour-photography",
+    "name": "BlueHour",
+    "slug": "bluehour",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,14 +21,24 @@
       }
     },
     "android": {
+      "package": "com.bber.bluehour",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#1a1a2e"
       },
-      "permissions": ["ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
+      "permissions": [
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "owner": "bber",
+    "extra": {
+      "eas": {
+        "projectId": "212a2329-7fee-4f6d-bdbe-67c3b5dd2431"
+      }
     }
   }
 }

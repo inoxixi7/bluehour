@@ -8,7 +8,9 @@ import {
   TouchableOpacity,
   Linking,
   ScrollView,
+  TouchableWithoutFeedback,
 } from "react-native";
+import { I18nContext } from '../i18n/context';
 
 interface AppInfoModalProps {
   visible: boolean;
@@ -19,6 +21,9 @@ export const AppInfoModal: React.FC<AppInfoModalProps> = ({
   visible,
   onClose,
 }) => {
+  const { t, locale, setLocale } = React.useContext(I18nContext);
+  const [langOpen, setLangOpen] = React.useState(false);
+
   // 定义链接点击函数
   const handleLinkPress = (url: string) => {
     Linking.openURL(url).catch((err) =>
@@ -33,77 +38,76 @@ export const AppInfoModal: React.FC<AppInfoModalProps> = ({
       animationType="fade"
       onRequestClose={onClose}
     >
-      <View style={styles.backdrop}>
-        <View style={styles.card}>
-          {/* 增加了 ScrollView 的内边距，优化视觉效果 */}
-          <ScrollView
-            contentContainerStyle={{ paddingHorizontal: 4 }}
-            style={{ maxHeight: 420 }}
-            showsVerticalScrollIndicator={false}
-          >
-            <Text style={styles.title}>应用信息</Text>
+      <TouchableWithoutFeedback onPress={onClose}>
+        <View style={styles.backdrop}>
+          <TouchableWithoutFeedback onPress={() => { /* 阻止冒泡，点击内容不关闭 */ }}>
+            <View style={styles.card}>
+              {/* 增加了 ScrollView 的内边距，优化视觉效果 */}
+              <ScrollView
+                contentContainerStyle={{ paddingHorizontal: 4 }}
+                style={{ maxHeight: 420 }}
+                showsVerticalScrollIndicator={false}
+              >
+                <Text style={styles.title}>{t('settings')}</Text>
 
-            <Text style={styles.sectionTitle}>为追光而生</Text>
-            <Text style={styles.paragraph}>
-              BlueHour
-              是为每一位摄影师和追光者设计的专属工具。它能根据您选择的全球任意地点和日期，精准推算出稍纵即逝的黄金时刻与蓝调时刻，让您不再错过任何绝佳光线。
-            </Text>
+                {/* 语言选择 */}
+                <Text style={styles.sectionTitle}>{t('language')}</Text>
+                <TouchableOpacity style={styles.dropdownHeader} onPress={()=>setLangOpen(o=>!o)}>
+                  <Text style={styles.dropdownHeaderText}>{t(`lang_${locale}`)}</Text>
+                  <Text style={styles.dropdownArrow}>{langOpen ? '▲' : '▼'}</Text>
+                </TouchableOpacity>
+                {langOpen && (
+                  <View style={styles.dropdownList}>
+                    {(['zh','en','ja','de'] as const).map(l => (
+                      <TouchableOpacity key={l} style={styles.dropdownItem} onPress={()=>{setLocale(l); setLangOpen(false);}}>
+                        <Text style={[styles.dropdownItemText, locale===l && styles.dropdownItemTextActive]}>{t(`lang_${l}`)}</Text>
+                      </TouchableOpacity>
+                    ))}
+                  </View>
+                )}
 
-            <Text style={styles.sectionTitle}>核心功能</Text>
-            <Text style={styles.listItem}>
-              • 精准天文数据：提供日出、日落、民用及航海曙暮光等关键天文时间点。
-            </Text>
-            <Text style={styles.listItem}>
-              • 动态时段推算：基于科学算法，动态计算不同季节和纬度下，黄金与蓝调时刻的真实时长。
-            </Text>
-            <Text style={styles.listItem}>
-              • 全球地点搜索：快速搜索全球城市并保存历史记录，方便您规划每一次出行。
-            </Text>
-            <Text style={styles.listItem}>
-              • 实时光线追踪：通过直观的进度条，实时高亮显示当前所处的光线阶段。
-            </Text>
-            <Text style={styles.listItem}>
-              • 智能时区支持：自动转换并显示所选地点的当地时间，让您身处异地也无需换算。
-            </Text>
+                <Text style={styles.sectionTitle}>{t('appInfoTitle')}</Text>
+                <Text style={styles.sectionTitle}>{t('appSlogan')}</Text>
+                <Text style={styles.paragraph}>{t('appIntro')}</Text>
 
-            <Text style={styles.sectionTitle}>您的建议很重要</Text>
-            <Text style={styles.paragraph}>
-              我们致力于打造最好的光线预测工具。如果您在使用中遇到任何问题，或有新的功能想法，都非常欢迎您提出宝贵建议。
-            </Text>
+                <Text style={styles.sectionTitle}>{t('coreFeatures')}</Text>
+                <Text style={styles.listItem}>{t('feature_preciseAstronomy')}</Text>
+                <Text style={styles.listItem}>{t('feature_dynamicPeriods')}</Text>
+                <Text style={styles.listItem}>{t('feature_globalSearch')}</Text>
+                <Text style={styles.listItem}>{t('feature_liveTracking')}</Text>
+                <Text style={styles.listItem}>{t('feature_timezone')}</Text>
 
-            {/* 新增的致谢部分 */}
-            <Text style={styles.sectionTitle}>数据来源与致谢</Text>
-            <Text style={styles.paragraph}>
-              本应用的核心功能得以实现，离不开以下优秀服务的支持，在此向它们的开发者与贡献者表示诚挚的感谢：
-            </Text>
-            <TouchableOpacity
-              onPress={() => handleLinkPress("https://sunrisesunset.io/api/")}
-            >
-              <Text style={styles.linkItem}>
-                • 天文数据由 Sunrise-Sunset.org 提供
-              </Text>
-            </TouchableOpacity>
-            {/* 将 Nominatim 做成可点击链接 */}
-            <TouchableOpacity
-              onPress={() =>
-                handleLinkPress("https://github.com/osm-search/Nominatim")
-              }
-            >
-              <Text style={styles.linkItem}>
-                • 地理位置查询由 Nominatim (OpenStreetMap) 提供
-              </Text>
-            </TouchableOpacity>
+                <Text style={styles.sectionTitle}>{t('feedbackWelcome')}</Text>
+                <Text style={styles.paragraph}>{t('feedbackDesc')}</Text>
 
-            <Text style={styles.sectionTitle}>
-              Version：1.0.0
-            </Text>
-          </ScrollView>
+                {/* 致谢 */}
+                <Text style={styles.sectionTitle}>{t('dataCredits')}</Text>
+                <Text style={styles.paragraph}>{t('dataCreditsDesc')}</Text>
+                <TouchableOpacity
+                  onPress={() => handleLinkPress("https://sunrisesunset.io/api/")}
+                >
+                  <Text style={styles.linkItem}>{t('credit_sunrise_sunset')}</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() =>
+                    handleLinkPress("https://github.com/osm-search/Nominatim")
+                  }
+                >
+                  <Text style={styles.linkItem}>{t('credit_nominatim')}</Text>
+                </TouchableOpacity>
 
-          <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
-            <Text style={styles.closeText}>关闭</Text>
-          </TouchableOpacity>
+                <Text style={styles.sectionTitle}>
+                  {t('versionLabel')}：1.0.0
+                </Text>
+              </ScrollView>
+
+              <TouchableOpacity style={styles.closeBtn} onPress={onClose}>
+                <Text style={styles.closeText}>{t('close')}</Text>
+              </TouchableOpacity>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };
@@ -165,6 +169,13 @@ const styles = StyleSheet.create({
     color: "#1a1a1a",
     fontSize: 15,
   },
+  dropdownHeader: { flexDirection:'row', alignItems:'center', justifyContent:'space-between', backgroundColor:'rgba(255,255,255,0.08)', paddingHorizontal:12, paddingVertical:10, borderRadius:10, borderWidth:1, borderColor:'rgba(255,255,255,0.15)' },
+  dropdownHeaderText: { color:'#fff', fontSize:14, fontWeight:'600' },
+  dropdownArrow: { color:'rgba(255,255,255,0.7)', fontSize:12, marginLeft:8 },
+  dropdownList: { marginTop:8, borderRadius:10, overflow:'hidden', borderWidth:1, borderColor:'rgba(255,255,255,0.15)' },
+  dropdownItem: { paddingVertical:10, paddingHorizontal:12, backgroundColor:'rgba(255,255,255,0.05)' },
+  dropdownItemText: { color:'rgba(255,255,255,0.85)', fontSize:13 },
+  dropdownItemTextActive: { color:'#ffd43b', fontWeight:'600' },
 });
 
 export default AppInfoModal;
