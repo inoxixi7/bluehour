@@ -1,0 +1,204 @@
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext';
+import { Layout } from '../../constants/Layout';
+import { useNavigation } from '@react-navigation/native';
+
+type FeatureCard = {
+  id: string;
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+  route: string;
+};
+
+const HomeScreen: React.FC = () => {
+  const { theme } = useTheme();
+  const navigation = useNavigation<any>();
+
+  const features: FeatureCard[] = [
+    {
+      id: 'sunTimes',
+      title: '蓝调时刻',
+      description: '查看日出日落、黄金时刻和蓝色时刻',
+      icon: '🌅',
+      color: theme.colors.blueHour,
+      route: 'SunTimes',
+    },
+    {
+      id: 'evCalculator',
+      title: 'EV 曝光',
+      description: '计算等效曝光组合',
+      icon: '📷',
+      color: theme.colors.primary,
+      route: 'EVCalculator',
+    },
+    {
+      id: 'ndCalculator',
+      title: 'ND 滤镜',
+      description: '计算长曝光快门速度',
+      icon: '⚫',
+      color: theme.colors.twilight,
+      route: 'NDCalculator',
+    },
+    {
+      id: 'dofCalculator',
+      title: '景深计算',
+      description: '计算景深和超焦距',
+      icon: '🎯',
+      color: theme.colors.success,
+      route: 'DoFCalculator',
+    },
+    {
+      id: 'settings',
+      title: '设置',
+      description: '主题、关于和更多',
+      icon: '⚙️',
+      color: theme.colors.textSecondary,
+      route: 'Settings',
+    },
+  ];
+
+  const renderFeatureCard = (feature: FeatureCard, index: number) => {
+    const isLastOdd = features.length % 2 !== 0 && index === features.length - 1;
+    
+    return (
+      <TouchableOpacity
+        key={feature.id}
+        style={[
+          styles.card,
+          {
+            backgroundColor: theme.colors.card,
+            borderColor: theme.colors.cardBorder,
+          },
+          isLastOdd && styles.fullWidthCard,
+        ]}
+        onPress={() => navigation.navigate(feature.route)}
+        activeOpacity={0.7}
+      >
+        <View style={[styles.iconContainer, { backgroundColor: feature.color + '20' }]}>
+          <Text style={styles.icon}>{feature.icon}</Text>
+        </View>
+        <Text style={[styles.cardTitle, { color: theme.colors.text }]}>
+          {feature.title}
+        </Text>
+        <Text style={[styles.cardDescription, { color: theme.colors.textSecondary }]}>
+          {feature.description}
+        </Text>
+      </TouchableOpacity>
+    );
+  };
+
+  return (
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]}>
+      <ScrollView 
+        style={styles.container}
+        contentContainerStyle={styles.contentContainer}
+        showsVerticalScrollIndicator={true}
+        bounces={true}
+        nestedScrollEnabled={true}
+        scrollEnabled={true}
+      >
+      {/* Header */}
+      <View style={styles.header}>
+        <Text style={[styles.title, { color: theme.colors.text }]}>
+          BlueHour
+        </Text>
+        <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
+          摄影助手工具箱
+        </Text>
+      </View>
+
+      {/* Feature Cards Grid */}
+      <View style={styles.grid}>
+        {features.map((feature, index) => renderFeatureCard(feature, index))}
+      </View>
+
+      {/* Footer */}
+      <View style={styles.footer}>
+        <Text style={[styles.footerText, { color: theme.colors.textTertiary }]}>
+          用 ❤️ 为摄影爱好者打造
+        </Text>
+      </View>
+    </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  safeArea: {
+    flex: 1,
+  },
+  container: {
+    flex: 1,
+  },
+  contentContainer: {
+    flexGrow: 1,
+    padding: Layout.spacing.lg,
+    paddingBottom: Layout.spacing.xxl,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: Layout.spacing.xl,
+    paddingTop: Layout.spacing.md,
+  },
+  title: {
+    fontSize: Layout.fontSize.hero,
+    fontWeight: 'bold',
+    marginBottom: Layout.spacing.xs,
+  },
+  subtitle: {
+    fontSize: Layout.fontSize.lg,
+  },
+  grid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    marginBottom: Layout.spacing.xl,
+  },
+  card: {
+    width: '48%',
+    borderRadius: Layout.borderRadius.lg,
+    borderWidth: 1,
+    padding: Layout.spacing.lg,
+    marginBottom: Layout.spacing.md,
+    alignItems: 'center',
+    minHeight: 180,
+    justifyContent: 'space-between',
+  },
+  fullWidthCard: {
+    width: '100%',
+  },
+  iconContainer: {
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: Layout.spacing.md,
+  },
+  icon: {
+    fontSize: 32,
+  },
+  cardTitle: {
+    fontSize: Layout.fontSize.lg,
+    fontWeight: 'bold',
+    marginBottom: Layout.spacing.xs,
+    textAlign: 'center',
+  },
+  cardDescription: {
+    fontSize: Layout.fontSize.sm,
+    textAlign: 'center',
+    lineHeight: 20,
+  },
+  footer: {
+    alignItems: 'center',
+    paddingVertical: Layout.spacing.xl,
+  },
+  footerText: {
+    fontSize: Layout.fontSize.sm,
+  },
+});
+
+export default HomeScreen;
