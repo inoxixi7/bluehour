@@ -1,0 +1,51 @@
+# Expo
+.expo/
+.expo-shared/
+dist/
+web-build/
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# macOS
+.DS_Store
+
+# VSCode
+.vscode/
+
+# TypeScript
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.production
+
+# Testing
+coverage/
+
+# Temporary files
+*.log
+*.tmp
+*.temp
+
+# iOS
+ios/Pods/
+ios/.xcode.env.local
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+*.apk
+*.aab
+
+# Gradle
+.gradle/
+build/
+
+# Firebase
+google-services.json
+GoogleService-Info.plist
