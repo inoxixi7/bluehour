@@ -3,13 +3,14 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Card } from '../../../components/common/Card';
 import { AppButton } from '../../../components/common/AppButton';
-import { Colors } from '../../../constants/Colors';
+import { useTheme } from '../../../contexts/ThemeContext';
 import { Layout } from '../../../constants/Layout';
 import { SHUTTER_SPEEDS, ND_FILTERS } from '../../../constants/Photography';
 import { calculateNDShutter } from '../../../utils/photographyCalculations';
 import { formatShutterSpeed } from '../../../utils/formatters';
 
 const NDCalculator: React.FC = () => {
+  const { theme } = useTheme();
   const [baseShutter, setBaseShutter] = useState(1/60);
   const [selectedNDIndex, setSelectedNDIndex] = useState(9); // ND1000 默认
   const [calculatedShutter, setCalculatedShutter] = useState<number | null>(null);
@@ -41,12 +42,13 @@ const NDCalculator: React.FC = () => {
   };
 
   const selectedND = ND_FILTERS[selectedNDIndex];
+  const styles = createStyles(theme.colors);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
-        <Text style={styles.title}>ND 滤镜计算器</Text>
-        <Text style={styles.description}>
+        <Text style={[styles.title, { color: theme.colors.text }]}>ND 滤镜计算器</Text>
+        <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
           计算使用 ND 滤镜后所需的快门速度
         </Text>
 
@@ -168,10 +170,9 @@ const NDCalculator: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
   },
   content: {
     padding: Layout.spacing.md,
@@ -179,12 +180,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: Layout.fontSize.xxl,
     fontWeight: 'bold',
-    color: Colors.text,
     marginBottom: Layout.spacing.sm,
   },
   description: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
     marginBottom: Layout.spacing.lg,
   },
   card: {
@@ -193,27 +192,25 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: Layout.fontSize.lg,
     fontWeight: 'bold',
-    color: Colors.accent,
     marginBottom: Layout.spacing.sm,
   },
   hint: {
     fontSize: Layout.fontSize.sm,
-    color: Colors.textSecondary,
     marginBottom: Layout.spacing.md,
   },
   pickerContainer: {
     marginBottom: Layout.spacing.md,
   },
   picker: {
-    backgroundColor: Colors.surface,
+    backgroundColor: colors.backgroundSecondary,
     borderRadius: Layout.borderRadius.md,
     overflow: 'hidden',
   },
   pickerStyle: {
-    color: Colors.text,
+    color: colors.text,
   },
   valueDisplay: {
-    backgroundColor: Colors.primaryDark,
+    backgroundColor: colors.backgroundTertiary,
     borderRadius: Layout.borderRadius.md,
     padding: Layout.spacing.md,
     alignItems: 'center',
@@ -221,7 +218,7 @@ const styles = StyleSheet.create({
   valueText: {
     fontSize: Layout.fontSize.title,
     fontWeight: 'bold',
-    color: Colors.blueHour,
+    color: colors.primary,
   },
   ndInfo: {
     marginTop: Layout.spacing.md,
@@ -231,23 +228,22 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: Layout.spacing.sm,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.primaryDark,
+    borderBottomColor: colors.divider,
   },
   infoLabel: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
+    color: colors.textSecondary,
   },
   infoValue: {
     fontSize: Layout.fontSize.base,
     fontWeight: '600',
-    color: Colors.text,
+    color: colors.text,
   },
   calculateButton: {
     marginBottom: Layout.spacing.lg,
   },
   resultCard: {
     marginBottom: Layout.spacing.md,
-    backgroundColor: Colors.primaryLight,
   },
   resultDisplay: {
     alignItems: 'center',
@@ -255,41 +251,40 @@ const styles = StyleSheet.create({
   },
   resultLabel: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
+    color: colors.textSecondary,
     marginBottom: Layout.spacing.sm,
   },
   resultValue: {
     fontSize: Layout.fontSize.hero,
     fontWeight: 'bold',
-    color: Colors.goldenHour,
+    color: colors.goldenHour,
   },
   timerButton: {
     marginTop: Layout.spacing.md,
   },
   progressBar: {
     height: 8,
-    backgroundColor: Colors.primaryDark,
+    backgroundColor: colors.backgroundTertiary,
     borderRadius: 4,
     marginTop: Layout.spacing.md,
     overflow: 'hidden',
   },
   progressFill: {
     height: '100%',
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
   },
   tipCard: {
-    backgroundColor: Colors.primaryLight,
     marginBottom: Layout.spacing.xl,
   },
   tipTitle: {
     fontSize: Layout.fontSize.lg,
     fontWeight: 'bold',
-    color: Colors.goldenHour,
+    color: colors.goldenHour,
     marginBottom: Layout.spacing.md,
   },
   tipText: {
     fontSize: Layout.fontSize.base,
-    color: Colors.text,
+    color: colors.text,
     lineHeight: 24,
   },
 });

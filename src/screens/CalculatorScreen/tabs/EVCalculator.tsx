@@ -3,13 +3,14 @@ import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Card } from '../../../components/common/Card';
 import { AppButton } from '../../../components/common/AppButton';
-import { Colors } from '../../../constants/Colors';
+import { useTheme } from '../../../contexts/ThemeContext';
 import { Layout } from '../../../constants/Layout';
 import { APERTURE_VALUES, SHUTTER_SPEEDS, ISO_VALUES } from '../../../constants/Photography';
 import { calculateEquivalentExposure, calculateEV } from '../../../utils/photographyCalculations';
 import { formatAperture, formatShutterSpeed, formatISO, formatEV } from '../../../utils/formatters';
 
 const EVCalculator: React.FC = () => {
+  const { theme } = useTheme();
   // 基准曝光设置
   const [baseAperture, setBaseAperture] = useState(5.6);
   const [baseShutter, setBaseShutter] = useState(1/125);
@@ -49,33 +50,35 @@ const EVCalculator: React.FC = () => {
 
   const baseEV = calculateEV(baseAperture, baseShutter, baseISO);
   const newEV = calculateEV(newAperture, newShutter, newISO);
+  
+  const styles = createStyles(theme.colors);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
-        <Text style={styles.title}>EV 曝光等效计算器</Text>
-        <Text style={styles.description}>
+        <Text style={[styles.title, { color: theme.colors.text }]}>EV 曝光等效计算器</Text>
+        <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
           保持曝光量不变，自由调整光圈、快门和 ISO
         </Text>
 
         {/* 基准曝光 */}
         <Card style={styles.card}>
-          <Text style={styles.sectionTitle}>基准曝光</Text>
-          <Text style={styles.evText}>{formatEV(baseEV)}</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>基准曝光</Text>
+          <Text style={[styles.evText, { color: theme.colors.primary }]}>{formatEV(baseEV)}</Text>
 
-          <View style={styles.paramRow}>
-            <Text style={styles.paramLabel}>光圈:</Text>
-            <Text style={styles.paramValue}>{formatAperture(baseAperture)}</Text>
+          <View style={[styles.paramRow, { borderBottomColor: theme.colors.divider }]}>
+            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>光圈:</Text>
+            <Text style={[styles.paramValue, { color: theme.colors.text }]}>{formatAperture(baseAperture)}</Text>
           </View>
           
-          <View style={styles.paramRow}>
-            <Text style={styles.paramLabel}>快门:</Text>
-            <Text style={styles.paramValue}>{formatShutterSpeed(baseShutter)}</Text>
+          <View style={[styles.paramRow, { borderBottomColor: theme.colors.divider }]}>
+            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>快门:</Text>
+            <Text style={[styles.paramValue, { color: theme.colors.text }]}>{formatShutterSpeed(baseShutter)}</Text>
           </View>
           
-          <View style={styles.paramRow}>
-            <Text style={styles.paramLabel}>ISO:</Text>
-            <Text style={styles.paramValue}>{formatISO(baseISO)}</Text>
+          <View style={[styles.paramRow, { borderBottomColor: theme.colors.divider }]}>
+            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>ISO:</Text>
+            <Text style={[styles.paramValue, { color: theme.colors.text }]}>{formatISO(baseISO)}</Text>
           </View>
 
           <AppButton
@@ -93,12 +96,12 @@ const EVCalculator: React.FC = () => {
 
         {/* 新的曝光 */}
         <Card style={styles.card}>
-          <Text style={styles.sectionTitle}>调整曝光</Text>
-          <Text style={styles.evText}>{formatEV(newEV)}</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>调整曝光</Text>
+          <Text style={[styles.evText, { color: theme.colors.primary }]}>{formatEV(newEV)}</Text>
 
           {/* 光圈选择 */}
           <View style={styles.pickerContainer}>
-            <Text style={styles.pickerLabel}>光圈:</Text>
+            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>光圈:</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={newAperture}
@@ -114,7 +117,7 @@ const EVCalculator: React.FC = () => {
 
           {/* 快门选择 */}
           <View style={styles.pickerContainer}>
-            <Text style={styles.pickerLabel}>快门:</Text>
+            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>快门:</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={newShutter}
@@ -130,7 +133,7 @@ const EVCalculator: React.FC = () => {
 
           {/* ISO 选择 */}
           <View style={styles.pickerContainer}>
-            <Text style={styles.pickerLabel}>ISO:</Text>
+            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>ISO:</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={newISO}
@@ -146,7 +149,7 @@ const EVCalculator: React.FC = () => {
 
           {/* 锁定参数选择 */}
           <View style={styles.lockSection}>
-            <Text style={styles.lockTitle}>锁定参数:</Text>
+            <Text style={[styles.lockTitle, { color: theme.colors.textSecondary }]}>锁定参数:</Text>
             <View style={styles.lockButtons}>
               <AppButton
                 title="光圈"
@@ -184,10 +187,9 @@ const EVCalculator: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
   },
   content: {
     padding: Layout.spacing.md,
@@ -195,12 +197,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: Layout.fontSize.xxl,
     fontWeight: 'bold',
-    color: Colors.text,
     marginBottom: Layout.spacing.sm,
   },
   description: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
     marginBottom: Layout.spacing.lg,
   },
   card: {
@@ -209,13 +209,11 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: Layout.fontSize.lg,
     fontWeight: 'bold',
-    color: Colors.accent,
     marginBottom: Layout.spacing.md,
   },
   evText: {
     fontSize: Layout.fontSize.title,
     fontWeight: 'bold',
-    color: Colors.blueHour,
     marginBottom: Layout.spacing.md,
     textAlign: 'center',
   },
@@ -224,16 +222,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingVertical: Layout.spacing.sm,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.primaryDark,
   },
   paramLabel: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
   },
   paramValue: {
     fontSize: Layout.fontSize.base,
     fontWeight: '600',
-    color: Colors.text,
   },
   resetButton: {
     marginTop: Layout.spacing.md,
@@ -243,16 +238,15 @@ const styles = StyleSheet.create({
   },
   pickerLabel: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
     marginBottom: Layout.spacing.xs,
   },
   picker: {
-    backgroundColor: Colors.surface,
+    backgroundColor: colors.backgroundSecondary,
     borderRadius: Layout.borderRadius.md,
     overflow: 'hidden',
   },
   pickerStyle: {
-    color: Colors.text,
+    color: colors.text,
   },
   lockSection: {
     marginTop: Layout.spacing.md,
@@ -260,7 +254,6 @@ const styles = StyleSheet.create({
   },
   lockTitle: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
     marginBottom: Layout.spacing.sm,
   },
   lockButtons: {

@@ -4,7 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { Card } from '../../../components/common/Card';
 import { AppButton } from '../../../components/common/AppButton';
 import { AppTextInput } from '../../../components/common/AppTextInput';
-import { Colors } from '../../../constants/Colors';
+import { useTheme } from '../../../contexts/ThemeContext';
 import { Layout } from '../../../constants/Layout';
 import {
   APERTURE_VALUES,
@@ -16,6 +16,7 @@ import { calculateDepthOfField } from '../../../utils/photographyCalculations';
 import { formatAperture, formatDistance } from '../../../utils/formatters';
 
 const DoFCalculator: React.FC = () => {
+  const { theme } = useTheme();
   const [aperture, setAperture] = useState(5.6);
   const [focalLength, setFocalLength] = useState(50);
   const [focusDistance, setFocusDistance] = useState(3);
@@ -35,12 +36,14 @@ const DoFCalculator: React.FC = () => {
     
     setResult(dofResult);
   };
+  
+  const styles = createStyles(theme.colors);
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
-        <Text style={styles.title}>景深计算器</Text>
-        <Text style={styles.description}>
+        <Text style={[styles.title, { color: theme.colors.text }]}>景深计算器</Text>
+        <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
           计算清晰范围和超焦距，精确控制景深
         </Text>
 
@@ -193,10 +196,9 @@ const DoFCalculator: React.FC = () => {
   );
 };
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.background,
   },
   content: {
     padding: Layout.spacing.md,
@@ -204,12 +206,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: Layout.fontSize.xxl,
     fontWeight: 'bold',
-    color: Colors.text,
     marginBottom: Layout.spacing.sm,
   },
   description: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
     marginBottom: Layout.spacing.lg,
   },
   card: {
@@ -218,7 +218,6 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: Layout.fontSize.lg,
     fontWeight: 'bold',
-    color: Colors.accent,
     marginBottom: Layout.spacing.md,
   },
   pickerContainer: {
@@ -226,79 +225,75 @@ const styles = StyleSheet.create({
   },
   pickerLabel: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
     marginBottom: Layout.spacing.xs,
   },
   picker: {
-    backgroundColor: Colors.surface,
+    backgroundColor: colors.backgroundSecondary,
     borderRadius: Layout.borderRadius.md,
     overflow: 'hidden',
   },
   pickerStyle: {
-    color: Colors.text,
+    color: colors.text,
   },
   calculateButton: {
     marginBottom: Layout.spacing.lg,
   },
   resultCard: {
     marginBottom: Layout.spacing.md,
-    backgroundColor: Colors.primaryLight,
   },
   resultRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: Layout.spacing.sm,
     borderBottomWidth: 1,
-    borderBottomColor: Colors.primaryDark,
+    borderBottomColor: colors.divider,
   },
   resultLabel: {
     fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
+    color: colors.textSecondary,
   },
   resultValue: {
     fontSize: Layout.fontSize.lg,
     fontWeight: '600',
-    color: Colors.text,
+    color: colors.text,
   },
   divider: {
     height: 1,
-    backgroundColor: Colors.accent,
+    backgroundColor: colors.accent,
     marginVertical: Layout.spacing.sm,
   },
   hyperFocalCard: {
     marginBottom: Layout.spacing.md,
-    backgroundColor: Colors.primaryLight,
     alignItems: 'center',
   },
   hyperFocalValue: {
     fontSize: Layout.fontSize.hero,
     fontWeight: 'bold',
-    color: Colors.goldenHour,
+    color: colors.goldenHour,
     marginBottom: Layout.spacing.sm,
   },
   hyperFocalHint: {
     fontSize: Layout.fontSize.sm,
-    color: Colors.textSecondary,
+    color: colors.textSecondary,
     textAlign: 'center',
   },
   tipCard: {
-    backgroundColor: Colors.primaryLight,
     marginBottom: Layout.spacing.xl,
   },
   tipTitle: {
     fontSize: Layout.fontSize.lg,
     fontWeight: 'bold',
-    color: Colors.goldenHour,
+    color: colors.goldenHour,
     marginBottom: Layout.spacing.md,
   },
   tipText: {
     fontSize: Layout.fontSize.base,
-    color: Colors.text,
+    color: colors.text,
     lineHeight: 24,
   },
   bold: {
     fontWeight: 'bold',
-    color: Colors.accent,
+    color: colors.accent,
   },
 });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { CalculatorTabParamList } from './types';
-import { Colors } from '../constants/Colors';
+import { useTheme } from '../contexts/ThemeContext';
 import { Layout } from '../constants/Layout';
 
 // 导入计算器子页面
@@ -12,16 +12,20 @@ import DoFCalculator from '../screens/CalculatorScreen/tabs/DoFCalculator';
 const Tab = createMaterialTopTabNavigator<CalculatorTabParamList>();
 
 const CalculatorNavigator: React.FC = () => {
+  const { theme } = useTheme();
+  
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: Colors.accent,
-        tabBarInactiveTintColor: Colors.textSecondary,
+        tabBarActiveTintColor: theme.colors.accent,
+        tabBarInactiveTintColor: theme.colors.textTertiary,
         tabBarStyle: {
-          backgroundColor: Colors.primaryLight,
+          backgroundColor: theme.colors.card,
+          borderBottomColor: theme.colors.border,
+          borderBottomWidth: 1,
         },
         tabBarIndicatorStyle: {
-          backgroundColor: Colors.accent,
+          backgroundColor: theme.colors.accent,
           height: 3,
         },
         tabBarLabelStyle: {
