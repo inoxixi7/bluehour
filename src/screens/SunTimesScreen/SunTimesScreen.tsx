@@ -149,48 +149,50 @@ const SunTimesScreen: React.FC = () => {
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
       
       <Card style={styles.locationCard}>
-        <Text style={styles.sectionTitle}>位置</Text>
-        
-        <LocationSearch onLocationSelect={handleLocationSelect} />
-
         {location && locationName && (
-          <View style={styles.currentLocationInfo}>
-            <Text style={styles.locationInfoLabel}>当前位置:</Text>
-            <Text style={styles.locationInfoText}>{locationName}</Text>
-            <Text style={styles.locationCoords}>
-              {location.latitude.toFixed(4)}°, {location.longitude.toFixed(4)}°
+          <View style={styles.locationHeader}>
+            <Text style={styles.locationTitle}>
+              {(() => {
+                // 从完整地址中提取市级和国家名称
+                const parts = locationName.split(',').map(p => p.trim());
+                const country = parts[parts.length - 1]; // 最后一部分是国家
+                
+                // 查找市级名称（通常包含"市"、"City"或在倒数第2-3个位置）
+                let city = parts[0]; // 默认使用第一部分
+                for (let i = 0; i < Math.min(3, parts.length); i++) {
+                  if (parts[i].includes('市') || parts[i].includes('City') || 
+                      parts[i].includes('Borough') || parts[i].includes('County')) {
+                    city = parts[i];
+                    break;
+                  }
+                }
+                
+                return `${city}, ${country}`;
+              })()}
             </Text>
             {timezone && (
-              <>
-                <Text style={[styles.locationCoords, { marginTop: 4 }]}>
-                  🌍 {getTimezoneDisplayName(timezone, timezoneOffset)}
-                </Text>
-                <Text style={[styles.locationCoords, { marginTop: 4 }]}>
-                  🕐 当地时间: {(() => {
-                    const now = new Date();
-                    const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
-                      timeZone: timezone,
-                      month: 'numeric',
-                      day: 'numeric',
-                      hour: '2-digit',
-                      minute: '2-digit',
-                      hour12: false
-                    });
-                    return dateFormatter.format(now);
-                  })()}
-                </Text>
-              </>
+              <Text style={styles.locationSubtitle}>
+                {getTimezoneDisplayName(timezone, timezoneOffset)} · {location.latitude.toFixed(4)}°, {location.longitude.toFixed(4)}° · {(() => {
+                  const now = new Date();
+                  const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+                    timeZone: timezone,
+                    month: 'numeric',
+                    day: 'numeric',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false
+                  });
+                  return dateFormatter.format(now);
+                })()}
+              </Text>
             )}
           </View>
         )}
 
-        <TouchableOpacity
-          style={[styles.refreshButton, { backgroundColor: theme.colors.primary }]}
-          onPress={getLocation}
-          activeOpacity={0.7}
-        >
-          <Text style={styles.refreshButtonText}>🔄 刷新当前位置</Text>
-        </TouchableOpacity>
+        <LocationSearch 
+          onLocationSelect={handleLocationSelect}
+          onRefreshLocation={getLocation}
+        />
       </Card>
 
       {sunTimes && (

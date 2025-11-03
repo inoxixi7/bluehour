@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { getSunTimes } from '../../api/sunTimeService';
-import { getTimezone } from '../../api/geocodingService';
+import { getTimezone, reverseGeocode } from '../../api/geocodingService';
 import { getCurrentTimeInTimezone } from '../../utils/timezone';
 import { getCurrentLocation } from '../../utils/location';
 import { ProcessedSunTimes } from '../../types/api';
@@ -20,6 +20,7 @@ interface PhaseInfo {
 const CurrentPhaseCard: React.FC = () => {
   const { theme } = useTheme();
   const [phaseInfo, setPhaseInfo] = useState<PhaseInfo | null>(null);
+  const [locationName, setLocationName] = useState<string>('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -149,6 +150,24 @@ const CurrentPhaseCard: React.FC = () => {
       
       console.log('📍 位置获取成功:', latitude, longitude);
 
+      // 获取地点名称
+      console.log('🌍 获取地点名称...');
+      const locationDisplayName = await reverseGeocode(latitude, longitude);
+      console.log('✅ 地点名称:', locationDisplayName);
+      
+      // 提取市级和国家名称
+      const parts = locationDisplayName.split(',').map(p => p.trim());
+      const country = parts[parts.length - 1];
+      let city = parts[0];
+      for (let i = 0; i < Math.min(3, parts.length); i++) {
+        if (parts[i].includes('市') || parts[i].includes('City') || 
+            parts[i].includes('Borough') || parts[i].includes('County')) {
+          city = parts[i];
+          break;
+        }
+      }
+      setLocationName(`${city}, ${country}`);
+
       // 获取时区信息
       console.log('🌍 获取时区信息...');
       const timezoneInfo = await getTimezone(latitude, longitude);
@@ -229,19 +248,26 @@ const CurrentPhaseCard: React.FC = () => {
               <Text style={[styles.phaseName, { color: phaseInfo.color }]}>
                 {phaseInfo.name}
               </Text>
-              <Text style={[styles.statusText, { color: theme.colors.textSecondary }]}>
-                距离结束还有 {formatTime(phaseInfo.minutesUntil!)}
-              </Text>
+              {phaseInfo.nextPhaseName && (
+                <Text style={[styles.statusText, { color: theme.colors.textSecondary }]}>
+                  距离{phaseInfo.nextPhaseName}还有 {formatTime(phaseInfo.minutesUntil!)}
+                </Text>
+              )}
             </>
           ) : (
             <>
-              <Text style={[styles.statusText, { color: theme.colors.textSecondary }]}>
-                距离 <Text style={{ color: phaseInfo.color }}>{phaseInfo.name}</Text>
+              <Text style={[styles.phaseName, { color: phaseInfo.color }]}>
+                {phaseInfo.name}
               </Text>
-              <Text style={[styles.countdown, { color: theme.colors.text }]}>
-                还有 {formatTime(phaseInfo.minutesUntil!)}
+              <Text style={[styles.statusText, { color: theme.colors.textSecondary }]}>
+                距离{phaseInfo.name}还有 {formatTime(phaseInfo.minutesUntil!)}
               </Text>
             </>
+          )}
+          {locationName && (
+            <Text style={[styles.locationText, { color: theme.colors.textTertiary }]}>
+              📍 {locationName}
+            </Text>
           )}
         </View>
       </View>
@@ -273,6 +299,10 @@ const createStyles = (colors: any) =>
     statusText: {
       fontSize: Layout.fontSize.sm,
       marginBottom: Layout.spacing.xs,
+    },
+    locationText: {
+      fontSize: Layout.fontSize.xs,
+      marginTop: Layout.spacing.xs,
     },
     phaseName: {
       fontSize: Layout.fontSize.xl,

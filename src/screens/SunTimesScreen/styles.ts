@@ -27,6 +27,20 @@ export const createStyles = (colors: ThemeColors) => StyleSheet.create({
   locationCard: {
     marginBottom: Layout.spacing.md,
   },
+  locationHeader: {
+    marginBottom: Layout.spacing.md,
+  },
+  locationTitle: {
+    fontSize: Layout.fontSize.xxl,
+    fontWeight: 'bold',
+    color: colors.accent,
+    marginBottom: Layout.spacing.xs,
+  },
+  locationSubtitle: {
+    fontSize: Layout.fontSize.sm,
+    color: colors.textSecondary,
+    lineHeight: 20,
+  },
   dateCard: {
     marginBottom: Layout.spacing.md,
   },
@@ -54,34 +68,12 @@ export const createStyles = (colors: ThemeColors) => StyleSheet.create({
     backgroundColor: colors.background,
     borderRadius: Layout.borderRadius.md,
     padding: Layout.spacing.md,
-    marginBottom: Layout.spacing.md,
-  },
-  locationInfoLabel: {
-    fontSize: Layout.fontSize.sm,
-    color: colors.textSecondary,
-    marginBottom: Layout.spacing.xs,
-  },
-  locationInfoText: {
-    fontSize: Layout.fontSize.md,
-    color: colors.text,
-    fontWeight: '600',
-    marginBottom: Layout.spacing.xs,
-  },
-  locationCoords: {
-    fontSize: Layout.fontSize.sm,
-    color: colors.textTertiary,
-    fontFamily: 'monospace',
-  },
-  refreshButton: {
-    padding: Layout.spacing.md,
-    borderRadius: Layout.borderRadius.md,
-    alignItems: 'center',
     marginTop: Layout.spacing.sm,
   },
-  refreshButtonText: {
-    color: '#fff',
-    fontSize: Layout.fontSize.md,
-    fontWeight: '600',
+  locationDetails: {
+    fontSize: Layout.fontSize.sm,
+    color: colors.textSecondary,
+    lineHeight: 20,
   },
   dateText: {
     fontSize: Layout.fontSize.lg,

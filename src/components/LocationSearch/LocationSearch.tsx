@@ -16,11 +16,13 @@ import { searchLocation, GeocodingResult } from '../../api/geocodingService';
 interface LocationSearchProps {
   onLocationSelect: (latitude: number, longitude: number, name: string) => void;
   placeholder?: string;
+  onRefreshLocation?: () => void;
 }
 
 const LocationSearch: React.FC<LocationSearchProps> = ({
   onLocationSelect,
-  placeholder = '搜索地点（支持多语言）',
+  placeholder = '搜索地点',
+  onRefreshLocation,
 }) => {
   const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
@@ -100,22 +102,34 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 
   return (
     <View style={styles.container}>
-      <View style={[styles.searchInputContainer, { backgroundColor: theme.colors.background, borderColor: theme.colors.border }]}>
-        <Text style={styles.searchIcon}>🔍</Text>
-        <TextInput
-          style={[styles.searchInput, { color: theme.colors.text }]}
-          placeholder={placeholder}
-          placeholderTextColor={theme.colors.textTertiary}
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-          autoCorrect={false}
-          autoCapitalize="none"
-          returnKeyType="search"
-        />
-        {loading && <ActivityIndicator size="small" color={theme.colors.primary} />}
-        {searchQuery.length > 0 && !loading && (
-          <TouchableOpacity onPress={() => setSearchQuery('')} style={styles.clearButton}>
-            <Text style={styles.clearIcon}>✕</Text>
+      <View style={styles.searchRow}>
+        <View style={[styles.searchInputContainer, { backgroundColor: theme.colors.background, borderColor: theme.colors.border }]}>
+          <Text style={styles.searchIcon}>🔍</Text>
+          <TextInput
+            style={[styles.searchInput, { color: theme.colors.text }]}
+            placeholder={placeholder}
+            placeholderTextColor={theme.colors.textTertiary}
+            value={searchQuery}
+            onChangeText={setSearchQuery}
+            autoCorrect={false}
+            autoCapitalize="none"
+            returnKeyType="search"
+          />
+          {loading && <ActivityIndicator size="small" color={theme.colors.primary} />}
+          {searchQuery.length > 0 && !loading && (
+            <TouchableOpacity onPress={() => setSearchQuery('')} style={styles.clearButton}>
+              <Text style={styles.clearIcon}>✕</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+        
+        {onRefreshLocation && (
+          <TouchableOpacity
+            style={[styles.locationButton, { backgroundColor: theme.colors.primary }]}
+            onPress={onRefreshLocation}
+            activeOpacity={0.7}
+          >
+            <Text style={styles.locationIcon}>📍</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -159,7 +173,13 @@ const createStyles = (colors: any) =>
       width: '100%',
       zIndex: 1000,
     },
+    searchRow: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: Layout.spacing.sm,
+    },
     searchInputContainer: {
+      flex: 1,
       flexDirection: 'row',
       alignItems: 'center',
       borderWidth: 1,
@@ -167,6 +187,17 @@ const createStyles = (colors: any) =>
       paddingHorizontal: Layout.spacing.md,
       paddingVertical: Layout.spacing.sm,
       marginBottom: Layout.spacing.sm,
+    },
+    locationButton: {
+      width: 48,
+      height: 48,
+      borderRadius: Layout.borderRadius.md,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: Layout.spacing.sm,
+    },
+    locationIcon: {
+      fontSize: 24,
     },
     searchIcon: {
       fontSize: 18,
