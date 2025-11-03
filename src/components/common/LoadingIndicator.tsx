@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, ActivityIndicator, StyleSheet, Text } from 'react-native';
-import { Colors } from '../../constants/Colors';
+import { View, StyleSheet, Text } from 'react-native';
+import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 
 interface LoadingIndicatorProps {
@@ -9,13 +9,18 @@ interface LoadingIndicatorProps {
 }
 
 export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
-  message,
+  message = '加载中...',
   size = 'large',
 }) => {
+  const { theme } = useTheme();
+  
   return (
-    <View style={styles.container}>
-      <ActivityIndicator size={size} color={Colors.accent} />
-      {message && <Text style={styles.message}>{message}</Text>}
+    <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <View style={styles.content}>
+        <Text style={styles.emoji}>🌅</Text>
+        <Text style={[styles.title, { color: theme.colors.text }]}>BlueHour</Text>
+        <Text style={[styles.message, { color: theme.colors.textSecondary }]}>{message}</Text>
+      </View>
     </View>
   );
 };
@@ -25,11 +30,21 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.background,
+  },
+  content: {
+    alignItems: 'center',
+  },
+  emoji: {
+    fontSize: 64,
+    marginBottom: Layout.spacing.md,
+  },
+  title: {
+    fontSize: Layout.fontSize.xxl,
+    fontWeight: 'bold',
+    marginBottom: Layout.spacing.sm,
   },
   message: {
-    marginTop: Layout.spacing.md,
-    fontSize: Layout.fontSize.base,
-    color: Colors.textSecondary,
+    fontSize: Layout.fontSize.md,
+    textAlign: 'center',
   },
 });

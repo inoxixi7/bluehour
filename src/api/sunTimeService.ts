@@ -58,7 +58,7 @@ export const fetchSunTimes = async (
 export const processSunTimes = (response: SunTimesResponse): ProcessedSunTimes => {
   const { results } = response;
 
-  // 解析时间字符串为 Date 对象
+  // 直接解析 ISO 8601 时间字符串为 Date 对象，不做任何转换
   const sunrise = new Date(results.sunrise);
   const sunset = new Date(results.sunset);
   const solarNoon = new Date(results.solar_noon);

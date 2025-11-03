@@ -70,9 +70,29 @@ export const formatFocalLength = (mm: number): string => {
 /**
  * 格式化时间显示（24小时制）
  * @param date Date 对象
+ * @param timezone 时区（可选，如 "Europe/Zurich"）
  * @returns HH:MM 格式
  */
-export const formatTime = (date: Date): string => {
+export const formatTime = (date: Date, timezone?: string): string => {
+  if (timezone) {
+    // 使用指定时区格式化时间
+    try {
+      const formatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: timezone,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      });
+      const parts = formatter.formatToParts(date);
+      const hour = parts.find(p => p.type === 'hour')?.value || '00';
+      const minute = parts.find(p => p.type === 'minute')?.value || '00';
+      return `${hour}:${minute}`;
+    } catch (e) {
+      console.error('Error formatting time with timezone:', e);
+    }
+  }
+  
+  // 没有指定时区，使用浏览器本地时区
   const hours = date.getHours().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;
@@ -84,9 +104,10 @@ export const formatTime = (date: Date): string => {
  * @returns HH:MM:SS 格式
  */
 export const formatTimeWithSeconds = (date: Date): string => {
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-  const seconds = date.getSeconds().toString().padStart(2, '0');
+  // 使用 UTC 方法，因为我们已经在 processSunTimes 中将时间转换为目标时区了
+  const hours = date.getUTCHours().toString().padStart(2, '0');
+  const minutes = date.getUTCMinutes().toString().padStart(2, '0');
+  const seconds = date.getUTCSeconds().toString().padStart(2, '0');
   return `${hours}:${minutes}:${seconds}`;
 };
 

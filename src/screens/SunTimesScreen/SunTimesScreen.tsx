@@ -13,8 +13,11 @@ import { AppButton } from '../../components/common/AppButton';
 import { Card } from '../../components/common/Card';
 import { LoadingIndicator } from '../../components/common/LoadingIndicator';
 import { getSunTimes } from '../../api/sunTimeService';
+import { reverseGeocode, getTimezone } from '../../api/geocodingService';
 import { ProcessedSunTimes } from '../../types/api';
 import { formatTime, formatDate } from '../../utils/formatters';
+import { getTimezoneDisplayName, getCurrentTimeInTimezone } from '../../utils/timezone';
+import LocationSearch from '../../components/LocationSearch';
 
 const SunTimesScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -23,7 +26,15 @@ const SunTimesScreen: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [sunTimes, setSunTimes] = useState<ProcessedSunTimes | null>(null);
   const [location, setLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [locationName, setLocationName] = useState<string>('');
+  const [timezone, setTimezone] = useState<string>('');
+  const [timezoneOffset, setTimezoneOffset] = useState<number>(0);
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  // 组件加载时自动获取当前位置
+  useEffect(() => {
+    getLocation();
+  }, []);
 
   // 获取用户位置
   const getLocation = async () => {
@@ -33,7 +44,7 @@ const SunTimesScreen: React.FC = () => {
       const { status } = await Location.requestForegroundPermissionsAsync();
       
       if (status !== 'granted') {
-        Alert.alert('权限被拒绝', '需要位置权限才能获取日出日落时间');
+        console.log('⚠️ Location permission denied');
         setLoading(false);
         return;
       }
@@ -47,33 +58,67 @@ const SunTimesScreen: React.FC = () => {
       
       console.log('✅ Location obtained:', coords);
       setLocation(coords);
+      
+      // 反向地理编码获取地址名称
+      const name = await reverseGeocode(coords.latitude, coords.longitude);
+      setLocationName(name);
+      
+      // 获取时区信息（使用离线库或按需远程查询）
+      const timezoneInfo = await getTimezone(coords.latitude, coords.longitude);
+      setTimezone(timezoneInfo.timezone);
+      setTimezoneOffset(timezoneInfo.offset);
+
       await fetchSunTimesData(coords.latitude, coords.longitude);
     } catch (error: any) {
       console.error('❌ Error getting location:', error);
-      Alert.alert('错误', `获取位置失败: ${error.message || '未知错误'}`);
       setLoading(false);
     }
   };
 
-  // 使用测试位置（北京）
-  const useTestLocation = async () => {
-    const testCoords = {
-      latitude: 39.9042,
-      longitude: 116.4074,
-    };
-    console.log('🧪 Using test location (Beijing):', testCoords);
-    setLocation(testCoords);
-    await fetchSunTimesData(testCoords.latitude, testCoords.longitude);
+  // 处理地点搜索选择
+  const handleLocationSelect = async (latitude: number, longitude: number, name: string) => {
+    console.log('📍 选择地点:', name, latitude, longitude);
+    setLocation({ latitude, longitude });
+    setLocationName(name);
+    
+    // 获取时区信息（使用离线库或按需远程查询）
+    console.log('🌍 获取时区信息...');
+    const timezoneInfo = await getTimezone(latitude, longitude);
+    console.log('✅ 时区信息:', timezoneInfo);
+    setTimezone(timezoneInfo.timezone);
+    setTimezoneOffset(timezoneInfo.offset);
+
+    await fetchSunTimesData(latitude, longitude);
   };
 
   // 获取太阳时间数据
   const fetchSunTimesData = async (lat: number, lng: number) => {
     try {
       setLoading(true);
-      const dateStr = selectedDate.toISOString().split('T')[0];
+      
+      // 获取目标地点的当地日期（而不是浏览器时区的日期）
+      let dateStr: string;
+      if (timezone) {
+        // 使用目标时区获取当地日期
+        const formatter = new Intl.DateTimeFormat('en-CA', {
+          timeZone: timezone,
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        });
+        dateStr = formatter.format(selectedDate); // 格式: YYYY-MM-DD
+      } else {
+        // 回退到浏览器时区
+        dateStr = selectedDate.toISOString().split('T')[0];
+      }
+      
       console.log('📅 Fetching sun times for date:', dateStr);
+      console.log('🌍 时区:', timezone);
+      
+      // 直接获取 API 数据，不做任何转换
       const data = await getSunTimes(lat, lng, dateStr);
       console.log('✅ Sun times data received:', data);
+      
       setSunTimes(data);
     } catch (error: any) {
       console.error('❌ Error fetching sun times:', error);
@@ -90,7 +135,7 @@ const SunTimesScreen: React.FC = () => {
         <View style={[styles.colorIndicator, { backgroundColor: color }]} />
         <View style={styles.timeContent}>
           <Text style={styles.timeLabel}>{label}</Text>
-          <Text style={styles.timeValue}>{formatTime(time)}</Text>
+          <Text style={styles.timeValue}>{formatTime(time, timezone)}</Text>
         </View>
       </View>
     );
@@ -109,30 +154,47 @@ const SunTimesScreen: React.FC = () => {
 
       <Card style={styles.locationCard}>
         <Text style={styles.sectionTitle}>位置</Text>
-        {location ? (
-          <View>
-            <Text style={styles.locationText}>
-              纬度: {location.latitude.toFixed(4)}°
+        
+        <LocationSearch onLocationSelect={handleLocationSelect} />
+
+        {location && locationName && (
+          <View style={styles.currentLocationInfo}>
+            <Text style={styles.locationInfoLabel}>当前位置:</Text>
+            <Text style={styles.locationInfoText}>{locationName}</Text>
+            <Text style={styles.locationCoords}>
+              {location.latitude.toFixed(4)}°, {location.longitude.toFixed(4)}°
             </Text>
-            <Text style={styles.locationText}>
-              经度: {location.longitude.toFixed(4)}°
-            </Text>
+            {timezone && (
+              <>
+                <Text style={[styles.locationCoords, { marginTop: 4 }]}>
+                  🌍 {getTimezoneDisplayName(timezone, timezoneOffset)}
+                </Text>
+                <Text style={[styles.locationCoords, { marginTop: 4 }]}>
+                  🕐 当地时间: {(() => {
+                    const now = new Date();
+                    const dateFormatter = new Intl.DateTimeFormat('zh-CN', {
+                      timeZone: timezone,
+                      month: 'numeric',
+                      day: 'numeric',
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      hour12: false
+                    });
+                    return dateFormatter.format(now);
+                  })()}
+                </Text>
+              </>
+            )}
           </View>
-        ) : (
-          <Text style={styles.locationText}>未选择位置</Text>
         )}
-        <AppButton
-          title="获取当前位置"
+
+        <TouchableOpacity
+          style={[styles.refreshButton, { backgroundColor: theme.colors.primary }]}
           onPress={getLocation}
-          variant="accent"
-          style={styles.locationButton}
-        />
-        <AppButton
-          title="使用测试位置（北京）"
-          onPress={useTestLocation}
-          variant="outline"
-          style={styles.locationButton}
-        />
+          activeOpacity={0.7}
+        >
+          <Text style={styles.refreshButtonText}>🔄 刷新当前位置</Text>
+        </TouchableOpacity>
       </Card>
 
       <Card style={styles.dateCard}>

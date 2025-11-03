@@ -29,7 +29,7 @@ export const AppTextInput: React.FC<AppTextInputProps> = ({
       <TextInput
         style={[
           styles.input,
-          error && styles.inputError,
+          error ? styles.inputError : null,
           style,
         ]}
         placeholderTextColor={Colors.textDisabled}

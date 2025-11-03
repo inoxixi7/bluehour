@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } fr
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
+import CurrentPhaseCard from '../../components/CurrentPhaseCard';
 
 type FeatureCard = {
   id: string;
@@ -109,6 +110,9 @@ const HomeScreen: React.FC = () => {
           摄影助手工具箱
         </Text>
       </View>
+
+      {/* Current Phase Card */}
+      <CurrentPhaseCard />
 
       {/* Feature Cards Grid */}
       <View style={styles.grid}>
