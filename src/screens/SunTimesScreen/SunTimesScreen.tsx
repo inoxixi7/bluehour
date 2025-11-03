@@ -147,11 +147,7 @@ const SunTimesScreen: React.FC = () => {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      <View style={styles.header}>
-        <Text style={styles.title}>蓝调时刻 & 黄金时刻</Text>
-        <Text style={styles.subtitle}>计划您的完美拍摄时间</Text>
-      </View>
-
+      
       <Card style={styles.locationCard}>
         <Text style={styles.sectionTitle}>位置</Text>
         
@@ -195,11 +191,6 @@ const SunTimesScreen: React.FC = () => {
         >
           <Text style={styles.refreshButtonText}>🔄 刷新当前位置</Text>
         </TouchableOpacity>
-      </Card>
-
-      <Card style={styles.dateCard}>
-        <Text style={styles.sectionTitle}>日期</Text>
-        <Text style={styles.dateText}>{formatDate(selectedDate)}</Text>
       </Card>
 
       {sunTimes && (

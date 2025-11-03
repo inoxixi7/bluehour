@@ -1,11 +1,4 @@
 // 地理编码服务 - 支持多语言地点搜索
-// geo-tz 可能在浏览器环境中不可用，所以做条件导入
-let geoTz: any = null;
-try {
-  geoTz = require('geo-tz');
-} catch (e) {
-  console.warn('geo-tz not available in this environment');
-}
 
 export interface GeocodingResult {
   name: string;
@@ -126,36 +119,29 @@ export const getTimezone = async (
   try {
     let timezone = 'UTC';
 
-    // 如果 geo-tz 可用（例如在移动端/Node 环境），优先使用它（同步）
-    if (geoTz && geoTz.find) {
-      const timezones = geoTz.find(latitude, longitude);
-      timezone = timezones && timezones.length > 0 ? timezones[0] : 'UTC';
-      console.log('✅ 使用 geo-tz 获取时区:', timezone);
-    } else {
-      // 浏览器环境：使用 timeapi.io 获取准确的时区，设置短超时
-      console.log('🌐 浏览器环境，查询时区:', latitude, longitude);
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
-        
-        const response = await fetch(
-          `https://timeapi.io/api/TimeZone/coordinate?latitude=${latitude}&longitude=${longitude}`,
-          { signal: controller.signal }
-        );
-        clearTimeout(timeoutId);
-        
-        if (response.ok) {
-          const data = await response.json();
-          if (data && data.timeZone) {
-            timezone = data.timeZone;
-            console.log('✅ 从 timeapi.io 获取时区:', timezone);
-          }
+    // 统一使用 timeapi.io 获取准确的时区（跨平台兼容）
+    console.log('🌐 查询时区:', latitude, longitude);
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
+      
+      const response = await fetch(
+        `https://timeapi.io/api/TimeZone/coordinate?latitude=${latitude}&longitude=${longitude}`,
+        { signal: controller.signal }
+      );
+      clearTimeout(timeoutId);
+      
+      if (response.ok) {
+        const data = await response.json();
+        if (data && data.timeZone) {
+          timezone = data.timeZone;
+          console.log('✅ 从 timeapi.io 获取时区:', timezone);
         }
-      } catch (error) {
-        console.warn('⚠️ timeapi.io 请求失败，使用浏览器时区作为降级:', error);
-        // 降级到浏览器本地时区
-        timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
       }
+    } catch (error) {
+      console.warn('⚠️ timeapi.io 请求失败，使用设备时区作为降级:', error);
+      // 降级到设备本地时区
+      timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
     }
 
     // 使用 Intl API 获取准确的时区偏移量（分钟）
