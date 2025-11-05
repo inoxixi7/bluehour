@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../../../components/common/Card';
 import { AppButton } from '../../../components/common/AppButton';
 import { AppTextInput } from '../../../components/common/AppTextInput';
@@ -16,12 +17,22 @@ import { calculateDepthOfField } from '../../../utils/photographyCalculations';
 import { formatAperture, formatDistance } from '../../../utils/formatters';
 
 const DoFCalculator: React.FC = () => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const [aperture, setAperture] = useState(5.6);
   const [focalLength, setFocalLength] = useState(50);
   const [focusDistance, setFocusDistance] = useState(3);
   const [sensorIndex, setSensorIndex] = useState(0); // 全画幅默认
   const [result, setResult] = useState<any>(null);
+
+  // 传感器类型翻译键映射
+  const sensorTranslationKeys = [
+    'calculator.dof.sensors.fullFrame',
+    'calculator.dof.sensors.apscCanon',
+    'calculator.dof.sensors.apscNikonSony',
+    'calculator.dof.sensors.m43',
+    'calculator.dof.sensors.oneInch',
+  ];
 
   const handleCalculate = () => {
     const sensor = SENSOR_TYPES[sensorIndex];
@@ -42,18 +53,18 @@ const DoFCalculator: React.FC = () => {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
-        <Text style={[styles.title, { color: theme.colors.text }]}>景深计算器</Text>
+        <Text style={[styles.title, { color: theme.colors.text }]}>{t('calculator.dof.title')}</Text>
         <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
-          计算清晰范围和超焦距，精确控制景深
+          {t('calculator.dof.description')}
         </Text>
 
         {/* 参数输入 */}
         <Card style={styles.card}>
-          <Text style={styles.sectionTitle}>相机和镜头设置</Text>
+          <Text style={styles.sectionTitle}>{t('calculator.dof.sensorSize')}</Text>
 
           {/* 传感器类型 */}
           <View style={styles.pickerContainer}>
-            <Text style={styles.pickerLabel}>传感器类型:</Text>
+            <Text style={styles.pickerLabel}>{t('calculator.dof.sensorSize')}:</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={sensorIndex}
@@ -63,7 +74,7 @@ const DoFCalculator: React.FC = () => {
                 {SENSOR_TYPES.map((sensor, index) => (
                   <Picker.Item
                     key={index}
-                    label={sensor.name}
+                    label={t(sensorTranslationKeys[index])}
                     value={index}
                   />
                 ))}
@@ -73,7 +84,7 @@ const DoFCalculator: React.FC = () => {
 
           {/* 焦距 */}
           <View style={styles.pickerContainer}>
-            <Text style={styles.pickerLabel}>焦距 (mm):</Text>
+            <Text style={styles.pickerLabel}>{t('calculator.dof.focalLength')} ({t('calculator.dof.focalLengthUnit')}):</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={focalLength}
@@ -89,7 +100,7 @@ const DoFCalculator: React.FC = () => {
 
           {/* 光圈 */}
           <View style={styles.pickerContainer}>
-            <Text style={styles.pickerLabel}>光圈:</Text>
+            <Text style={styles.pickerLabel}>{t('calculator.dof.aperture')}:</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={aperture}
@@ -105,7 +116,7 @@ const DoFCalculator: React.FC = () => {
 
           {/* 对焦距离 */}
           <AppTextInput
-            label="对焦距离 (米)"
+            label={`${t('calculator.dof.focusDistance')} (${t('calculator.dof.focusDistanceUnit')})`}
             value={focusDistance.toString()}
             onChangeText={(text) => {
               const num = parseFloat(text);
@@ -114,13 +125,13 @@ const DoFCalculator: React.FC = () => {
               }
             }}
             keyboardType="decimal-pad"
-            placeholder="例如: 3"
+            placeholder="3"
           />
         </Card>
 
         {/* 计算按钮 */}
         <AppButton
-          title="计算景深"
+          title={t('calculator.dof.calculate')}
           onPress={handleCalculate}
           variant="accent"
           style={styles.calculateButton}
@@ -130,24 +141,24 @@ const DoFCalculator: React.FC = () => {
         {result && (
           <>
             <Card style={styles.resultCard}>
-              <Text style={styles.sectionTitle}>清晰范围</Text>
+              <Text style={styles.sectionTitle}>{t('calculator.dof.results')}</Text>
 
               <View style={styles.resultRow}>
-                <Text style={styles.resultLabel}>近点:</Text>
+                <Text style={styles.resultLabel}>{t('calculator.dof.nearLimit')}:</Text>
                 <Text style={styles.resultValue}>
                   {formatDistance(result.nearLimit)}
                 </Text>
               </View>
 
               <View style={styles.resultRow}>
-                <Text style={styles.resultLabel}>远点:</Text>
+                <Text style={styles.resultLabel}>{t('calculator.dof.farLimit')}:</Text>
                 <Text style={styles.resultValue}>
                   {formatDistance(result.farLimit)}
                 </Text>
               </View>
 
               <View style={styles.resultRow}>
-                <Text style={styles.resultLabel}>总景深:</Text>
+                <Text style={styles.resultLabel}>{t('calculator.dof.totalDof')}:</Text>
                 <Text style={styles.resultValue}>
                   {formatDistance(result.totalDoF)}
                 </Text>
@@ -156,14 +167,14 @@ const DoFCalculator: React.FC = () => {
               <View style={styles.divider} />
 
               <View style={styles.resultRow}>
-                <Text style={styles.resultLabel}>对焦点前:</Text>
+                <Text style={styles.resultLabel}>{t('calculator.dof.nearLimit')}:</Text>
                 <Text style={styles.resultValue}>
                   {formatDistance(result.inFrontOfSubject)}
                 </Text>
               </View>
 
               <View style={styles.resultRow}>
-                <Text style={styles.resultLabel}>对焦点后:</Text>
+                <Text style={styles.resultLabel}>{t('calculator.dof.farLimit')}:</Text>
                 <Text style={styles.resultValue}>
                   {formatDistance(result.behindSubject)}
                 </Text>
@@ -171,12 +182,12 @@ const DoFCalculator: React.FC = () => {
             </Card>
 
             <Card style={styles.hyperFocalCard}>
-              <Text style={styles.sectionTitle}>超焦距</Text>
+              <Text style={styles.sectionTitle}>{t('calculator.dof.hyperfocal')}</Text>
               <Text style={styles.hyperFocalValue}>
                 {formatDistance(result.hyperFocalDistance)}
               </Text>
               <Text style={styles.hyperFocalHint}>
-                对焦在此距离，可使从超焦距的一半到无限远都清晰
+                {t('calculator.dof.hyperfocalDesc')}
               </Text>
             </Card>
           </>
@@ -184,11 +195,11 @@ const DoFCalculator: React.FC = () => {
 
         {/* 使用提示 */}
         <Card style={styles.tipCard}>
-          <Text style={styles.tipTitle}>💡 使用场景</Text>
+          <Text style={styles.tipTitle}>💡 {t('calculator.dof.tips')}</Text>
           <Text style={styles.tipText}>
-            <Text style={styles.bold}>人像摄影:</Text> 使用大光圈（如 f/1.8），景深浅，背景虚化{'\n\n'}
-            <Text style={styles.bold}>风光摄影:</Text> 使用小光圈（如 f/11），对焦在超焦距处，确保前景到远景都清晰{'\n\n'}
-            <Text style={styles.bold}>街拍:</Text> 使用中等光圈（如 f/5.6），平衡景深和快门速度
+            <Text style={styles.bold}>{t('calculator.dof.portraitTip')}:</Text> {t('calculator.dof.portraitDesc')}{'\n\n'}
+            <Text style={styles.bold}>{t('calculator.dof.landscapeTip')}:</Text> {t('calculator.dof.landscapeDesc')}{'\n\n'}
+            <Text style={styles.bold}>{t('calculator.dof.streetTip')}:</Text> {t('calculator.dof.streetDesc')}
           </Text>
         </Card>
       </View>

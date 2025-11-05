@@ -1,5 +1,6 @@
 import React from 'react';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { useTranslation } from 'react-i18next';
 import { CalculatorTabParamList } from './types';
 import { useTheme } from '../contexts/ThemeContext';
 import { Layout } from '../constants/Layout';
@@ -12,6 +13,7 @@ import DoFCalculator from '../screens/CalculatorScreen/tabs/DoFCalculator';
 const Tab = createMaterialTopTabNavigator<CalculatorTabParamList>();
 
 const CalculatorNavigator: React.FC = () => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   
   return (
@@ -38,21 +40,21 @@ const CalculatorNavigator: React.FC = () => {
         name="EVCalculator"
         component={EVCalculator}
         options={{
-          title: 'EV 曝光',
+          title: t('calculator.evTitle'),
         }}
       />
       <Tab.Screen
         name="NDCalculator"
         component={NDCalculator}
         options={{
-          title: 'ND 滤镜',
+          title: t('calculator.ndTitle'),
         }}
       />
       <Tab.Screen
         name="DoFCalculator"
         component={DoFCalculator}
         options={{
-          title: '景深',
+          title: t('calculator.dofTitle'),
         }}
       />
     </Tab.Navigator>

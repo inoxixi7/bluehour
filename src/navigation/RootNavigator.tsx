@@ -1,5 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../contexts/ThemeContext';
 import { Layout } from '../constants/Layout';
 
@@ -24,6 +25,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const RootNavigator: React.FC = () => {
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <Stack.Navigator
@@ -53,35 +55,35 @@ const RootNavigator: React.FC = () => {
         name="SunTimes"
         component={SunTimesScreen}
         options={{
-          title: '蓝调时刻',
+          title: t('sunTimes.title'),
         }}
       />
       <Stack.Screen
         name="EVCalculator"
         component={EVCalculator}
         options={{
-          title: 'EV 曝光计算器',
+          title: t('calculator.evTitle'),
         }}
       />
       <Stack.Screen
         name="NDCalculator"
         component={NDCalculator}
         options={{
-          title: 'ND 滤镜计算器',
+          title: t('calculator.ndTitle'),
         }}
       />
       <Stack.Screen
         name="DoFCalculator"
         component={DoFCalculator}
         options={{
-          title: '景深计算器',
+          title: t('calculator.dofTitle'),
         }}
       />
       <Stack.Screen
         name="Settings"
         component={SettingsScreen}
         options={{
-          title: '设置',
+          title: t('settings.title'),
         }}
       />
     </Stack.Navigator>

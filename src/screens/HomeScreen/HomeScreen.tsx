@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
@@ -16,45 +17,46 @@ type FeatureCard = {
 
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const navigation = useNavigation<any>();
 
   const features: FeatureCard[] = [
     {
       id: 'sunTimes',
-      title: '蓝调时刻',
-      description: '查看日出日落、黄金时刻和蓝色时刻',
+      title: t('home.features.sunTimes.title'),
+      description: t('home.features.sunTimes.description'),
       icon: '🌅',
       color: theme.colors.blueHour,
       route: 'SunTimes',
     },
     {
       id: 'evCalculator',
-      title: 'EV 曝光',
-      description: '计算等效曝光组合',
+      title: t('home.features.evCalculator.title'),
+      description: t('home.features.evCalculator.description'),
       icon: '📷',
       color: theme.colors.primary,
       route: 'EVCalculator',
     },
     {
       id: 'ndCalculator',
-      title: 'ND 滤镜',
-      description: '计算长曝光快门速度',
+      title: t('home.features.ndCalculator.title'),
+      description: t('home.features.ndCalculator.description'),
       icon: '⚫',
       color: theme.colors.twilight,
       route: 'NDCalculator',
     },
     {
       id: 'dofCalculator',
-      title: '景深计算',
-      description: '计算景深和超焦距',
+      title: t('home.features.dofCalculator.title'),
+      description: t('home.features.dofCalculator.description'),
       icon: '🎯',
       color: theme.colors.success,
       route: 'DoFCalculator',
     },
     {
       id: 'settings',
-      title: '设置',
-      description: '主题、关于和更多',
+      title: t('home.features.settings.title'),
+      description: t('home.features.settings.description'),
       icon: '⚙️',
       color: theme.colors.textSecondary,
       route: 'Settings',
@@ -104,10 +106,10 @@ const HomeScreen: React.FC = () => {
       {/* Header */}
       <View style={styles.header}>
         <Text style={[styles.title, { color: theme.colors.text }]}>
-          BlueHour
+          {t('home.title')}
         </Text>
         <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-          摄影助手工具箱
+          {t('home.subtitle')}
         </Text>
       </View>
 

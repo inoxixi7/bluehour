@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Colors } from '../../constants/Colors';
 import { Layout } from '../../constants/Layout';
 import { calculateEV } from '../../utils/photographyCalculations';
@@ -22,17 +23,18 @@ export const EVDisplay: React.FC<EVDisplayProps> = ({
   iso,
   showDetails = false,
 }) => {
+  const { t } = useTranslation();
   const ev = calculateEV(aperture, shutter, iso);
 
   // 根据 EV 值判断曝光情况
   const getExposureDescription = (ev: number): string => {
-    if (ev < -2) return '极暗环境';
-    if (ev < 3) return '低光环境';
-    if (ev < 7) return '室内光线';
-    if (ev < 11) return '阴天户外';
-    if (ev < 14) return '晴天阴影';
-    if (ev < 16) return '晴天直射';
-    return '极亮环境';
+    if (ev < -2) return t('common.exposureConditions.veryDark');
+    if (ev < 3) return t('common.exposureConditions.lowLight');
+    if (ev < 7) return t('common.exposureConditions.indoor');
+    if (ev < 11) return t('common.exposureConditions.overcast');
+    if (ev < 14) return t('common.exposureConditions.shadedSunny');
+    if (ev < 16) return t('common.exposureConditions.sunny');
+    return t('common.exposureConditions.veryBright');
   };
 
   const getExposureColor = (ev: number): string => {
@@ -45,7 +47,7 @@ export const EVDisplay: React.FC<EVDisplayProps> = ({
   return (
     <View style={styles.container}>
       <View style={styles.evValueContainer}>
-        <Text style={styles.evLabel}>曝光值</Text>
+        <Text style={styles.evLabel}>{t('common.evValue')}</Text>
         <Text style={[styles.evValue, { color: getExposureColor(ev) }]}>
           {formatEV(ev)}
         </Text>
@@ -54,7 +56,7 @@ export const EVDisplay: React.FC<EVDisplayProps> = ({
       {showDetails && (
         <View style={styles.detailsContainer}>
           <View style={styles.detailRow}>
-            <Text style={styles.detailLabel}>环境:</Text>
+            <Text style={styles.detailLabel}>{t('common.environment')}:</Text>
             <Text style={styles.detailValue}>
               {getExposureDescription(ev)}
             </Text>
@@ -64,17 +66,17 @@ export const EVDisplay: React.FC<EVDisplayProps> = ({
 
           <View style={styles.parameterGrid}>
             <View style={styles.parameterItem}>
-              <Text style={styles.parameterLabel}>光圈</Text>
+              <Text style={styles.parameterLabel}>{t('calculator.ev.aperture')}</Text>
               <Text style={styles.parameterValue}>f/{aperture}</Text>
             </View>
             <View style={styles.parameterItem}>
-              <Text style={styles.parameterLabel}>快门</Text>
+              <Text style={styles.parameterLabel}>{t('calculator.ev.shutter')}</Text>
               <Text style={styles.parameterValue}>
                 {shutter >= 1 ? `${shutter}s` : `1/${Math.round(1 / shutter)}`}
               </Text>
             </View>
             <View style={styles.parameterItem}>
-              <Text style={styles.parameterLabel}>ISO</Text>
+              <Text style={styles.parameterLabel}>{t('calculator.ev.iso')}</Text>
               <Text style={styles.parameterValue}>{iso}</Text>
             </View>
           </View>

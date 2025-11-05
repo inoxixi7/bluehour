@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Alert,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import * as Location from 'expo-location';
 import { createStyles } from './styles';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -20,6 +21,7 @@ import { getTimezoneDisplayName, getCurrentTimeInTimezone } from '../../utils/ti
 import LocationSearch from '../../components/LocationSearch';
 
 const SunTimesScreen: React.FC = () => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const styles = createStyles(theme.colors);
   
@@ -122,7 +124,10 @@ const SunTimesScreen: React.FC = () => {
       setSunTimes(data);
     } catch (error: any) {
       console.error('❌ Error fetching sun times:', error);
-      Alert.alert('错误', `获取日出日落时间失败: ${error.message || '未知错误'}`);
+      Alert.alert(
+        t('sunTimes.errorTitle'), 
+        `${t('sunTimes.errorMessage')}: ${error.message || t('sunTimes.unknownError')}`
+      );
     } finally {
       setLoading(false);
     }
@@ -142,7 +147,7 @@ const SunTimesScreen: React.FC = () => {
   };
 
   if (loading) {
-    return <LoadingIndicator message="加载中..." />;
+    return <LoadingIndicator message={t('common.loading')} />;
   }
 
   return (
@@ -198,38 +203,43 @@ const SunTimesScreen: React.FC = () => {
       {sunTimes && (
         <>
           <Card style={styles.timelineCard}>
-            <Text style={styles.sectionTitle}>早晨</Text>
-            {renderTimeItem('天文晨昏蒙影开始', sunTimes.astronomicalTwilightBegin, theme.colors.twilight)}
-            {renderTimeItem('航海晨昏蒙影开始', sunTimes.nauticalTwilightBegin, theme.colors.twilight)}
-            {renderTimeItem('🔵 蓝色时刻开始', sunTimes.morningBlueHourStart, theme.colors.blueHour)}
-            {renderTimeItem('民用晨昏蒙影开始', sunTimes.civilTwilightBegin, theme.colors.twilight)}
-            {renderTimeItem('🔵 蓝色时刻结束', sunTimes.morningBlueHourEnd, theme.colors.blueHour)}
-            {renderTimeItem('🌅 日出', sunTimes.sunrise, theme.colors.sunrise)}
-            {renderTimeItem('✨ 黄金时刻开始', sunTimes.morningGoldenHourStart, theme.colors.goldenHour)}
-            {renderTimeItem('✨ 黄金时刻结束', sunTimes.morningGoldenHourEnd, theme.colors.goldenHour)}
+            <Text style={styles.sectionTitle}>{t('sunTimes.morning')}</Text>
+            {renderTimeItem(t('sunTimes.phases.astronomicalTwilightBegin'), sunTimes.astronomicalTwilightBegin, theme.colors.twilight)}
+            {renderTimeItem(t('sunTimes.phases.nauticalTwilightBegin'), sunTimes.nauticalTwilightBegin, theme.colors.twilight)}
+            {renderTimeItem('🔵 ' + t('sunTimes.phases.morningBlueHourStart'), sunTimes.morningBlueHourStart, theme.colors.blueHour)}
+            {renderTimeItem(t('sunTimes.phases.civilTwilightBegin'), sunTimes.civilTwilightBegin, theme.colors.twilight)}
+            {renderTimeItem('🔵 ' + t('sunTimes.phases.morningBlueHourEnd'), sunTimes.morningBlueHourEnd, theme.colors.blueHour)}
+            {renderTimeItem('🌅 ' + t('sunTimes.phases.sunrise'), sunTimes.sunrise, theme.colors.sunrise)}
+            {renderTimeItem('✨ ' + t('sunTimes.phases.morningGoldenHourStart'), sunTimes.morningGoldenHourStart, theme.colors.goldenHour)}
+            {renderTimeItem('✨ ' + t('sunTimes.phases.morningGoldenHourEnd'), sunTimes.morningGoldenHourEnd, theme.colors.goldenHour)}
           </Card>
 
           <Card style={styles.timelineCard}>
-            <Text style={styles.sectionTitle}>傍晚</Text>
-            {renderTimeItem('✨ 黄金时刻开始', sunTimes.eveningGoldenHourStart, theme.colors.goldenHour)}
-            {renderTimeItem('🌇 日落', sunTimes.sunset, theme.colors.sunset)}
-            {renderTimeItem('✨ 黄金时刻结束', sunTimes.eveningGoldenHourEnd, theme.colors.goldenHour)}
-            {renderTimeItem('🔵 蓝色时刻开始', sunTimes.eveningBlueHourStart, theme.colors.blueHour)}
-            {renderTimeItem('民用晨昏蒙影结束', sunTimes.civilTwilightEnd, theme.colors.twilight)}
-            {renderTimeItem('🔵 蓝色时刻结束', sunTimes.eveningBlueHourEnd, theme.colors.blueHour)}
-            {renderTimeItem('航海晨昏蒙影结束', sunTimes.nauticalTwilightEnd, theme.colors.twilight)}
-            {renderTimeItem('天文晨昏蒙影结束', sunTimes.astronomicalTwilightEnd, theme.colors.twilight)}
+            <Text style={styles.sectionTitle}>{t('sunTimes.evening')}</Text>
+            {renderTimeItem('✨ ' + t('sunTimes.phases.eveningGoldenHourStart'), sunTimes.eveningGoldenHourStart, theme.colors.goldenHour)}
+            {renderTimeItem('🌇 ' + t('sunTimes.phases.sunset'), sunTimes.sunset, theme.colors.sunset)}
+            {renderTimeItem('✨ ' + t('sunTimes.phases.eveningGoldenHourEnd'), sunTimes.eveningGoldenHourEnd, theme.colors.goldenHour)}
+            {renderTimeItem('🔵 ' + t('sunTimes.phases.eveningBlueHourStart'), sunTimes.eveningBlueHourStart, theme.colors.blueHour)}
+            {renderTimeItem(t('sunTimes.phases.civilTwilightEnd'), sunTimes.civilTwilightEnd, theme.colors.twilight)}
+            {renderTimeItem('🔵 ' + t('sunTimes.phases.eveningBlueHourEnd'), sunTimes.eveningBlueHourEnd, theme.colors.blueHour)}
+            {renderTimeItem(t('sunTimes.phases.nauticalTwilightEnd'), sunTimes.nauticalTwilightEnd, theme.colors.twilight)}
+            {renderTimeItem(t('sunTimes.phases.astronomicalTwilightEnd'), sunTimes.astronomicalTwilightEnd, theme.colors.twilight)}
           </Card>
 
           <Card style={styles.infoCard}>
-            <Text style={styles.sectionTitle}>其他信息</Text>
+            <Text style={styles.sectionTitle}>{t('sunTimes.otherInfo')}</Text>
             <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>太阳正午:</Text>
+              <Text style={styles.infoLabel}>{t('sunTimes.solarNoonLabel')}:</Text>
               <Text style={styles.infoValue}>{formatTime(sunTimes.solarNoon)}</Text>
             </View>
             <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>白昼长度:</Text>
-              <Text style={styles.infoValue}>{Math.floor(sunTimes.dayLength / 60)}小时{Math.round(sunTimes.dayLength % 60)}分钟</Text>
+              <Text style={styles.infoLabel}>{t('sunTimes.dayLengthLabel')}:</Text>
+              <Text style={styles.infoValue}>
+                {t('sunTimes.timeFormat.hoursMinutes', {
+                  hours: Math.floor(sunTimes.dayLength / 60),
+                  minutes: Math.round(sunTimes.dayLength % 60)
+                })}
+              </Text>
             </View>
           </Card>
         </>

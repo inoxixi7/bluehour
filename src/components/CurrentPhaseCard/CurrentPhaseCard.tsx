@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { getSunTimes } from '../../api/sunTimeService';
@@ -7,6 +8,7 @@ import { getTimezone, reverseGeocode } from '../../api/geocodingService';
 import { getCurrentTimeInTimezone } from '../../utils/timezone';
 import { getCurrentLocation } from '../../utils/location';
 import { ProcessedSunTimes } from '../../types/api';
+import { formatTimeCountdown } from '../../utils/i18nHelpers';
 
 interface PhaseInfo {
   name: string;
@@ -19,6 +21,7 @@ interface PhaseInfo {
 
 const CurrentPhaseCard: React.FC = () => {
   const { theme } = useTheme();
+  const { t } = useTranslation();
   const [phaseInfo, setPhaseInfo] = useState<PhaseInfo | null>(null);
   const [locationName, setLocationName] = useState<string>('');
   const [loading, setLoading] = useState(true);
@@ -30,42 +33,42 @@ const CurrentPhaseCard: React.FC = () => {
     // 定义所有时段
     const phases = [
       {
-        name: '早晨蓝调时刻',
-        emoji: '🌌',
+        name: t('sunTimes.phases.morningBlueHour'),
+        emoji: '�',
         start: sunTimes.morningBlueHourStart.getTime(),
         end: sunTimes.morningBlueHourEnd.getTime(),
         color: theme.colors.blueHour,
       },
       {
-        name: '早晨黄金时刻',
-        emoji: '🌅',
+        name: t('sunTimes.phases.morningGoldenHour'),
+        emoji: '�',
         start: sunTimes.morningGoldenHourStart.getTime(),
         end: sunTimes.morningGoldenHourEnd.getTime(),
         color: theme.colors.goldenHour,
       },
       {
-        name: '白天',
+        name: t('sunTimes.phases.daylight'),
         emoji: '☀️',
         start: sunTimes.morningGoldenHourEnd.getTime(),
         end: sunTimes.eveningGoldenHourStart.getTime(),
         color: theme.colors.primary,
       },
       {
-        name: '傍晚黄金时刻',
+        name: t('sunTimes.phases.eveningGoldenHour'),
         emoji: '🌄',
         start: sunTimes.eveningGoldenHourStart.getTime(),
         end: sunTimes.eveningGoldenHourEnd.getTime(),
         color: theme.colors.goldenHour,
       },
       {
-        name: '傍晚蓝调时刻',
+        name: t('sunTimes.phases.eveningBlueHour'),
         emoji: '🌆',
         start: sunTimes.eveningBlueHourStart.getTime(),
         end: sunTimes.eveningBlueHourEnd.getTime(),
         color: theme.colors.blueHour,
       },
       {
-        name: '夜晚',
+        name: t('sunTimes.phases.night'),
         emoji: '🌙',
         start: sunTimes.eveningBlueHourEnd.getTime(),
         end: sunTimes.morningBlueHourStart.getTime() + 24 * 60 * 60 * 1000, // 下一天的蓝调时刻
@@ -90,7 +93,7 @@ const CurrentPhaseCard: React.FC = () => {
           color: phase.color,
           isActive: true,
           minutesUntil: minutesUntilEnd,
-          nextPhaseName: isLastPhase ? '明天的' + nextPhase.name : nextPhase.name,
+          nextPhaseName: isLastPhase ? t('sunTimes.currentPhase.tomorrows') + nextPhase.name : nextPhase.name,
         };
       }
     }
@@ -126,17 +129,7 @@ const CurrentPhaseCard: React.FC = () => {
     };
   };
 
-  const formatTime = (minutes: number): string => {
-    if (minutes < 60) {
-      return `${minutes} 分钟`;
-    }
-    const hours = Math.floor(minutes / 60);
-    const mins = minutes % 60;
-    if (mins === 0) {
-      return `${hours} 小时`;
-    }
-    return `${hours} 小时 ${mins} 分钟`;
-  };
+
 
   const loadPhaseInfo = async () => {
     try {
@@ -204,7 +197,7 @@ const CurrentPhaseCard: React.FC = () => {
     }, 60 * 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [t]); // 监听语言变化
 
   const styles = createStyles(theme.colors);
 
@@ -215,10 +208,10 @@ const CurrentPhaseCard: React.FC = () => {
           <Text style={styles.emoji}>🌅</Text>
           <View style={styles.textContainer}>
             <Text style={[styles.phaseName, { color: theme.colors.primary }]}>
-              正在加载...
+              {t('common.loadingPhase')}
             </Text>
             <Text style={[styles.statusText, { color: theme.colors.textSecondary }]}>
-              正在获取当前时段信息
+              {t('common.fetchingPhaseInfo')}
             </Text>
           </View>
         </View>
@@ -250,7 +243,10 @@ const CurrentPhaseCard: React.FC = () => {
               </Text>
               {phaseInfo.nextPhaseName && (
                 <Text style={[styles.statusText, { color: theme.colors.textSecondary }]}>
-                  距离{phaseInfo.nextPhaseName}还有 {formatTime(phaseInfo.minutesUntil!)}
+                  {t('sunTimes.currentPhase.distanceTo', { 
+                    phase: phaseInfo.nextPhaseName,
+                    time: formatTimeCountdown(phaseInfo.minutesUntil!, t)
+                  })}
                 </Text>
               )}
             </>
@@ -260,7 +256,10 @@ const CurrentPhaseCard: React.FC = () => {
                 {phaseInfo.name}
               </Text>
               <Text style={[styles.statusText, { color: theme.colors.textSecondary }]}>
-                距离{phaseInfo.name}还有 {formatTime(phaseInfo.minutesUntil!)}
+                {t('sunTimes.currentPhase.distanceTo', { 
+                  phase: phaseInfo.name,
+                  time: formatTimeCountdown(phaseInfo.minutesUntil!, t)
+                })}
               </Text>
             </>
           )}

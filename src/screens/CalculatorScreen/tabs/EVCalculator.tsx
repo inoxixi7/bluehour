@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../../../components/common/Card';
 import { AppButton } from '../../../components/common/AppButton';
 import { useTheme } from '../../../contexts/ThemeContext';
@@ -10,6 +11,7 @@ import { calculateEquivalentExposure, calculateEV } from '../../../utils/photogr
 import { formatAperture, formatShutterSpeed, formatISO, formatEV } from '../../../utils/formatters';
 
 const EVCalculator: React.FC = () => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   // 基准曝光设置
   const [baseAperture, setBaseAperture] = useState(5.6);
@@ -56,33 +58,33 @@ const EVCalculator: React.FC = () => {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
-        <Text style={[styles.title, { color: theme.colors.text }]}>EV 曝光等效计算器</Text>
+        <Text style={[styles.title, { color: theme.colors.text }]}>{t('calculator.ev.title')}</Text>
         <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
-          保持曝光量不变，自由调整光圈、快门和 ISO
+          {t('calculator.ev.description')}
         </Text>
 
         {/* 基准曝光 */}
         <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>基准曝光</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('calculator.ev.baseExposure')}</Text>
           <Text style={[styles.evText, { color: theme.colors.primary }]}>{formatEV(baseEV)}</Text>
 
           <View style={[styles.paramRow, { borderBottomColor: theme.colors.divider }]}>
-            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>光圈:</Text>
+            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.aperture')}:</Text>
             <Text style={[styles.paramValue, { color: theme.colors.text }]}>{formatAperture(baseAperture)}</Text>
           </View>
           
           <View style={[styles.paramRow, { borderBottomColor: theme.colors.divider }]}>
-            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>快门:</Text>
+            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.shutter')}:</Text>
             <Text style={[styles.paramValue, { color: theme.colors.text }]}>{formatShutterSpeed(baseShutter)}</Text>
           </View>
           
           <View style={[styles.paramRow, { borderBottomColor: theme.colors.divider }]}>
-            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>ISO:</Text>
+            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.iso')}:</Text>
             <Text style={[styles.paramValue, { color: theme.colors.text }]}>{formatISO(baseISO)}</Text>
           </View>
 
           <AppButton
-            title="重置为当前值"
+            title={t('calculator.ev.resetToCurrent')}
             onPress={() => {
               setBaseAperture(newAperture);
               setBaseShutter(newShutter);
@@ -96,12 +98,12 @@ const EVCalculator: React.FC = () => {
 
         {/* 新的曝光 */}
         <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>调整曝光</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('calculator.ev.adjustExposure')}</Text>
           <Text style={[styles.evText, { color: theme.colors.primary }]}>{formatEV(newEV)}</Text>
 
           {/* 光圈选择 */}
           <View style={styles.pickerContainer}>
-            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>光圈:</Text>
+            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.aperture')}:</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={newAperture}
@@ -117,7 +119,7 @@ const EVCalculator: React.FC = () => {
 
           {/* 快门选择 */}
           <View style={styles.pickerContainer}>
-            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>快门:</Text>
+            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.shutter')}:</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={newShutter}
@@ -133,7 +135,7 @@ const EVCalculator: React.FC = () => {
 
           {/* ISO 选择 */}
           <View style={styles.pickerContainer}>
-            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>ISO:</Text>
+            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.iso')}:</Text>
             <View style={styles.picker}>
               <Picker
                 selectedValue={newISO}
@@ -149,24 +151,24 @@ const EVCalculator: React.FC = () => {
 
           {/* 锁定参数选择 */}
           <View style={styles.lockSection}>
-            <Text style={[styles.lockTitle, { color: theme.colors.textSecondary }]}>锁定参数:</Text>
+            <Text style={[styles.lockTitle, { color: theme.colors.textSecondary }]}>{t('calculator.ev.lockParam')}:</Text>
             <View style={styles.lockButtons}>
               <AppButton
-                title="光圈"
+                title={t('calculator.ev.aperture')}
                 onPress={() => setLockedParam('aperture')}
                 variant={lockedParam === 'aperture' ? 'accent' : 'outline'}
                 size="small"
                 style={styles.lockButton}
               />
               <AppButton
-                title="快门"
+                title={t('calculator.ev.shutter')}
                 onPress={() => setLockedParam('shutter')}
                 variant={lockedParam === 'shutter' ? 'accent' : 'outline'}
                 size="small"
                 style={styles.lockButton}
               />
               <AppButton
-                title="ISO"
+                title={t('calculator.ev.iso')}
                 onPress={() => setLockedParam('iso')}
                 variant={lockedParam === 'iso' ? 'accent' : 'outline'}
                 size="small"
@@ -176,7 +178,7 @@ const EVCalculator: React.FC = () => {
           </View>
 
           <AppButton
-            title="计算等效曝光"
+            title={t('calculator.ev.calculate')}
             onPress={handleCalculate}
             variant="accent"
             style={styles.calculateButton}

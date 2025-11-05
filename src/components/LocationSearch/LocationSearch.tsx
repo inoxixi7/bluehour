@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Keyboard,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { searchLocation, GeocodingResult } from '../../api/geocodingService';
@@ -21,9 +22,10 @@ interface LocationSearchProps {
 
 const LocationSearch: React.FC<LocationSearchProps> = ({
   onLocationSelect,
-  placeholder = '搜索地点',
+  placeholder,
   onRefreshLocation,
 }) => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<GeocodingResult[]>([]);
@@ -107,7 +109,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
           <Text style={styles.searchIcon}>🔍</Text>
           <TextInput
             style={[styles.searchInput, { color: theme.colors.text }]}
-            placeholder={placeholder}
+            placeholder={placeholder || t('locationSearch.placeholder')}
             placeholderTextColor={theme.colors.textTertiary}
             value={searchQuery}
             onChangeText={setSearchQuery}
@@ -159,7 +161,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
       {showResults && results.length === 0 && !loading && searchQuery.length >= 2 && (
         <View style={[styles.noResultsContainer, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
           <Text style={[styles.noResultsText, { color: theme.colors.textSecondary }]}>
-            未找到匹配的地点
+            {t('locationSearch.noResults')}
           </Text>
         </View>
       )}

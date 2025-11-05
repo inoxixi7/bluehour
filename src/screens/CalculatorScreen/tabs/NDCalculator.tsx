@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../../../components/common/Card';
 import { AppButton } from '../../../components/common/AppButton';
 import { useTheme } from '../../../contexts/ThemeContext';
@@ -10,6 +11,7 @@ import { calculateNDShutter } from '../../../utils/photographyCalculations';
 import { formatShutterSpeed } from '../../../utils/formatters';
 
 const NDCalculator: React.FC = () => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
   const [baseShutter, setBaseShutter] = useState(1/60);
   const [selectedNDIndex, setSelectedNDIndex] = useState(9); // ND1000 默认
@@ -47,15 +49,15 @@ const NDCalculator: React.FC = () => {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
-        <Text style={[styles.title, { color: theme.colors.text }]}>ND 滤镜计算器</Text>
+        <Text style={[styles.title, { color: theme.colors.text }]}>{t('calculator.nd.title')}</Text>
         <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
-          计算使用 ND 滤镜后所需的快门速度
+          {t('calculator.nd.description')}
         </Text>
 
         {/* 基础快门速度 */}
         <Card style={styles.card}>
-          <Text style={styles.sectionTitle}>基础快门速度</Text>
-          <Text style={styles.hint}>（不使用 ND 滤镜时的测光值）</Text>
+          <Text style={styles.sectionTitle}>{t('calculator.nd.originalShutter')}</Text>
+          <Text style={styles.hint}>{t('calculator.nd.originalShutterHint')}</Text>
 
           <View style={styles.pickerContainer}>
             <View style={styles.picker}>
@@ -78,7 +80,7 @@ const NDCalculator: React.FC = () => {
 
         {/* ND 滤镜选择 */}
         <Card style={styles.card}>
-          <Text style={styles.sectionTitle}>ND 滤镜</Text>
+          <Text style={styles.sectionTitle}>{t('calculator.nd.ndStrength')}</Text>
           
           <View style={styles.pickerContainer}>
             <View style={styles.picker}>
@@ -90,7 +92,7 @@ const NDCalculator: React.FC = () => {
                 {ND_FILTERS.map((filter, index) => (
                   <Picker.Item
                     key={index}
-                    label={`${filter.name} - ${filter.stops} 档`}
+                    label={`${filter.name} - ${filter.stops} ${t('calculator.nd.stops')}`}
                     value={index}
                   />
                 ))}
@@ -100,11 +102,11 @@ const NDCalculator: React.FC = () => {
 
           <View style={styles.ndInfo}>
             <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>减光档位:</Text>
-              <Text style={styles.infoValue}>{selectedND.stops} 档</Text>
+              <Text style={styles.infoLabel}>{t('calculator.nd.stops')}:</Text>
+              <Text style={styles.infoValue}>{selectedND.stops} {t('calculator.nd.stops')}</Text>
             </View>
             <View style={styles.infoRow}>
-              <Text style={styles.infoLabel}>减光系数:</Text>
+              <Text style={styles.infoLabel}>Factor:</Text>
               <Text style={styles.infoValue}>{selectedND.factor}x</Text>
             </View>
           </View>
@@ -112,7 +114,7 @@ const NDCalculator: React.FC = () => {
 
         {/* 计算按钮 */}
         <AppButton
-          title="计算新快门速度"
+          title={t('calculator.nd.calculate')}
           onPress={handleCalculate}
           variant="accent"
           style={styles.calculateButton}
@@ -121,10 +123,10 @@ const NDCalculator: React.FC = () => {
         {/* 计算结果 */}
         {calculatedShutter !== null && (
           <Card style={styles.resultCard}>
-            <Text style={styles.sectionTitle}>计算结果</Text>
+            <Text style={styles.sectionTitle}>{t('calculator.ev.adjustExposure')}</Text>
             
             <View style={styles.resultDisplay}>
-              <Text style={styles.resultLabel}>新的快门速度:</Text>
+              <Text style={styles.resultLabel}>{t('calculator.nd.newShutter')}:</Text>
               <Text style={styles.resultValue}>
                 {formatShutterSpeed(calculatedShutter)}
               </Text>
@@ -133,7 +135,7 @@ const NDCalculator: React.FC = () => {
             {calculatedShutter >= 1 && (
               <>
                 <AppButton
-                  title={isTimerRunning ? `剩余 ${Math.ceil(remainingTime)}秒` : "启动计时器"}
+                  title={isTimerRunning ? `${Math.ceil(remainingTime)}s` : t('calculator.nd.startTimer')}
                   onPress={startTimer}
                   variant="primary"
                   disabled={isTimerRunning}
@@ -154,17 +156,6 @@ const NDCalculator: React.FC = () => {
             )}
           </Card>
         )}
-
-        {/* 使用提示 */}
-        <Card style={styles.tipCard}>
-          <Text style={styles.tipTitle}>💡 使用提示</Text>
-          <Text style={styles.tipText}>
-            1. 先不装滤镜，使用相机测光得到基础快门速度{'\n'}
-            2. 选择您使用的 ND 滤镜型号{'\n'}
-            3. 点击计算，获得新的快门速度{'\n'}
-            4. 如果快门速度超过 1 秒，可使用计时器辅助拍摄
-          </Text>
-        </Card>
       </View>
     </ScrollView>
   );

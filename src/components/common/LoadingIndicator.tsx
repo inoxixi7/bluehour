@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 
@@ -9,17 +10,19 @@ interface LoadingIndicatorProps {
 }
 
 export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
-  message = '加载中...',
+  message,
   size = 'large',
 }) => {
+  const { t } = useTranslation();
   const { theme } = useTheme();
+  const displayMessage = message || t('common.loading');
   
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
         <Text style={styles.emoji}>🌅</Text>
         <Text style={[styles.title, { color: theme.colors.text }]}>BlueHour</Text>
-        <Text style={[styles.message, { color: theme.colors.textSecondary }]}>{message}</Text>
+        <Text style={[styles.message, { color: theme.colors.textSecondary }]}>{displayMessage}</Text>
       </View>
     </View>
   );

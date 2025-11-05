@@ -1,19 +1,54 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Linking, TouchableOpacity } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Card } from '../../components/common/Card';
 import { AppButton } from '../../components/common/AppButton';
 import { useTheme, ThemeMode } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
+import { changeLanguage, SUPPORTED_LANGUAGES, LANGUAGE_NAMES, SupportedLanguage } from '../../locales/i18n';
 
 const SettingsScreen: React.FC = () => {
   const { theme, themeMode, setThemeMode } = useTheme();
+  const { t, i18n } = useTranslation();
   
   const handleOpenGitHub = () => {
-    Linking.openURL('https://github.com');
+    Linking.openURL('https://github.com/inoxixi7');
   };
 
   const handleContactSupport = () => {
     Linking.openURL('mailto:support@example.com');
+  };
+
+  const handleLanguageChange = async (language: SupportedLanguage) => {
+    await changeLanguage(language);
+  };
+
+  const renderLanguageOption = (language: SupportedLanguage) => {
+    const isSelected = i18n.language === language;
+    return (
+      <TouchableOpacity
+        key={language}
+        style={[
+          styles.themeOption,
+          isSelected && { 
+            backgroundColor: theme.colors.primary + '20',
+            borderColor: theme.colors.primary,
+          }
+        ]}
+        onPress={() => handleLanguageChange(language)}
+      >
+        <Text style={[
+          styles.themeLabel,
+          { color: theme.colors.text },
+          isSelected && { color: theme.colors.primary, fontWeight: '600' }
+        ]}>
+          {LANGUAGE_NAMES[language]}
+        </Text>
+        {isSelected && (
+          <Text style={{ color: theme.colors.primary, marginLeft: 'auto' }}>✓</Text>
+        )}
+      </TouchableOpacity>
+    );
   };
 
   const renderThemeOption = (mode: ThemeMode, label: string, icon: string) => {
@@ -52,42 +87,45 @@ const SettingsScreen: React.FC = () => {
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
-        <Text style={[styles.title, { color: theme.colors.text }]}>设置</Text>
+
+        {/* 语言设置 */}
+        <Card style={styles.card}>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.language')}</Text>
+          <View style={styles.themeOptions}>
+            {SUPPORTED_LANGUAGES.map(lang => renderLanguageOption(lang))}
+          </View>
+        </Card>
 
         {/* 主题设置 */}
         <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>外观</Text>
-          <Text style={[styles.sectionDescription, { color: theme.colors.textSecondary }]}>
-            选择您喜欢的主题模式
-          </Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.theme')}</Text>
           <View style={styles.themeOptions}>
-            {renderThemeOption('light', '浅色模式', '☀️')}
-            {renderThemeOption('dark', '深色模式', '🌙')}
-            {renderThemeOption('auto', '跟随系统', '🔄')}
+            {renderThemeOption('light', t('settings.themeLight'), '☀️')}
+            {renderThemeOption('dark', t('settings.themeDark'), '🌙')}
+            {renderThemeOption('auto', t('settings.themeAuto'), '🔄')}
           </View>
         </Card>
 
         {/* 关于 */}
         <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>关于应用</Text>
-          <Text style={[styles.appName, { color: theme.colors.blueHour }]}>BlueHour - 摄影助手</Text>
-          <Text style={[styles.version, { color: theme.colors.textSecondary }]}>版本 1.0.0</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.about')}</Text>
+          <Text style={[styles.appName, { color: theme.colors.blueHour }]}>{t('settings.appName')}</Text>
+          <Text style={[styles.version, { color: theme.colors.textSecondary }]}>{t('settings.version')} 1.0.0</Text>
           <Text style={[styles.description, { color: theme.colors.text }]}>
-            专为摄影爱好者设计的工具应用，帮助您规划完美的拍摄时间，
-            轻松计算曝光参数、ND 滤镜和景深。
+            {t('settings.description')}
           </Text>
         </Card>
 
         {/* 功能说明 */}
         <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>功能</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.features')}</Text>
           
           <View style={styles.featureItem}>
             <Text style={styles.featureIcon}>🌅</Text>
             <View style={styles.featureContent}>
-              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>蓝调时刻规划器</Text>
+              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t('settings.featureList.blueHour.title')}</Text>
               <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                获取黄金时刻和蓝色时刻的精确时间
+                {t('settings.featureList.blueHour.description')}
               </Text>
             </View>
           </View>
@@ -95,9 +133,9 @@ const SettingsScreen: React.FC = () => {
           <View style={styles.featureItem}>
             <Text style={styles.featureIcon}>📷</Text>
             <View style={styles.featureContent}>
-              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>EV 曝光计算器</Text>
+              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t('settings.featureList.evCalculator.title')}</Text>
               <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                计算等效曝光，自由调整光圈、快门和 ISO
+                {t('settings.featureList.evCalculator.description')}
               </Text>
             </View>
           </View>
@@ -105,9 +143,9 @@ const SettingsScreen: React.FC = () => {
           <View style={styles.featureItem}>
             <Text style={styles.featureIcon}>⚫</Text>
             <View style={styles.featureContent}>
-              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>ND 滤镜计算器</Text>
+              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t('settings.featureList.ndFilter.title')}</Text>
               <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                计算使用 ND 滤镜后的快门速度，内置计时器
+                {t('settings.featureList.ndFilter.description')}
               </Text>
             </View>
           </View>
@@ -115,9 +153,9 @@ const SettingsScreen: React.FC = () => {
           <View style={styles.featureItem}>
             <Text style={styles.featureIcon}>🎯</Text>
             <View style={styles.featureContent}>
-              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>景深计算器</Text>
+              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t('settings.featureList.dof.title')}</Text>
               <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                计算清晰范围和超焦距，精确控制景深
+                {t('settings.featureList.dof.description')}
               </Text>
             </View>
           </View>
@@ -125,23 +163,23 @@ const SettingsScreen: React.FC = () => {
 
         {/* 数据来源 */}
         <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>数据来源</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.dataSource')}</Text>
           <Text style={[styles.infoText, { color: theme.colors.text }]}>
-            日出日落数据由 sunrise-sunset.org API 提供
+            {t('settings.dataSourceText')}
           </Text>
         </Card>
 
         {/* 联系方式 */}
         <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>反馈与支持</Text>
+          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.feedbackSupport')}</Text>
           <AppButton
-            title="GitHub"
+            title={t('settings.github')}
             onPress={handleOpenGitHub}
             variant="outline"
             style={styles.button}
           />
           <AppButton
-            title="联系支持"
+            title={t('settings.contactSupport')}
             onPress={handleContactSupport}
             variant="outline"
             style={styles.button}
@@ -151,10 +189,10 @@ const SettingsScreen: React.FC = () => {
         {/* 版权信息 */}
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: theme.colors.textSecondary }]}>
-            © 2025 BlueHour Photography Tools
+            {t('settings.copyright')}
           </Text>
           <Text style={[styles.footerText, { color: theme.colors.textSecondary }]}>
-            用 ❤️ 为摄影爱好者打造
+            {t('settings.madeWithLove')}
           </Text>
         </View>
       </View>

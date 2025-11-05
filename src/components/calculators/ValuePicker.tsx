@@ -8,6 +8,7 @@ import {
   FlatList,
   Dimensions,
 } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { Colors } from '../../constants/Colors';
 import { Layout } from '../../constants/Layout';
 
@@ -33,6 +34,7 @@ export function ValuePicker<T>({
   disabled = false,
   formatValue,
 }: ValuePickerProps<T>) {
+  const { t } = useTranslation();
   const [modalVisible, setModalVisible] = useState(false);
 
   const displayValue = formatValue
@@ -70,7 +72,7 @@ export function ValuePicker<T>({
           <View style={styles.modalContent}>
             {/* 标题栏 */}
             <View style={styles.modalHeader}>
-              <Text style={styles.modalTitle}>选择 {label}</Text>
+              <Text style={styles.modalTitle}>{t('common.select')} {label}</Text>
               <TouchableOpacity
                 style={styles.closeButton}
                 onPress={() => setModalVisible(false)}

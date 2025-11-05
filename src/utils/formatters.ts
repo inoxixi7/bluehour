@@ -1,4 +1,5 @@
 // 格式化工具函数
+import i18n from '../locales/i18n';
 
 /**
  * 格式化快门速度显示
@@ -6,19 +7,21 @@
  * @returns 格式化的字符串
  */
 export const formatShutterSpeed = (seconds: number): string => {
+  const t = i18n.t.bind(i18n);
+  
   if (seconds >= 1) {
     if (seconds >= 60) {
       const minutes = Math.floor(seconds / 60);
       const remainingSeconds = seconds % 60;
       if (remainingSeconds === 0) {
-        return `${minutes}分钟`;
+        return `${minutes}${t('common.units.minutes')}`;
       }
-      return `${minutes}分${remainingSeconds}秒`;
+      return `${minutes}${t('common.units.min')}${remainingSeconds}${t('common.units.sec')}`;
     }
-    return seconds === 1 ? '1秒' : `${seconds}秒`;
+    return seconds === 1 ? `1${t('common.units.second')}` : `${seconds}${t('common.units.seconds')}`;
   } else {
     const denominator = Math.round(1 / seconds);
-    return `1/${denominator}秒`;
+    return `1/${denominator}${t('common.units.sec')}`;
   }
 };
 
@@ -46,16 +49,18 @@ export const formatISO = (iso: number): string => {
  * @returns 格式化的字符串
  */
 export const formatDistance = (meters: number): string => {
+  const t = i18n.t.bind(i18n);
+  
   if (meters === Infinity) {
     return '∞';
   }
   if (meters < 1) {
-    return `${(meters * 100).toFixed(0)}cm`;
+    return `${(meters * 100).toFixed(0)}${t('common.units.cm')}`;
   }
   if (meters < 10) {
-    return `${meters.toFixed(2)}m`;
+    return `${meters.toFixed(2)}${t('common.units.m')}`;
   }
-  return `${meters.toFixed(1)}m`;
+  return `${meters.toFixed(1)}${t('common.units.m')}`;
 };
 
 /**
@@ -114,13 +119,14 @@ export const formatTimeWithSeconds = (date: Date): string => {
 /**
  * 格式化日期显示
  * @param date Date 对象
- * @returns YYYY年MM月DD日 格式
+ * @returns YYYY年MM月DD日 格式 (中文) 或 YYYY/MM/DD (其他)
  */
 export const formatDate = (date: Date): string => {
+  const t = i18n.t.bind(i18n);
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
-  return `${year}年${month}月${day}日`;
+  return `${year}${t('common.units.year')}${month}${t('common.units.month')}${day}${t('common.units.day')}`;
 };
 
 /**
@@ -138,15 +144,17 @@ export const formatDateTime = (date: Date): string => {
  * @returns 格式化的字符串
  */
 export const formatDuration = (minutes: number): string => {
+  const t = i18n.t.bind(i18n);
+  
   if (minutes < 60) {
-    return `${Math.round(minutes)}分钟`;
+    return `${Math.round(minutes)}${t('common.units.minutes')}`;
   }
   const hours = Math.floor(minutes / 60);
   const mins = Math.round(minutes % 60);
   if (mins === 0) {
-    return `${hours}小时`;
+    return `${hours}${t('common.units.hours')}`;
   }
-  return `${hours}小时${mins}分钟`;
+  return `${hours}${t('common.units.hours')}${mins}${t('common.units.minutes')}`;
 };
 
 /**

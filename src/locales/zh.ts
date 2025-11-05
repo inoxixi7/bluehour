@@ -1,0 +1,267 @@
+// 中文翻译
+export default {
+  common: {
+    loading: '加载中...',
+    loadingPhase: '正在加载...',
+    fetchingPhaseInfo: '正在获取当前时段信息',
+    error: '错误',
+    retry: '重试',
+    cancel: '取消',
+    confirm: '确认',
+    save: '保存',
+    delete: '删除',
+    noResults: '未找到匹配的地点',
+    select: '选择',
+    evValue: '曝光值',
+    environment: '环境',
+    exposureConditions: {
+      veryDark: '极暗环境',
+      lowLight: '低光环境',
+      indoor: '室内光线',
+      overcast: '阴天户外',
+      shadedSunny: '晴天阴影',
+      sunny: '晴天直射',
+      veryBright: '极亮环境',
+    },
+    units: {
+      second: '秒',
+      seconds: '秒',
+      sec: '秒',
+      minute: '分钟',
+      minutes: '分钟',
+      min: '分',
+      hour: '小时',
+      hours: '小时',
+      cm: 'cm',
+      m: 'm',
+      year: '年',
+      month: '月',
+      day: '日',
+    },
+  },
+  
+  locationSearch: {
+    placeholder: '搜索地点',
+    noResults: '未找到匹配的地点',
+  },
+  
+  navigation: {
+    home: '主页',
+    sunTimes: '蓝调时刻',
+    calculator: '计算器',
+    settings: '设置',
+  },
+  
+  home: {
+    title: 'BlueHour',
+    subtitle: '摄影助手工具箱',
+    features: {
+      sunTimes: {
+        title: '蓝调时刻',
+        description: '查看日出日落、黄金时刻和蓝色时刻',
+      },
+      evCalculator: {
+        title: 'EV 曝光',
+        description: '计算等效曝光组合',
+      },
+      ndCalculator: {
+        title: 'ND 滤镜',
+        description: '计算长曝光快门速度',
+      },
+      dofCalculator: {
+        title: '景深计算',
+        description: '计算景深和超焦距',
+      },
+      settings: {
+        title: '设置',
+        description: '个性化您的应用体验',
+      },
+    },
+  },
+  
+  sunTimes: {
+    title: '日出日落时间',
+    searchPlaceholder: '搜索地点（支持多语言）',
+    refreshLocation: '刷新当前位置',
+    selectDate: '选择日期',
+    
+    // 时段名称
+    phases: {
+      astronomicalTwilightBegin: '天文晨昏蒙影开始',
+      nauticalTwilightBegin: '航海晨昏蒙影开始',
+      civilTwilightBegin: '民用晨昏蒙影开始',
+      morningBlueHourStart: '蓝色时刻开始',
+      morningBlueHourEnd: '蓝色时刻结束',
+      morningBlueHour: '早晨蓝调时刻',
+      sunrise: '日出',
+      morningGoldenHourStart: '黄金时刻开始',
+      morningGoldenHourEnd: '黄金时刻结束',
+      morningGoldenHour: '早晨黄金时刻',
+      solarNoon: '正午',
+      eveningGoldenHourStart: '黄金时刻开始',
+      eveningGoldenHourEnd: '黄金时刻结束',
+      eveningGoldenHour: '傍晚黄金时刻',
+      sunset: '日落',
+      eveningBlueHourStart: '蓝色时刻开始',
+      eveningBlueHourEnd: '蓝色时刻结束',
+      eveningBlueHour: '傍晚蓝调时刻',
+      civilTwilightEnd: '民用晨昏蒙影结束',
+      nauticalTwilightEnd: '航海晨昏蒙影结束',
+      astronomicalTwilightEnd: '天文晨昏蒙影结束',
+      daylight: '白天',
+      night: '夜晚',
+    },
+    
+    // 时段标签
+    morning: '早晨',
+    daytime: '白天',
+    evening: '傍晚',
+    
+    // 其他信息
+    otherInfo: '其他信息',
+    solarNoonLabel: '太阳正午',
+    dayLengthLabel: '白天时长',
+    
+    // 错误消息
+    errorTitle: '错误',
+    errorMessage: '获取日出日落时间失败',
+    unknownError: '未知错误',
+    
+    // 当前时段卡片
+    currentPhase: {
+      distanceTo: '距离{{phase}}还有 {{time}}',
+      tomorrows: '明天的',
+    },
+    
+    // 时间格式
+    timeFormat: {
+      hours: '{{count}} 小时',
+      minutes: '{{count}} 分钟',
+      hoursMinutes: '{{hours}} 小时 {{minutes}} 分钟',
+    },
+  },
+  
+  calculator: {
+    title: '摄影计算器',
+    evTitle: 'EV 计算器',
+    ndTitle: 'ND 滤镜',
+    dofTitle: '景深',
+    
+    // EV 计算器
+    ev: {
+      title: 'EV 曝光等效计算器',
+      description: '保持曝光量不变，自由调整光圈、快门和 ISO',
+      baseExposure: '基准曝光',
+      adjustExposure: '调整曝光',
+      aperture: '光圈',
+      shutter: '快门',
+      iso: 'ISO',
+      lockParam: '锁定参数',
+      calculate: '计算等效曝光',
+      resetToCurrent: '重置为当前值',
+    },
+    
+    // ND 滤镜计算器
+    nd: {
+      title: 'ND 滤镜计算器',
+      description: '计算使用 ND 滤镜后的快门速度,内置计时器',
+      originalShutter: '原始快门速度',
+      originalShutterHint: '(不使用 ND 滤镜时的测光值)',
+      ndStrength: 'ND 滤镜强度',
+      stops: '档',
+      newShutter: '新快门速度',
+      calculate: '计算',
+      startTimer: '开始计时',
+      stopTimer: '停止计时',
+      resetTimer: '重置',
+      timerTitle: '曝光计时器',
+      ready: '准备就绪',
+      exposing: '曝光中...',
+      complete: '曝光完成！',
+    },
+    
+    // 景深计算器
+    dof: {
+      title: '景深计算器',
+      description: '计算清晰范围和超焦距，精确控制景深',
+      focalLength: '焦距',
+      focalLengthUnit: 'mm',
+      aperture: '光圈',
+      focusDistance: '对焦距离',
+      focusDistanceUnit: '米',
+      sensorSize: '传感器尺寸',
+      sensors: {
+        fullFrame: '全画幅 (Full Frame)',
+        apscCanon: 'APS-C (Canon)',
+        apscNikonSony: 'APS-C (Nikon/Sony)',
+        m43: 'M4/3 (Micro Four Thirds)',
+        oneInch: '1" (CX)',
+      },
+      calculate: '计算景深',
+      results: '计算结果',
+      totalDof: '总景深',
+      nearLimit: '近端清晰距离',
+      farLimit: '远端清晰距离',
+      hyperfocal: '超焦距',
+      hyperfocalDesc: '对焦在此距离，可使从超焦距的一半到无限远都清晰',
+      tips: '使用技巧',
+      portraitTip: '人像摄影',
+      portraitDesc: '使用大光圈（如 f/1.8），景深浅，背景虚化',
+      landscapeTip: '风光摄影',
+      landscapeDesc: '使用小光圈（如 f/11），对焦在超焦距处，确保前景到远景都清晰',
+      streetTip: '街拍',
+      streetDesc: '使用中等光圈（如 f/5.6），平衡景深和快门速度',
+    },
+  },
+  
+  settings: {
+    title: '设置',
+    language: '语言',
+    theme: '主题',
+    appearance: '外观',
+    appearanceDescription: '选择您喜欢的主题模式',
+    themeLight: '浅色模式',
+    themeDark: '深色模式',
+    themeAuto: '跟随系统',
+    about: '关于应用',
+    aboutDescription: '应用信息和功能说明',
+    appName: 'BlueHour - 摄影助手',
+    version: '版本',
+    description: '专为摄影爱好者设计的工具应用，帮助您规划完美的拍摄时间，轻松计算曝光参数、ND 滤镜和景深。',
+    features: '功能',
+    support: '支持',
+    featureList: {
+      blueHour: {
+        title: '蓝调时刻规划器',
+        description: '获取黄金时刻和蓝色时刻的精确时间',
+      },
+      evCalculator: {
+        title: 'EV 曝光计算器',
+        description: '计算等效曝光，自由调整光圈、快门和 ISO',
+      },
+      ndFilter: {
+        title: 'ND 滤镜计算器',
+        description: '精确计算使用 ND 滤镜后的快门速度',
+      },
+      dof: {
+        title: '景深计算器',
+        description: '计算景深范围和超焦距，掌握清晰度控制',
+      },
+    },
+    
+    languages: {
+      zh: '中文',
+      en: 'English',
+      ja: '日本語',
+      de: 'Deutsch',
+    },
+    
+    dataSource: '数据来源',
+    dataSourceText: '日出日落数据由 sunrise-sunset.org API 提供',
+    feedbackSupport: '反馈与支持',
+    github: 'GitHub',
+    contactSupport: '联系支持',
+    copyright: '© 2025 BlueHour Photography Tools',
+    madeWithLove: '用 ❤️ 为摄影爱好者打造',
+  },
+};
