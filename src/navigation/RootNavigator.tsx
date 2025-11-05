@@ -11,6 +11,8 @@ import EVCalculator from '../screens/CalculatorScreen/tabs/EVCalculator';
 import NDCalculator from '../screens/CalculatorScreen/tabs/NDCalculator';
 import DoFCalculator from '../screens/CalculatorScreen/tabs/DoFCalculator';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
+import LanguageSelectionScreen from '../screens/SettingsScreen/LanguageSelectionScreen';
+import ThemeSelectionScreen from '../screens/SettingsScreen/ThemeSelectionScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -19,6 +21,8 @@ export type RootStackParamList = {
   NDCalculator: undefined;
   DoFCalculator: undefined;
   Settings: undefined;
+  LanguageSelection: undefined;
+  ThemeSelection: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -84,6 +88,20 @@ const RootNavigator: React.FC = () => {
         component={SettingsScreen}
         options={{
           title: t('settings.title'),
+        }}
+      />
+      <Stack.Screen
+        name="LanguageSelection"
+        component={LanguageSelectionScreen}
+        options={{
+          title: t('settings.language'),
+        }}
+      />
+      <Stack.Screen
+        name="ThemeSelection"
+        component={ThemeSelectionScreen}
+        options={{
+          title: t('settings.theme'),
         }}
       />
     </Stack.Navigator>

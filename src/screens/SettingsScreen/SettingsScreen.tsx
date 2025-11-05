@@ -1,15 +1,17 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Linking, TouchableOpacity } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { useNavigation } from '@react-navigation/native';
 import { Card } from '../../components/common/Card';
 import { AppButton } from '../../components/common/AppButton';
 import { useTheme, ThemeMode } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
-import { changeLanguage, SUPPORTED_LANGUAGES, LANGUAGE_NAMES, SupportedLanguage } from '../../locales/i18n';
+import { LANGUAGE_NAMES } from '../../locales/i18n';
 
 const SettingsScreen: React.FC = () => {
-  const { theme, themeMode, setThemeMode } = useTheme();
+  const { theme, themeMode } = useTheme();
   const { t, i18n } = useTranslation();
+  const navigation = useNavigation<any>();
   
   const handleOpenGitHub = () => {
     Linking.openURL('https://github.com/inoxixi7');
@@ -19,69 +21,15 @@ const SettingsScreen: React.FC = () => {
     Linking.openURL('mailto:support@example.com');
   };
 
-  const handleLanguageChange = async (language: SupportedLanguage) => {
-    await changeLanguage(language);
-  };
-
-  const renderLanguageOption = (language: SupportedLanguage) => {
-    const isSelected = i18n.language === language;
-    return (
-      <TouchableOpacity
-        key={language}
-        style={[
-          styles.themeOption,
-          isSelected && { 
-            backgroundColor: theme.colors.primary + '20',
-            borderColor: theme.colors.primary,
-          }
-        ]}
-        onPress={() => handleLanguageChange(language)}
-      >
-        <Text style={[
-          styles.themeLabel,
-          { color: theme.colors.text },
-          isSelected && { color: theme.colors.primary, fontWeight: '600' }
-        ]}>
-          {LANGUAGE_NAMES[language]}
-        </Text>
-        {isSelected && (
-          <Text style={{ color: theme.colors.primary, marginLeft: 'auto' }}>✓</Text>
-        )}
-      </TouchableOpacity>
-    );
-  };
-
-  const renderThemeOption = (mode: ThemeMode, label: string, icon: string) => {
-    const isSelected = themeMode === mode;
-    return (
-      <TouchableOpacity
-        style={[
-          styles.themeOption,
-          isSelected && { 
-            backgroundColor: theme.colors.primary + '20',
-            borderColor: theme.colors.primary,
-          }
-        ]}
-        onPress={() => setThemeMode(mode)}
-      >
-        <Text style={[
-          styles.themeIcon,
-          isSelected && { color: theme.colors.primary }
-        ]}>
-          {icon}
-        </Text>
-        <Text style={[
-          styles.themeLabel,
-          { color: theme.colors.text },
-          isSelected && { color: theme.colors.primary, fontWeight: '600' }
-        ]}>
-          {label}
-        </Text>
-        {isSelected && (
-          <Text style={{ color: theme.colors.primary, marginLeft: 'auto' }}>✓</Text>
-        )}
-      </TouchableOpacity>
-    );
+  const getThemeLabel = (mode: ThemeMode) => {
+    switch (mode) {
+      case 'light':
+        return t('settings.themeLight');
+      case 'dark':
+        return t('settings.themeDark');
+      case 'auto':
+        return t('settings.themeAuto');
+    }
   };
 
   return (
@@ -89,22 +37,44 @@ const SettingsScreen: React.FC = () => {
       <View style={styles.content}>
 
         {/* 语言设置 */}
-        <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.language')}</Text>
-          <View style={styles.themeOptions}>
-            {SUPPORTED_LANGUAGES.map(lang => renderLanguageOption(lang))}
-          </View>
-        </Card>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('LanguageSelection')}
+          activeOpacity={0.7}
+        >
+          <Card style={styles.card}>
+            <View style={styles.settingRow}>
+              <Text style={[styles.sectionTitle, styles.settingLabel, { color: theme.colors.accent }]}>
+                {t('settings.language')}
+              </Text>
+              <View style={styles.settingRight}>
+                <Text style={[styles.settingValue, { color: theme.colors.textSecondary }]}>
+                  {LANGUAGE_NAMES[i18n.language as keyof typeof LANGUAGE_NAMES] || i18n.language}
+                </Text>
+                <Text style={[styles.arrow, { color: theme.colors.textSecondary }]}>›</Text>
+              </View>
+            </View>
+          </Card>
+        </TouchableOpacity>
 
         {/* 主题设置 */}
-        <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.theme')}</Text>
-          <View style={styles.themeOptions}>
-            {renderThemeOption('light', t('settings.themeLight'), '☀️')}
-            {renderThemeOption('dark', t('settings.themeDark'), '🌙')}
-            {renderThemeOption('auto', t('settings.themeAuto'), '🔄')}
-          </View>
-        </Card>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ThemeSelection')}
+          activeOpacity={0.7}
+        >
+          <Card style={styles.card}>
+            <View style={styles.settingRow}>
+              <Text style={[styles.sectionTitle, styles.settingLabel, { color: theme.colors.accent }]}>
+                {t('settings.theme')}
+              </Text>
+              <View style={styles.settingRight}>
+                <Text style={[styles.settingValue, { color: theme.colors.textSecondary }]}>
+                  {getThemeLabel(themeMode)}
+                </Text>
+                <Text style={[styles.arrow, { color: theme.colors.textSecondary }]}>›</Text>
+              </View>
+            </View>
+          </Card>
+        </TouchableOpacity>
 
         {/* 关于 */}
         <Card style={styles.card}>
@@ -226,24 +196,29 @@ const styles = StyleSheet.create({
     marginBottom: Layout.spacing.md,
     lineHeight: 20,
   },
-  themeOptions: {
-    gap: Layout.spacing.sm,
-  },
-  themeOption: {
+  settingRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: Layout.spacing.md,
-    borderRadius: Layout.borderRadius.md,
-    borderWidth: 2,
-    borderColor: 'transparent',
-    marginBottom: Layout.spacing.sm,
+    justifyContent: 'space-between',
+    minHeight: 28, // 确保有足够的高度对齐
   },
-  themeIcon: {
-    fontSize: Layout.fontSize.xxl,
-    marginRight: Layout.spacing.md,
+  settingLabel: {
+    marginBottom: 0, // 覆盖 sectionTitle 的 marginBottom
+    lineHeight: 28, // 确保行高一致
   },
-  themeLabel: {
-    fontSize: Layout.fontSize.base,
+  settingRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Layout.spacing.sm,
+  },
+  settingValue: {
+    fontSize: Layout.fontSize.xl,
+    fontWeight: '600',
+    lineHeight: 28, // 与标题行高一致
+  },
+  arrow: {
+    fontSize: 24,
+    fontWeight: '300',
   },
   appName: {
     fontSize: Layout.fontSize.xxl,
