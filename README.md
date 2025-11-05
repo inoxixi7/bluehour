@@ -33,13 +33,23 @@
 - 超焦距计算，助力风光摄影
 - 显示对焦点前后景深分布
 
+## 🌍 多语言支持
+
+应用支持 4 种语言:
+- 🇨🇳 中文 (默认)
+- 🇺🇸 English
+- 🇯🇵 日本語
+- 🇩🇪 Deutsch
+
+所有翻译都经过精心调整，使用专业的摄影术语。详见 [多语言文档](docs/I18N.md)。
+
 ## 🛠 技术栈
 
 - **前端框架**：React Native + Expo
 - **语言**：TypeScript
 - **导航**：React Navigation (Bottom Tabs + Material Top Tabs)
 - **定位**：Expo Location
-- **后端**：Firebase（用户数据存储）
+- **国际化**：i18next + react-i18next
 - **API**：sunrise-sunset.org（日出日落数据）
 
 ## 📁 项目结构
@@ -150,13 +160,20 @@ Df = (s × (H - f)) / (H - s)
 ## 📝 待开发功能
 
 - [ ] 地图选点功能
-- [ ] 城市搜索
 - [ ] 日期选择器
 - [ ] 收藏地点
 - [ ] 曝光历史记录
-- [ ] 暗色/亮色主题切换
-- [ ] 多语言支持
 - [ ] 分享拍摄计划
+
+## 📚 文档
+
+- [快速开始指南](QUICK_START.md) - 环境配置和首次运行
+- [项目结构说明](PROJECT_STRUCTURE.md) - 代码组织和文件说明
+- [功能路线图](ROADMAP.md) - 已完成和计划中的功能
+- [多语言文档](docs/I18N.md) - i18n 实现和使用指南
+- [开发笔记](docs/DEVELOPMENT_NOTES.md) - 开发过程中的注意事项
+- [位置搜索](docs/LOCATION_SEARCH.md) - 位置搜索功能文档
+- [主题颜色](docs/THEME_COLORS.md) - 主题系统文档
 
 ## 🤝 贡献
 
