@@ -44,6 +44,24 @@ export const createStyles = (colors: ThemeColors) => StyleSheet.create({
   dateCard: {
     marginBottom: Layout.spacing.md,
   },
+  dateNavContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Layout.spacing.md,
+    backgroundColor: colors.card,
+    borderRadius: Layout.borderRadius.lg,
+    padding: Layout.spacing.sm,
+  },
+  navButton: {
+    padding: Layout.spacing.sm,
+    minWidth: 44,
+    alignItems: 'center',
+  },
+  navButtonText: {
+    fontSize: Layout.fontSize.xl,
+    fontWeight: 'bold',
+  },
   timelineCard: {
     marginBottom: Layout.spacing.md,
   },

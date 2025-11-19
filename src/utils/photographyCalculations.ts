@@ -42,54 +42,62 @@ export const calculateEquivalentExposure = (
   lockedParam: 'aperture' | 'shutter' | 'iso'
 ): EVEquivalentResult => {
   const baseEV = calculateEV(baseSettings.aperture, baseSettings.shutter, baseSettings.iso);
-  
+
   const result: EVEquivalentResult = {
     aperture: baseSettings.aperture,
     shutter: baseSettings.shutter,
     iso: baseSettings.iso,
     ev: baseEV,
   };
-  
+
   // 更新改变的参数
   result[changedParam] = newValue;
-  
-  // 计算档位差
+
+  // 计算档位差 (stops > 0 表示变暗了，需要补偿增加曝光)
   let stops = 0;
   switch (changedParam) {
     case 'aperture':
+      // log2(new^2 / base^2) -> 变大光圈值(f/2.8->f/4) -> 变暗 -> stops > 0
       stops = calculateStops(baseSettings.aperture * baseSettings.aperture, newValue * newValue);
       break;
     case 'shutter':
+      // log2(base / new) -> 变长快门(1s->2s) -> 变亮 -> stops < 0
       stops = calculateStops(newValue, baseSettings.shutter);
       break;
     case 'iso':
+      // log2(base / new) -> 变大ISO(100->200) -> 变亮 -> stops < 0
       stops = calculateStops(newValue, baseSettings.iso);
       break;
   }
-  
+
   // 确定需要调整的参数（除了改变的和锁定的之外的那个）
   const paramsArray: Array<'aperture' | 'shutter' | 'iso'> = ['aperture', 'shutter', 'iso'];
   const adjustParam = paramsArray.find(p => p !== changedParam && p !== lockedParam)!;
-  
+
   // 应用补偿
+  // stops > 0 (变暗了) -> 需要增加曝光
+  // stops < 0 (变亮了) -> 需要减少曝光
   switch (adjustParam) {
     case 'aperture':
-      // 光圈需要补偿相反的档位
+      // 光圈值越小越亮，所以指数为负
+      // 需要增加曝光(stops>0) -> 2^(-positive) < 1 -> 光圈值变小 -> 正确
       const newAperture = baseSettings.aperture * Math.pow(2, -stops / 2);
       result.aperture = findClosestAperture(newAperture);
       break;
     case 'shutter':
-      // 快门需要补偿相反的档位
-      const newShutter = baseSettings.shutter * Math.pow(2, -stops);
+      // 快门值越大越亮，所以指数为正
+      // 需要增加曝光(stops>0) -> 2^(positive) > 1 -> 快门时间变长 -> 正确
+      const newShutter = baseSettings.shutter * Math.pow(2, stops);
       result.shutter = findClosestShutter(newShutter);
       break;
     case 'iso':
-      // ISO 需要补偿相反的档位
-      const newISO = baseSettings.iso * Math.pow(2, -stops);
+      // ISO值越大越亮，所以指数为正
+      // 需要增加曝光(stops>0) -> 2^(positive) > 1 -> ISO变大 -> 正确
+      const newISO = baseSettings.iso * Math.pow(2, stops);
       result.iso = findClosestISO(newISO);
       break;
   }
-  
+
   return result;
 };
 
@@ -118,30 +126,30 @@ export const calculateDepthOfField = (
 ) => {
   // 将距离转换为 mm
   const distanceMM = distance * 1000;
-  
+
   // 超焦距 (mm)
   const hyperFocal = (focalLength * focalLength) / (aperture * coc) + focalLength;
-  
+
   // 景深近点 (mm)
-  const nearLimit = (distanceMM * (hyperFocal - focalLength)) / 
-                    (hyperFocal + distanceMM - 2 * focalLength);
-  
+  const nearLimit = (distanceMM * (hyperFocal - focalLength)) /
+    (hyperFocal + distanceMM - 2 * focalLength);
+
   // 景深远点 (mm)
   let farLimit: number;
   if (distanceMM < hyperFocal - focalLength) {
-    farLimit = (distanceMM * (hyperFocal - focalLength)) / 
-               (hyperFocal - distanceMM);
+    farLimit = (distanceMM * (hyperFocal - focalLength)) /
+      (hyperFocal - distanceMM);
   } else {
     farLimit = Infinity;
   }
-  
+
   // 总景深
   const totalDoF = farLimit === Infinity ? Infinity : (farLimit - nearLimit);
-  
+
   // 对焦点前后的景深
   const inFrontOfSubject = distanceMM - nearLimit;
   const behindSubject = farLimit === Infinity ? Infinity : (farLimit - distanceMM);
-  
+
   return {
     nearLimit: nearLimit / 1000,           // 转换为米
     farLimit: farLimit === Infinity ? Infinity : farLimit / 1000,
@@ -183,8 +191,8 @@ const findClosestAperture = (value: number): number => {
 
 // 辅助函数：找到最接近的快门速度
 const STANDARD_SHUTTERS = [
-  1/8000, 1/4000, 1/2000, 1/1000, 1/500, 1/250, 1/125, 1/60,
-  1/30, 1/15, 1/8, 1/4, 1/2, 1, 2, 4, 8, 15, 30, 60, 120, 240, 480, 900, 1800
+  1 / 8000, 1 / 4000, 1 / 2000, 1 / 1000, 1 / 500, 1 / 250, 1 / 125, 1 / 60,
+  1 / 30, 1 / 15, 1 / 8, 1 / 4, 1 / 2, 1, 2, 4, 8, 15, 30, 60, 120, 240, 480, 900, 1800
 ];
 
 const findClosestShutter = (value: number): number => {

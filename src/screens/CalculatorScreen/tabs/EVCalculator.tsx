@@ -1,59 +1,96 @@
 import React, { useState } from 'react';
-import { View, Text, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity, Modal, FlatList } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useTranslation } from 'react-i18next';
 import { Card } from '../../../components/common/Card';
-import { AppButton } from '../../../components/common/AppButton';
 import { useTheme } from '../../../contexts/ThemeContext';
 import { Layout } from '../../../constants/Layout';
-import { APERTURE_VALUES, SHUTTER_SPEEDS, ISO_VALUES } from '../../../constants/Photography';
+import { APERTURE_VALUES, SHUTTER_SPEEDS, ISO_VALUES, EV_SCENES, EVScene } from '../../../constants/Photography';
 import { calculateEquivalentExposure, calculateEV } from '../../../utils/photographyCalculations';
-import { formatAperture, formatShutterSpeed, formatISO, formatEV } from '../../../utils/formatters';
+import { formatEV, formatShutterSpeed } from '../../../utils/formatters';
 
 const EVCalculator: React.FC = () => {
   const { t } = useTranslation();
   const { theme } = useTheme();
-  // 基准曝光设置
-  const [baseAperture, setBaseAperture] = useState(5.6);
-  const [baseShutter, setBaseShutter] = useState(1/125);
-  const [baseISO, setBaseISO] = useState(100);
-
-  // 新的曝光设置
-  const [newAperture, setNewAperture] = useState(5.6);
-  const [newShutter, setNewShutter] = useState(1/125);
-  const [newISO, setNewISO] = useState(100);
+  
+  // 统一的曝光设置
+  const [aperture, setAperture] = useState(5.6);
+  const [shutter, setShutter] = useState(1/125);
+  const [iso, setISO] = useState(100);
 
   // 锁定的参数
   const [lockedParam, setLockedParam] = useState<'aperture' | 'shutter' | 'iso'>('iso');
 
-  // 计算等效曝光
-  const handleCalculate = () => {
-    // 找出改变的参数
-    let changedParam: 'aperture' | 'shutter' | 'iso' | null = null;
-    if (newAperture !== baseAperture) changedParam = 'aperture';
-    else if (newShutter !== baseShutter) changedParam = 'shutter';
-    else if (newISO !== baseISO) changedParam = 'iso';
+  // 场景选择模态框
+  const [showSceneModal, setShowSceneModal] = useState(false);
 
-    if (!changedParam) {
-      return; // 没有改变
-    }
+  // 实时计算等效曝光
+  const recalculate = (
+    changedParam: 'aperture' | 'shutter' | 'iso',
+    newValue: number
+  ) => {
+    if (changedParam === lockedParam) return;
 
     const result = calculateEquivalentExposure(
-      { aperture: baseAperture, shutter: baseShutter, iso: baseISO },
+      { aperture, shutter, iso },
       changedParam,
-      changedParam === 'aperture' ? newAperture : changedParam === 'shutter' ? newShutter : newISO,
+      newValue,
       lockedParam
     );
 
-    setNewAperture(result.aperture);
-    setNewShutter(result.shutter);
-    setNewISO(result.iso);
+    setAperture(result.aperture);
+    setShutter(result.shutter);
+    setISO(result.iso);
   };
 
-  const baseEV = calculateEV(baseAperture, baseShutter, baseISO);
-  const newEV = calculateEV(newAperture, newShutter, newISO);
+  const handleSceneSelect = (scene: EVScene) => {
+    setAperture(scene.params.aperture);
+    setShutter(scene.params.shutter);
+    setISO(scene.params.iso);
+    setShowSceneModal(false);
+  };
+
+  const currentEV = calculateEV(aperture, shutter, iso);
   
   const styles = createStyles(theme.colors);
+
+  const renderParamControl = (
+    param: 'aperture' | 'shutter' | 'iso',
+    value: number,
+    options: { label: string; value: number }[],
+    label: string
+  ) => {
+    const isLocked = lockedParam === param;
+
+    return (
+      <View style={styles.paramContainer}>
+        <View style={styles.paramHeader}>
+          <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>{label}</Text>
+          <TouchableOpacity 
+            onPress={() => setLockedParam(param)}
+            style={[styles.lockButton, isLocked && styles.lockButtonActive]}
+          >
+            <Text style={styles.lockIcon}>{isLocked ? '🔒' : '🔓'}</Text>
+          </TouchableOpacity>
+        </View>
+        
+        <View style={[styles.pickerWrapper, isLocked && styles.pickerDisabled]}>
+          <Picker
+            selectedValue={value}
+            onValueChange={(val) => recalculate(param, val)}
+            style={styles.picker}
+            itemStyle={{ color: theme.colors.text, fontSize: 16 }}
+            dropdownIconColor={theme.colors.text}
+            enabled={!isLocked}
+          >
+            {options.map(opt => (
+              <Picker.Item key={opt.label} label={opt.label} value={opt.value} color={theme.colors.text} />
+            ))}
+          </Picker>
+        </View>
+      </View>
+    );
+  };
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
@@ -63,127 +100,88 @@ const EVCalculator: React.FC = () => {
           {t('calculator.ev.description')}
         </Text>
 
-        {/* 基准曝光 */}
         <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('calculator.ev.baseExposure')}</Text>
-          <Text style={[styles.evText, { color: theme.colors.primary }]}>{formatEV(baseEV)}</Text>
-
-          <View style={[styles.paramRow, { borderBottomColor: theme.colors.divider }]}>
-            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.aperture')}:</Text>
-            <Text style={[styles.paramValue, { color: theme.colors.text }]}>{formatAperture(baseAperture)}</Text>
-          </View>
-          
-          <View style={[styles.paramRow, { borderBottomColor: theme.colors.divider }]}>
-            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.shutter')}:</Text>
-            <Text style={[styles.paramValue, { color: theme.colors.text }]}>{formatShutterSpeed(baseShutter)}</Text>
-          </View>
-          
-          <View style={[styles.paramRow, { borderBottomColor: theme.colors.divider }]}>
-            <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.iso')}:</Text>
-            <Text style={[styles.paramValue, { color: theme.colors.text }]}>{formatISO(baseISO)}</Text>
+          <View style={styles.evDisplay}>
+            <Text style={[styles.evLabel, { color: theme.colors.textSecondary }]}>EV</Text>
+            <Text style={[styles.evValue, { color: theme.colors.primary }]}>{formatEV(currentEV)}</Text>
+            
+            <TouchableOpacity 
+              style={[styles.sceneButton, { backgroundColor: theme.colors.backgroundSecondary }]}
+              onPress={() => setShowSceneModal(true)}
+            >
+              <Text style={[styles.sceneButtonText, { color: theme.colors.primary }]}>
+                📷 {t('calculator.ev.selectScene')}
+              </Text>
+            </TouchableOpacity>
           </View>
 
-          <AppButton
-            title={t('calculator.ev.resetToCurrent')}
-            onPress={() => {
-              setBaseAperture(newAperture);
-              setBaseShutter(newShutter);
-              setBaseISO(newISO);
-            }}
-            variant="outline"
-            size="small"
-            style={styles.resetButton}
-          />
+          {renderParamControl(
+            'aperture', 
+            aperture, 
+            APERTURE_VALUES.map(v => ({ label: `f/${v}`, value: v })), 
+            t('calculator.ev.aperture')
+          )}
+
+          {renderParamControl(
+            'shutter', 
+            shutter, 
+            SHUTTER_SPEEDS, 
+            t('calculator.ev.shutter')
+          )}
+
+          {renderParamControl(
+            'iso', 
+            iso, 
+            ISO_VALUES.map(v => ({ label: `ISO ${v}`, value: v })), 
+            t('calculator.ev.iso')
+          )}
+
         </Card>
 
-        {/* 新的曝光 */}
-        <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('calculator.ev.adjustExposure')}</Text>
-          <Text style={[styles.evText, { color: theme.colors.primary }]}>{formatEV(newEV)}</Text>
-
-          {/* 光圈选择 */}
-          <View style={styles.pickerContainer}>
-            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.aperture')}:</Text>
-            <View style={styles.picker}>
-              <Picker
-                selectedValue={newAperture}
-                onValueChange={(value) => setNewAperture(value)}
-                style={styles.pickerStyle}
-              >
-                {APERTURE_VALUES.map(val => (
-                  <Picker.Item key={val} label={`f/${val}`} value={val} />
-                ))}
-              </Picker>
-            </View>
-          </View>
-
-          {/* 快门选择 */}
-          <View style={styles.pickerContainer}>
-            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.shutter')}:</Text>
-            <View style={styles.picker}>
-              <Picker
-                selectedValue={newShutter}
-                onValueChange={(value) => setNewShutter(value)}
-                style={styles.pickerStyle}
-              >
-                {SHUTTER_SPEEDS.map(item => (
-                  <Picker.Item key={item.label} label={item.label} value={item.value} />
-                ))}
-              </Picker>
-            </View>
-          </View>
-
-          {/* ISO 选择 */}
-          <View style={styles.pickerContainer}>
-            <Text style={[styles.pickerLabel, { color: theme.colors.textSecondary }]}>{t('calculator.ev.iso')}:</Text>
-            <View style={styles.picker}>
-              <Picker
-                selectedValue={newISO}
-                onValueChange={(value) => setNewISO(value)}
-                style={styles.pickerStyle}
-              >
-                {ISO_VALUES.map(val => (
-                  <Picker.Item key={val} label={`ISO ${val}`} value={val} />
-                ))}
-              </Picker>
-            </View>
-          </View>
-
-          {/* 锁定参数选择 */}
-          <View style={styles.lockSection}>
-            <Text style={[styles.lockTitle, { color: theme.colors.textSecondary }]}>{t('calculator.ev.lockParam')}:</Text>
-            <View style={styles.lockButtons}>
-              <AppButton
-                title={t('calculator.ev.aperture')}
-                onPress={() => setLockedParam('aperture')}
-                variant={lockedParam === 'aperture' ? 'accent' : 'outline'}
-                size="small"
-                style={styles.lockButton}
-              />
-              <AppButton
-                title={t('calculator.ev.shutter')}
-                onPress={() => setLockedParam('shutter')}
-                variant={lockedParam === 'shutter' ? 'accent' : 'outline'}
-                size="small"
-                style={styles.lockButton}
-              />
-              <AppButton
-                title={t('calculator.ev.iso')}
-                onPress={() => setLockedParam('iso')}
-                variant={lockedParam === 'iso' ? 'accent' : 'outline'}
-                size="small"
-                style={styles.lockButton}
+        {/* Scene Selection Modal */}
+        <Modal
+          visible={showSceneModal}
+          animationType="slide"
+          transparent={true}
+          onRequestClose={() => setShowSceneModal(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <View style={[styles.modalContent, { backgroundColor: theme.colors.background }]}>
+              <View style={styles.modalHeader}>
+                <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
+                  {t('calculator.ev.selectScene')}
+                </Text>
+                <TouchableOpacity onPress={() => setShowSceneModal(false)}>
+                  <Text style={[styles.closeButton, { color: theme.colors.textSecondary }]}>✕</Text>
+                </TouchableOpacity>
+              </View>
+              
+              <FlatList
+                data={EV_SCENES}
+                keyExtractor={(item) => item.ev.toString()}
+                renderItem={({ item }) => (
+                  <TouchableOpacity 
+                    style={[styles.sceneItem, { borderBottomColor: theme.colors.divider }]}
+                    onPress={() => handleSceneSelect(item)}
+                  >
+                    <View style={styles.sceneIconContainer}>
+                      <Text style={styles.sceneIcon}>{item.icon}</Text>
+                    </View>
+                    <View style={styles.sceneInfo}>
+                      <View style={styles.sceneHeaderRow}>
+                        <Text style={[styles.sceneEv, { color: theme.colors.primary }]}>EV {item.ev}</Text>
+                        <Text style={[styles.sceneDescription, { color: theme.colors.text }]}>{t(item.descriptionKey)}</Text>
+                      </View>
+                      <Text style={[styles.sceneParams, { color: theme.colors.textSecondary }]}>
+                        f/{item.params.aperture} · {formatShutterSpeed(item.params.shutter)} · ISO {item.params.iso}
+                      </Text>
+                    </View>
+                  </TouchableOpacity>
+                )}
               />
             </View>
           </View>
-
-          <AppButton
-            title={t('calculator.ev.calculate')}
-            onPress={handleCalculate}
-            variant="accent"
-            style={styles.calculateButton}
-          />
-        </Card>
+        </Modal>
       </View>
     </ScrollView>
   );
@@ -206,68 +204,136 @@ const createStyles = (colors: any) => StyleSheet.create({
     marginBottom: Layout.spacing.lg,
   },
   card: {
+    padding: Layout.spacing.md,
+  },
+  evDisplay: {
+    alignItems: 'center',
     marginBottom: Layout.spacing.lg,
+    paddingBottom: Layout.spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.divider || '#e0e0e0',
   },
-  sectionTitle: {
+  evLabel: {
     fontSize: Layout.fontSize.lg,
+    fontWeight: '600',
+  },
+  evValue: {
+    fontSize: 48,
     fontWeight: 'bold',
+    includeFontPadding: false,
+  },
+  sceneButton: {
+    marginTop: Layout.spacing.sm,
+    paddingHorizontal: Layout.spacing.md,
+    paddingVertical: Layout.spacing.xs,
+    borderRadius: Layout.borderRadius.round,
+    borderWidth: 1,
+    borderColor: colors.primary,
+  },
+  sceneButtonText: {
+    fontSize: Layout.fontSize.sm,
+    fontWeight: '600',
+  },
+  paramContainer: {
     marginBottom: Layout.spacing.md,
   },
-  evText: {
-    fontSize: Layout.fontSize.title,
-    fontWeight: 'bold',
-    marginBottom: Layout.spacing.md,
-    textAlign: 'center',
-  },
-  paramRow: {
+  paramHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: Layout.spacing.sm,
-    borderBottomWidth: 1,
+    alignItems: 'center',
+    marginBottom: Layout.spacing.xs,
   },
   paramLabel: {
     fontSize: Layout.fontSize.base,
-  },
-  paramValue: {
-    fontSize: Layout.fontSize.base,
     fontWeight: '600',
   },
-  resetButton: {
-    marginTop: Layout.spacing.md,
+  lockButton: {
+    padding: 4,
+    borderRadius: 4,
   },
-  pickerContainer: {
-    marginBottom: Layout.spacing.md,
+  lockButtonActive: {
+    backgroundColor: colors.backgroundSecondary || '#f0f0f0',
   },
-  pickerLabel: {
-    fontSize: Layout.fontSize.base,
-    marginBottom: Layout.spacing.xs,
+  lockIcon: {
+    fontSize: 18,
   },
-  picker: {
-    backgroundColor: colors.backgroundSecondary,
+  pickerWrapper: {
+    backgroundColor: colors.backgroundSecondary || '#f5f5f5',
     borderRadius: Layout.borderRadius.md,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: 'transparent',
   },
-  pickerStyle: {
-    color: colors.text,
+  pickerDisabled: {
+    opacity: 0.5,
+    backgroundColor: '#e0e0e0',
   },
-  lockSection: {
-    marginTop: Layout.spacing.md,
-    marginBottom: Layout.spacing.md,
+  picker: {
   },
-  lockTitle: {
-    fontSize: Layout.fontSize.base,
-    marginBottom: Layout.spacing.sm,
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'flex-end',
   },
-  lockButtons: {
+  modalContent: {
+    borderTopLeftRadius: Layout.borderRadius.xl,
+    borderTopRightRadius: Layout.borderRadius.xl,
+    padding: Layout.spacing.md,
+    maxHeight: '80%',
+  },
+  modalHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Layout.spacing.md,
   },
-  lockButton: {
+  modalTitle: {
+    fontSize: Layout.fontSize.xl,
+    fontWeight: 'bold',
+  },
+  closeButton: {
+    fontSize: 24,
+    padding: Layout.spacing.xs,
+  },
+  sceneItem: {
+    flexDirection: 'row',
+    paddingVertical: Layout.spacing.md,
+    borderBottomWidth: 1,
+    alignItems: 'center',
+  },
+  sceneIconContainer: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: Layout.spacing.md,
+    backgroundColor: colors.backgroundSecondary,
+    borderRadius: Layout.borderRadius.round,
+  },
+  sceneIcon: {
+    fontSize: 24,
+  },
+  sceneInfo: {
     flex: 1,
-    marginHorizontal: Layout.spacing.xs,
   },
-  calculateButton: {
-    marginTop: Layout.spacing.md,
+  sceneHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  sceneEv: {
+    fontSize: Layout.fontSize.md,
+    fontWeight: 'bold',
+    marginRight: Layout.spacing.sm,
+    width: 50,
+  },
+  sceneDescription: {
+    fontSize: Layout.fontSize.md,
+    fontWeight: '600',
+    flex: 1,
+  },
+  sceneParams: {
+    fontSize: Layout.fontSize.sm,
   },
 });
 

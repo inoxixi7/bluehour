@@ -8,19 +8,19 @@ export const APERTURE_VALUES = [
 // 快门速度列表（秒）
 export const SHUTTER_SPEEDS = [
   // 高速快门
-  { value: 1/8000, label: '1/8000s' },
-  { value: 1/4000, label: '1/4000s' },
-  { value: 1/2000, label: '1/2000s' },
-  { value: 1/1000, label: '1/1000s' },
-  { value: 1/500, label: '1/500s' },
-  { value: 1/250, label: '1/250s' },
-  { value: 1/125, label: '1/125s' },
-  { value: 1/60, label: '1/60s' },
-  { value: 1/30, label: '1/30s' },
-  { value: 1/15, label: '1/15s' },
-  { value: 1/8, label: '1/8s' },
-  { value: 1/4, label: '1/4s' },
-  { value: 1/2, label: '1/2s' },
+  { value: 1 / 8000, label: '1/8000s' },
+  { value: 1 / 4000, label: '1/4000s' },
+  { value: 1 / 2000, label: '1/2000s' },
+  { value: 1 / 1000, label: '1/1000s' },
+  { value: 1 / 500, label: '1/500s' },
+  { value: 1 / 250, label: '1/250s' },
+  { value: 1 / 125, label: '1/125s' },
+  { value: 1 / 60, label: '1/60s' },
+  { value: 1 / 30, label: '1/30s' },
+  { value: 1 / 15, label: '1/15s' },
+  { value: 1 / 8, label: '1/8s' },
+  { value: 1 / 4, label: '1/4s' },
+  { value: 1 / 2, label: '1/2s' },
   { value: 1, label: '1s' },
   // 长曝光
   { value: 2, label: '2s' },
@@ -93,3 +93,37 @@ export const COC_BY_SENSOR: { [key: number]: number } = {
   2.0: 0.015,  // M4/3
   2.7: 0.011,  // 1"
 };
+
+// EV 场景参考表
+export interface EVScene {
+  ev: number;
+  descriptionKey: string;
+  icon: string;
+  params: { aperture: number; shutter: number; iso: number };
+}
+
+export const EV_SCENES: EVScene[] = [
+  { ev: 16, descriptionKey: 'calculator.ev.scenes.ev16', icon: '☀️', params: { aperture: 16, shutter: 1 / 250, iso: 100 } },
+  { ev: 15, descriptionKey: 'calculator.ev.scenes.ev15', icon: '☀️', params: { aperture: 16, shutter: 1 / 125, iso: 100 } },
+  { ev: 14, descriptionKey: 'calculator.ev.scenes.ev14', icon: '🌤️', params: { aperture: 11, shutter: 1 / 125, iso: 100 } },
+  { ev: 13, descriptionKey: 'calculator.ev.scenes.ev13', icon: '⛅', params: { aperture: 8, shutter: 1 / 125, iso: 100 } },
+  { ev: 12, descriptionKey: 'calculator.ev.scenes.ev12', icon: '☁️', params: { aperture: 5.6, shutter: 1 / 125, iso: 100 } },
+  { ev: 11, descriptionKey: 'calculator.ev.scenes.ev11', icon: '🌥️', params: { aperture: 4, shutter: 1 / 125, iso: 100 } },
+  { ev: 10, descriptionKey: 'calculator.ev.scenes.ev10', icon: '🌩️', params: { aperture: 2.8, shutter: 1 / 125, iso: 100 } },
+  { ev: 9, descriptionKey: 'calculator.ev.scenes.ev9', icon: '🏙️', params: { aperture: 2.8, shutter: 1 / 60, iso: 100 } },
+  { ev: 8, descriptionKey: 'calculator.ev.scenes.ev8', icon: '🌃', params: { aperture: 2.8, shutter: 1 / 30, iso: 100 } },
+  { ev: 7, descriptionKey: 'calculator.ev.scenes.ev7', icon: '💡', params: { aperture: 2.8, shutter: 1 / 15, iso: 100 } },
+  { ev: 6, descriptionKey: 'calculator.ev.scenes.ev6', icon: '🏠', params: { aperture: 2.8, shutter: 1 / 8, iso: 100 } },
+  { ev: 5, descriptionKey: 'calculator.ev.scenes.ev5', icon: '🏮', params: { aperture: 2.8, shutter: 1 / 4, iso: 100 } },
+  { ev: 4, descriptionKey: 'calculator.ev.scenes.ev4', icon: '🕯️', params: { aperture: 2.8, shutter: 1 / 2, iso: 100 } },
+  { ev: 3, descriptionKey: 'calculator.ev.scenes.ev3', icon: '🌕', params: { aperture: 2.8, shutter: 1, iso: 100 } },
+  { ev: 2, descriptionKey: 'calculator.ev.scenes.ev2', icon: '⚡', params: { aperture: 2.8, shutter: 2, iso: 100 } },
+  { ev: 1, descriptionKey: 'calculator.ev.scenes.ev1', icon: '🌆', params: { aperture: 2.8, shutter: 4, iso: 100 } },
+  { ev: 0, descriptionKey: 'calculator.ev.scenes.ev0', icon: '✨', params: { aperture: 2.8, shutter: 8, iso: 100 } },
+  { ev: -1, descriptionKey: 'calculator.ev.scenes.evMinus1', icon: '🌌', params: { aperture: 2.8, shutter: 15, iso: 100 } },
+  { ev: -2, descriptionKey: 'calculator.ev.scenes.evMinus2', icon: '🔭', params: { aperture: 2.8, shutter: 30, iso: 100 } },
+  { ev: -3, descriptionKey: 'calculator.ev.scenes.evMinus3', icon: '🌑', params: { aperture: 2.8, shutter: 60, iso: 100 } },
+  { ev: -4, descriptionKey: 'calculator.ev.scenes.evMinus4', icon: '🌑', params: { aperture: 2.8, shutter: 120, iso: 100 } },
+  { ev: -5, descriptionKey: 'calculator.ev.scenes.evMinus5', icon: '🌑', params: { aperture: 2.8, shutter: 240, iso: 100 } },
+  { ev: -6, descriptionKey: 'calculator.ev.scenes.evMinus6', icon: '🌑', params: { aperture: 2.8, shutter: 480, iso: 100 } },
+];

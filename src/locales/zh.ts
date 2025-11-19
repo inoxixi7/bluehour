@@ -39,19 +39,19 @@ export default {
       day: '日',
     },
   },
-  
+
   locationSearch: {
     placeholder: '搜索地点',
     noResults: '未找到匹配的地点',
   },
-  
+
   navigation: {
     home: '主页',
     sunTimes: '蓝调时刻',
     calculator: '计算器',
     settings: '设置',
   },
-  
+
   home: {
     title: 'BlueHour',
     subtitle: '摄影助手工具箱',
@@ -78,13 +78,13 @@ export default {
       },
     },
   },
-  
+
   sunTimes: {
     title: '日出日落时间',
     searchPlaceholder: '搜索地点（支持多语言）',
     refreshLocation: '刷新当前位置',
     selectDate: '选择日期',
-    
+
     // 时段名称
     phases: {
       astronomicalTwilightBegin: '天文晨昏蒙影开始',
@@ -111,28 +111,28 @@ export default {
       daylight: '白天',
       night: '夜晚',
     },
-    
+
     // 时段标签
     morning: '早晨',
     daytime: '白天',
     evening: '傍晚',
-    
+
     // 其他信息
     otherInfo: '其他信息',
     solarNoonLabel: '太阳正午',
     dayLengthLabel: '白天时长',
-    
+
     // 错误消息
     errorTitle: '错误',
     errorMessage: '获取日出日落时间失败',
     unknownError: '未知错误',
-    
+
     // 当前时段卡片
     currentPhase: {
       distanceTo: '距离{{phase}}还有 {{time}}',
       tomorrows: '明天的',
     },
-    
+
     // 时间格式
     timeFormat: {
       hours: '{{count}} 小时',
@@ -140,13 +140,13 @@ export default {
       hoursMinutes: '{{hours}} 小时 {{minutes}} 分钟',
     },
   },
-  
+
   calculator: {
     title: '摄影计算器',
     evTitle: 'EV 计算器',
     ndTitle: 'ND 滤镜',
     dofTitle: '景深',
-    
+
     // EV 计算器
     ev: {
       title: 'EV 曝光等效计算器',
@@ -159,8 +159,34 @@ export default {
       lockParam: '锁定参数',
       calculate: '计算等效曝光',
       resetToCurrent: '重置为当前值',
+      selectScene: '选择场景',
+      scenes: {
+        ev16: '雪地/沙滩强光',
+        ev15: '晴朗日光 (阳光16法则)',
+        ev14: '薄云/柔和日光',
+        ev13: '多云/阴影下',
+        ev12: '阴天/日出日落',
+        ev11: '深阴天/黄昏',
+        ev10: '日落后/暴风雨',
+        ev9: '蓝调时刻/灯火通明',
+        ev8: '城市夜景/篝火',
+        ev7: '室内人工照明',
+        ev6: '家庭室内/夜市',
+        ev5: '明亮路灯下',
+        ev4: '烛光/圣诞彩灯',
+        ev3: '月光下的风景',
+        ev2: '远处灯光/闪电',
+        ev1: '远处天际线',
+        ev0: '极暗/仅有星光',
+        evMinus1: '银河/极光 (需高ISO)',
+        evMinus2: '深空摄影',
+        evMinus3: '几乎完全黑暗',
+        evMinus4: '无月夜景',
+        evMinus5: '极暗环境',
+        evMinus6: '长时间曝光',
+      },
     },
-    
+
     // ND 滤镜计算器
     nd: {
       title: 'ND 滤镜计算器',
@@ -179,7 +205,7 @@ export default {
       exposing: '曝光中...',
       complete: '曝光完成！',
     },
-    
+
     // 景深计算器
     dof: {
       title: '景深计算器',
@@ -213,7 +239,7 @@ export default {
       streetDesc: '使用中等光圈（如 f/5.6），平衡景深和快门速度',
     },
   },
-  
+
   settings: {
     title: '设置',
     language: '语言',
@@ -255,14 +281,14 @@ export default {
         description: '计算景深范围和超焦距，掌握清晰度控制',
       },
     },
-    
+
     languages: {
       zh: '中文',
       en: 'English',
       ja: '日本語',
       de: 'Deutsch',
     },
-    
+
     dataSource: '数据来源',
     dataSourceText: '日出日落数据由 sunrise-sunset.org API 提供',
     feedbackSupport: '反馈与支持',

@@ -39,19 +39,19 @@ export default {
       day: '/',
     },
   },
-  
+
   locationSearch: {
     placeholder: 'Search location',
     noResults: 'No matching locations found',
   },
-  
+
   navigation: {
     home: 'Home',
     sunTimes: 'Blue Hour',
     calculator: 'Calculators',
     settings: 'Settings',
   },
-  
+
   home: {
     title: 'BlueHour',
     subtitle: 'Photography Assistant Toolkit',
@@ -78,13 +78,13 @@ export default {
       },
     },
   },
-  
+
   sunTimes: {
     title: 'Sunrise & Sunset Times',
     searchPlaceholder: 'Search location (Multi-language)',
     refreshLocation: 'Refresh Current Location',
     selectDate: 'Select Date',
-    
+
     // Phase names
     phases: {
       astronomicalTwilightBegin: 'Astronomical Twilight Begin',
@@ -111,28 +111,28 @@ export default {
       daylight: 'Daylight',
       night: 'Night',
     },
-    
+
     // Section labels
     morning: 'Morning',
     daytime: 'Daytime',
     evening: 'Evening',
-    
+
     // Other information
     otherInfo: 'Other Information',
     solarNoonLabel: 'Solar Noon',
     dayLengthLabel: 'Day Length',
-    
+
     // Error messages
     errorTitle: 'Error',
     errorMessage: 'Failed to fetch sunrise and sunset times',
     unknownError: 'Unknown error',
-    
+
     // Current phase card
     currentPhase: {
       distanceTo: '{{time}} until {{phase}}',
       tomorrows: "Tomorrow's ",
     },
-    
+
     // Time format
     timeFormat: {
       hours: '{{count}} hour',
@@ -142,13 +142,13 @@ export default {
       hoursMinutes: '{{hours}} hours {{minutes}} minutes',
     },
   },
-  
+
   calculator: {
     title: 'Photography Calculators',
     evTitle: 'EV Calculator',
     ndTitle: 'ND Filter',
     dofTitle: 'DoF',
-    
+
     // EV Calculator
     ev: {
       title: 'EV Exposure Calculator',
@@ -161,8 +161,34 @@ export default {
       lockParam: 'Lock Parameter',
       calculate: 'Calculate Equivalent Exposure',
       resetToCurrent: 'Reset to Current',
+      selectScene: 'Select Scene',
+      scenes: {
+        ev16: 'Snow / Sand (Bright Sun)',
+        ev15: 'Bright Sunny (Sunny 16 Rule)',
+        ev14: 'Hazy Sun / Soft Shadows',
+        ev13: 'Cloudy / Bright Overcast',
+        ev12: 'Overcast / Sunrise / Sunset',
+        ev11: 'Deep Shade / Twilight',
+        ev10: 'After Sunset / Stormy',
+        ev9: 'Blue Hour / Bright Night Street',
+        ev8: 'City Night / Bonfire',
+        ev7: 'Indoor Artificial Light',
+        ev6: 'Home Interior / Night Market',
+        ev5: 'Bright Street Light',
+        ev4: 'Candlelight / Christmas Lights',
+        ev3: 'Moonlit Landscape',
+        ev2: 'Distant Lights / Lightning',
+        ev1: 'Distant Skyline',
+        ev0: 'Very Dark / Starlight Only',
+        evMinus1: 'Milky Way / Aurora (High ISO)',
+        evMinus2: 'Deep Sky Astrophotography',
+        evMinus3: 'Total Darkness',
+        evMinus4: 'Moonless Night Landscape',
+        evMinus5: 'Extremely Dark Environment',
+        evMinus6: 'Long Exposure Art',
+      },
     },
-    
+
     // ND Filter Calculator
     nd: {
       title: 'ND Filter Calculator',
@@ -181,7 +207,7 @@ export default {
       exposing: 'Exposing...',
       complete: 'Exposure Complete!',
     },
-    
+
     // Depth of Field Calculator
     dof: {
       title: 'Depth of Field Calculator',
@@ -215,7 +241,7 @@ export default {
       streetDesc: 'Use moderate aperture (e.g., f/5.6) to balance depth of field and shutter speed',
     },
   },
-  
+
   settings: {
     title: 'Settings',
     language: 'Language',
@@ -239,7 +265,7 @@ export default {
     description: 'A tool app designed for photography enthusiasts to help you plan perfect shooting times and easily calculate exposure parameters, ND filters, and depth of field.',
     features: 'Features',
     support: 'Support',
-    
+
     featureList: {
       blueHour: {
         title: 'Blue Hour Planner',
@@ -258,14 +284,14 @@ export default {
         description: 'Calculate depth of field range and hyperfocal distance',
       },
     },
-    
+
     languages: {
       zh: '中文',
       en: 'English',
       ja: '日本語',
       de: 'Deutsch',
     },
-    
+
     dataSource: 'Data Source',
     dataSourceText: 'Sunrise and sunset data provided by sunrise-sunset.org API',
     feedbackSupport: 'Feedback & Support',

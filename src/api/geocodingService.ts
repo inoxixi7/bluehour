@@ -37,7 +37,7 @@ export const searchLocation = async (
     });
 
     const url = `${NOMINATIM_BASE_URL}/search?${params.toString()}`;
-    
+
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'BlueHourPhotoApp/1.0', // Nominatim 要求设置 User-Agent
@@ -49,7 +49,7 @@ export const searchLocation = async (
     }
 
     const data = await response.json();
-    
+
     // 转换为我们的格式
     const results: GeocodingResult[] = data.map((item: any) => ({
       name: item.name || item.display_name.split(',')[0],
@@ -87,7 +87,7 @@ export const reverseGeocode = async (
     });
 
     const url = `${NOMINATIM_BASE_URL}/reverse?${params.toString()}`;
-    
+
     const response = await fetch(url, {
       headers: {
         'User-Agent': 'BlueHourPhotoApp/1.0',
@@ -117,81 +117,102 @@ export const getTimezone = async (
   longitude: number
 ): Promise<{ timezone: string; offset: number }> => {
   try {
-    let timezone = 'UTC';
-
-    // 统一使用 timeapi.io 获取准确的时区（跨平台兼容）
-    console.log('🌐 查询时区:', latitude, longitude);
+    // 1. 优先尝试 Open-Meteo API (稳定、免费、无需key)
     try {
+      console.log('🌐 查询时区 (Open-Meteo):', latitude, longitude);
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 5000); // 5秒超时
-      
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+      const response = await fetch(
+        `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current_weather=true&timezone=auto`,
+        { signal: controller.signal }
+      );
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        const data = await response.json();
+        if (data.timezone) {
+          console.log('✅ 从 Open-Meteo 获取时区:', data.timezone);
+          return {
+            timezone: data.timezone,
+            offset: data.utc_offset_seconds / 60 // 秒 -> 分钟
+          };
+        }
+      }
+    } catch (e) {
+      console.warn('⚠️ Open-Meteo 请求失败，尝试备选方案:', e);
+    }
+
+    // 2. 备选: timeapi.io
+    try {
+      console.log('🌐 查询时区 (timeapi.io):', latitude, longitude);
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
       const response = await fetch(
         `https://timeapi.io/api/TimeZone/coordinate?latitude=${latitude}&longitude=${longitude}`,
         { signal: controller.signal }
       );
       clearTimeout(timeoutId);
-      
+
       if (response.ok) {
         const data = await response.json();
         if (data && data.timeZone) {
-          timezone = data.timeZone;
-          console.log('✅ 从 timeapi.io 获取时区:', timezone);
+          console.log('✅ 从 timeapi.io 获取时区:', data.timeZone);
+          // timeapi.io 不直接返回 offset 分钟数，需要计算或再次请求，这里我们只拿 timezone ID
+          // 下面会统一计算 offset
+          return {
+            timezone: data.timeZone,
+            offset: calculateOffset(data.timeZone)
+          };
         }
       }
     } catch (error) {
-      console.warn('⚠️ timeapi.io 请求失败，使用设备时区作为降级:', error);
-      // 降级到设备本地时区
-      timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
+      console.warn('⚠️ timeapi.io 请求失败:', error);
     }
 
-    // 使用 Intl API 获取准确的时区偏移量（分钟）
-    const now = new Date();
-    let offset = 0;
-
-    try {
-      const formatter = new Intl.DateTimeFormat('en-US', {
-        timeZone: timezone,
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false,
-        timeZoneName: 'longOffset'
-      });
-
-      const parts = formatter.formatToParts(now);
-      const timeZoneNamePart = parts.find(part => part.type === 'timeZoneName');
-
-      if (timeZoneNamePart && timeZoneNamePart.value) {
-        const match = timeZoneNamePart.value.match(/GMT([+-])(\d{2}):(\d{2})/);
-        if (match) {
-          const sign = match[1] === '+' ? 1 : -1;
-          const hours = parseInt(match[2], 10);
-          const minutes = parseInt(match[3], 10);
-          offset = sign * (hours * 60 + minutes);
-        }
-      }
-
-      // 如果解析失败，使用降级方案
-      if (!offset) {
-        offset = -now.getTimezoneOffset();
-      }
-    } catch (error) {
-      console.error('计算时区偏移量失败:', error);
-      offset = -now.getTimezoneOffset();
-    }
-
+    // 3. 降级方案: 使用设备本地时区
+    console.warn('⚠️ 所有时区 API 请求失败，使用设备时区作为降级');
+    const deviceTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
     return {
-      timezone,
-      offset,
+      timezone: deviceTimezone,
+      offset: calculateOffset(deviceTimezone)
     };
+
   } catch (error) {
     console.error('❌ Error getting timezone:', error);
     return {
       timezone: 'UTC',
       offset: 0,
     };
+  }
+};
+
+/**
+ * 根据时区 ID 计算当前 UTC 偏移量（分钟）
+ */
+const calculateOffset = (timezone: string): number => {
+  try {
+    const now = new Date();
+    const formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone: timezone,
+      timeZoneName: 'longOffset'
+    });
+
+    const parts = formatter.formatToParts(now);
+    const timeZoneNamePart = parts.find(part => part.type === 'timeZoneName');
+
+    if (timeZoneNamePart && timeZoneNamePart.value) {
+      const match = timeZoneNamePart.value.match(/GMT([+-])(\d{2}):(\d{2})/);
+      if (match) {
+        const sign = match[1] === '+' ? 1 : -1;
+        const hours = parseInt(match[2], 10);
+        const minutes = parseInt(match[3], 10);
+        return sign * (hours * 60 + minutes);
+      }
+    }
+    return -now.getTimezoneOffset();
+  } catch (e) {
+    return 0;
   }
 };
