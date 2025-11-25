@@ -88,6 +88,16 @@ export default {
         description: '言語・テーマなどをカスタマイズ。',
       },
     },
+    sections: {
+      sunPlannerAction: 'タイムラインを開く',
+      exposureLabAction: '露出ラボを開く',
+      calculatorShortcuts: '計算ツールへのショートカット',
+      toolsTitle: 'ツールと設定',
+      toolsDescription: '言語・テーマ・アプリ情報を素早く調整。',
+      languageShortcut: 'アプリの表示言語を切り替え。',
+      themeShortcut: 'ライト/ダーク/自動を切り替え。',
+      settingsShortcut: '設定とアプリ情報を開く。',
+    },
   },
   
   sunTimes: {

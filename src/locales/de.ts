@@ -77,6 +77,16 @@ export default {
         description: 'Personalisieren Sie Ihr App-Erlebnis',
       },
     },
+    sections: {
+      sunPlannerAction: 'Komplette Timeline öffnen',
+      exposureLabAction: 'Exposure Lab öffnen',
+      calculatorShortcuts: 'Rechner-Schnellzugriff',
+      toolsTitle: 'Tools & Einstellungen',
+      toolsDescription: 'Sprache, Design und App-Infos schnell anpassen.',
+      languageShortcut: 'App-Sprache sofort umschalten.',
+      themeShortcut: 'Hell, dunkel oder System folgen.',
+      settingsShortcut: 'Einstellungen und Infos öffnen.',
+    },
   },
   
   sunTimes: {

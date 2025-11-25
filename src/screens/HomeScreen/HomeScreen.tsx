@@ -90,26 +90,44 @@ const HomeScreen: React.FC = () => {
     }
   }, [phaseState, t]);
 
-  const featureCards = [
+  const calculatorShortcuts = [
     {
-      id: 'sunTimes',
-      title: t('home.features.sunTimeline.title'),
-      description: t('home.features.sunTimeline.description'),
-      icon: '🌅',
-      onPress: () => navigation.navigate('SunTimes'),
+      id: 'ev',
+      icon: '💡',
+      title: t('calculator.evTitle'),
     },
     {
-      id: 'exposureLab',
-      title: t('home.features.exposureLab.title'),
-      description: t('home.features.exposureLab.description'),
-      icon: '⏱️',
-      onPress: () => navigation.navigate('ExposureLab'),
+      id: 'nd',
+      icon: '🕶️',
+      title: t('calculator.ndTitle'),
+    },
+    {
+      id: 'dof',
+      icon: '🎯',
+      title: t('calculator.dofTitle'),
+    },
+  ];
+
+  const toolsItems = [
+    {
+      id: 'language',
+      icon: '🌐',
+      title: t('settings.language'),
+      description: t('home.sections.languageShortcut'),
+      onPress: () => navigation.navigate('LanguageSelection'),
+    },
+    {
+      id: 'theme',
+      icon: '🌓',
+      title: t('settings.theme'),
+      description: t('home.sections.themeShortcut'),
+      onPress: () => navigation.navigate('ThemeSelection'),
     },
     {
       id: 'settings',
-      title: t('home.features.settings.title'),
-      description: t('home.features.settings.description'),
       icon: '⚙️',
+      title: t('settings.title'),
+      description: t('home.sections.settingsShortcut'),
       onPress: () => navigation.navigate('Settings'),
     },
   ];
@@ -177,14 +195,48 @@ const HomeScreen: React.FC = () => {
               {locationError || sunError}
             </Text>
           )}
+          <View style={[styles.heroActionRow, { borderTopColor: theme.colors.border }]}> 
+            <View style={styles.heroActionInfo}>
+              <Text style={styles.heroActionIcon}>{quickActions.icon}</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.heroActionTitle, { color: theme.colors.text }]}> 
+                  {quickActions.title}
+                </Text>
+                <Text style={[styles.heroActionDescription, { color: theme.colors.textSecondary }]}> 
+                  {quickActions.description}
+                </Text>
+              </View>
+            </View>
+            <TouchableOpacity
+              style={[styles.heroActionButton, { backgroundColor: theme.colors.accent }]}
+              onPress={() => navigation.navigate('ExposureLab')}
+              activeOpacity={0.9}
+            >
+              <Text style={[styles.heroActionButtonText, { color: theme.colors.background }]}> 
+                {t('home.sections.exposureLabAction')}
+              </Text>
+            </TouchableOpacity>
+          </View>
         </Card>
 
         {timeline.length > 0 && (
-          <Card style={[styles.timelineCard, { backgroundColor: theme.colors.card }]}> 
-            <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-              {t('home.timeline.title')}
-            </Text>
-            {timeline.slice(0, 5).map((segment) => (
+          <Card style={[styles.sectionCard, { backgroundColor: theme.colors.card }]}> 
+            <View style={styles.cardHeader}>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+                  {t('home.features.sunTimeline.title')}
+                </Text>
+                <Text style={[styles.cardDescription, { color: theme.colors.textSecondary }]}> 
+                  {t('home.features.sunTimeline.description')}
+                </Text>
+              </View>
+              <TouchableOpacity onPress={() => navigation.navigate('SunTimes')}>
+                <Text style={[styles.cardAction, { color: theme.colors.accent }]}> 
+                  {t('home.sections.sunPlannerAction')}
+                </Text>
+              </TouchableOpacity>
+            </View>
+            {timeline.slice(0, 4).map((segment) => (
               <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
                 <View
                   style={[styles.timelineDot, { backgroundColor: theme.colors[segment.accent] || theme.colors.text }]}
@@ -202,37 +254,77 @@ const HomeScreen: React.FC = () => {
           </Card>
         )}
 
-        <TouchableOpacity
-          style={[styles.ctaCard, { backgroundColor: theme.colors.backgroundSecondary }]}
-          onPress={() => navigation.navigate('ExposureLab')}
-          activeOpacity={0.8}
-        >
-          <Text style={styles.ctaIcon}>{quickActions.icon}</Text>
-          <View style={{ flex: 1 }}>
-            <Text style={[styles.ctaTitle, { color: theme.colors.text }]}>{quickActions.title}</Text>
-            <Text style={[styles.ctaDescription, { color: theme.colors.textSecondary }]}>
-              {quickActions.description}
-            </Text>
-          </View>
-          <Text style={[styles.ctaChevron, { color: theme.colors.accent }]}>→</Text>
-        </TouchableOpacity>
-
-        <View style={styles.featureGrid}>
-          {featureCards.map((feature) => (
-            <TouchableOpacity
-              key={feature.id}
-              style={[styles.featureCard, { borderColor: theme.colors.border }]}
-              onPress={feature.onPress}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.featureIcon}>{feature.icon}</Text>
-              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{feature.title}</Text>
-              <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                {feature.description}
+        <Card style={[styles.sectionCard, { backgroundColor: theme.colors.card }]}> 
+          <View style={styles.cardHeader}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+                {t('home.features.exposureLab.title')}
+              </Text>
+              <Text style={[styles.cardDescription, { color: theme.colors.textSecondary }]}> 
+                {t('home.features.exposureLab.description')}
+              </Text>
+            </View>
+            <TouchableOpacity onPress={() => navigation.navigate('ExposureLab')}>
+              <Text style={[styles.cardAction, { color: theme.colors.accent }]}> 
+                {t('home.sections.exposureLabAction')}
               </Text>
             </TouchableOpacity>
+          </View>
+          <Text style={[styles.shortcutLabel, { color: theme.colors.textSecondary }]}> 
+            {t('home.sections.calculatorShortcuts')}
+          </Text>
+          <View style={styles.shortcutRow}>
+            {calculatorShortcuts.map((shortcut, index) => (
+              <TouchableOpacity
+                key={shortcut.id}
+                style={[
+                  styles.shortcutButton,
+                  { borderColor: theme.colors.border },
+                  index !== calculatorShortcuts.length - 1 && styles.shortcutSpacing,
+                ]}
+                onPress={() => navigation.navigate('ExposureLab')}
+                activeOpacity={0.85}
+              >
+                <Text style={styles.shortcutIcon}>{shortcut.icon}</Text>
+                <Text style={[styles.shortcutText, { color: theme.colors.text }]}>{shortcut.title}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </Card>
+
+        <Card style={[styles.sectionCard, { backgroundColor: theme.colors.card }]}> 
+          <View style={styles.cardHeader}>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+                {t('home.sections.toolsTitle')}
+              </Text>
+              <Text style={[styles.cardDescription, { color: theme.colors.textSecondary }]}> 
+                {t('home.sections.toolsDescription')}
+              </Text>
+            </View>
+          </View>
+          {toolsItems.map((item, index) => (
+            <TouchableOpacity
+              key={item.id}
+              style={[
+                styles.toolRow,
+                { borderColor: theme.colors.border },
+                index !== 0 && styles.toolRowDivider,
+              ]}
+              onPress={item.onPress}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.toolIcon}>{item.icon}</Text>
+              <View style={styles.toolTexts}>
+                <Text style={[styles.toolTitle, { color: theme.colors.text }]}>{item.title}</Text>
+                <Text style={[styles.toolDescription, { color: theme.colors.textSecondary }]}> 
+                  {item.description}
+                </Text>
+              </View>
+              <Text style={[styles.toolChevron, { color: theme.colors.textTertiary }]}>→</Text>
+            </TouchableOpacity>
           ))}
-        </View>
+        </Card>
 
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: theme.colors.textTertiary }]}>
@@ -319,15 +411,63 @@ const styles = StyleSheet.create({
     marginTop: Layout.spacing.sm,
     fontSize: Layout.fontSize.sm,
   },
-  timelineCard: {
+  heroActionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: Layout.spacing.lg,
+    paddingTop: Layout.spacing.lg,
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  heroActionInfo: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,
+  },
+  heroActionIcon: {
+    fontSize: 24,
+    marginRight: Layout.spacing.sm,
+  },
+  heroActionTitle: {
+    fontSize: Layout.fontSize.md,
+    fontWeight: '600',
+  },
+  heroActionDescription: {
+    marginTop: Layout.spacing.xs,
+    fontSize: Layout.fontSize.sm,
+  },
+  heroActionButton: {
+    paddingHorizontal: Layout.spacing.md,
+    paddingVertical: Layout.spacing.sm,
+    borderRadius: Layout.borderRadius.lg,
+    marginLeft: Layout.spacing.md,
+  },
+  heroActionButtonText: {
+    fontSize: Layout.fontSize.sm,
+    fontWeight: '600',
+  },
+  sectionCard: {
     padding: Layout.spacing.lg,
     borderRadius: Layout.borderRadius.lg,
     marginBottom: Layout.spacing.lg,
+  },
+  cardHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    marginBottom: Layout.spacing.md,
   },
   sectionTitle: {
     fontSize: Layout.fontSize.lg,
     fontWeight: '600',
     marginBottom: Layout.spacing.md,
+  },
+  cardDescription: {
+    fontSize: Layout.fontSize.sm,
+    marginTop: Layout.spacing.xs,
+  },
+  cardAction: {
+    fontSize: Layout.fontSize.sm,
+    fontWeight: '600',
   },
   timelineRow: {
     flexDirection: 'row',
@@ -347,55 +487,59 @@ const styles = StyleSheet.create({
   timelineTime: {
     fontSize: Layout.fontSize.sm,
   },
-  ctaCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: Layout.spacing.lg,
-    borderRadius: Layout.borderRadius.xl,
-    marginBottom: Layout.spacing.lg,
-  },
-  ctaIcon: {
-    fontSize: 32,
-    marginRight: Layout.spacing.md,
-  },
-  ctaTitle: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '600',
-  },
-  ctaDescription: {
-    marginTop: Layout.spacing.xs,
+  shortcutLabel: {
     fontSize: Layout.fontSize.sm,
-  },
-  ctaChevron: {
-    fontSize: Layout.fontSize.lg,
     fontWeight: '600',
-    marginLeft: Layout.spacing.sm,
-  },
-  featureGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginBottom: Layout.spacing.lg,
-  },
-  featureCard: {
-    width: '48%',
-    borderWidth: 1,
-    borderRadius: Layout.borderRadius.lg,
-    padding: Layout.spacing.lg,
-    marginBottom: Layout.spacing.md,
-  },
-  featureIcon: {
-    fontSize: 32,
     marginBottom: Layout.spacing.sm,
   },
-  featureTitle: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '600',
+  shortcutRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  shortcutButton: {
+    flex: 1,
+    borderWidth: 1,
+    borderRadius: Layout.borderRadius.lg,
+    paddingVertical: Layout.spacing.md,
+    alignItems: 'center',
+  },
+  shortcutSpacing: {
+    marginRight: Layout.spacing.sm,
+  },
+  shortcutIcon: {
+    fontSize: 28,
     marginBottom: Layout.spacing.xs,
   },
-  featureDescription: {
+  shortcutText: {
     fontSize: Layout.fontSize.sm,
-    lineHeight: 20,
+    textAlign: 'center',
+  },
+  toolRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    paddingVertical: Layout.spacing.md,
+  },
+  toolRowDivider: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+  },
+  toolIcon: {
+    fontSize: 24,
+    marginRight: Layout.spacing.md,
+  },
+  toolTexts: {
+    flex: 1,
+  },
+  toolTitle: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '600',
+  },
+  toolDescription: {
+    fontSize: Layout.fontSize.sm,
+    marginTop: Layout.spacing.xs,
+  },
+  toolChevron: {
+    fontSize: Layout.fontSize.lg,
+    marginLeft: Layout.spacing.sm,
   },
   footer: {
     alignItems: 'center',

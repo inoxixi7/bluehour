@@ -88,6 +88,16 @@ export default {
         description: 'Language, theme and personalization.',
       },
     },
+    sections: {
+      sunPlannerAction: 'Open full timeline',
+      exposureLabAction: 'Open Exposure Lab',
+      calculatorShortcuts: 'Calculator shortcuts',
+      toolsTitle: 'Tools & Settings',
+      toolsDescription: 'Fine-tune language, theme, and preferences.',
+      languageShortcut: 'Switch the app language instantly.',
+      themeShortcut: 'Toggle light, dark, or follow system.',
+      settingsShortcut: 'Open settings and about information.',
+    },
   },
 
   sunTimes: {

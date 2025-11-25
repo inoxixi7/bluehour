@@ -88,6 +88,16 @@ export default {
         description: '管理语言、主题与其他个性化选项。',
       },
     },
+    sections: {
+      sunPlannerAction: '打开完整时间轴',
+      exposureLabAction: '进入曝光实验室',
+      calculatorShortcuts: '计算器快捷入口',
+      toolsTitle: '工具与偏好',
+      toolsDescription: '快速调整语言、主题与应用信息。',
+      languageShortcut: '立即切换应用语言。',
+      themeShortcut: '在浅色、深色或跟随系统之间切换。',
+      settingsShortcut: '打开设置与关于页面。',
+    },
   },
 
   sunTimes: {
