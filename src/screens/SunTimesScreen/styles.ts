@@ -9,6 +9,7 @@ export const createStyles = (colors: ThemeColors) => StyleSheet.create({
   },
   contentContainer: {
     padding: Layout.spacing.md,
+    paddingTop: Layout.spacing.sm,
   },
   header: {
     marginBottom: Layout.spacing.lg,
@@ -44,14 +45,32 @@ export const createStyles = (colors: ThemeColors) => StyleSheet.create({
   dateCard: {
     marginBottom: Layout.spacing.md,
   },
-  dateNavContainer: {
+  dateListContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    marginTop: Layout.spacing.md,
     marginBottom: Layout.spacing.md,
-    backgroundColor: colors.card,
-    borderRadius: Layout.borderRadius.lg,
-    padding: Layout.spacing.sm,
+    gap: Layout.spacing.xs,
+  },
+  dateItem: {
+    flex: 1,
+    paddingVertical: Layout.spacing.sm,
+    paddingHorizontal: Layout.spacing.xs,
+    borderRadius: Layout.borderRadius.md,
+    alignItems: 'center',
+    borderWidth: 2,
+  },
+  dateDay: {
+    fontSize: Layout.fontSize.xs,
+    marginBottom: 2,
+  },
+  dateNumber: {
+    fontSize: Layout.fontSize.xl,
+    fontWeight: '700',
+    marginBottom: 2,
+  },
+  dateMonth: {
+    fontSize: Layout.fontSize.xs,
   },
   navButton: {
     padding: Layout.spacing.sm,
@@ -63,16 +82,16 @@ export const createStyles = (colors: ThemeColors) => StyleSheet.create({
     fontWeight: 'bold',
   },
   timelineCard: {
-    marginBottom: Layout.spacing.md,
+    marginBottom: Layout.spacing.sm,
   },
   infoCard: {
     marginBottom: Layout.spacing.xl,
   },
   sectionTitle: {
-    fontSize: Layout.fontSize.xl,
-    fontWeight: 'bold',
+    fontSize: Layout.fontSize.base,
+    fontWeight: '700',
     color: colors.accent,
-    marginBottom: Layout.spacing.md,
+    marginBottom: Layout.spacing.sm,
   },
   locationText: {
     fontSize: Layout.fontSize.base,
@@ -101,15 +120,15 @@ export const createStyles = (colors: ThemeColors) => StyleSheet.create({
   timeItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: Layout.spacing.sm,
+    paddingVertical: Layout.spacing.xs,
     borderBottomWidth: 1,
     borderBottomColor: colors.divider,
   },
   colorIndicator: {
-    width: 4,
-    height: 40,
-    borderRadius: 2,
-    marginRight: Layout.spacing.md,
+    width: 3,
+    height: 32,
+    borderRadius: 1.5,
+    marginRight: Layout.spacing.sm,
   },
   timeContent: {
     flex: 1,
@@ -121,16 +140,18 @@ export const createStyles = (colors: ThemeColors) => StyleSheet.create({
     fontSize: Layout.fontSize.base,
     color: colors.text,
     flex: 1,
+    fontWeight: '500',
   },
   timeValue: {
-    fontSize: Layout.fontSize.lg,
+    fontSize: Layout.fontSize.base,
     fontWeight: '600',
     color: colors.accent,
+    fontVariant: ['tabular-nums'],
   },
   infoRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: Layout.spacing.sm,
+    paddingVertical: Layout.spacing.xs,
   },
   infoLabel: {
     fontSize: Layout.fontSize.base,

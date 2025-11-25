@@ -7,15 +7,16 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
+import { useLocationData } from '../../contexts/LocationDataContext';
 import { Layout } from '../../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
-import { useLocation } from '../../hooks/useLocation';
-import { useSunTimes } from '../../hooks/useSunTimes';
 import { buildLightTimeline, getCurrentPhaseState, getNextBlueHourWindow } from '../../utils/lightPhases';
 import { formatDate, formatTime } from '../../utils/formatters';
 import { formatTimeCountdown } from '../../utils/i18nHelpers';
+import { formatLocationName } from '../../utils/locationHelpers';
 import { Card } from '../../components/common/Card';
 import { LoadingIndicator } from '../../components/common/LoadingIndicator';
 
@@ -27,22 +28,13 @@ const HomeScreen: React.FC = () => {
     location,
     locationName,
     timezoneInfo,
-    loading: locationLoading,
-    error: locationError,
-    getCurrentLocation,
-  } = useLocation();
-  const {
-    sunTimes,
-    loading: sunTimesLoading,
-    error: sunError,
-    fetchSunTimes,
-  } = useSunTimes();
+    getSunTimesForDate,
+    locationLoading,
+    sunTimesLoading,
+    locationError,
+  } = useLocationData();
 
-  useEffect(() => {
-    if (location && timezoneInfo.timezone) {
-      fetchSunTimes(location.latitude, location.longitude, new Date(), timezoneInfo.timezone);
-    }
-  }, [location, timezoneInfo.timezone, fetchSunTimes]);
+  const sunTimes = getSunTimesForDate(new Date());
 
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
   const now = new Date();
@@ -55,7 +47,7 @@ const HomeScreen: React.FC = () => {
     [sunTimes, now]
   );
 
-  const isLoading = (locationLoading || sunTimesLoading) && !sunTimes;
+  const isLoading = locationLoading || (sunTimesLoading && !sunTimes);
 
   const quickActions = useMemo(() => {
     if (!phaseState) {
@@ -90,47 +82,15 @@ const HomeScreen: React.FC = () => {
     }
   }, [phaseState, t]);
 
-  const calculatorShortcuts = [
-    {
-      id: 'ev',
-      icon: '💡',
-      title: t('calculator.evTitle'),
-    },
-    {
-      id: 'nd',
-      icon: '🕶️',
-      title: t('calculator.ndTitle'),
-    },
-    {
-      id: 'dof',
-      icon: '🎯',
-      title: t('calculator.dofTitle'),
-    },
-  ];
-
-  const toolsItems = [
-    {
-      id: 'language',
-      icon: '🌐',
-      title: t('settings.language'),
-      description: t('home.sections.languageShortcut'),
-      onPress: () => navigation.navigate('LanguageSelection'),
-    },
-    {
-      id: 'theme',
-      icon: '🌓',
-      title: t('settings.theme'),
-      description: t('home.sections.themeShortcut'),
-      onPress: () => navigation.navigate('ThemeSelection'),
-    },
-    {
-      id: 'settings',
-      icon: '⚙️',
-      title: t('settings.title'),
-      description: t('home.sections.settingsShortcut'),
-      onPress: () => navigation.navigate('Settings'),
-    },
-  ];
+  // Filter timeline to show only photography golden hours (blue hour and golden hour)
+  const photographyTimeline = useMemo(() => {
+    return timeline.filter(segment => 
+      segment.id === 'morningBlueHour' || 
+      segment.id === 'morningGoldenHour' || 
+      segment.id === 'eveningGoldenHour' || 
+      segment.id === 'eveningBlueHour'
+    );
+  }, [timeline]);
 
   if (isLoading) {
     return <LoadingIndicator message={t('common.loading')} />;
@@ -144,13 +104,18 @@ const HomeScreen: React.FC = () => {
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.header}>
-          <Text style={[styles.title, { color: theme.colors.text }]}>{t('home.title')}</Text>
-          <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-            {t('home.subtitle')}
-          </Text>
-          <Text style={[styles.dateText, { color: theme.colors.textTertiary }]}>
-            {formatDate(now)}
-          </Text>
+          <View style={styles.headerTop}>
+            <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
+              {locationName ? formatLocationName(locationName) : t('home.hero.waitingLocation')}
+            </Text>
+            <TouchableOpacity 
+              onPress={() => navigation.navigate('Settings')}
+              style={styles.headerButton}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="settings-outline" size={26} color={theme.colors.text} />
+            </TouchableOpacity>
+          </View>
         </View>
 
         <Card style={[styles.heroCard, { backgroundColor: theme.colors.card }]}> 
@@ -170,161 +135,60 @@ const HomeScreen: React.FC = () => {
               )}
             </View>
           </View>
-          <View style={styles.heroFooter}>
-            <Text style={[styles.heroLocation, { color: theme.colors.textSecondary }]}> 
-              📍 {locationName || t('home.hero.locating')}
-            </Text>
-            <TouchableOpacity onPress={getCurrentLocation}>
-              <Text style={[styles.refreshText, { color: theme.colors.accent }]}>
-                {t('home.hero.refreshLocation')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          {nextBlueHour && (
-            <View style={styles.heroNextRow}>
-              <Text style={[styles.heroNextLabel, { color: theme.colors.textSecondary }]}>
-                {t('home.hero.nextBlueHour')}
-              </Text>
-              <Text style={[styles.heroNextValue, { color: theme.colors.blueHour }]}>
-                {formatTime(nextBlueHour.start, timezoneInfo.timezone)} · {t(nextBlueHour.labelKey)}
-              </Text>
-            </View>
-          )}
-          {(locationError || sunError) && (
+          {locationError && (
             <Text style={[styles.errorText, { color: theme.colors.error }]}>
-              {locationError || sunError}
+              {locationError}
             </Text>
           )}
-          <View style={[styles.heroActionRow, { borderTopColor: theme.colors.border }]}> 
-            <View style={styles.heroActionInfo}>
-              <Text style={styles.heroActionIcon}>{quickActions.icon}</Text>
-              <View style={{ flex: 1 }}>
-                <Text style={[styles.heroActionTitle, { color: theme.colors.text }]}> 
-                  {quickActions.title}
-                </Text>
-                <Text style={[styles.heroActionDescription, { color: theme.colors.textSecondary }]}> 
-                  {quickActions.description}
-                </Text>
-              </View>
-            </View>
-            <TouchableOpacity
-              style={[styles.heroActionButton, { backgroundColor: theme.colors.accent }]}
-              onPress={() => navigation.navigate('ExposureLab')}
-              activeOpacity={0.9}
-            >
-              <Text style={[styles.heroActionButtonText, { color: theme.colors.background }]}> 
-                {t('home.sections.exposureLabAction')}
-              </Text>
-            </TouchableOpacity>
-          </View>
         </Card>
 
-        {timeline.length > 0 && (
-          <Card style={[styles.sectionCard, { backgroundColor: theme.colors.card }]}> 
-            <View style={styles.cardHeader}>
-              <View style={{ flex: 1 }}>
-                <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-                  {t('home.features.sunTimeline.title')}
+        {photographyTimeline.length > 0 && (
+            <Card style={[styles.timelineCard, { backgroundColor: theme.colors.card }]}>
+              <TouchableOpacity 
+                onPress={() => navigation.navigate('SunTimes')}
+                activeOpacity={0.7}
+                style={styles.timelineTitleRow}
+              >
+                <Text style={[styles.timelineTitle, { color: theme.colors.text }]}>
+                  {t('home.timeline.title')}
                 </Text>
-                <Text style={[styles.cardDescription, { color: theme.colors.textSecondary }]}> 
-                  {t('home.features.sunTimeline.description')}
-                </Text>
-              </View>
-              <TouchableOpacity onPress={() => navigation.navigate('SunTimes')}>
-                <Text style={[styles.cardAction, { color: theme.colors.accent }]}> 
-                  {t('home.sections.sunPlannerAction')}
-                </Text>
+                <Ionicons name="ellipsis-horizontal" size={20} color={theme.colors.textSecondary} />
               </TouchableOpacity>
-            </View>
-            {timeline.slice(0, 4).map((segment) => (
-              <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
-                <View
-                  style={[styles.timelineDot, { backgroundColor: theme.colors[segment.accent] || theme.colors.text }]}
-                />
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.timelineLabel, { color: theme.colors.text }]}> 
-                    {segment.icon} {t(segment.labelKey)}
+              {photographyTimeline.map((segment) => (
+                <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
+                  <View
+                    style={[styles.timelineDot, { backgroundColor: theme.colors[segment.accent] || theme.colors.text }]}
+                  />
+                  <Text style={[styles.timelineLabel, { color: theme.colors.text }]}>
+                    {t(segment.labelKey)}
                   </Text>
                   <Text style={[styles.timelineTime, { color: theme.colors.textSecondary }]}>
                     {formatTime(segment.start, timezoneInfo.timezone)} — {formatTime(segment.end, timezoneInfo.timezone)}
                   </Text>
                 </View>
-              </View>
-            ))}
-          </Card>
+              ))}
+            </Card>
         )}
 
-        <Card style={[styles.sectionCard, { backgroundColor: theme.colors.card }]}> 
-          <View style={styles.cardHeader}>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-                {t('home.features.exposureLab.title')}
-              </Text>
-              <Text style={[styles.cardDescription, { color: theme.colors.textSecondary }]}> 
-                {t('home.features.exposureLab.description')}
-              </Text>
-            </View>
-            <TouchableOpacity onPress={() => navigation.navigate('ExposureLab')}>
-              <Text style={[styles.cardAction, { color: theme.colors.accent }]}> 
-                {t('home.sections.exposureLabAction')}
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <Text style={[styles.shortcutLabel, { color: theme.colors.textSecondary }]}> 
-            {t('home.sections.calculatorShortcuts')}
-          </Text>
-          <View style={styles.shortcutRow}>
-            {calculatorShortcuts.map((shortcut, index) => (
-              <TouchableOpacity
-                key={shortcut.id}
-                style={[
-                  styles.shortcutButton,
-                  { borderColor: theme.colors.border },
-                  index !== calculatorShortcuts.length - 1 && styles.shortcutSpacing,
-                ]}
-                onPress={() => navigation.navigate('ExposureLab')}
-                activeOpacity={0.85}
-              >
-                <Text style={styles.shortcutIcon}>{shortcut.icon}</Text>
-                <Text style={[styles.shortcutText, { color: theme.colors.text }]}>{shortcut.title}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-        </Card>
-
-        <Card style={[styles.sectionCard, { backgroundColor: theme.colors.card }]}> 
-          <View style={styles.cardHeader}>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-                {t('home.sections.toolsTitle')}
-              </Text>
-              <Text style={[styles.cardDescription, { color: theme.colors.textSecondary }]}> 
-                {t('home.sections.toolsDescription')}
-              </Text>
-            </View>
-          </View>
-          {toolsItems.map((item, index) => (
-            <TouchableOpacity
-              key={item.id}
-              style={[
-                styles.toolRow,
-                { borderColor: theme.colors.border },
-                index !== 0 && styles.toolRowDivider,
-              ]}
-              onPress={item.onPress}
-              activeOpacity={0.8}
-            >
-              <Text style={styles.toolIcon}>{item.icon}</Text>
-              <View style={styles.toolTexts}>
-                <Text style={[styles.toolTitle, { color: theme.colors.text }]}>{item.title}</Text>
-                <Text style={[styles.toolDescription, { color: theme.colors.textSecondary }]}> 
-                  {item.description}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('ExposureLab')}
+          activeOpacity={0.9}
+        >
+          <Card style={[styles.labCard, { backgroundColor: theme.colors.card }]}>
+            <View style={styles.labHeader}>
+              <Ionicons name="flask-outline" size={32} color={theme.colors.accent} style={{ marginRight: 12 }} />
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.labTitle, { color: theme.colors.text }]}>
+                  {t('home.features.exposureLab.title')}
+                </Text>
+                <Text style={[styles.labDescription, { color: theme.colors.textSecondary }]}>
+                  {t('home.features.exposureLab.description')}
                 </Text>
               </View>
-              <Text style={[styles.toolChevron, { color: theme.colors.textTertiary }]}>→</Text>
-            </TouchableOpacity>
-          ))}
-        </Card>
+              <Ionicons name="chevron-forward" size={24} color={theme.colors.accent} />
+            </View>
+          </Card>
+        </TouchableOpacity>
 
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: theme.colors.textTertiary }]}>
@@ -345,12 +209,28 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flexGrow: 1,
-    padding: Layout.spacing.lg,
-    paddingBottom: Layout.spacing.xxl,
+    padding: Layout.spacing.md,
+    paddingBottom: Layout.spacing.xl,
   },
   header: {
     alignItems: 'center',
-    marginBottom: Layout.spacing.lg,
+    marginBottom: Layout.spacing.sm,
+  },
+  headerTop: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: Layout.spacing.sm,
+  },
+  headerTitle: {
+    fontSize: Layout.fontSize.lg,
+    fontWeight: '700',
+    flex: 1,
+  },
+  headerButton: {
+    padding: Layout.spacing.xs,
+    marginLeft: Layout.spacing.sm,
   },
   title: {
     fontSize: Layout.fontSize.hero,
@@ -365,185 +245,91 @@ const styles = StyleSheet.create({
   },
   heroCard: {
     borderRadius: Layout.borderRadius.xl,
-    padding: Layout.spacing.lg,
-    marginBottom: Layout.spacing.lg,
+    padding: Layout.spacing.md,
+    marginBottom: Layout.spacing.md,
   },
   heroRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: Layout.spacing.md,
+    marginBottom: 0,
   },
   heroEmoji: {
     fontSize: 48,
     marginRight: Layout.spacing.md,
   },
   heroPhase: {
-    fontSize: Layout.fontSize.xl,
-    fontWeight: '700',
+    fontSize: Layout.fontSize.lg,
+    fontWeight: '600',
   },
   heroCountdown: {
     marginTop: Layout.spacing.xs,
     fontSize: Layout.fontSize.sm,
-  },
-  heroFooter: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  heroLocation: {
-    fontSize: Layout.fontSize.sm,
-  },
-  refreshText: {
-    fontSize: Layout.fontSize.sm,
-    fontWeight: '600',
-  },
-  heroNextRow: {
-    marginTop: Layout.spacing.md,
-  },
-  heroNextLabel: {
-    fontSize: Layout.fontSize.sm,
-  },
-  heroNextValue: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '600',
+    lineHeight: 20,
   },
   errorText: {
     marginTop: Layout.spacing.sm,
     fontSize: Layout.fontSize.sm,
   },
-  heroActionRow: {
+  timelineCard: {
+    padding: Layout.spacing.md,
+    borderRadius: Layout.borderRadius.lg,
+    marginBottom: Layout.spacing.md,
+  },
+  timelineTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: Layout.spacing.lg,
-    paddingTop: Layout.spacing.lg,
-    borderTopWidth: StyleSheet.hairlineWidth,
-  },
-  heroActionInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
-  },
-  heroActionIcon: {
-    fontSize: 24,
-    marginRight: Layout.spacing.sm,
-  },
-  heroActionTitle: {
-    fontSize: Layout.fontSize.md,
-    fontWeight: '600',
-  },
-  heroActionDescription: {
-    marginTop: Layout.spacing.xs,
-    fontSize: Layout.fontSize.sm,
-  },
-  heroActionButton: {
-    paddingHorizontal: Layout.spacing.md,
-    paddingVertical: Layout.spacing.sm,
-    borderRadius: Layout.borderRadius.lg,
-    marginLeft: Layout.spacing.md,
-  },
-  heroActionButtonText: {
-    fontSize: Layout.fontSize.sm,
-    fontWeight: '600',
-  },
-  sectionCard: {
-    padding: Layout.spacing.lg,
-    borderRadius: Layout.borderRadius.lg,
-    marginBottom: Layout.spacing.lg,
-  },
-  cardHeader: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    marginBottom: Layout.spacing.md,
+    marginBottom: Layout.spacing.sm,
   },
-  sectionTitle: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '600',
-    marginBottom: Layout.spacing.md,
-  },
-  cardDescription: {
-    fontSize: Layout.fontSize.sm,
-    marginTop: Layout.spacing.xs,
-  },
-  cardAction: {
-    fontSize: Layout.fontSize.sm,
-    fontWeight: '600',
+  timelineTitle: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '700',
   },
   timelineRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: Layout.spacing.sm,
+    justifyContent: 'space-between',
+    marginBottom: Layout.spacing.xs,
+    paddingVertical: Layout.spacing.xs,
   },
   timelineDot: {
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    marginRight: Layout.spacing.md,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    marginRight: Layout.spacing.sm,
   },
   timelineLabel: {
     fontSize: Layout.fontSize.base,
-    fontWeight: '600',
+    fontWeight: '500',
+    flex: 1,
   },
   timelineTime: {
     fontSize: Layout.fontSize.sm,
+    fontWeight: '400',
+    textAlign: 'right',
+    fontVariant: ['tabular-nums'],
   },
-  shortcutLabel: {
-    fontSize: Layout.fontSize.sm,
-    fontWeight: '600',
-    marginBottom: Layout.spacing.sm,
-  },
-  shortcutRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  shortcutButton: {
-    flex: 1,
-    borderWidth: 1,
+  labCard: {
+    padding: Layout.spacing.md,
     borderRadius: Layout.borderRadius.lg,
-    paddingVertical: Layout.spacing.md,
+    marginBottom: Layout.spacing.md,
+  },
+  labHeader: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
-  shortcutSpacing: {
-    marginRight: Layout.spacing.sm,
-  },
-  shortcutIcon: {
-    fontSize: 28,
-    marginBottom: Layout.spacing.xs,
-  },
-  shortcutText: {
-    fontSize: Layout.fontSize.sm,
-    textAlign: 'center',
-  },
-  toolRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    paddingVertical: Layout.spacing.md,
-  },
-  toolRowDivider: {
-    borderTopWidth: StyleSheet.hairlineWidth,
-  },
-  toolIcon: {
-    fontSize: 24,
-    marginRight: Layout.spacing.md,
-  },
-  toolTexts: {
-    flex: 1,
-  },
-  toolTitle: {
+  labTitle: {
     fontSize: Layout.fontSize.base,
     fontWeight: '600',
+    marginBottom: Layout.spacing.xs,
   },
-  toolDescription: {
+  labDescription: {
     fontSize: Layout.fontSize.sm,
-    marginTop: Layout.spacing.xs,
-  },
-  toolChevron: {
-    fontSize: Layout.fontSize.lg,
-    marginLeft: Layout.spacing.sm,
+    lineHeight: 18,
   },
   footer: {
     alignItems: 'center',
-    paddingVertical: Layout.spacing.lg,
+    paddingVertical: Layout.spacing.md,
   },
   footerText: {
     fontSize: Layout.fontSize.sm,

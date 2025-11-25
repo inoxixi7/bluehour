@@ -57,8 +57,9 @@ export default {
     subtitle: '光と時間の相棒',
     hero: {
       waitingPhase: '本日の光を計算中...',
+      waitingLocation: '位置を取得中...',
       locating: '位置情報を取得中...',
-      refreshLocation: '現在地を更新',
+      refreshLocation: '位置情報を更新',
       nextBlueHour: '次のブルーアワー',
     },
     cta: {

@@ -10,6 +10,7 @@ import {
   Keyboard,
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
+import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { searchLocation, GeocodingResult } from '../../api/geocodingService';
@@ -73,12 +74,12 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 
   const renderResultItem = ({ item }: { item: GeocodingResult }) => {
     // 根据类型显示不同的图标
-    const getIcon = (type: string) => {
-      if (type.includes('city') || type.includes('town')) return '🏙️';
-      if (type.includes('village')) return '🏘️';
-      if (type.includes('country')) return '🌍';
-      if (type.includes('state')) return '📍';
-      return '📌';
+    const getIconName = (type: string): string => {
+      if (type.includes('city') || type.includes('town')) return 'business-outline';
+      if (type.includes('village')) return 'home-outline';
+      if (type.includes('country')) return 'globe-outline';
+      if (type.includes('state')) return 'location-outline';
+      return 'location-outline';
     };
 
     return (
@@ -87,7 +88,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
         onPress={() => handleSelectLocation(item)}
         activeOpacity={0.7}
       >
-        <Text style={styles.resultIcon}>{getIcon(item.type)}</Text>
+        <Ionicons name={getIconName(item.type) as any} size={24} color={theme.colors.accent} style={{ marginRight: 12 }} />
         <View style={styles.resultTextContainer}>
           <Text style={[styles.resultName, { color: theme.colors.text }]} numberOfLines={1}>
             {item.name}
@@ -106,7 +107,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
     <View style={styles.container}>
       <View style={styles.searchRow}>
         <View style={[styles.searchInputContainer, { backgroundColor: theme.colors.background, borderColor: theme.colors.border }]}>
-          <Text style={styles.searchIcon}>🔍</Text>
+          <Ionicons name="search" size={20} color={theme.colors.textTertiary} style={{ marginRight: 8 }} />
           <TextInput
             style={[styles.searchInput, { color: theme.colors.text }]}
             placeholder={placeholder || t('locationSearch.placeholder')}
@@ -120,30 +121,23 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
           {loading && <ActivityIndicator size="small" color={theme.colors.primary} />}
           {searchQuery.length > 0 && !loading && (
             <TouchableOpacity onPress={() => setSearchQuery('')} style={styles.clearButton}>
-              <Text style={styles.clearIcon}>✕</Text>
+              <Ionicons name="close" size={20} color={theme.colors.textSecondary} />
             </TouchableOpacity>
           )}
         </View>
-        
-        {onRefreshLocation && (
-          <TouchableOpacity
-            style={[styles.locationButton, { backgroundColor: theme.colors.primary }]}
-            onPress={onRefreshLocation}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.locationIcon}>📍</Text>
-          </TouchableOpacity>
-        )}
       </View>
 
-      {selectedLocation ? (
-        <View style={[styles.selectedLocationContainer, { backgroundColor: theme.colors.card, borderColor: theme.colors.primary }]}>
-          <Text style={styles.selectedLocationIcon}>📍</Text>
-          <Text style={[styles.selectedLocationText, { color: theme.colors.text }]} numberOfLines={2}>
-            {selectedLocation}
-          </Text>
-        </View>
-      ) : null}
+      {showResults && (
+        <TouchableOpacity 
+          style={styles.backdrop}
+          activeOpacity={1}
+          onPress={() => {
+            setShowResults(false);
+            setSearchQuery('');
+            Keyboard.dismiss();
+          }}
+        />
+      )}
 
       {showResults && results.length > 0 && (
         <View style={[styles.resultsContainer, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
@@ -173,12 +167,20 @@ const createStyles = (colors: any) =>
   StyleSheet.create({
     container: {
       width: '100%',
+      position: 'relative',
       zIndex: 1000,
+    },
+    backdrop: {
+      position: 'absolute',
+      top: 48,
+      left: -9999,
+      right: -9999,
+      bottom: -9999,
+      backgroundColor: 'rgba(0, 0, 0, 0.3)',
+      zIndex: 1,
     },
     searchRow: {
       flexDirection: 'row',
-      alignItems: 'center',
-      gap: Layout.spacing.sm,
     },
     searchInputContainer: {
       flex: 1,
@@ -188,22 +190,6 @@ const createStyles = (colors: any) =>
       borderRadius: Layout.borderRadius.md,
       paddingHorizontal: Layout.spacing.md,
       paddingVertical: Layout.spacing.sm,
-      marginBottom: Layout.spacing.sm,
-    },
-    locationButton: {
-      width: 48,
-      height: 48,
-      borderRadius: Layout.borderRadius.md,
-      justifyContent: 'center',
-      alignItems: 'center',
-      marginBottom: Layout.spacing.sm,
-    },
-    locationIcon: {
-      fontSize: 24,
-    },
-    searchIcon: {
-      fontSize: 18,
-      marginRight: Layout.spacing.sm,
     },
     searchInput: {
       flex: 1,
@@ -213,33 +199,21 @@ const createStyles = (colors: any) =>
     clearButton: {
       padding: Layout.spacing.xs,
     },
-    clearIcon: {
-      fontSize: 18,
-      color: colors.textSecondary,
-    },
-    selectedLocationContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      borderWidth: 2,
-      borderRadius: Layout.borderRadius.md,
-      padding: Layout.spacing.md,
-      marginBottom: Layout.spacing.md,
-    },
-    selectedLocationIcon: {
-      fontSize: 24,
-      marginRight: Layout.spacing.sm,
-    },
-    selectedLocationText: {
-      flex: 1,
-      fontSize: Layout.fontSize.md,
-      lineHeight: 20,
-    },
     resultsContainer: {
+      position: 'absolute',
+      top: 48,
+      left: 0,
+      right: 0,
       borderWidth: 1,
       borderRadius: Layout.borderRadius.md,
       maxHeight: 300,
-      marginBottom: Layout.spacing.md,
       overflow: 'hidden',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.15,
+      shadowRadius: 8,
+      elevation: 5,
+      zIndex: 2,
     },
     resultsList: {
       maxHeight: 300,
@@ -251,8 +225,9 @@ const createStyles = (colors: any) =>
       borderBottomWidth: 1,
     },
     resultIcon: {
-      fontSize: 24,
       marginRight: Layout.spacing.md,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     resultTextContainer: {
       flex: 1,
@@ -267,11 +242,20 @@ const createStyles = (colors: any) =>
       lineHeight: 18,
     },
     noResultsContainer: {
+      position: 'absolute',
+      top: 48,
+      left: 0,
+      right: 0,
       borderWidth: 1,
       borderRadius: Layout.borderRadius.md,
       padding: Layout.spacing.lg,
       alignItems: 'center',
-      marginBottom: Layout.spacing.md,
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.15,
+      shadowRadius: 8,
+      elevation: 5,
+      zIndex: 2,
     },
     noResultsText: {
       fontSize: Layout.fontSize.md,

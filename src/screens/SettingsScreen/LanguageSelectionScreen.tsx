@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Card } from '../../components/common/Card';
@@ -45,7 +46,7 @@ const LanguageSelectionScreen: React.FC = () => {
           {LANGUAGE_NAMES[language]}
         </Text>
         {isSelected && (
-          <Text style={[styles.checkmark, { color: theme.colors.primary }]}>✓</Text>
+          <Ionicons name="checkmark" size={24} color={theme.colors.primary} />
         )}
       </TouchableOpacity>
     );
@@ -97,11 +98,6 @@ const styles = StyleSheet.create({
   optionLabel: {
     fontSize: Layout.fontSize.lg,
     flex: 1,
-  },
-  checkmark: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginLeft: Layout.spacing.md,
   },
 });
 

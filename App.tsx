@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet, Text } from 'react-native';
 import RootNavigator from './src/navigation/RootNavigator';
 import { ThemeProvider, useTheme } from './src/contexts/ThemeContext';
+import { LocationDataProvider } from './src/contexts/LocationDataContext';
 import { initI18n } from './src/locales/i18n';
 
 function AppContent() {
@@ -57,7 +58,9 @@ const styles = StyleSheet.create({
 export default function App() {
   return (
     <ThemeProvider>
-      <AppContent />
+      <LocationDataProvider>
+        <AppContent />
+      </LocationDataProvider>
     </ThemeProvider>
   );
 }

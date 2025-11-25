@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Linking, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Card } from '../../components/common/Card';
@@ -50,7 +51,7 @@ const SettingsScreen: React.FC = () => {
                 <Text style={[styles.settingValue, { color: theme.colors.textSecondary }]}>
                   {LANGUAGE_NAMES[i18n.language as keyof typeof LANGUAGE_NAMES] || i18n.language}
                 </Text>
-                <Text style={[styles.arrow, { color: theme.colors.textSecondary }]}>›</Text>
+                <Ionicons name="chevron-forward" size={24} color={theme.colors.textSecondary} style={{ marginLeft: 8 }} />
               </View>
             </View>
           </Card>
@@ -70,7 +71,7 @@ const SettingsScreen: React.FC = () => {
                 <Text style={[styles.settingValue, { color: theme.colors.textSecondary }]}>
                   {getThemeLabel(themeMode)}
                 </Text>
-                <Text style={[styles.arrow, { color: theme.colors.textSecondary }]}>›</Text>
+                <Ionicons name="chevron-forward" size={24} color={theme.colors.textSecondary} style={{ marginLeft: 8 }} />
               </View>
             </View>
           </Card>
@@ -189,10 +190,6 @@ const styles = StyleSheet.create({
     fontSize: Layout.fontSize.xl,
     fontWeight: '600',
     lineHeight: 28, // 与标题行高一致
-  },
-  arrow: {
-    fontSize: 24,
-    fontWeight: '300',
   },
   appName: {
     fontSize: Layout.fontSize.xxl,

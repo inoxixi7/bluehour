@@ -57,6 +57,7 @@ export default {
     subtitle: '光线与时间的口袋伙伴',
     hero: {
       waitingPhase: '正在计算今日光线...',
+      waitingLocation: '获取位置中...',
       locating: '定位中...',
       refreshLocation: '更新定位',
       nextBlueHour: '下一次蓝调时刻',

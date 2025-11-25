@@ -56,9 +56,10 @@ export default {
     title: 'BlueHour',
     subtitle: 'Light & time companion',
     hero: {
-      waitingPhase: 'Calculating today’s light...',
+      waitingPhase: "Calculating today's light...",
+      waitingLocation: 'Getting location...',
       locating: 'Locating...',
-      refreshLocation: 'Update location',
+      refreshLocation: 'Update Location',
       nextBlueHour: 'Next blue hour',
     },
     cta: {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Card } from '../../components/common/Card';
@@ -16,23 +17,23 @@ const ThemeSelectionScreen: React.FC = () => {
     // 不自动返回,让用户自行选择
   };
 
-  const themeOptions: Array<{ mode: ThemeMode; label: string; icon: string; description: string }> = [
+  const themeOptions: Array<{ mode: ThemeMode; label: string; iconName: string; description: string }> = [
     {
       mode: 'light',
       label: t('settings.themeLight'),
-      icon: '☀️',
+      iconName: 'sunny-outline',
       description: t('settings.themeLightDesc'),
     },
     {
       mode: 'dark',
       label: t('settings.themeDark'),
-      icon: '🌙',
+      iconName: 'moon-outline',
       description: t('settings.themeDarkDesc'),
     },
     {
       mode: 'auto',
       label: t('settings.themeAuto'),
-      icon: '🔄',
+      iconName: 'phone-portrait-outline',
       description: t('settings.themeAutoDesc'),
     },
   ];
@@ -59,12 +60,12 @@ const ThemeSelectionScreen: React.FC = () => {
       >
         <View style={styles.optionContent}>
           <View style={styles.optionHeader}>
-            <Text style={[
+            <View style={[
               styles.icon,
               isSelected && { transform: [{ scale: 1.1 }] }
             ]}>
-              {option.icon}
-            </Text>
+              <Ionicons name={option.iconName as any} size={28} color={theme.colors.text} />
+            </View>
             <Text style={[
               styles.optionLabel,
               { color: theme.colors.text },
@@ -73,7 +74,7 @@ const ThemeSelectionScreen: React.FC = () => {
               {option.label}
             </Text>
             {isSelected && (
-              <Text style={[styles.checkmark, { color: theme.colors.primary }]}>✓</Text>
+              <Ionicons name="checkmark" size={24} color={theme.colors.primary} style={{ marginLeft: 'auto' }} />
             )}
           </View>
           <Text style={[styles.optionDescription, { color: theme.colors.textSecondary }]}>
@@ -133,15 +134,12 @@ const styles = StyleSheet.create({
     gap: Layout.spacing.md,
   },
   icon: {
-    fontSize: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   optionLabel: {
     fontSize: Layout.fontSize.lg,
     flex: 1,
-  },
-  checkmark: {
-    fontSize: 20,
-    fontWeight: 'bold',
   },
   optionDescription: {
     fontSize: Layout.fontSize.sm,
