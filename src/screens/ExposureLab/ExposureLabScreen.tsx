@@ -6,6 +6,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { Card } from '../../components/common/Card';
 import { AppButton } from '../../components/common/AppButton';
+import { HorizontalScrollPicker } from '../../components/common/HorizontalScrollPicker';
 import {
   APERTURE_VALUES,
   SHUTTER_SPEEDS,
@@ -160,28 +161,25 @@ const ExposureLabScreen: React.FC = () => {
     return (
       <View style={styles.paramBlock}>
         <View style={styles.paramHeader}>
-          <Text style={[styles.paramLabel, { color: theme.colors.text }]}>{label}</Text>
           <TouchableOpacity
             onPress={() => setLockedParam(param)}
             style={[styles.lockBadge, isLocked && { backgroundColor: theme.colors.primary }]}
           >
-            <Text style={[styles.lockText, { color: isLocked ? theme.colors.background : theme.colors.text }]}>
+            <Text style={[styles.lockText, { color: isLocked ? '#fff' : theme.colors.textSecondary }]}>
               {isLocked ? '🔒' : '🔓'}
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={[styles.pickerWrapper, { opacity: isLocked ? 0.4 : 1 }]}> 
-          <Picker
-            enabled={!isLocked}
-            selectedValue={value}
-            dropdownIconColor={theme.colors.text}
-            onValueChange={(itemValue) => handleParamChange(param, Number(itemValue))}
-          >
-            {options.map((option) => (
-              <Picker.Item key={`${param}-${option.value}`} label={option.label} value={option.value} />
-            ))}
-          </Picker>
-        </View>
+        <HorizontalScrollPicker
+          label={label}
+          options={options}
+          selectedValue={value}
+          onValueChange={(newValue) => handleParamChange(param, newValue)}
+          disabled={isLocked}
+          textColor={theme.colors.text}
+          accentColor={theme.colors.primary}
+          disabledColor={theme.colors.textSecondary}
+        />
       </View>
     );
   };
