@@ -89,46 +89,20 @@ const SettingsScreen: React.FC = () => {
         {/* 功能说明 */}
         <Card style={styles.card}>
           <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.features')}</Text>
-          
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>🌅</Text>
-            <View style={styles.featureContent}>
-              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t('settings.featureList.blueHour.title')}</Text>
-              <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                {t('settings.featureList.blueHour.description')}
-              </Text>
+          {[
+            { icon: '🌅', titleKey: 'settings.featureList.blueHour.title', descKey: 'settings.featureList.blueHour.description' },
+            { icon: '⏱️', titleKey: 'settings.featureList.exposureLab.title', descKey: 'settings.featureList.exposureLab.description' },
+          ].map((feature) => (
+            <View style={styles.featureItem} key={feature.titleKey}>
+              <Text style={styles.featureIcon}>{feature.icon}</Text>
+              <View style={styles.featureContent}>
+                <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t(feature.titleKey)}</Text>
+                <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
+                  {t(feature.descKey)}
+                </Text>
+              </View>
             </View>
-          </View>
-
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>📷</Text>
-            <View style={styles.featureContent}>
-              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t('settings.featureList.evCalculator.title')}</Text>
-              <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                {t('settings.featureList.evCalculator.description')}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>⚫</Text>
-            <View style={styles.featureContent}>
-              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t('settings.featureList.ndFilter.title')}</Text>
-              <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                {t('settings.featureList.ndFilter.description')}
-              </Text>
-            </View>
-          </View>
-
-          <View style={styles.featureItem}>
-            <Text style={styles.featureIcon}>🎯</Text>
-            <View style={styles.featureContent}>
-              <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t('settings.featureList.dof.title')}</Text>
-              <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                {t('settings.featureList.dof.description')}
-              </Text>
-            </View>
-          </View>
+          ))}
         </Card>
 
         {/* 数据来源 */}

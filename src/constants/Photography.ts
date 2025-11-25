@@ -65,6 +65,76 @@ export const ND_FILTERS: NDFilter[] = [
   { name: 'ND4000 (3.6)', stops: 12, factor: 4096 },
 ];
 
+export interface ReciprocityCurvePoint {
+  baseSeconds: number;
+  correctedSeconds: number;
+}
+
+export interface ReciprocityProfile {
+  id: string;
+  nameKey: string;
+  descriptionKey: string;
+  hintKey: string;
+  curve: ReciprocityCurvePoint[];
+}
+
+export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
+  {
+    id: 'digital',
+    nameKey: 'calculator.exposureLab.reciprocity.digital',
+    descriptionKey: 'calculator.exposureLab.reciprocity.digitalDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.digitalHint',
+    curve: [],
+  },
+  {
+    id: 'foma100',
+    nameKey: 'calculator.exposureLab.reciprocity.foma100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.foma100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.foma100Hint',
+    curve: [
+      { baseSeconds: 1, correctedSeconds: 1 },
+      { baseSeconds: 2, correctedSeconds: 3 },
+      { baseSeconds: 4, correctedSeconds: 8 },
+      { baseSeconds: 8, correctedSeconds: 25 },
+      { baseSeconds: 15, correctedSeconds: 55 },
+      { baseSeconds: 30, correctedSeconds: 120 },
+      { baseSeconds: 60, correctedSeconds: 300 },
+      { baseSeconds: 120, correctedSeconds: 800 },
+    ],
+  },
+  {
+    id: 'portra400',
+    nameKey: 'calculator.exposureLab.reciprocity.portra400',
+    descriptionKey: 'calculator.exposureLab.reciprocity.portra400Description',
+    hintKey: 'calculator.exposureLab.reciprocity.portra400Hint',
+    curve: [
+      { baseSeconds: 1, correctedSeconds: 1 },
+      { baseSeconds: 2, correctedSeconds: 2 },
+      { baseSeconds: 4, correctedSeconds: 5 },
+      { baseSeconds: 8, correctedSeconds: 12 },
+      { baseSeconds: 15, correctedSeconds: 22 },
+      { baseSeconds: 30, correctedSeconds: 38 },
+      { baseSeconds: 60, correctedSeconds: 65 },
+      { baseSeconds: 120, correctedSeconds: 130 },
+    ],
+  },
+  {
+    id: 'delta100',
+    nameKey: 'calculator.exposureLab.reciprocity.delta100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.delta100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.delta100Hint',
+    curve: [
+      { baseSeconds: 1, correctedSeconds: 1 },
+      { baseSeconds: 4, correctedSeconds: 5 },
+      { baseSeconds: 8, correctedSeconds: 10 },
+      { baseSeconds: 15, correctedSeconds: 18 },
+      { baseSeconds: 30, correctedSeconds: 32 },
+      { baseSeconds: 60, correctedSeconds: 70 },
+      { baseSeconds: 120, correctedSeconds: 150 },
+    ],
+  },
+];
+
 // 相机传感器类型
 export interface SensorType {
   name: string;

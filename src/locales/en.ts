@@ -48,33 +48,44 @@ export default {
   navigation: {
     home: 'Home',
     sunTimes: 'Blue Hour',
-    calculator: 'Calculators',
+    calculator: 'Exposure Lab',
     settings: 'Settings',
   },
 
   home: {
     title: 'BlueHour',
-    subtitle: 'Photography Assistant Toolkit',
+    subtitle: 'Light & time companion',
+    hero: {
+      waitingPhase: 'Calculating today’s light...',
+      locating: 'Locating...',
+      refreshLocation: 'Update location',
+      nextBlueHour: 'Next blue hour',
+    },
+    cta: {
+      defaultTitle: 'Plan a long exposure',
+      defaultDescription: 'Use Exposure Lab to link ND filters, reciprocity, and the bulb timer.',
+      dayTitle: 'Simulate blue hour in daylight',
+      dayDescription: 'Stack ND filters to capture silky water and moving clouds.',
+      blueTitle: 'It’s blue hour right now',
+      blueDescription: 'Dial exposure and start the timer before the light fades.',
+      nightTitle: 'Prep for the next dawn',
+      nightDescription: 'Calculate exposure now so you are ready when light returns.',
+    },
+    timeline: {
+      title: 'Light timeline (today)',
+    },
     features: {
-      sunTimes: {
-        title: 'Blue Hour',
-        description: 'View sunrise, sunset, golden hour and blue hour',
+      sunTimeline: {
+        title: 'Blue Hour Planner',
+        description: 'See golden hour, blue hour, and twilight for your location.',
       },
-      evCalculator: {
-        title: 'EV Exposure',
-        description: 'Calculate equivalent exposure combinations',
-      },
-      ndCalculator: {
-        title: 'ND Filter',
-        description: 'Calculate long exposure shutter speed',
-      },
-      dofCalculator: {
-        title: 'Depth of Field',
-        description: 'Calculate depth of field and hyperfocal distance',
+      exposureLab: {
+        title: 'Exposure Lab',
+        description: 'One workflow for EV tuning, ND math, reciprocity and timer.',
       },
       settings: {
         title: 'Settings',
-        description: 'Personalize your app experience',
+        description: 'Language, theme and personalization.',
       },
     },
   },
@@ -149,7 +160,6 @@ export default {
     ndTitle: 'ND Filter',
     dofTitle: 'DoF',
 
-    // EV Calculator
     ev: {
       title: 'EV Exposure Calculator',
       description: 'Adjust aperture, shutter speed, and ISO while maintaining exposure',
@@ -189,7 +199,6 @@ export default {
       },
     },
 
-    // ND Filter Calculator
     nd: {
       title: 'ND Filter Calculator',
       description: 'Calculate shutter speed with ND filter, built-in timer',
@@ -208,7 +217,6 @@ export default {
       complete: 'Exposure Complete!',
     },
 
-    // Depth of Field Calculator
     dof: {
       title: 'Depth of Field Calculator',
       description: 'Calculate focus range and hyperfocal distance for precise depth control',
@@ -239,6 +247,42 @@ export default {
       landscapeDesc: 'Use narrow aperture (e.g., f/11), focus at hyperfocal distance for sharp foreground to background',
       streetTip: 'Street Photography',
       streetDesc: 'Use moderate aperture (e.g., f/5.6) to balance depth of field and shutter speed',
+    },
+
+    exposureLab: {
+      title: 'Exposure Lab',
+      subtitle: 'Long exposure workflow for ND filters, reciprocity, and the bulb timer.',
+      currentEv: 'Metered EV',
+      evHelper: 'Lock one parameter and adjust the others to stay on the same exposure.',
+      baseSettings: 'Metered settings',
+      sceneShortcuts: 'Scene presets',
+      sceneHint: 'Start from a typical blue-hour exposure with one tap.',
+      ndSection: 'ND filter (optional)',
+      ndHint: 'Add ND when you want slow shutter effects under bright light.',
+      ndNone: 'No ND filter',
+      reciprocitySection: 'Film reciprocity profiles',
+      reciprocity: {
+        digital: 'Digital / No correction',
+        digitalDescription: 'Use this when shooting digital or modern sensors.',
+        digitalHint: 'Exposure time stays the same.',
+        foma100: 'Fomapan 100 Classic',
+        foma100Description: 'Aggressive reciprocity failure, recalculate anything above 1s.',
+        foma100Hint: 'Bring a cable release—exposures stretch quickly.',
+        portra400: 'Kodak Portra 400',
+        portra400Description: 'Mild correction, perfect for color long exposures.',
+        portra400Hint: 'Add a few seconds to keep tones clean.',
+        delta100: 'Ilford Delta 100',
+        delta100Description: 'Moderate correction curve for fine-grain B&W work.',
+        delta100Hint: 'Track compensation carefully beyond 30 seconds.',
+      },
+      resultTitle: 'Long exposure result',
+      resultBase: 'Metered shutter',
+      resultNd: 'After ND filter',
+      resultReciprocity: 'After reciprocity',
+      timerTitle: 'Bulb timer',
+      startTimer: 'Start timer',
+      stopTimer: 'Stop timer',
+      timerDone: 'Exposure complete',
     },
   },
 
@@ -271,17 +315,9 @@ export default {
         title: 'Blue Hour Planner',
         description: 'Get precise times for golden hour and blue hour',
       },
-      evCalculator: {
-        title: 'EV Exposure Calculator',
-        description: 'Calculate equivalent exposures, freely adjust aperture, shutter and ISO',
-      },
-      ndFilter: {
-        title: 'ND Filter Calculator',
-        description: 'Precisely calculate shutter speed after using ND filters',
-      },
-      dof: {
-        title: 'Depth of Field Calculator',
-        description: 'Calculate depth of field range and hyperfocal distance',
+      exposureLab: {
+        title: 'Exposure Lab',
+        description: 'One tap workflow for EV, ND, reciprocity and the bulb timer',
       },
     },
 

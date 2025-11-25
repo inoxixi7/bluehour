@@ -48,33 +48,44 @@ export default {
   navigation: {
     home: 'ホーム',
     sunTimes: 'ブルーアワー',
-    calculator: '計算機',
+    calculator: '露出ラボ',
     settings: '設定',
   },
   
   home: {
     title: 'BlueHour',
-    subtitle: '写真撮影アシスタントツール',
+    subtitle: '光と時間の相棒',
+    hero: {
+      waitingPhase: '本日の光を計算中...',
+      locating: '位置情報を取得中...',
+      refreshLocation: '現在地を更新',
+      nextBlueHour: '次のブルーアワー',
+    },
+    cta: {
+      defaultTitle: '長時間露光を計画',
+      defaultDescription: '露出ラボで ND・相反則不軌補正・タイマーを一括管理。',
+      dayTitle: '日中にブルーアワーの空気感を再現',
+      dayDescription: 'NDを重ねて水面や雲を滑らかに。',
+      blueTitle: '今がまさにブルーアワー',
+      blueDescription: '光が消える前に露出を決めてタイマーを開始。',
+      nightTitle: '夜のうちに準備しておく',
+      nightDescription: '次のブルーアワー用に設定を仕込んでおきましょう。',
+    },
+    timeline: {
+      title: '今日の光の時間割',
+    },
     features: {
-      sunTimes: {
-        title: 'ブルーアワー',
-        description: '日の出、日の入り、ゴールデンアワー、ブルーアワーを確認',
+      sunTimeline: {
+        title: 'ブルーアワータイムライン',
+        description: 'ゴールデン/ブルー/薄明の開始と終了を一覧表示。',
       },
-      evCalculator: {
-        title: 'EV露出',
-        description: '等価露出の組み合わせを計算',
-      },
-      ndCalculator: {
-        title: 'NDフィルター',
-        description: '長時間露光のシャッター速度を計算',
-      },
-      dofCalculator: {
-        title: '被写界深度',
-        description: '被写界深度と過焦点距離を計算',
+      exposureLab: {
+        title: '露出ラボ',
+        description: 'EV、ND、相反則不軌、タイマーを1画面で。',
       },
       settings: {
         title: '設定',
-        description: 'アプリの使用体験をカスタマイズ',
+        description: '言語・テーマなどをカスタマイズ。',
       },
     },
   },
@@ -212,6 +223,42 @@ export default {
       streetTip: 'ストリート撮影',
       streetDesc: '中間絞り（例：f/5.6）を使用し、被写界深度とシャッタースピードのバランスをとる',
     },
+
+    exposureLab: {
+      title: '露出ラボ',
+      subtitle: '長時間露光のための ND・相反則不軌・B バルブタイマーをワンストップで。',
+      currentEv: '測光 EV',
+      evHelper: '1 つのパラメータをロックし、他を調整して同じ露出を維持。',
+      baseSettings: '測光設定',
+      sceneShortcuts: 'シーンプリセット',
+      sceneHint: '典型的なブルーアワー露出をワンタップで呼び出し。',
+      ndSection: 'ND フィルター（任意）',
+      ndHint: '明るい時間帯でも ND でシャッターを伸ばし、流れる質感を作る。',
+      ndNone: 'ND フィルターなし',
+      reciprocitySection: '相反則不軌補正',
+      reciprocity: {
+        digital: 'デジタル / 補正不要',
+        digitalDescription: 'デジタル撮影や相反則不軌の少ないセンサー向け。',
+        digitalHint: '露光時間は変化しません。',
+        foma100: 'Fomapan 100 Classic',
+        foma100Description: '1 秒以上で急激に補正が必要になる古典的フィルム。',
+        foma100Hint: '必ずレリーズを使い、長時間露光に備えてください。',
+        portra400: 'Kodak Portra 400',
+        portra400Description: '穏やかな補正で、カラー長時間露光に最適。',
+        portra400Hint: '数秒足すだけで色再現が安定します。',
+        delta100: 'Ilford Delta 100',
+        delta100Description: '中程度の補正カーブ、繊細なモノクロ作品に。',
+        delta100Hint: '30 秒を超えたら補正量を丁寧に記録しましょう。',
+      },
+      resultTitle: '長時間露光の結果',
+      resultBase: '元のシャッター',
+      resultNd: 'ND 適用後',
+      resultReciprocity: '相反則不軌補正後',
+      timerTitle: 'B バルブタイマー',
+      startTimer: 'タイマー開始',
+      stopTimer: 'タイマー停止',
+      timerDone: '露出完了',
+    },
   },
   
   settings: {
@@ -242,17 +289,9 @@ export default {
         title: 'ブルーアワープランナー',
         description: 'ゴールデンアワーとブルーアワーの正確な時刻を取得',
       },
-      evCalculator: {
-        title: 'EV露出計算機',
-        description: '等価露出を計算し、絞り、シャッター、ISOを自由に調整',
-      },
-      ndFilter: {
-        title: 'NDフィルター計算機',
-        description: 'NDフィルター使用後のシャッター速度を正確に計算',
-      },
-      dof: {
-        title: '被写界深度計算機',
-        description: '被写界深度範囲と過焦点距離を計算',
+      exposureLab: {
+        title: '露出ラボ',
+        description: 'EV・ND・相反則不軌・タイマーをまとめて扱えるワークフロー',
       },
     },
     

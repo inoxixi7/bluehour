@@ -7,9 +7,7 @@ import { Layout } from '../constants/Layout';
 // 导入屏幕
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import SunTimesScreen from '../screens/SunTimesScreen/SunTimesScreen';
-import EVCalculator from '../screens/CalculatorScreen/tabs/EVCalculator';
-import NDCalculator from '../screens/CalculatorScreen/tabs/NDCalculator';
-import DoFCalculator from '../screens/CalculatorScreen/tabs/DoFCalculator';
+import ExposureLabScreen from '../screens/ExposureLab/ExposureLabScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import LanguageSelectionScreen from '../screens/SettingsScreen/LanguageSelectionScreen';
 import ThemeSelectionScreen from '../screens/SettingsScreen/ThemeSelectionScreen';
@@ -17,9 +15,7 @@ import ThemeSelectionScreen from '../screens/SettingsScreen/ThemeSelectionScreen
 export type RootStackParamList = {
   Home: undefined;
   SunTimes: undefined;
-  EVCalculator: undefined;
-  NDCalculator: undefined;
-  DoFCalculator: undefined;
+  ExposureLab: undefined;
   Settings: undefined;
   LanguageSelection: undefined;
   ThemeSelection: undefined;
@@ -63,24 +59,10 @@ const RootNavigator: React.FC = () => {
         }}
       />
       <Stack.Screen
-        name="EVCalculator"
-        component={EVCalculator}
+        name="ExposureLab"
+        component={ExposureLabScreen}
         options={{
-          title: t('calculator.evTitle'),
-        }}
-      />
-      <Stack.Screen
-        name="NDCalculator"
-        component={NDCalculator}
-        options={{
-          title: t('calculator.ndTitle'),
-        }}
-      />
-      <Stack.Screen
-        name="DoFCalculator"
-        component={DoFCalculator}
-        options={{
-          title: t('calculator.dofTitle'),
+          title: t('calculator.exposureLab.title'),
         }}
       />
       <Stack.Screen

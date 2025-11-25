@@ -6,7 +6,7 @@ import { Layout } from '../constants/Layout';
 
 // 导入屏幕组件
 import SunTimesScreen from '../screens/SunTimesScreen/SunTimesScreen';
-import CalculatorScreen from '../screens/CalculatorScreen/CalculatorScreen';
+import ExposureLabScreen from '../screens/ExposureLab/ExposureLabScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 
 // 图标组件（使用简单的文字占位，实际项目中应使用图标库如 @expo/vector-icons）
@@ -49,10 +49,10 @@ const BottomTabNavigator: React.FC = () => {
       />
       <Tab.Screen
         name="Calculator"
-        component={CalculatorScreen}
+        component={ExposureLabScreen}
         options={{
-          title: '计算器',
-          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 24 }}>📷</Text>,
+          title: '曝光实验室',
+          tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 24 }}>⏱️</Text>,
         }}
       />
       <Tab.Screen

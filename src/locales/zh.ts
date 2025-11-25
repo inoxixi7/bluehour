@@ -48,33 +48,44 @@ export default {
   navigation: {
     home: '主页',
     sunTimes: '蓝调时刻',
-    calculator: '计算器',
+    calculator: '曝光实验室',
     settings: '设置',
   },
 
   home: {
     title: 'BlueHour',
-    subtitle: '摄影助手工具箱',
+    subtitle: '光线与时间的口袋伙伴',
+    hero: {
+      waitingPhase: '正在计算今日光线...',
+      locating: '定位中...',
+      refreshLocation: '更新定位',
+      nextBlueHour: '下一次蓝调时刻',
+    },
+    cta: {
+      defaultTitle: '规划一次长曝光',
+      defaultDescription: '使用曝光实验室，一次完成 ND、倒易律和计时。',
+      dayTitle: '在白天模拟蓝调的流动感',
+      dayDescription: '叠加 ND 滤镜，让水面与云朵拖出丝滑轨迹。',
+      blueTitle: '此刻正是蓝调时间',
+      blueDescription: '趁光线尚在，先算好曝光并启动计时器。',
+      nightTitle: '为下一次黎明提前准备',
+      nightDescription: '提前算好参数，蓝调一到就能按下快门。',
+    },
+    timeline: {
+      title: '今日光线时间轴',
+    },
     features: {
-      sunTimes: {
-        title: '蓝调时刻',
-        description: '查看日出日落、黄金时刻和蓝色时刻',
+      sunTimeline: {
+        title: '蓝调时刻表',
+        description: '一眼掌握黄金/蓝调/暮光的开始与结束。',
       },
-      evCalculator: {
-        title: 'EV 曝光',
-        description: '计算等效曝光组合',
-      },
-      ndCalculator: {
-        title: 'ND 滤镜',
-        description: '计算长曝光快门速度',
-      },
-      dofCalculator: {
-        title: '景深计算',
-        description: '计算景深和超焦距',
+      exposureLab: {
+        title: '曝光实验室',
+        description: 'EV、ND、倒易律与计时器整合为一个流程。',
       },
       settings: {
-        title: '设置',
-        description: '个性化您的应用体验',
+        title: '偏好设置',
+        description: '管理语言、主题与其他个性化选项。',
       },
     },
   },
@@ -238,6 +249,42 @@ export default {
       streetTip: '街拍',
       streetDesc: '使用中等光圈（如 f/5.6），平衡景深和快门速度',
     },
+
+    exposureLab: {
+      title: '曝光实验室',
+      subtitle: '长曝光一条龙：ND、倒易律与 B 门计时一次完成。',
+      currentEv: '测光 EV',
+      evHelper: '锁定一个参数，调整另两个，保持同一曝光量。',
+      baseSettings: '测光设置',
+      sceneShortcuts: '场景预设',
+      sceneHint: '常见蓝调曝光一键套用，快速进入状态。',
+      ndSection: 'ND 滤镜（可选）',
+      ndHint: '在强光下使用 ND，延长快门创造流动感。',
+      ndNone: '不使用 ND 滤镜',
+      reciprocitySection: '胶片倒易律',
+      reciprocity: {
+        digital: '数码/无需校正',
+        digitalDescription: '拍摄数码或现代传感器时选用此项。',
+        digitalHint: '曝光时间保持不变。',
+        foma100: 'Fomapan 100 Classic',
+        foma100Description: '倒易律失效非常明显，1 秒以上就要修正。',
+        foma100Hint: '务必携带快门线，曝光会迅速延长。',
+        portra400: 'Kodak Portra 400',
+        portra400Description: '轻度补偿，适合色彩长曝光。',
+        portra400Hint: '略微增加几秒可保持色彩纯净。',
+        delta100: 'Ilford Delta 100',
+        delta100Description: '中等倒易律曲线，适合细腻黑白作品。',
+        delta100Hint: '超过 30 秒需仔细记录补偿量。',
+      },
+      resultTitle: '长曝光结果',
+      resultBase: '原始快门',
+      resultNd: '加 ND 后',
+      resultReciprocity: '倒易律校正后',
+      timerTitle: 'B 门计时器',
+      startTimer: '开始计时',
+      stopTimer: '停止计时',
+      timerDone: '曝光完成',
+    },
   },
 
   settings: {
@@ -268,17 +315,9 @@ export default {
         title: '蓝调时刻规划器',
         description: '获取黄金时刻和蓝色时刻的精确时间',
       },
-      evCalculator: {
-        title: 'EV 曝光计算器',
-        description: '计算等效曝光，自由调整光圈、快门和 ISO',
-      },
-      ndFilter: {
-        title: 'ND 滤镜计算器',
-        description: '精确计算使用 ND 滤镜后的快门速度',
-      },
-      dof: {
-        title: '景深计算器',
-        description: '计算景深范围和超焦距，掌握清晰度控制',
+      exposureLab: {
+        title: '曝光实验室',
+        description: '一个页面串联 EV、ND、倒易律与 B 门计时',
       },
     },
 

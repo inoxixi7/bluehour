@@ -1,5 +1,7 @@
 // 摄影计算核心逻辑
 
+import { ReciprocityCurvePoint } from '../constants/Photography';
+
 /**
  * 计算曝光值 (EV)
  * EV = log2(aperture^2 / shutter) + log2(ISO / 100)
@@ -109,6 +111,52 @@ export const calculateEquivalentExposure = (
  */
 export const calculateNDShutter = (baseShutter: number, ndStops: number): number => {
   return baseShutter * Math.pow(2, ndStops);
+};
+
+/**
+ * 根据倒易律曲线计算校正后的曝光时间
+ * @param baseSeconds ND 修正后的基础曝光时间
+ * @param curve 选定胶片的倒易律曲线
+ */
+export const applyReciprocityCorrection = (
+  baseSeconds: number,
+  curve?: ReciprocityCurvePoint[]
+): number => {
+  if (!curve || curve.length === 0 || baseSeconds <= 0) {
+    return baseSeconds;
+  }
+
+  const sorted = [...curve].sort((a, b) => a.baseSeconds - b.baseSeconds);
+
+  if (baseSeconds <= sorted[0].baseSeconds) {
+    return sorted[0].correctedSeconds;
+  }
+
+  for (let i = 0; i < sorted.length - 1; i++) {
+    const current = sorted[i];
+    const next = sorted[i + 1];
+
+    if (baseSeconds === current.baseSeconds) {
+      return current.correctedSeconds;
+    }
+
+    if (baseSeconds < next.baseSeconds) {
+      const ratio =
+        (baseSeconds - current.baseSeconds) /
+        (next.baseSeconds - current.baseSeconds);
+      return current.correctedSeconds + ratio * (next.correctedSeconds - current.correctedSeconds);
+    }
+  }
+
+  const last = sorted[sorted.length - 1];
+  const prev = sorted[sorted.length - 2] || last;
+  const gradient =
+    prev === last
+      ? last.correctedSeconds / Math.max(last.baseSeconds, 1)
+      : (last.correctedSeconds - prev.correctedSeconds) /
+        (last.baseSeconds - prev.baseSeconds);
+
+  return last.correctedSeconds + gradient * (baseSeconds - last.baseSeconds);
 };
 
 /**
