@@ -239,54 +239,63 @@ const ExposureLabScreen: React.FC = () => {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      {/* 顶部三个信息卡片横向排列 */}
+      {/* 顶部两个信息卡片横向排列 */}
       <View style={styles.topCardsRow}>
         {/* 测光 EV */}
         <Card style={styles.topCard}>
-          <View style={styles.topCardHeader}>
-            <Text style={[styles.topCardLabel, { color: theme.colors.textSecondary }]}>
-              {t('calculator.exposureLab.currentEv')}
+          <View style={styles.evCardContent}>
+            <View style={styles.topCardHeader}>
+              <Text style={[styles.topCardLabel, { color: theme.colors.textSecondary }]}>
+                {t('calculator.exposureLab.currentEv')}
+              </Text>
+              {evLocked && (
+                <TouchableOpacity onPress={handleUnlockEV} style={styles.topCardLockIcon}>
+                  <Ionicons name="lock-closed" size={16} color={theme.colors.primary} />
+                </TouchableOpacity>
+              )}
+            </View>
+            <Text style={[styles.evValue, { color: evLocked ? theme.colors.primary : theme.colors.blueHour }]}>
+              {formatEV(currentEV)}
             </Text>
-            {evLocked && (
-              <TouchableOpacity onPress={handleUnlockEV} style={styles.topCardLockIcon}>
-                <Ionicons name="lock-closed" size={14} color={theme.colors.primary} />
-              </TouchableOpacity>
-            )}
           </View>
-          <Text style={[styles.topCardValue, { color: evLocked ? theme.colors.primary : theme.colors.blueHour }]}>
-            {formatEV(currentEV)}
-          </Text>
         </Card>
 
-        {/* 长曝光结果 */}
-        <Card style={styles.topCard}>
-          <Text style={[styles.topCardLabel, { color: theme.colors.textSecondary }]}>
-            {t('calculator.exposureLab.resultTitle')}
-          </Text>
-          <Text style={[styles.topCardValue, { color: theme.colors.blueHour }]}>
-            {formatShutterSpeed(reciprocityCorrected)}
-          </Text>
-          <Text style={[styles.topCardHint, { color: theme.colors.textSecondary }]}>
-            {formatShutterSpeed(shutter)} → {formatShutterSpeed(ndAdjustedShutter)}
-          </Text>
-        </Card>
-
-        {/* B门计时器 */}
-        <Card style={styles.topCard}>
-          <Text style={[styles.topCardLabel, { color: theme.colors.textSecondary }]}>
-            {t('calculator.exposureLab.timerTitle')}
-          </Text>
-          <Text style={[styles.topCardValue, { color: timerState === 'running' ? theme.colors.accent : theme.colors.text }]}>
-            {timerLabel}
-          </Text>
-          <TouchableOpacity 
-            onPress={timerState === 'running' ? stopTimer : startTimer}
-            style={[styles.topCardButton, { backgroundColor: timerState === 'running' ? theme.colors.textSecondary : theme.colors.primary }]}
-          >
-            <Text style={styles.topCardButtonText}>
-              {timerState === 'running' ? '停止' : '开始'}
-            </Text>
-          </TouchableOpacity>
+        {/* 长曝光结果 + B门计时器 */}
+        <Card style={styles.topCardWide}>
+          <View style={styles.resultTimerColumn}>
+            <View style={styles.resultSection}>
+              <Text style={[styles.topCardLabel, { color: theme.colors.textSecondary }]}>
+                {t('calculator.exposureLab.resultTitle')}
+              </Text>
+              <Text style={[styles.resultValue, { color: theme.colors.blueHour }]}>
+                {formatShutterSpeed(reciprocityCorrected)}
+              </Text>
+              <Text style={[styles.topCardHint, { color: theme.colors.textSecondary }]}>
+                {formatShutterSpeed(shutter)} → {formatShutterSpeed(ndAdjustedShutter)}
+              </Text>
+            </View>
+            <View style={styles.timerSection}>
+              <View style={styles.timerRow}>
+                <View style={styles.timerInfo}>
+                  <Text style={[styles.timerLabel, { color: theme.colors.textSecondary }]}>
+                    {timerState === 'running' ? '倒计时' : 'B门计时'}
+                  </Text>
+                  <Text style={[styles.timerValue, { color: timerState === 'running' ? theme.colors.accent : theme.colors.text }]}>
+                    {timerLabel}
+                  </Text>
+                </View>
+                <TouchableOpacity 
+                  onPress={timerState === 'running' ? stopTimer : startTimer}
+                  style={[styles.timerButton, { backgroundColor: timerState === 'running' ? theme.colors.textSecondary : theme.colors.primary }]}
+                  activeOpacity={0.8}
+                >
+                  <Text style={styles.timerButtonText}>
+                    {timerState === 'running' ? '停止' : '开始'}
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
         </Card>
       </View>
 
@@ -409,41 +418,91 @@ const createStyles = (colors: any) =>
     topCard: {
       flex: 1,
       padding: Layout.spacing.md,
+      minHeight: 100,
+    },
+    evCardContent: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    topCardWide: {
+      flex: 2,
+      padding: Layout.spacing.md,
+    },
+    resultTimerColumn: {
+      flex: 1,
+      gap: Layout.spacing.sm,
+    },
+    resultSection: {
+      alignItems: 'center',
+    },
+    timerSection: {
+      borderTopWidth: 1,
+      borderTopColor: colors.border,
+      paddingTop: Layout.spacing.sm,
+    },
+    timerRow: {
+      flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      minHeight: 110,
+      gap: Layout.spacing.sm,
+    },
+    timerInfo: {
+      flex: 1,
     },
     topCardHeader: {
       flexDirection: 'row',
       alignItems: 'center',
       gap: 4,
+      marginBottom: 4,
     },
     topCardLabel: {
-      fontSize: Layout.fontSize.xs,
+      fontSize: 13,
       textTransform: 'uppercase',
       letterSpacing: 0.5,
+      fontWeight: '500',
     },
-    topCardValue: {
+    evValue: {
+      fontSize: 40,
+      fontWeight: '700',
+      letterSpacing: -1,
+    },
+    resultValue: {
       fontSize: 36,
       fontWeight: '700',
       marginVertical: 4,
+      letterSpacing: -0.5,
     },
     topCardHint: {
-      fontSize: 10,
+      fontSize: 13,
       marginTop: 2,
+      opacity: 0.8,
     },
     topCardLockIcon: {
       padding: 2,
     },
-    topCardButton: {
-      paddingVertical: 6,
-      paddingHorizontal: 16,
-      borderRadius: 12,
-      marginTop: 4,
+    timerLabel: {
+      fontSize: 13,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+      fontWeight: '500',
+      marginBottom: 2,
     },
-    topCardButtonText: {
+    timerValue: {
+      fontSize: 26,
+      fontWeight: '700',
+      letterSpacing: -0.5,
+    },
+    timerButton: {
+      paddingVertical: 8,
+      paddingHorizontal: 20,
+      borderRadius: 14,
+      minWidth: 70,
+      alignItems: 'center',
+    },
+    timerButtonText: {
       color: '#fff',
-      fontSize: 11,
+      fontSize: 13,
       fontWeight: '600',
     },
     title: {
@@ -641,16 +700,6 @@ const createStyles = (colors: any) =>
     timerHeader: {
       alignItems: 'center',
       marginBottom: Layout.spacing.md,
-    },
-    timerLabel: {
-      fontSize: Layout.fontSize.sm,
-      textTransform: 'uppercase',
-      letterSpacing: 0.5,
-      marginBottom: Layout.spacing.xs,
-    },
-    timerValue: {
-      fontSize: 42,
-      fontWeight: '700',
     },
     timerButtons: {
       alignItems: 'center',

@@ -34,102 +34,118 @@ const SettingsScreen: React.FC = () => {
   };
 
   return (
-    <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
+    <ScrollView 
+      style={[styles.container, { backgroundColor: theme.colors.background }]}
+      showsVerticalScrollIndicator={false}
+    >
       <View style={styles.content}>
 
-        {/* 语言设置 */}
-        <TouchableOpacity
-          onPress={() => navigation.navigate('LanguageSelection')}
-          activeOpacity={0.7}
-        >
-          <Card style={styles.card}>
-            <View style={styles.settingRow}>
-              <Text style={[styles.sectionTitle, styles.settingLabel, { color: theme.colors.accent }]}>
-                {t('settings.language')}
-              </Text>
+        {/* 偏好设置 */}
+        <View style={styles.section}>
+          <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
+            {t('settings.preferences')}
+          </Text>
+          
+          <Card style={styles.settingCard}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('LanguageSelection')}
+              activeOpacity={0.7}
+              style={styles.settingItem}
+            >
+              <View style={styles.settingLeft}>
+                <Ionicons name="language" size={20} color={theme.colors.primary} />
+                <Text style={[styles.settingLabel, { color: theme.colors.text }]}>
+                  {t('settings.language')}
+                </Text>
+              </View>
               <View style={styles.settingRight}>
                 <Text style={[styles.settingValue, { color: theme.colors.textSecondary }]}>
                   {LANGUAGE_NAMES[i18n.language as keyof typeof LANGUAGE_NAMES] || i18n.language}
                 </Text>
-                <Ionicons name="chevron-forward" size={24} color={theme.colors.textSecondary} style={{ marginLeft: 8 }} />
+                <Ionicons name="chevron-forward" size={20} color={theme.colors.textSecondary} />
               </View>
-            </View>
-          </Card>
-        </TouchableOpacity>
+            </TouchableOpacity>
 
-        {/* 主题设置 */}
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ThemeSelection')}
-          activeOpacity={0.7}
-        >
-          <Card style={styles.card}>
-            <View style={styles.settingRow}>
-              <Text style={[styles.sectionTitle, styles.settingLabel, { color: theme.colors.accent }]}>
-                {t('settings.theme')}
-              </Text>
+            <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
+
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ThemeSelection')}
+              activeOpacity={0.7}
+              style={styles.settingItem}
+            >
+              <View style={styles.settingLeft}>
+                <Ionicons name="color-palette" size={20} color={theme.colors.primary} />
+                <Text style={[styles.settingLabel, { color: theme.colors.text }]}>
+                  {t('settings.theme')}
+                </Text>
+              </View>
               <View style={styles.settingRight}>
                 <Text style={[styles.settingValue, { color: theme.colors.textSecondary }]}>
                   {getThemeLabel(themeMode)}
                 </Text>
-                <Ionicons name="chevron-forward" size={24} color={theme.colors.textSecondary} style={{ marginLeft: 8 }} />
+                <Ionicons name="chevron-forward" size={20} color={theme.colors.textSecondary} />
               </View>
-            </View>
+            </TouchableOpacity>
           </Card>
-        </TouchableOpacity>
+        </View>
 
         {/* 关于 */}
-        <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.about')}</Text>
-          <Text style={[styles.appName, { color: theme.colors.blueHour }]}>{t('settings.appName')}</Text>
-          <Text style={[styles.version, { color: theme.colors.textSecondary }]}>{t('settings.version')} 1.0.0</Text>
-          <Text style={[styles.description, { color: theme.colors.text }]}>
-            {t('settings.description')}
+        <View style={styles.section}>
+          <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
+            {t('settings.about')}
           </Text>
-        </Card>
-
-        {/* 功能说明 */}
-        <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.features')}</Text>
-          {[
-            { icon: '🌅', titleKey: 'settings.featureList.blueHour.title', descKey: 'settings.featureList.blueHour.description' },
-            { icon: '⏱️', titleKey: 'settings.featureList.exposureLab.title', descKey: 'settings.featureList.exposureLab.description' },
-          ].map((feature) => (
-            <View style={styles.featureItem} key={feature.titleKey}>
-              <Text style={styles.featureIcon}>{feature.icon}</Text>
-              <View style={styles.featureContent}>
-                <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t(feature.titleKey)}</Text>
-                <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
-                  {t(feature.descKey)}
+          
+          <Card style={styles.settingCard}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate('About')}
+              activeOpacity={0.7}
+              style={styles.settingItem}
+            >
+              <View style={styles.settingLeft}>
+                <Ionicons name="information-circle" size={20} color={theme.colors.primary} />
+                <Text style={[styles.settingLabel, { color: theme.colors.text }]}>
+                  {t('settings.aboutApp')}
                 </Text>
               </View>
-            </View>
-          ))}
-        </Card>
+              <Ionicons name="chevron-forward" size={20} color={theme.colors.textSecondary} />
+            </TouchableOpacity>
+          </Card>
+        </View>
 
-        {/* 数据来源 */}
-        <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.dataSource')}</Text>
-          <Text style={[styles.infoText, { color: theme.colors.text }]}>
-            {t('settings.dataSourceText')}
+        {/* 联系与支持 */}
+        <View style={styles.section}>
+          <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
+            {t('settings.feedbackSupport')}
           </Text>
-        </Card>
-
-        {/* 联系方式 */}
-        <Card style={styles.card}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.accent }]}>{t('settings.feedbackSupport')}</Text>
-          <AppButton
-            title={t('settings.github')}
-            onPress={handleOpenGitHub}
-            variant="outline"
-            style={styles.button}
-          />
-          <AppButton
-            title={t('settings.contactSupport')}
-            onPress={handleContactSupport}
-            variant="outline"
-            style={styles.button}
-          />
-        </Card>
+          
+          <Card style={styles.card}>
+            <TouchableOpacity
+              onPress={handleOpenGitHub}
+              style={styles.linkButton}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="logo-github" size={20} color={theme.colors.text} />
+              <Text style={[styles.linkButtonText, { color: theme.colors.text }]}>
+                {t('settings.github')}
+              </Text>
+              <Ionicons name="open-outline" size={16} color={theme.colors.textSecondary} />
+            </TouchableOpacity>
+            
+            <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
+            
+            <TouchableOpacity
+              onPress={handleContactSupport}
+              style={styles.linkButton}
+              activeOpacity={0.7}
+            >
+              <Ionicons name="mail" size={20} color={theme.colors.text} />
+              <Text style={[styles.linkButtonText, { color: theme.colors.text }]}>
+                {t('settings.contactSupport')}
+              </Text>
+              <Ionicons name="open-outline" size={16} color={theme.colors.textSecondary} />
+            </TouchableOpacity>
+          </Card>
+        </View>
 
         {/* 版权信息 */}
         <View style={styles.footer}>
@@ -151,35 +167,40 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: Layout.spacing.md,
+    paddingBottom: Layout.spacing.xxl,
   },
-  title: {
-    fontSize: Layout.fontSize.hero,
-    fontWeight: 'bold',
+  section: {
     marginBottom: Layout.spacing.lg,
-    textAlign: 'center',
+  },
+  sectionHeader: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: Layout.spacing.sm,
+    paddingHorizontal: Layout.spacing.xs,
   },
   card: {
-    marginBottom: Layout.spacing.md,
+    padding: Layout.spacing.lg,
   },
-  sectionTitle: {
-    fontSize: Layout.fontSize.xl,
-    fontWeight: 'bold',
-    marginBottom: Layout.spacing.md,
+  settingCard: {
+    padding: 0,
   },
-  sectionDescription: {
-    fontSize: Layout.fontSize.sm,
-    marginBottom: Layout.spacing.md,
-    lineHeight: 20,
-  },
-  settingRow: {
+  settingItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    minHeight: 28, // 确保有足够的高度对齐
+    padding: Layout.spacing.lg,
+  },
+  settingLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: Layout.spacing.md,
+    flex: 1,
   },
   settingLabel: {
-    marginBottom: 0, // 覆盖 sectionTitle 的 marginBottom
-    lineHeight: 28, // 确保行高一致
+    fontSize: Layout.fontSize.lg,
+    fontWeight: '500',
   },
   settingRight: {
     flexDirection: 'row',
@@ -187,59 +208,33 @@ const styles = StyleSheet.create({
     gap: Layout.spacing.sm,
   },
   settingValue: {
-    fontSize: Layout.fontSize.xl,
-    fontWeight: '600',
-    lineHeight: 28, // 与标题行高一致
-  },
-  appName: {
-    fontSize: Layout.fontSize.xxl,
-    fontWeight: 'bold',
-    marginBottom: Layout.spacing.xs,
-  },
-  version: {
     fontSize: Layout.fontSize.base,
-    marginBottom: Layout.spacing.md,
+    fontWeight: '500',
   },
-  description: {
-    fontSize: Layout.fontSize.base,
-    lineHeight: 24,
+  divider: {
+    height: 1,
+    marginHorizontal: Layout.spacing.lg,
   },
-  featureItem: {
+  linkButton: {
     flexDirection: 'row',
-    marginBottom: Layout.spacing.md,
-    paddingBottom: Layout.spacing.md,
+    alignItems: 'center',
+    gap: Layout.spacing.md,
+    paddingVertical: Layout.spacing.md,
   },
-  featureIcon: {
-    fontSize: Layout.iconSize.lg,
-    marginRight: Layout.spacing.md,
-  },
-  featureContent: {
+  linkButtonText: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '500',
     flex: 1,
-  },
-  featureTitle: {
-    fontSize: Layout.fontSize.base,
-    fontWeight: '600',
-    marginBottom: Layout.spacing.xs,
-  },
-  featureDescription: {
-    fontSize: Layout.fontSize.sm,
-    lineHeight: 20,
-  },
-  infoText: {
-    fontSize: Layout.fontSize.base,
-    lineHeight: 24,
-  },
-  button: {
-    marginBottom: Layout.spacing.sm,
   },
   footer: {
     alignItems: 'center',
-    marginTop: Layout.spacing.lg,
-    marginBottom: Layout.spacing.xl,
+    marginTop: Layout.spacing.md,
+    paddingVertical: Layout.spacing.lg,
   },
   footerText: {
-    fontSize: Layout.fontSize.sm,
-    marginBottom: Layout.spacing.xs,
+    fontSize: Layout.fontSize.xs,
+    marginBottom: 4,
+    opacity: 0.7,
   },
 });
 

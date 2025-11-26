@@ -299,8 +299,10 @@ export default {
 
   settings: {
     title: 'Settings',
+    preferences: 'Preferences',
     language: 'Language',
     theme: 'Theme',
+    aboutApp: 'About App',
     appearance: 'Appearance',
     appearanceDescription: 'Choose your preferred theme mode',
     themeLight: 'Light Mode',

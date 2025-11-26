@@ -11,6 +11,7 @@ import ExposureLabScreen from '../screens/ExposureLab/ExposureLabScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import LanguageSelectionScreen from '../screens/SettingsScreen/LanguageSelectionScreen';
 import ThemeSelectionScreen from '../screens/SettingsScreen/ThemeSelectionScreen';
+import AboutScreen from '../screens/SettingsScreen/AboutScreen';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -19,6 +20,7 @@ export type RootStackParamList = {
   Settings: undefined;
   LanguageSelection: undefined;
   ThemeSelection: undefined;
+  About: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -84,6 +86,13 @@ const RootNavigator: React.FC = () => {
         component={ThemeSelectionScreen}
         options={{
           title: t('settings.theme'),
+        }}
+      />
+      <Stack.Screen
+        name="About"
+        component={AboutScreen}
+        options={{
+          title: t('settings.about'),
         }}
       />
     </Stack.Navigator>

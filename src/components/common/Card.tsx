@@ -30,6 +30,5 @@ const styles = StyleSheet.create({
     borderRadius: Layout.borderRadius.lg,
     padding: Layout.spacing.lg,
     borderWidth: 1,
-    ...Layout.shadow.medium,
   },
 });

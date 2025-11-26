@@ -300,8 +300,10 @@ export default {
 
   settings: {
     title: '设置',
+    preferences: '偏好设置',
     language: '语言',
     theme: '主题',
+    aboutApp: '关于应用',
     appearance: '外观',
     appearanceDescription: '选择您喜欢的主题模式',
     themeLight: '浅色模式',
