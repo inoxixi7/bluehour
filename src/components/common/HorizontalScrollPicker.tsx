@@ -67,7 +67,7 @@ export const HorizontalScrollPicker: React.FC<HorizontalScrollPickerProps> = ({
 
   return (
     <View style={[styles.container, { opacity: disabled ? 0.4 : 1 }]}>
-      <Text style={[styles.label, { color: textColor }]}>{label}</Text>
+      {label ? <Text style={[styles.label, { color: textColor }]}>{label}</Text> : null}
       
       <View style={styles.pickerWrapper}>
         <View style={[styles.pickerContainer, { width: CONTAINER_WIDTH }]}>
@@ -125,19 +125,19 @@ export const HorizontalScrollPicker: React.FC<HorizontalScrollPickerProps> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: Layout.spacing.md,
+    marginBottom: 0,
   },
   label: {
     fontSize: Layout.fontSize.base,
     fontWeight: '600',
-    marginBottom: Layout.spacing.sm,
+    marginBottom: Layout.spacing.xs,
   },
   pickerWrapper: {
     alignItems: 'center',
     justifyContent: 'center',
   },
   pickerContainer: {
-    height: 60,
+    height: 50,
     position: 'relative',
     overflow: 'hidden',
   },
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
   },
   item: {
     width: ITEM_WIDTH,
-    height: 60,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   centerIndicator: {
     position: 'absolute',
     left: ITEM_WIDTH * 2,
-    top: 5,
+    top: 0,
     height: 50,
     width: ITEM_WIDTH,
     borderWidth: 2,

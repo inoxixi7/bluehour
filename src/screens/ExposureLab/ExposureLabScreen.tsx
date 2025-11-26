@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
+import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
@@ -205,18 +206,22 @@ const ExposureLabScreen: React.FC = () => {
 
     return (
       <View style={styles.paramBlock}>
-        <View style={styles.paramHeader}>
+        <View style={styles.paramLabelRow}>
+          <Text style={[styles.paramLabel, { color: theme.colors.text }]}>{label}</Text>
           <TouchableOpacity
             onPress={() => setLockedParam(param)}
-            style={[styles.lockBadge, isLocked && { backgroundColor: theme.colors.primary }]}
+            style={[styles.lockButton, isLocked && styles.lockButtonActive]}
+            activeOpacity={0.7}
           >
-            <Text style={[styles.lockText, { color: isLocked ? '#fff' : theme.colors.textSecondary }]}>
-              {isLocked ? '🔒' : '🔓'}
-            </Text>
+            <Ionicons 
+              name={isLocked ? 'lock-closed' : 'lock-open'} 
+              size={16} 
+              color={isLocked ? theme.colors.primary : theme.colors.textSecondary}
+            />
           </TouchableOpacity>
         </View>
         <HorizontalScrollPicker
-          label={label}
+          label=""
           options={options}
           selectedValue={value}
           onValueChange={(newValue) => handleParamChange(param, newValue)}
@@ -234,12 +239,64 @@ const ExposureLabScreen: React.FC = () => {
       contentContainerStyle={styles.content}
       showsVerticalScrollIndicator={false}
     >
-      <Text style={[styles.title, { color: theme.colors.text }]}>
-        {t('calculator.exposureLab.title')}
-      </Text>
-      <Text style={[styles.subtitle, { color: theme.colors.textSecondary }]}>
-        {t('calculator.exposureLab.subtitle')}
-      </Text>
+      {/* 顶部三个信息卡片横向排列 */}
+      <View style={styles.topCardsRow}>
+        {/* 测光 EV */}
+        <Card style={styles.topCard}>
+          <View style={styles.topCardHeader}>
+            <Text style={[styles.topCardLabel, { color: theme.colors.textSecondary }]}>
+              {t('calculator.exposureLab.currentEv')}
+            </Text>
+            {evLocked && (
+              <TouchableOpacity onPress={handleUnlockEV} style={styles.topCardLockIcon}>
+                <Ionicons name="lock-closed" size={14} color={theme.colors.primary} />
+              </TouchableOpacity>
+            )}
+          </View>
+          <Text style={[styles.topCardValue, { color: evLocked ? theme.colors.primary : theme.colors.blueHour }]}>
+            {formatEV(currentEV)}
+          </Text>
+        </Card>
+
+        {/* 长曝光结果 */}
+        <Card style={styles.topCard}>
+          <Text style={[styles.topCardLabel, { color: theme.colors.textSecondary }]}>
+            {t('calculator.exposureLab.resultTitle')}
+          </Text>
+          <Text style={[styles.topCardValue, { color: theme.colors.blueHour }]}>
+            {formatShutterSpeed(reciprocityCorrected)}
+          </Text>
+          <Text style={[styles.topCardHint, { color: theme.colors.textSecondary }]}>
+            {formatShutterSpeed(shutter)} → {formatShutterSpeed(ndAdjustedShutter)}
+          </Text>
+        </Card>
+
+        {/* B门计时器 */}
+        <Card style={styles.topCard}>
+          <Text style={[styles.topCardLabel, { color: theme.colors.textSecondary }]}>
+            {t('calculator.exposureLab.timerTitle')}
+          </Text>
+          <Text style={[styles.topCardValue, { color: timerState === 'running' ? theme.colors.accent : theme.colors.text }]}>
+            {timerLabel}
+          </Text>
+          <TouchableOpacity 
+            onPress={timerState === 'running' ? stopTimer : startTimer}
+            style={[styles.topCardButton, { backgroundColor: timerState === 'running' ? theme.colors.textSecondary : theme.colors.primary }]}
+          >
+            <Text style={styles.topCardButtonText}>
+              {timerState === 'running' ? '停止' : '开始'}
+            </Text>
+          </TouchableOpacity>
+        </Card>
+      </View>
+
+      {evLocked && targetEV !== null && Math.abs(currentEV - targetEV) > 0.3 && (
+        <View style={[styles.warningBadge, { backgroundColor: theme.colors.backgroundSecondary }]}>
+          <Text style={[styles.warningText, { color: theme.colors.accent }]}>
+            ⚠️ 当前参数无法精确达到目标 EV{formatEV(targetEV)}
+          </Text>
+        </View>
+      )}
 
       <Card style={styles.sceneCard}>
         <View style={styles.sectionHeader}>
@@ -270,32 +327,6 @@ const ExposureLabScreen: React.FC = () => {
       </Card>
 
       <Card style={styles.sectionCard}>
-        <View style={styles.evBadge}>
-          <View>
-            <Text style={[styles.evBadgeLabel, { color: theme.colors.textSecondary }]}>
-              {t('calculator.exposureLab.currentEv')}
-            </Text>
-            <Text style={[styles.evBadgeValue, { color: evLocked ? theme.colors.primary : theme.colors.blueHour }]}>
-              {formatEV(currentEV)}
-              {evLocked && ' 🔒'}
-            </Text>
-          </View>
-          {evLocked && (
-            <TouchableOpacity onPress={handleUnlockEV} style={[styles.unlockButton, { borderColor: theme.colors.border }]}>
-              <Text style={[styles.unlockText, { color: theme.colors.primary }]}>解锁</Text>
-            </TouchableOpacity>
-          )}
-        </View>
-        {evLocked && targetEV !== null && Math.abs(currentEV - targetEV) > 0.3 && (
-          <View style={[styles.warningBadge, { backgroundColor: theme.colors.backgroundSecondary }]}>
-            <Text style={[styles.warningText, { color: theme.colors.accent }]}>
-              ⚠️ 当前参数无法精确达到目标 EV{formatEV(targetEV)}
-            </Text>
-          </View>
-        )}
-        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-          {t('calculator.exposureLab.baseSettings')}
-        </Text>
         {renderParamPicker(
           t('calculator.ev.aperture'),
           'aperture',
@@ -320,8 +351,13 @@ const ExposureLabScreen: React.FC = () => {
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
           {t('calculator.exposureLab.ndSection')}
         </Text>
-        <View style={styles.pickerWrapper}>
-          <Picker selectedValue={ndStops} onValueChange={(value) => setNdStops(Number(value))}>
+        <View style={styles.pickerContainer}>
+          <Picker 
+            selectedValue={ndStops} 
+            onValueChange={(value) => setNdStops(Number(value))}
+            style={styles.compactPicker}
+            itemStyle={styles.pickerItem}
+          >
             {ndOptions.map((option) => (
               <Picker.Item key={option.name} label={option.name} value={option.stops} />
             ))}
@@ -336,8 +372,13 @@ const ExposureLabScreen: React.FC = () => {
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
           {t('calculator.exposureLab.reciprocitySection')}
         </Text>
-        <View style={styles.pickerWrapper}>
-          <Picker selectedValue={profileId} onValueChange={(value) => setProfileId(String(value))}>
+        <View style={styles.pickerContainer}>
+          <Picker 
+            selectedValue={profileId} 
+            onValueChange={(value) => setProfileId(String(value))}
+            style={styles.compactPicker}
+            itemStyle={styles.pickerItem}
+          >
             {RECIPROCITY_PROFILES.map((profile) => (
               <Picker.Item key={profile.id} label={t(profile.nameKey)} value={profile.id} />
             ))}
@@ -346,50 +387,6 @@ const ExposureLabScreen: React.FC = () => {
         <Text style={[styles.sectionHint, { color: theme.colors.textSecondary }]}>
           {reciprocityProfile ? t(reciprocityProfile.descriptionKey) : ''}
         </Text>
-      </Card>
-
-      <Card style={styles.resultCard}>
-        <View style={styles.resultHeader}>
-          <Text style={[styles.resultLabel, { color: theme.colors.textSecondary }]}>
-            {t('calculator.exposureLab.resultTitle')}
-          </Text>
-          <View style={styles.resultSteps}>
-            <Text style={[styles.stepText, { color: theme.colors.textSecondary }]}>
-              {formatShutterSpeed(shutter)}
-            </Text>
-            <Text style={[styles.stepArrow, { color: theme.colors.textSecondary }]}>→</Text>
-            <Text style={[styles.stepText, { color: theme.colors.textSecondary }]}>
-              {formatShutterSpeed(ndAdjustedShutter)}
-            </Text>
-          </View>
-        </View>
-        <Text style={[styles.finalValue, { color: theme.colors.blueHour }]}>
-          {formatShutterSpeed(reciprocityCorrected)}
-        </Text>
-        <Text style={[styles.resultHint, { color: theme.colors.textSecondary }]}>
-          {t('calculator.exposureLab.resultReciprocity')}
-        </Text>
-      </Card>
-
-      <Card style={styles.timerCard}>
-        <View style={styles.timerHeader}>
-          <Text style={[styles.timerLabel, { color: theme.colors.textSecondary }]}>
-            {t('calculator.exposureLab.timerTitle')}
-          </Text>
-          <Text style={[styles.timerValue, { color: theme.colors.accent }]}>{timerLabel}</Text>
-        </View>
-        <View style={styles.timerButtons}>
-          {timerState === 'running' ? (
-            <AppButton title={t('calculator.exposureLab.stopTimer')} onPress={stopTimer} variant="secondary" />
-          ) : (
-            <AppButton title={t('calculator.exposureLab.startTimer')} onPress={startTimer} variant="primary" />
-          )}
-        </View>
-        {timerState === 'done' && (
-          <Text style={[styles.timerDone, { color: theme.colors.success }]}>
-            {t('calculator.exposureLab.timerDone')}
-          </Text>
-        )}
       </Card>
     </ScrollView>
   );
@@ -403,6 +400,51 @@ const createStyles = (colors: any) =>
     content: {
       padding: Layout.spacing.lg,
       paddingBottom: Layout.spacing.xxl,
+    },
+    topCardsRow: {
+      flexDirection: 'row',
+      gap: Layout.spacing.sm,
+      marginBottom: Layout.spacing.md,
+    },
+    topCard: {
+      flex: 1,
+      padding: Layout.spacing.md,
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      minHeight: 110,
+    },
+    topCardHeader: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 4,
+    },
+    topCardLabel: {
+      fontSize: Layout.fontSize.xs,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+    },
+    topCardValue: {
+      fontSize: 36,
+      fontWeight: '700',
+      marginVertical: 4,
+    },
+    topCardHint: {
+      fontSize: 10,
+      marginTop: 2,
+    },
+    topCardLockIcon: {
+      padding: 2,
+    },
+    topCardButton: {
+      paddingVertical: 6,
+      paddingHorizontal: 16,
+      borderRadius: 12,
+      marginTop: 4,
+    },
+    topCardButtonText: {
+      color: '#fff',
+      fontSize: 11,
+      fontWeight: '600',
     },
     title: {
       fontSize: Layout.fontSize.hero,
@@ -480,33 +522,61 @@ const createStyles = (colors: any) =>
       marginTop: Layout.spacing.sm,
     },
     paramBlock: {
-      marginBottom: Layout.spacing.md,
+      marginBottom: Layout.spacing.xs,
     },
-    paramHeader: {
+    paramLabelRow: {
       flexDirection: 'row',
       justifyContent: 'space-between',
       alignItems: 'center',
       marginBottom: Layout.spacing.xs,
+      paddingHorizontal: Layout.spacing.xs,
     },
     paramLabel: {
       fontSize: Layout.fontSize.base,
       fontWeight: '600',
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
     },
-    lockBadge: {
-      paddingVertical: 4,
-      paddingHorizontal: 8,
-      borderRadius: Layout.borderRadius.md,
-      borderWidth: 1,
-      borderColor: colors.border,
+    lockButton: {
+      width: 32,
+      height: 32,
+      borderRadius: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: colors.backgroundSecondary,
     },
-    lockText: {
-      fontSize: Layout.fontSize.sm,
+    lockButtonActive: {
+      backgroundColor: colors.primary + '20',
     },
-    pickerWrapper: {
-      borderWidth: 1,
-      borderColor: colors.border,
-      borderRadius: Layout.borderRadius.md,
-      backgroundColor: colors.background,
+    pickerContainer: {
+      ...Platform.select({
+        web: {
+          borderWidth: 1,
+          borderColor: colors.border,
+          borderRadius: Layout.borderRadius.md,
+          backgroundColor: colors.background,
+          overflow: 'hidden',
+        },
+        default: {},
+      }),
+    },
+    compactPicker: {
+      ...Platform.select({
+        web: {
+          height: 44,
+          fontSize: Layout.fontSize.base,
+        },
+        ios: {
+          height: 120,
+        },
+        android: {
+          height: 50,
+        },
+      }),
+    },
+    pickerItem: {
+      height: 120,
+      fontSize: Layout.fontSize.base,
     },
     scenePill: {
       flexDirection: 'row',
