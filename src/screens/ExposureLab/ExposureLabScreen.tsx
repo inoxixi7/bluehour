@@ -17,6 +17,7 @@ import {
 } from '../../constants/Photography';
 import {
   calculateEquivalentExposure,
+  calculateEquivalentExposureWithEV,
   calculateEV,
   calculateNDShutter,
   applyReciprocityCorrection,
@@ -31,13 +32,15 @@ const ExposureLabScreen: React.FC = () => {
   const [shutter, setShutter] = useState(1 / 4);
   const [iso, setISO] = useState(100);
   const [lockedParam, setLockedParam] = useState<'aperture' | 'shutter' | 'iso'>('iso');
+  const [targetEV, setTargetEV] = useState<number | null>(null); // 目标 EV 值
+  const [evLocked, setEvLocked] = useState(false); // EV 是否锁定
   const [ndStops, setNdStops] = useState(0);
   const [profileId, setProfileId] = useState('digital');
   const [timerState, setTimerState] = useState<'idle' | 'running' | 'done'>('idle');
   const [remainingSeconds, setRemainingSeconds] = useState(0);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const sceneCards = EV_SCENES.slice(8, 18); // focus on low-light presets
+  const sceneCards = EV_SCENES; // 显示所有场景 EV16 到 EV-6
   const reciprocityProfile = RECIPROCITY_PROFILES.find((profile) => profile.id === profileId);
   const ndOptions = useMemo(
     () => [
@@ -100,16 +103,50 @@ const ExposureLabScreen: React.FC = () => {
       return;
     }
 
-    const result = calculateEquivalentExposure(
-      { aperture, shutter, iso },
-      param,
-      value,
-      lockedParam
-    );
+    // 如果 EV 锁定,使用目标 EV 值计算
+    if (evLocked && targetEV !== null) {
+      const result = calculateEquivalentExposureWithEV(
+        targetEV,
+        param,
+        value,
+        lockedParam,
+        { aperture, shutter, iso }
+      );
 
-    setAperture(result.aperture);
-    setShutter(result.shutter);
-    setISO(result.iso);
+      if (result) {
+        setAperture(result.aperture);
+        setShutter(result.shutter);
+        setISO(result.iso);
+      } else {
+        // 无法达到目标 EV,仍然更新参数但会显示警告
+        const tempResult: any = {};
+        tempResult[param] = value;
+        tempResult[lockedParam] = lockedParam === 'aperture' ? aperture : 
+                                   lockedParam === 'shutter' ? shutter : iso;
+        
+        // 确定第三个参数
+        const paramsArray: Array<'aperture' | 'shutter' | 'iso'> = ['aperture', 'shutter', 'iso'];
+        const adjustParam = paramsArray.find(p => p !== param && p !== lockedParam)!;
+        tempResult[adjustParam] = adjustParam === 'aperture' ? aperture : 
+                                   adjustParam === 'shutter' ? shutter : iso;
+        
+        setAperture(tempResult.aperture);
+        setShutter(tempResult.shutter);
+        setISO(tempResult.iso);
+      }
+    } else {
+      // 正常的等效曝光计算
+      const result = calculateEquivalentExposure(
+        { aperture, shutter, iso },
+        param,
+        value,
+        lockedParam
+      );
+
+      setAperture(result.aperture);
+      setShutter(result.shutter);
+      setISO(result.iso);
+    }
   };
 
   const handleSceneSelect = (sceneIndex: number) => {
@@ -117,6 +154,14 @@ const ExposureLabScreen: React.FC = () => {
     setAperture(scene.params.aperture);
     setShutter(scene.params.shutter);
     setISO(scene.params.iso);
+    // 锁定选中场景的 EV 值
+    setTargetEV(scene.ev);
+    setEvLocked(true);
+  };
+
+  const handleUnlockEV = () => {
+    setEvLocked(false);
+    setTargetEV(null);
   };
 
   const timerLabel = useMemo(() => {
@@ -196,17 +241,58 @@ const ExposureLabScreen: React.FC = () => {
         {t('calculator.exposureLab.subtitle')}
       </Text>
 
-      <Card style={styles.heroCard}>
-        <Text style={[styles.heroLabel, { color: theme.colors.textSecondary }]}>
-          {t('calculator.exposureLab.currentEv')}
-        </Text>
-        <Text style={[styles.heroValue, { color: theme.colors.blueHour }]}>{formatEV(currentEV)}</Text>
-        <Text style={[styles.heroHint, { color: theme.colors.textSecondary }]}>
-          {t('calculator.exposureLab.evHelper')}
-        </Text>
+      <Card style={styles.sceneCard}>
+        <View style={styles.sectionHeader}>
+          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
+            {t('calculator.exposureLab.sceneShortcuts')}
+          </Text>
+          <Text style={[styles.sectionHint, { color: theme.colors.textSecondary }]}>
+            {t('calculator.exposureLab.sceneHint')}
+          </Text>
+        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.sceneScroll}>
+          {sceneCards.map((scene, index) => (
+            <TouchableOpacity
+              key={scene.ev}
+              style={[styles.scenePill, { borderColor: theme.colors.border }]}
+              onPress={() => handleSceneSelect(index)}
+            >
+              <Text style={styles.sceneEmoji}>{scene.icon}</Text>
+              <View>
+                <Text style={[styles.sceneTitle, { color: theme.colors.text }]}>{t(scene.descriptionKey)}</Text>
+                <Text style={[styles.sceneParams, { color: theme.colors.textSecondary }]}>
+                  f/{scene.params.aperture} · {formatShutterSpeed(scene.params.shutter)} · ISO {scene.params.iso}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </Card>
 
       <Card style={styles.sectionCard}>
+        <View style={styles.evBadge}>
+          <View>
+            <Text style={[styles.evBadgeLabel, { color: theme.colors.textSecondary }]}>
+              {t('calculator.exposureLab.currentEv')}
+            </Text>
+            <Text style={[styles.evBadgeValue, { color: evLocked ? theme.colors.primary : theme.colors.blueHour }]}>
+              {formatEV(currentEV)}
+              {evLocked && ' 🔒'}
+            </Text>
+          </View>
+          {evLocked && (
+            <TouchableOpacity onPress={handleUnlockEV} style={[styles.unlockButton, { borderColor: theme.colors.border }]}>
+              <Text style={[styles.unlockText, { color: theme.colors.primary }]}>解锁</Text>
+            </TouchableOpacity>
+          )}
+        </View>
+        {evLocked && targetEV !== null && Math.abs(currentEV - targetEV) > 0.3 && (
+          <View style={[styles.warningBadge, { backgroundColor: theme.colors.backgroundSecondary }]}>
+            <Text style={[styles.warningText, { color: theme.colors.accent }]}>
+              ⚠️ 当前参数无法精确达到目标 EV{formatEV(targetEV)}
+            </Text>
+          </View>
+        )}
         <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
           {t('calculator.exposureLab.baseSettings')}
         </Text>
@@ -228,34 +314,6 @@ const ExposureLabScreen: React.FC = () => {
           iso,
           ISO_VALUES.map((value) => ({ value, label: `ISO ${value}` }))
         )}
-      </Card>
-
-      <Card style={styles.sectionCard}>
-        <View style={styles.sectionHeader}>
-          <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-            {t('calculator.exposureLab.sceneShortcuts')}
-          </Text>
-          <Text style={[styles.sectionHint, { color: theme.colors.textSecondary }]}>
-            {t('calculator.exposureLab.sceneHint')}
-          </Text>
-        </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          {sceneCards.map((scene, index) => (
-            <TouchableOpacity
-              key={scene.ev}
-              style={[styles.scenePill, { borderColor: theme.colors.border }]}
-              onPress={() => handleSceneSelect(index)}
-            >
-              <Text style={styles.sceneEmoji}>{scene.icon}</Text>
-              <View>
-                <Text style={[styles.sceneTitle, { color: theme.colors.text }]}>{t(scene.descriptionKey)}</Text>
-                <Text style={[styles.sceneParams, { color: theme.colors.textSecondary }]}>
-                  f/{scene.params.aperture} · {formatShutterSpeed(scene.params.shutter)} · ISO {scene.params.iso}
-                </Text>
-              </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
       </Card>
 
       <Card style={styles.sectionCard}>
@@ -291,41 +349,35 @@ const ExposureLabScreen: React.FC = () => {
       </Card>
 
       <Card style={styles.resultCard}>
-        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-          {t('calculator.exposureLab.resultTitle')}
+        <View style={styles.resultHeader}>
+          <Text style={[styles.resultLabel, { color: theme.colors.textSecondary }]}>
+            {t('calculator.exposureLab.resultTitle')}
+          </Text>
+          <View style={styles.resultSteps}>
+            <Text style={[styles.stepText, { color: theme.colors.textSecondary }]}>
+              {formatShutterSpeed(shutter)}
+            </Text>
+            <Text style={[styles.stepArrow, { color: theme.colors.textSecondary }]}>→</Text>
+            <Text style={[styles.stepText, { color: theme.colors.textSecondary }]}>
+              {formatShutterSpeed(ndAdjustedShutter)}
+            </Text>
+          </View>
+        </View>
+        <Text style={[styles.finalValue, { color: theme.colors.blueHour }]}>
+          {formatShutterSpeed(reciprocityCorrected)}
         </Text>
-        <View style={styles.resultRow}>
-          <Text style={[styles.resultLabel, { color: theme.colors.textSecondary }]}>
-            {t('calculator.exposureLab.resultBase')}
-          </Text>
-          <Text style={[styles.resultValue, { color: theme.colors.text }]}
-          >
-            {formatShutterSpeed(shutter)}
-          </Text>
-        </View>
-        <View style={styles.resultRow}>
-          <Text style={[styles.resultLabel, { color: theme.colors.textSecondary }]}>
-            {t('calculator.exposureLab.resultNd')}
-          </Text>
-          <Text style={[styles.resultValue, { color: theme.colors.text }]}>
-            {formatShutterSpeed(ndAdjustedShutter)}
-          </Text>
-        </View>
-        <View style={styles.resultRow}>
-          <Text style={[styles.resultLabel, { color: theme.colors.textSecondary }]}>
-            {t('calculator.exposureLab.resultReciprocity')}
-          </Text>
-          <Text style={[styles.resultValue, { color: theme.colors.blueHour }]}>
-            {formatShutterSpeed(reciprocityCorrected)}
-          </Text>
-        </View>
+        <Text style={[styles.resultHint, { color: theme.colors.textSecondary }]}>
+          {t('calculator.exposureLab.resultReciprocity')}
+        </Text>
       </Card>
 
       <Card style={styles.timerCard}>
-        <Text style={[styles.sectionTitle, { color: theme.colors.text }]}>
-          {t('calculator.exposureLab.timerTitle')}
-        </Text>
-        <Text style={[styles.timerValue, { color: theme.colors.accent }]}>{timerLabel}</Text>
+        <View style={styles.timerHeader}>
+          <Text style={[styles.timerLabel, { color: theme.colors.textSecondary }]}>
+            {t('calculator.exposureLab.timerTitle')}
+          </Text>
+          <Text style={[styles.timerValue, { color: theme.colors.accent }]}>{timerLabel}</Text>
+        </View>
         <View style={styles.timerButtons}>
           {timerState === 'running' ? (
             <AppButton title={t('calculator.exposureLab.stopTimer')} onPress={stopTimer} variant="secondary" />
@@ -334,7 +386,7 @@ const ExposureLabScreen: React.FC = () => {
           )}
         </View>
         {timerState === 'done' && (
-          <Text style={[styles.sectionHint, { color: theme.colors.success }]}>
+          <Text style={[styles.timerDone, { color: theme.colors.success }]}>
             {t('calculator.exposureLab.timerDone')}
           </Text>
         )}
@@ -359,27 +411,53 @@ const createStyles = (colors: any) =>
     },
     subtitle: {
       fontSize: Layout.fontSize.base,
-      marginBottom: Layout.spacing.lg,
-    },
-    heroCard: {
-      alignItems: 'center',
-      paddingVertical: Layout.spacing.xl,
       marginBottom: Layout.spacing.md,
+    },
+    sceneCard: {
+      marginBottom: Layout.spacing.md,
+      padding: Layout.spacing.md,
+    },
+    sceneScroll: {
+      marginHorizontal: -Layout.spacing.md,
+      paddingHorizontal: Layout.spacing.md,
+    },
+    evBadge: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingVertical: Layout.spacing.sm,
+      paddingHorizontal: Layout.spacing.md,
       backgroundColor: colors.backgroundSecondary,
+      borderRadius: Layout.borderRadius.md,
+      marginBottom: Layout.spacing.md,
     },
-    heroLabel: {
+    evBadgeLabel: {
       fontSize: Layout.fontSize.sm,
-      letterSpacing: 1,
       textTransform: 'uppercase',
+      letterSpacing: 0.5,
     },
-    heroValue: {
-      fontSize: 56,
-      fontWeight: 'bold',
-      marginTop: Layout.spacing.sm,
+    evBadgeValue: {
+      fontSize: Layout.fontSize.xl,
+      fontWeight: '700',
     },
-    heroHint: {
+    unlockButton: {
+      paddingVertical: Layout.spacing.xs,
+      paddingHorizontal: Layout.spacing.sm,
+      borderWidth: 1,
+      borderRadius: Layout.borderRadius.sm,
+    },
+    unlockText: {
       fontSize: Layout.fontSize.sm,
-      marginTop: Layout.spacing.xs,
+      fontWeight: '600',
+    },
+    warningBadge: {
+      paddingVertical: Layout.spacing.sm,
+      paddingHorizontal: Layout.spacing.md,
+      borderRadius: Layout.borderRadius.md,
+      marginBottom: Layout.spacing.sm,
+    },
+    warningText: {
+      fontSize: Layout.fontSize.sm,
       textAlign: 'center',
     },
     sectionCard: {
@@ -392,10 +470,11 @@ const createStyles = (colors: any) =>
     sectionTitle: {
       fontSize: Layout.fontSize.lg,
       fontWeight: '600',
-      marginBottom: Layout.spacing.sm,
+      marginBottom: Layout.spacing.md,
     },
     sectionHint: {
       fontSize: Layout.fontSize.sm,
+      marginBottom: Layout.spacing.xs,
     },
     sectionCardContent: {
       marginTop: Layout.spacing.sm,
@@ -436,45 +515,80 @@ const createStyles = (colors: any) =>
       borderRadius: Layout.borderRadius.lg,
       padding: Layout.spacing.md,
       marginRight: Layout.spacing.sm,
-      minWidth: 220,
+      minWidth: 200,
     },
     sceneEmoji: {
-      fontSize: 22,
+      fontSize: 20,
       marginRight: Layout.spacing.sm,
     },
     sceneTitle: {
       fontWeight: '600',
+      fontSize: Layout.fontSize.sm,
     },
     sceneParams: {
-      fontSize: Layout.fontSize.sm,
+      fontSize: Layout.fontSize.xs,
+      marginTop: 2,
     },
     resultCard: {
       marginBottom: Layout.spacing.md,
       padding: Layout.spacing.lg,
+      alignItems: 'center',
     },
-    resultRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
+    resultHeader: {
+      width: '100%',
       marginBottom: Layout.spacing.sm,
     },
     resultLabel: {
       fontSize: Layout.fontSize.sm,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+      textAlign: 'center',
     },
-    resultValue: {
-      fontSize: Layout.fontSize.lg,
-      fontWeight: '600',
+    resultSteps: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginTop: Layout.spacing.xs,
+    },
+    stepText: {
+      fontSize: Layout.fontSize.sm,
+    },
+    stepArrow: {
+      fontSize: Layout.fontSize.sm,
+      marginHorizontal: Layout.spacing.xs,
+    },
+    finalValue: {
+      fontSize: 52,
+      fontWeight: '700',
+      marginVertical: Layout.spacing.sm,
+    },
+    resultHint: {
+      fontSize: Layout.fontSize.sm,
     },
     timerCard: {
       padding: Layout.spacing.lg,
     },
-    timerValue: {
-      fontSize: 48,
-      fontWeight: '700',
-      textAlign: 'center',
+    timerHeader: {
+      alignItems: 'center',
       marginBottom: Layout.spacing.md,
+    },
+    timerLabel: {
+      fontSize: Layout.fontSize.sm,
+      textTransform: 'uppercase',
+      letterSpacing: 0.5,
+      marginBottom: Layout.spacing.xs,
+    },
+    timerValue: {
+      fontSize: 42,
+      fontWeight: '700',
     },
     timerButtons: {
       alignItems: 'center',
+    },
+    timerDone: {
+      fontSize: Layout.fontSize.sm,
+      textAlign: 'center',
+      marginTop: Layout.spacing.sm,
     },
   });
 

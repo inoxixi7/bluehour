@@ -104,6 +104,93 @@ export const calculateEquivalentExposure = (
 };
 
 /**
+ * 根据目标 EV 值和已知参数计算等效曝光
+ * 用于 EV 锁定模式
+ * @param targetEV 目标 EV 值
+ * @param changedParam 改变的参数名
+ * @param newValue 新的参数值
+ * @param lockedParam 锁定的参数名
+ * @returns 计算结果，如果无法达到目标 EV 则返回 null
+ */
+export const calculateEquivalentExposureWithEV = (
+  targetEV: number,
+  changedParam: 'aperture' | 'shutter' | 'iso',
+  newValue: number,
+  lockedParam: 'aperture' | 'shutter' | 'iso',
+  currentValues: { aperture: number; shutter: number; iso: number }
+): EVEquivalentResult | null => {
+  // 确定需要调整的参数
+  const paramsArray: Array<'aperture' | 'shutter' | 'iso'> = ['aperture', 'shutter', 'iso'];
+  const adjustParam = paramsArray.find(p => p !== changedParam && p !== lockedParam)!;
+
+  // 根据目标 EV 公式: EV = log2(aperture^2 / shutter) + log2(iso / 100)
+  // 求解未知参数
+  
+  let aperture: number = currentValues.aperture;
+  let shutter: number = currentValues.shutter;
+  let iso: number = currentValues.iso;
+  
+  // 设置改变的参数
+  if (changedParam === 'aperture') {
+    aperture = newValue;
+  } else if (changedParam === 'shutter') {
+    shutter = newValue;
+  } else if (changedParam === 'iso') {
+    iso = newValue;
+  }
+  
+  // 锁定的参数保持不变(已经从 currentValues 设置了)
+
+  // 计算未知参数
+  if (adjustParam === 'aperture') {
+    // EV = log2(aperture^2 / shutter) + log2(iso / 100)
+    // EV - log2(iso / 100) = log2(aperture^2 / shutter)
+    // aperture^2 / shutter = 2^(EV - log2(iso / 100))
+    // aperture^2 = shutter * 2^(EV - log2(iso / 100))
+    const evAdjusted = targetEV - Math.log2(iso / 100);
+    const apertureSq = shutter * Math.pow(2, evAdjusted);
+    aperture = Math.sqrt(apertureSq);
+    aperture = findClosestAperture(aperture);
+    
+    // 验证光圈是否在有效范围内
+    if (aperture < 1.0 || aperture > 32) {
+      return null;
+    }
+  } else if (adjustParam === 'shutter') {
+    // EV = log2(aperture^2 / shutter) + log2(iso / 100)
+    // EV - log2(iso / 100) = log2(aperture^2 / shutter)
+    // aperture^2 / shutter = 2^(EV - log2(iso / 100))
+    // shutter = aperture^2 / 2^(EV - log2(iso / 100))
+    const evAdjusted = targetEV - Math.log2(iso / 100);
+    shutter = (aperture * aperture) / Math.pow(2, evAdjusted);
+    shutter = findClosestShutter(shutter);
+    
+    // 验证快门是否在有效范围内
+    if (shutter < 1 / 8000 || shutter > 1800) {
+      return null;
+    }
+  } else if (adjustParam === 'iso') {
+    // EV = log2(aperture^2 / shutter) + log2(iso / 100)
+    // log2(iso / 100) = EV - log2(aperture^2 / shutter)
+    // iso = 100 * 2^(EV - log2(aperture^2 / shutter))
+    iso = 100 * Math.pow(2, targetEV - Math.log2(aperture! * aperture! / shutter!));
+    iso = findClosestISO(iso);
+    
+    // 验证 ISO 是否在有效范围内
+    if (iso < 50 || iso > 25600) {
+      return null;
+    }
+  }
+
+  return {
+    aperture: aperture!,
+    shutter: shutter!,
+    iso: iso!,
+    ev: targetEV,
+  };
+};
+
+/**
  * ND 滤镜计算
  * @param baseShutter 基础快门速度（秒）
  * @param ndStops ND 滤镜的档位数
