@@ -295,6 +295,12 @@ export default {
       startTimer: '开始计时',
       stopTimer: '停止计时',
       timerDone: '曝光完成',
+      start: '开始',
+      stop: '停止',
+      timer: {
+        countdown: '倒计时',
+        bulb: 'B门计时',
+      },
     },
   },
 

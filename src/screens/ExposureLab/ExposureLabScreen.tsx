@@ -278,7 +278,7 @@ const ExposureLabScreen: React.FC = () => {
               <View style={styles.timerRow}>
                 <View style={styles.timerInfo}>
                   <Text style={[styles.timerLabel, { color: theme.colors.textSecondary }]}>
-                    {timerState === 'running' ? '倒计时' : 'B门计时'}
+                    {timerState === 'running' ? t('calculator.exposureLab.timer.countdown') : t('calculator.exposureLab.timer.bulb')}
                   </Text>
                   <Text style={[styles.timerValue, { color: timerState === 'running' ? theme.colors.accent : theme.colors.text }]}>
                     {timerLabel}
@@ -290,7 +290,7 @@ const ExposureLabScreen: React.FC = () => {
                   activeOpacity={0.8}
                 >
                   <Text style={styles.timerButtonText}>
-                    {timerState === 'running' ? '停止' : '开始'}
+                    {timerState === 'running' ? t('calculator.exposureLab.stop') : t('calculator.exposureLab.start')}
                   </Text>
                 </TouchableOpacity>
               </View>

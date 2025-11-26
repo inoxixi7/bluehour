@@ -64,13 +64,13 @@ export default {
     },
     cta: {
       defaultTitle: 'Plan a long exposure',
-      defaultDescription: 'Use Exposure Lab to link ND filters, reciprocity, and the bulb timer.',
+      defaultDescription: 'Use Exposure Lab to combine ND filters, reciprocity, and the bulb timer in one workflow.',
       dayTitle: 'Simulate blue hour in daylight',
-      dayDescription: 'Stack ND filters to capture silky water and moving clouds.',
-      blueTitle: 'It’s blue hour right now',
-      blueDescription: 'Dial exposure and start the timer before the light fades.',
-      nightTitle: 'Prep for the next dawn',
-      nightDescription: 'Calculate exposure now so you are ready when light returns.',
+      dayDescription: 'Stack ND filters to capture silky water and flowing clouds in bright conditions.',
+      blueTitle: "It's blue hour right now",
+      blueDescription: 'Set your exposure and start the timer before the magic light fades away.',
+      nightTitle: 'Prepare for the next dawn',
+      nightDescription: 'Calculate settings now so you are ready when blue hour returns.',
     },
     timeline: {
       title: 'Light timeline (today)',
@@ -294,6 +294,12 @@ export default {
       startTimer: 'Start timer',
       stopTimer: 'Stop timer',
       timerDone: 'Exposure complete',
+      start: 'Start',
+      stop: 'Stop',
+      timer: {
+        countdown: 'Countdown',
+        bulb: 'Bulb Timer',
+      },
     },
   },
 

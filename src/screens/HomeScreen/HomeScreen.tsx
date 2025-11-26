@@ -125,11 +125,13 @@ const HomeScreen: React.FC = () => {
               <Text style={[styles.heroPhase, { color: theme.colors.text }]}> 
                 {phaseState ? t(phaseState.current.labelKey) : t('home.hero.waitingPhase')}
               </Text>
-              {phaseState && (
+              {nextBlueHour && (
                 <Text style={[styles.heroCountdown, { color: theme.colors.textSecondary }]}> 
                   {t('sunTimes.currentPhase.distanceTo', {
-                    phase: t(phaseState.next.labelKey),
-                    time: formatTimeCountdown(phaseState.minutesUntilTransition, t),
+                    phase: nextBlueHour.isNextDay 
+                      ? t('sunTimes.currentPhase.tomorrows') + t(nextBlueHour.labelKey)
+                      : t(nextBlueHour.labelKey),
+                    time: formatTimeCountdown(Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)), t),
                   })}
                 </Text>
               )}

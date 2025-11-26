@@ -18,7 +18,7 @@ export const formatShutterSpeed = (seconds: number): string => {
       }
       return `${minutes}${t('common.units.min')}${Math.round(remainingSeconds)}${t('common.units.sec')}`;
     }
-    return seconds === 1 ? `1${t('common.units.second')}` : `${seconds.toFixed(2)}${t('common.units.seconds')}`;
+    return seconds === 1 ? `1${t('common.units.second')}` : `${Math.round(seconds)}${t('common.units.seconds')}`;
   } else {
     const denominator = Math.round(1 / seconds);
     return `1/${denominator}${t('common.units.sec')}`;
