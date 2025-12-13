@@ -63,14 +63,14 @@ export default {
       nextBlueHour: '下一次蓝调时刻',
     },
     cta: {
-      defaultTitle: '规划一次长曝光',
-      defaultDescription: '使用曝光实验室，一次完成 ND、倒易律和计时。',
-      dayTitle: '在白天模拟蓝调的流动感',
-      dayDescription: '叠加 ND 滤镜，让水面与云朵拖出丝滑轨迹。',
-      blueTitle: '此刻正是蓝调时间',
-      blueDescription: '趁光线尚在，先算好曝光并启动计时器。',
-      nightTitle: '为下一次黎明提前准备',
-      nightDescription: '提前算好参数，蓝调一到就能按下快门。',
+      defaultTitle: '探索更多拍摄可能',
+      defaultDescription: '光线总在变化，尝试不同的曝光组合。',
+      dayTitle: '寻找构图的最佳时机',
+      dayDescription: '强光下适合踩点。提前确认机位，为晚上的拍摄做准备。',
+      blueTitle: '捕捉冷暖色调的平衡',
+      blueDescription: '天空与城市灯光亮度最接近的时刻，注意控制高光。',
+      nightTitle: '尝试光绘或星空摄影',
+      nightDescription: '利用黑暗环境创作，或者使用 B 门拍摄车轨。',
     },
     timeline: {
       title: '今日光线时间轴',
@@ -88,6 +88,16 @@ export default {
         title: '偏好设置',
         description: '管理语言、主题与其他个性化选项。',
       },
+    },
+    tips: {
+      title: '每日摄影贴士',
+      items: {
+        tripod: '蓝调时刻光线较暗，务必使用三脚架以保持画质清晰。',
+        aperture: '拍摄城市夜景时，使用 f/8 - f/11 的小光圈可以拍出漂亮的星芒。',
+        iso: '尽量使用原生最低 ISO（如 ISO 100）以减少噪点，保证天空纯净。',
+        raw: '建议使用 RAW 格式拍摄，以便后期调整白平衡和找回暗部细节。',
+        foreground: '广角拍摄时，寻找有趣的前景（如水坑、栏杆）能增加照片的层次感。',
+      }
     },
     sections: {
       sunPlannerAction: '打开完整时间轴',

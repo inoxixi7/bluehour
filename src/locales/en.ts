@@ -63,14 +63,14 @@ export default {
       nextBlueHour: 'Next blue hour',
     },
     cta: {
-      defaultTitle: 'Plan a long exposure',
-      defaultDescription: 'Use Exposure Lab to combine ND filters, reciprocity, and the bulb timer in one workflow.',
-      dayTitle: 'Simulate blue hour in daylight',
-      dayDescription: 'Stack ND filters to capture silky water and flowing clouds in bright conditions.',
-      blueTitle: "It's blue hour right now",
-      blueDescription: 'Set your exposure and start the timer before the magic light fades away.',
-      nightTitle: 'Prepare for the next dawn',
-      nightDescription: 'Calculate settings now so you are ready when blue hour returns.',
+      defaultTitle: 'Explore Creative Options',
+      defaultDescription: 'Light is always changing. Try different exposure combinations.',
+      dayTitle: 'Scout for Compositions',
+      dayDescription: 'Harsh light is perfect for finding angles. Plan your spot for tonight.',
+      blueTitle: 'Balance City Lights',
+      blueDescription: 'Sky and artificial lights are equal brightness. Watch your highlights.',
+      nightTitle: 'Try Light Painting',
+      nightDescription: 'Use the darkness for creative light painting or star trails.',
     },
     timeline: {
       title: 'Light timeline (today)',
@@ -88,6 +88,16 @@ export default {
         title: 'Settings',
         description: 'Language, theme and personalization.',
       },
+    },
+    tips: {
+      title: 'Daily Photo Tip',
+      items: {
+        tripod: 'Blue hour light is low; use a tripod to keep your images sharp.',
+        aperture: 'For cityscapes, use a small aperture (f/8 - f/11) to create starbursts on streetlights.',
+        iso: 'Stick to the base ISO (e.g., ISO 100) to minimize noise and keep the sky clean.',
+        raw: 'Shoot in RAW format to easily adjust white balance and recover shadow details later.',
+        foreground: 'With wide-angle lenses, find an interesting foreground to add depth to your composition.',
+      }
     },
     sections: {
       sunPlannerAction: 'Open full timeline',

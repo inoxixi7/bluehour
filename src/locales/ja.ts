@@ -63,14 +63,14 @@ export default {
       nextBlueHour: '次のブルーアワー',
     },
     cta: {
-      defaultTitle: '長時間露光を計画',
-      defaultDescription: '露出ラボで ND・相反則不軌補正・タイマーを一括管理。',
-      dayTitle: '日中にブルーアワーの空気感を再現',
-      dayDescription: 'NDを重ねて水面や雲を滑らかに。',
-      blueTitle: '今がまさにブルーアワー',
-      blueDescription: '光が消える前に露出を決めてタイマーを開始。',
-      nightTitle: '夜のうちに準備しておく',
-      nightDescription: '次のブルーアワー用に設定を仕込んでおきましょう。',
+      defaultTitle: '創造的なオプションを探る',
+      defaultDescription: '光は常に変化します。さまざまな露出の組み合わせを試してください。',
+      dayTitle: '構図を探す',
+      dayDescription: '強い光はロケハンに最適です。今夜の撮影場所を計画しましょう。',
+      blueTitle: '街明かりとのバランス',
+      blueDescription: '空と人工光の明るさが等しくなる瞬間です。白飛びに注意してください。',
+      nightTitle: 'ライトペインティングに挑戦',
+      nightDescription: '暗闇を利用して、創造的なライトペインティングや星の軌跡を撮影しましょう。',
     },
     timeline: {
       title: '今日の光の時間割',
@@ -88,6 +88,16 @@ export default {
         title: '設定',
         description: '言語・テーマなどをカスタマイズ。',
       },
+    },
+    tips: {
+      title: '今日の撮影ヒント',
+      items: {
+        tripod: 'ブルーアワーは光が弱いため、三脚を使用してブレを防ぎましょう。',
+        aperture: '夜景撮影では、絞りを f/8〜f/11 に絞ると綺麗な光条（ウニ）が撮れます。',
+        iso: 'ノイズを抑えるため、できるだけ基準感度（ISO 100など）を使用しましょう。',
+        raw: 'ホワイトバランスや暗部の調整がしやすいよう、RAW形式での撮影をお勧めします。',
+        foreground: '広角レンズでは、面白い前景（水たまりや柵など）を入れると奥行きが出ます。',
+      }
     },
     sections: {
       sunPlannerAction: 'タイムラインを開く',

@@ -63,14 +63,14 @@ export default {
       nextBlueHour: 'Nächste blaue Stunde',
     },
     cta: {
-      defaultTitle: 'Langzeitbelichtung planen',
-      defaultDescription: 'Verwenden Sie das Exposure Lab, um ND-Filter, Schwarzschild-Effekt und den Bulb-Timer in einem Arbeitsablauf zu kombinieren.',
-      dayTitle: 'Blaue Stunde bei Tageslicht simulieren',
-      dayDescription: 'Stapeln Sie ND-Filter, um seidiges Wasser und fließende Wolken bei hellem Licht einzufangen.',
-      blueTitle: 'Jetzt ist die blaue Stunde',
-      blueDescription: 'Stellen Sie die Belichtung ein und starten Sie den Timer, bevor das magische Licht verschwindet.',
-      nightTitle: 'Bereiten Sie sich auf die nächste Dämmerung vor',
-      nightDescription: 'Berechnen Sie jetzt die Einstellungen, damit Sie bereit sind, wenn die blaue Stunde zurückkehrt.',
+      defaultTitle: 'Kreative Optionen erkunden',
+      defaultDescription: 'Das Licht ändert sich ständig. Probieren Sie verschiedene Belichtungskombinationen aus.',
+      dayTitle: 'Kompositionen suchen',
+      dayDescription: 'Hartes Licht eignet sich perfekt zum Erkunden. Planen Sie Ihren Standort für heute Abend.',
+      blueTitle: 'Stadtlichter ausbalancieren',
+      blueDescription: 'Himmel und künstliche Lichter sind gleich hell. Achten Sie auf die Lichter.',
+      nightTitle: 'Light Painting ausprobieren',
+      nightDescription: 'Nutzen Sie die Dunkelheit für kreatives Light Painting oder Sternspuren.',
     },
     timeline: {
       title: 'Licht-Zeitachse (heute)',
@@ -88,6 +88,16 @@ export default {
         title: 'Einstellungen',
         description: 'Sprache, Design und Personalisierung.',
       },
+    },
+    tips: {
+      title: 'Foto-Tipp des Tages',
+      items: {
+        tripod: 'Das Licht der blauen Stunde ist schwach; nutzen Sie ein Stativ für scharfe Bilder.',
+        aperture: 'Für Stadtlandschaften nutzen Sie eine kleine Blende (f/8 - f/11) für Blendensterne.',
+        iso: 'Bleiben Sie bei der Basis-ISO (z.B. ISO 100), um Rauschen zu minimieren.',
+        raw: 'Fotografieren Sie in RAW, um Weißabgleich und Schatten später besser bearbeiten zu können.',
+        foreground: 'Suchen Sie bei Weitwinkelaufnahmen einen interessanten Vordergrund für mehr Tiefe.',
+      }
     },
     sections: {
       sunPlannerAction: 'Komplette Timeline öffnen',

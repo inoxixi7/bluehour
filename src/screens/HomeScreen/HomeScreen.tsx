@@ -78,7 +78,7 @@ const HomeScreen: React.FC = () => {
     switch (phaseState.current.id) {
       case 'daylight':
         return {
-          icon: '⚫',
+          icon: '🗺️',
           title: t('home.cta.dayTitle'),
           description: t('home.cta.dayDescription'),
         };
@@ -86,18 +86,28 @@ const HomeScreen: React.FC = () => {
       case 'morningBlueHour':
       case 'nextMorningBlueHour':
         return {
-          icon: '🔵',
+          icon: '⚖️',
           title: t('home.cta.blueTitle'),
           description: t('home.cta.blueDescription'),
         };
       default:
         return {
-          icon: '🌙',
+          icon: '✨',
           title: t('home.cta.nightTitle'),
           description: t('home.cta.nightDescription'),
         };
     }
   }, [phaseState, t]);
+
+  const dailyTip = useMemo(() => {
+    const tips = ['tripod', 'aperture', 'iso', 'raw', 'foreground'];
+    const dayOfYear = Math.floor((new Date().getTime() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 1000 / 60 / 60 / 24);
+    const tipKey = tips[dayOfYear % tips.length];
+    return {
+      title: t('home.tips.title'),
+      content: t(`home.tips.items.${tipKey}`)
+    };
+  }, [t]);
 
   // Filter timeline to show only photography golden hours (blue hour and golden hour)
   const photographyTimeline = useMemo(() => {
@@ -217,6 +227,34 @@ const HomeScreen: React.FC = () => {
             </View>
           </Card>
         </Touchable>
+
+        <Card style={[styles.suggestionCard, { backgroundColor: theme.colors.card }]}>
+          <View style={styles.suggestionHeader}>
+            <Text style={styles.suggestionIcon}>{quickActions.icon}</Text>
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.suggestionTitle, { color: theme.colors.text }]}>
+                {quickActions.title}
+              </Text>
+              <Text style={[styles.suggestionText, { color: theme.colors.textSecondary }]}>
+                {quickActions.description}
+              </Text>
+            </View>
+          </View>
+        </Card>
+
+        <Card style={[styles.tipCard, { backgroundColor: theme.colors.card }]}>
+          <View style={styles.tipHeader}>
+            <Ionicons name="bulb-outline" size={20} color={theme.colors.accent} style={{ marginRight: 12 }} />
+            <View style={{ flex: 1 }}>
+              <Text style={[styles.tipTitle, { color: theme.colors.text }]}>
+                {dailyTip.title}
+              </Text>
+              <Text style={[styles.tipContent, { color: theme.colors.textSecondary }]}>
+                {dailyTip.content}
+              </Text>
+            </View>
+          </View>
+        </Card>
 
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: theme.colors.textTertiary }]}>
@@ -355,6 +393,46 @@ const styles = StyleSheet.create({
   labDescription: {
     fontSize: Layout.fontSize.sm,
     lineHeight: 18,
+  },
+  suggestionCard: {
+    borderRadius: Layout.borderRadius.lg,
+    padding: Layout.spacing.md,
+    marginBottom: Layout.spacing.md,
+  },
+  suggestionHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  suggestionIcon: {
+    fontSize: 32,
+    marginRight: Layout.spacing.md,
+  },
+  suggestionTitle: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '600',
+    marginBottom: 2,
+  },
+  suggestionText: {
+    fontSize: Layout.fontSize.sm,
+    lineHeight: 18,
+  },
+  tipCard: {
+    borderRadius: Layout.borderRadius.lg,
+    padding: Layout.spacing.md,
+    marginBottom: Layout.spacing.md,
+  },
+  tipHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  tipTitle: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  tipContent: {
+    fontSize: Layout.fontSize.sm,
+    lineHeight: 20,
   },
   footer: {
     alignItems: 'center',
