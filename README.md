@@ -123,3 +123,9 @@ bluehournew/
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
+
+## ⚖️ Legal & Credits
+
+- **Data Source**: Sunrise and sunset data provided by [sunrise-sunset.org](https://sunrise-sunset.org/api).
+- **Privacy Policy**: This application processes location data locally on your device to calculate solar times. No location data is uploaded to any external server.
+- **Trademarks**: All product names, logos, and brands (e.g., Kodak, Fujifilm) are property of their respective owners. All company, product and service names used in this application are for identification purposes only.

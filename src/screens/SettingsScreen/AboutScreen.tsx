@@ -25,6 +25,10 @@ const AboutScreen: React.FC = () => {
           <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
             {t('settings.description')}
           </Text>
+          <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
+          <Text style={[styles.attribution, { color: theme.colors.textTertiary }]}>
+            Sun data provided by sunrise-sunset.org
+          </Text>
         </Card>
 
         {/* 功能介绍 */}
@@ -152,6 +156,15 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: Layout.fontSize.base,
     lineHeight: 22,
+  },
+  divider: {
+    height: 1,
+    marginVertical: Layout.spacing.md,
+  },
+  attribution: {
+    fontSize: Layout.fontSize.xs,
+    fontStyle: 'italic',
+    textAlign: 'center',
   },
   footer: {
     alignItems: 'center',
