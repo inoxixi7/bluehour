@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Dimensions, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity, Platform } from 'react-native';
 import { Layout } from '../../constants/Layout';
 
 interface HorizontalScrollPickerProps {
@@ -14,9 +14,9 @@ interface HorizontalScrollPickerProps {
 }
 
 const ITEM_WIDTH = 80;
-const VISIBLE_ITEMS = 5;
+const VISIBLE_ITEMS = Platform.OS === 'web' ? 5 : 3;
 const CONTAINER_WIDTH = ITEM_WIDTH * VISIBLE_ITEMS;
-const SIDE_PADDING = ITEM_WIDTH * 2; // 左右各留2个位置
+const SIDE_PADDING = ITEM_WIDTH * Math.floor(VISIBLE_ITEMS / 2);
 
 export const HorizontalScrollPicker: React.FC<HorizontalScrollPickerProps> = ({
   label,
@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
   },
   centerIndicator: {
     position: 'absolute',
-    left: ITEM_WIDTH * 2,
+    left: SIDE_PADDING,
     top: 0,
     height: 50,
     width: ITEM_WIDTH,

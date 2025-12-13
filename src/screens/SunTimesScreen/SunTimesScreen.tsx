@@ -20,7 +20,7 @@ import { formatLocationName } from '../../utils/locationHelpers';
 import { useLocationData } from '../../contexts/LocationDataContext';
 
 const SunTimesScreen: React.FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { theme } = useTheme();
   const styles = createStyles(theme.colors);
   const navigation = useNavigation();
@@ -147,7 +147,7 @@ const SunTimesScreen: React.FC = () => {
                 styles.dateDay,
                 { color: isSelected ? '#fff' : theme.colors.textSecondary }
               ]}>
-                {date.toLocaleDateString('zh-CN', { weekday: 'short' })}
+                {date.toLocaleDateString(i18n.language, { weekday: 'short' })}
               </Text>
               <Text style={[
                 styles.dateNumber,
@@ -159,7 +159,7 @@ const SunTimesScreen: React.FC = () => {
                 styles.dateMonth,
                 { color: isSelected ? '#fff' : theme.colors.textSecondary }
               ]}>
-                {date.getMonth() + 1}月
+                {date.toLocaleDateString(i18n.language, { month: 'short' })}
               </Text>
             </TouchableOpacity>
           );

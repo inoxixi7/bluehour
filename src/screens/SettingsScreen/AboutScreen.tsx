@@ -21,7 +21,6 @@ const AboutScreen: React.FC = () => {
         <Card style={styles.card}>
           <View style={styles.appHeader}>
             <Text style={[styles.appName, { color: theme.colors.text }]}>{t('settings.appName')}</Text>
-            <Text style={[styles.version, { color: theme.colors.textSecondary }]}>v1.0.0</Text>
           </View>
           <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
             {t('settings.description')}

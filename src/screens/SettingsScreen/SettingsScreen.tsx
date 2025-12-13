@@ -19,7 +19,7 @@ const SettingsScreen: React.FC = () => {
   };
 
   const handleContactSupport = () => {
-    Linking.openURL('mailto:support@example.com');
+    Linking.openURL('mailto:bernardlee24@gmail.com');
   };
 
   const getThemeLabel = (mode: ThemeMode) => {
@@ -128,7 +128,7 @@ const SettingsScreen: React.FC = () => {
               <Text style={[styles.linkButtonText, { color: theme.colors.text }]}>
                 {t('settings.github')}
               </Text>
-              <Ionicons name="open-outline" size={16} color={theme.colors.textSecondary} />
+              <Ionicons name="chevron-forward" size={16} color={theme.colors.textSecondary} />
             </TouchableOpacity>
             
             <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
@@ -142,7 +142,7 @@ const SettingsScreen: React.FC = () => {
               <Text style={[styles.linkButtonText, { color: theme.colors.text }]}>
                 {t('settings.contactSupport')}
               </Text>
-              <Ionicons name="open-outline" size={16} color={theme.colors.textSecondary} />
+              <Ionicons name="chevron-forward" size={16} color={theme.colors.textSecondary} />
             </TouchableOpacity>
           </Card>
         </View>

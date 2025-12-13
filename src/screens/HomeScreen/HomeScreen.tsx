@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,9 @@ import {
   TouchableOpacity,
   ScrollView,
   SafeAreaView,
+  Platform,
+  StatusBar,
+  RefreshControl,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -32,8 +35,22 @@ const HomeScreen: React.FC = () => {
     locationLoading,
     sunTimesLoading,
     locationError,
+    getCurrentLocation,
   } = useLocationData();
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(async () => {
+    setRefreshing(true);
+    try {
+      await getCurrentLocation();
+    } catch (error) {
+      console.error('Failed to refresh location:', error);
+    } finally {
+      setRefreshing(false);
+    }
+  }, [getCurrentLocation]);
+(locationLoading || (sunTimesLoading && !sunTimes)) && !refreshing
   const sunTimes = getSunTimesForDate(new Date());
 
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
@@ -102,6 +119,15 @@ const HomeScreen: React.FC = () => {
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={theme.colors.text}
+            colors={[theme.colors.accent]} // Android
+            progressBackgroundColor={theme.colors.card} // Android
+          />
+        }
       >
         <View style={styles.header}>
           <View style={styles.headerTop}>
@@ -205,6 +231,7 @@ const HomeScreen: React.FC = () => {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
+    paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 0,
   },
   container: {
     flex: 1,
