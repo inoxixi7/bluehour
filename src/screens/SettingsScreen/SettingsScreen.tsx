@@ -16,7 +16,7 @@ const SettingsScreen: React.FC = () => {
   const navigation = useNavigation<any>();
   
   const handleOpenGitHub = () => {
-    Linking.openURL('https://github.com/inoxixi7');
+    Linking.openURL('https://github.com/inoxixi7/bluehour');
   };
 
   const handleContactSupport = () => {
