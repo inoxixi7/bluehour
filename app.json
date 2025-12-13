@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "BlueHour",
-    "slug": "bluehour-photo-tool",
+    "slug": "bluehour",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -50,7 +50,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "b300a2b2-2722-47f6-9f61-48e0967c4803"
+        "projectId": "212a2329-7fee-4f6d-bdbe-67c3b5dd2431"
       }
     }
   }
