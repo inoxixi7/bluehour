@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions, NativeScrollEvent, NativeSyntheticEvent, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Dimensions, NativeScrollEvent, NativeSyntheticEvent, Platform } from 'react-native';
 import { Layout } from '../../constants/Layout';
+import { Touchable } from './Touchable';
 
 interface HorizontalScrollPickerProps {
   label: string;
@@ -90,7 +91,7 @@ export const HorizontalScrollPicker: React.FC<HorizontalScrollPickerProps> = ({
             {options.map((option, index) => {
               const isSelected = option.value === selectedValue;
               return (
-                <TouchableOpacity
+                <Touchable
                   key={`${option.value}-${index}`}
                   style={styles.item}
                   activeOpacity={0.7}
@@ -110,7 +111,7 @@ export const HorizontalScrollPicker: React.FC<HorizontalScrollPickerProps> = ({
                   >
                     {option.label}
                   </Text>
-                </TouchableOpacity>
+                </Touchable>
               );
             })}
             

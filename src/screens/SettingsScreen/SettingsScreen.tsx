@@ -1,10 +1,11 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Linking, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Card } from '../../components/common/Card';
 import { AppButton } from '../../components/common/AppButton';
+import { Touchable } from '../../components/common/Touchable';
 import { useTheme, ThemeMode } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { LANGUAGE_NAMES } from '../../locales/i18n';
@@ -47,7 +48,7 @@ const SettingsScreen: React.FC = () => {
           </Text>
           
           <Card style={styles.settingCard}>
-            <TouchableOpacity
+            <Touchable
               onPress={() => navigation.navigate('LanguageSelection')}
               activeOpacity={0.7}
               style={styles.settingItem}
@@ -64,11 +65,11 @@ const SettingsScreen: React.FC = () => {
                 </Text>
                 <Ionicons name="chevron-forward" size={20} color={theme.colors.textSecondary} />
               </View>
-            </TouchableOpacity>
+            </Touchable>
 
             <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
 
-            <TouchableOpacity
+            <Touchable
               onPress={() => navigation.navigate('ThemeSelection')}
               activeOpacity={0.7}
               style={styles.settingItem}
@@ -85,7 +86,7 @@ const SettingsScreen: React.FC = () => {
                 </Text>
                 <Ionicons name="chevron-forward" size={20} color={theme.colors.textSecondary} />
               </View>
-            </TouchableOpacity>
+            </Touchable>
           </Card>
         </View>
 
@@ -96,7 +97,7 @@ const SettingsScreen: React.FC = () => {
           </Text>
           
           <Card style={styles.settingCard}>
-            <TouchableOpacity
+            <Touchable
               onPress={() => navigation.navigate('About')}
               activeOpacity={0.7}
               style={styles.settingItem}
@@ -108,7 +109,7 @@ const SettingsScreen: React.FC = () => {
                 </Text>
               </View>
               <Ionicons name="chevron-forward" size={20} color={theme.colors.textSecondary} />
-            </TouchableOpacity>
+            </Touchable>
           </Card>
         </View>
 
@@ -119,7 +120,7 @@ const SettingsScreen: React.FC = () => {
           </Text>
           
           <Card style={styles.card}>
-            <TouchableOpacity
+            <Touchable
               onPress={handleOpenGitHub}
               style={styles.linkButton}
               activeOpacity={0.7}
@@ -129,11 +130,11 @@ const SettingsScreen: React.FC = () => {
                 {t('settings.github')}
               </Text>
               <Ionicons name="chevron-forward" size={16} color={theme.colors.textSecondary} />
-            </TouchableOpacity>
+            </Touchable>
             
             <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
             
-            <TouchableOpacity
+            <Touchable
               onPress={handleContactSupport}
               style={styles.linkButton}
               activeOpacity={0.7}
@@ -143,7 +144,7 @@ const SettingsScreen: React.FC = () => {
                 {t('settings.contactSupport')}
               </Text>
               <Ionicons name="chevron-forward" size={16} color={theme.colors.textSecondary} />
-            </TouchableOpacity>
+            </Touchable>
           </Card>
         </View>
 

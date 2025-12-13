@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "BlueHour - 摄影助手",
-    "slug": "bluehour-photo-tool",
+    "name": "BlueHour",
+    "slug": "bluehour",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -32,7 +32,9 @@
       "package": "com.yourcompany.bluehour",
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION"
+        "ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_COARSE_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION"
       ]
     },
     "web": {
@@ -45,6 +47,11 @@
           "locationAlwaysAndWhenInUsePermission": "允许 $(PRODUCT_NAME) 使用您的位置。"
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "b300a2b2-2722-47f6-9f61-48e0967c4803"
+      }
+    }
   }
 }

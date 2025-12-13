@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -7,6 +7,7 @@ import { Card } from '../../components/common/Card';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { changeLanguage, SUPPORTED_LANGUAGES, LANGUAGE_NAMES, SupportedLanguage } from '../../locales/i18n';
+import { Touchable } from '../../components/common/Touchable';
 
 const LanguageSelectionScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -21,7 +22,7 @@ const LanguageSelectionScreen: React.FC = () => {
   const renderLanguageOption = (language: SupportedLanguage) => {
     const isSelected = i18n.language === language;
     return (
-      <TouchableOpacity
+      <Touchable
         key={language}
         style={[
           styles.option,
@@ -48,7 +49,7 @@ const LanguageSelectionScreen: React.FC = () => {
         {isSelected && (
           <Ionicons name="checkmark" size={24} color={theme.colors.primary} />
         )}
-      </TouchableOpacity>
+      </Touchable>
     );
   };
 

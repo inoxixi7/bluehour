@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  TouchableOpacity,
   Text,
   StyleSheet,
   ViewStyle,
@@ -9,6 +8,7 @@ import {
 } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
+import { Touchable } from './Touchable';
 
 interface AppButtonProps {
   title: string;
@@ -76,7 +76,7 @@ export const AppButton: React.FC<AppButtonProps> = ({
   };
 
   return (
-    <TouchableOpacity
+    <Touchable
       style={[
         getButtonStyle(),
         disabled && styles.disabled,
@@ -91,7 +91,7 @@ export const AppButton: React.FC<AppButtonProps> = ({
       ) : (
         <Text style={[getTextStyle(), textStyle]}>{title}</Text>
       )}
-    </TouchableOpacity>
+    </Touchable>
   );
 };
 

@@ -4,7 +4,6 @@ import {
   Text,
   ScrollView,
   Alert,
-  TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -13,6 +12,7 @@ import { createStyles } from './styles';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Card } from '../../components/common/Card';
 import { LoadingIndicator } from '../../components/common/LoadingIndicator';
+import { Touchable } from '../../components/common/Touchable';
 import { formatTime, formatDate } from '../../utils/formatters';
 import { getTimezoneDisplayName } from '../../utils/timezone';
 import LocationSearch from '../../components/LocationSearch';
@@ -131,7 +131,7 @@ const SunTimesScreen: React.FC = () => {
           const isSelected = date.toDateString() === selectedDate.toDateString();
           const isToday = date.toDateString() === new Date().toDateString();
           return (
-            <TouchableOpacity
+            <Touchable
               key={index}
               onPress={() => setSelectedDate(date)}
               style={[
@@ -161,7 +161,7 @@ const SunTimesScreen: React.FC = () => {
               ]}>
                 {date.toLocaleDateString(i18n.language, { month: 'short' })}
               </Text>
-            </TouchableOpacity>
+            </Touchable>
           );
         })}
       </View>

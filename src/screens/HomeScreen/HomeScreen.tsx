@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
   ScrollView,
   SafeAreaView,
   Platform,
@@ -22,6 +21,7 @@ import { formatTimeCountdown } from '../../utils/i18nHelpers';
 import { formatLocationName } from '../../utils/locationHelpers';
 import { Card } from '../../components/common/Card';
 import { LoadingIndicator } from '../../components/common/LoadingIndicator';
+import { Touchable } from '../../components/common/Touchable';
 
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -134,13 +134,13 @@ const HomeScreen: React.FC = () => {
             <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
               {locationName ? formatLocationName(locationName) : t('home.hero.waitingLocation')}
             </Text>
-            <TouchableOpacity 
+            <Touchable 
               onPress={() => navigation.navigate('Settings')}
               style={styles.headerButton}
               activeOpacity={0.7}
             >
               <Ionicons name="settings-outline" size={26} color={theme.colors.text} />
-            </TouchableOpacity>
+            </Touchable>
           </View>
         </View>
 
@@ -172,7 +172,7 @@ const HomeScreen: React.FC = () => {
 
         {photographyTimeline.length > 0 && (
             <Card style={[styles.timelineCard, { backgroundColor: theme.colors.card }]}>
-              <TouchableOpacity 
+              <Touchable 
                 onPress={() => navigation.navigate('SunTimes')}
                 activeOpacity={0.7}
                 style={styles.timelineTitleRow}
@@ -181,7 +181,7 @@ const HomeScreen: React.FC = () => {
                   {t('home.timeline.title')}
                 </Text>
                 <Ionicons name="ellipsis-horizontal" size={20} color={theme.colors.textSecondary} />
-              </TouchableOpacity>
+              </Touchable>
               {photographyTimeline.map((segment) => (
                 <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
                   <View
@@ -198,7 +198,7 @@ const HomeScreen: React.FC = () => {
             </Card>
         )}
 
-        <TouchableOpacity
+        <Touchable
           onPress={() => navigation.navigate('ExposureLab')}
           activeOpacity={0.9}
         >
@@ -216,7 +216,7 @@ const HomeScreen: React.FC = () => {
               <Ionicons name="chevron-forward" size={24} color={theme.colors.accent} />
             </View>
           </Card>
-        </TouchableOpacity>
+        </Touchable>
 
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: theme.colors.textTertiary }]}>

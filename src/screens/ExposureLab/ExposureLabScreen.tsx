@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Platform, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
@@ -9,6 +9,7 @@ import { Layout } from '../../constants/Layout';
 import { Card } from '../../components/common/Card';
 import { AppButton } from '../../components/common/AppButton';
 import { HorizontalScrollPicker } from '../../components/common/HorizontalScrollPicker';
+import { Touchable } from '../../components/common/Touchable';
 import {
   APERTURE_VALUES,
   SHUTTER_SPEEDS,
@@ -64,12 +65,12 @@ const ExposureLabScreen: React.FC = () => {
   React.useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => (
-        <TouchableOpacity 
+        <Touchable 
           onPress={() => setHelpModalVisible(true)} 
           style={{ marginRight: 16 }}
         >
           <Ionicons name="information-circle-outline" size={24} color={theme.colors.primary} />
-        </TouchableOpacity>
+        </Touchable>
       ),
     });
   }, [navigation, theme.colors.primary]);
@@ -224,7 +225,7 @@ const ExposureLabScreen: React.FC = () => {
       <View style={styles.paramBlock}>
         <View style={styles.paramLabelRow}>
           <Text style={[styles.paramLabel, { color: theme.colors.text }]}>{label}</Text>
-          <TouchableOpacity
+          <Touchable
             onPress={() => setLockedParam(param)}
             style={[styles.lockButton, isLocked && styles.lockButtonActive]}
             activeOpacity={0.7}
@@ -234,7 +235,7 @@ const ExposureLabScreen: React.FC = () => {
               size={16} 
               color={isLocked ? theme.colors.primary : theme.colors.textSecondary}
             />
-          </TouchableOpacity>
+          </Touchable>
         </View>
         <HorizontalScrollPicker
           label=""
@@ -265,9 +266,9 @@ const ExposureLabScreen: React.FC = () => {
                 {t('calculator.exposureLab.currentEv')}
               </Text>
               {evLocked && (
-                <TouchableOpacity onPress={handleUnlockEV} style={styles.topCardLockIcon}>
+                <Touchable onPress={handleUnlockEV} style={styles.topCardLockIcon}>
                   <Ionicons name="lock-closed" size={16} color={theme.colors.primary} />
-                </TouchableOpacity>
+                </Touchable>
               )}
             </View>
             <Text style={[styles.evValue, { color: evLocked ? theme.colors.primary : theme.colors.blueHour }]}>
@@ -300,7 +301,7 @@ const ExposureLabScreen: React.FC = () => {
                     {timerLabel}
                   </Text>
                 </View>
-                <TouchableOpacity 
+                <Touchable 
                   onPress={timerState === 'running' ? stopTimer : startTimer}
                   style={[styles.timerButton, { backgroundColor: timerState === 'running' ? theme.colors.textSecondary : theme.colors.primary }]}
                   activeOpacity={0.8}
@@ -308,7 +309,7 @@ const ExposureLabScreen: React.FC = () => {
                   <Text style={styles.timerButtonText}>
                     {timerState === 'running' ? t('calculator.exposureLab.stop') : t('calculator.exposureLab.start')}
                   </Text>
-                </TouchableOpacity>
+                </Touchable>
               </View>
             </View>
           </View>
@@ -338,7 +339,7 @@ const ExposureLabScreen: React.FC = () => {
           style={styles.sceneScroll}
         >
           {sceneCards.map((scene, index) => (
-            <TouchableOpacity
+            <Touchable
               key={scene.ev}
               style={[styles.scenePill, { borderColor: theme.colors.border }]}
               onPress={() => handleSceneSelect(index)}
@@ -350,7 +351,7 @@ const ExposureLabScreen: React.FC = () => {
                   f/{scene.params.aperture} · {formatShutterSpeed(scene.params.shutter)} · ISO {scene.params.iso}
                 </Text>
               </View>
-            </TouchableOpacity>
+            </Touchable>
           ))}
         </ScrollView>
       </Card>
@@ -428,9 +429,9 @@ const ExposureLabScreen: React.FC = () => {
           <View style={[styles.modalContent, { backgroundColor: theme.colors.card }]}>
             <View style={styles.modalHeader}>
               <Text style={[styles.modalTitle, { color: theme.colors.text }]}>{t('exposureLabHelp.title')}</Text>
-              <TouchableOpacity onPress={() => setHelpModalVisible(false)} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+              <Touchable onPress={() => setHelpModalVisible(false)} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
                 <Ionicons name="close" size={24} color={theme.colors.text} />
-              </TouchableOpacity>
+              </Touchable>
             </View>
             <ScrollView showsVerticalScrollIndicator={false}>
               {[1, 2, 3, 4, 5].map((i) => (

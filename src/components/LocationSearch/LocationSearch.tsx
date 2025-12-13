@@ -4,7 +4,6 @@ import {
   TextInput,
   Text,
   StyleSheet,
-  TouchableOpacity,
   FlatList,
   ActivityIndicator,
   Keyboard,
@@ -14,6 +13,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { searchLocation, GeocodingResult } from '../../api/geocodingService';
+import { Touchable } from '../common/Touchable';
 
 interface LocationSearchProps {
   onLocationSelect: (latitude: number, longitude: number, name: string) => void;
@@ -83,7 +83,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
     };
 
     return (
-      <TouchableOpacity
+      <Touchable
         style={[styles.resultItem, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
         onPress={() => handleSelectLocation(item)}
         activeOpacity={0.7}
@@ -97,7 +97,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
             {item.displayName}
           </Text>
         </View>
-      </TouchableOpacity>
+      </Touchable>
     );
   };
 
@@ -120,23 +120,26 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
           />
           {loading && <ActivityIndicator size="small" color={theme.colors.primary} />}
           {searchQuery.length > 0 && !loading && (
-            <TouchableOpacity onPress={() => setSearchQuery('')} style={styles.clearButton}>
+            <Touchable onPress={() => setSearchQuery('')} style={styles.clearButton}>
               <Ionicons name="close" size={20} color={theme.colors.textSecondary} />
-            </TouchableOpacity>
+            </Touchable>
           )}
         </View>
       </View>
 
       {showResults && (
-        <TouchableOpacity 
+        <Touchable 
           style={styles.backdrop}
           activeOpacity={1}
+          hoverOpacity={1}
           onPress={() => {
             setShowResults(false);
             setSearchQuery('');
             Keyboard.dismiss();
           }}
-        />
+        >
+          <View />
+        </Touchable>
       )}
 
       {showResults && results.length > 0 && (
