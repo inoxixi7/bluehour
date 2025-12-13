@@ -1,4 +1,4 @@
-rootProject.name = 'BlueHour - 摄影助手'
+rootProject.name = 'BlueHour'
 
 dependencyResolutionManagement {
   versionCatalogs {
