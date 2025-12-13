@@ -103,6 +103,29 @@ export default {
 
   sunTimes: {
     title: 'Sunrise & Sunset Times',
+    guide: {
+      title: 'Light Phase Guide',
+      astronomicalTwilight: {
+        title: 'Astronomical Twilight',
+        desc: 'The sky is very dark, and stars are visible. This is the best time for astrophotography. Only faint light on the horizon.',
+      },
+      nauticalTwilight: {
+        title: 'Nautical Twilight',
+        desc: 'The horizon is visible. Sailors used this time for navigation. The sky takes on a deep blue hue, and city lights start to turn on.',
+      },
+      civilTwilight: {
+        title: 'Civil Twilight',
+        desc: 'The sun is below the horizon, but there is enough light for outdoor activities. The sky is colorful, great for cityscapes.',
+      },
+      blueHour: {
+        title: 'Blue Hour',
+        desc: 'A brief period before sunrise or after sunset when the sky is deep blue. Perfect for city nightscapes and architecture with strong color contrast.',
+      },
+      goldenHour: {
+        title: 'Golden Hour',
+        desc: 'Shortly after sunrise or before sunset. The light is soft, warm, and golden. Ideal for portraits and landscapes with soft shadows.',
+      },
+    },
     searchPlaceholder: 'Search location (Multi-language)',
     refreshLocation: 'Refresh Current Location',
     selectDate: 'Select Date',

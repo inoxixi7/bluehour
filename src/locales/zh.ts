@@ -103,6 +103,29 @@ export default {
 
   sunTimes: {
     title: '日出日落时间',
+    guide: {
+      title: '光线阶段指南',
+      astronomicalTwilight: {
+        title: '天文晨昏蒙影',
+        desc: '天空非常黑暗，肉眼几乎看不到星星。这是拍摄星空、银河的最佳时机。地平线上仅有微弱的光线。',
+      },
+      nauticalTwilight: {
+        title: '航海晨昏蒙影',
+        desc: '地平线依稀可见，过去水手利用此时段进行星象导航。天空呈现深蓝色调，城市灯光开始亮起。',
+      },
+      civilTwilight: {
+        title: '民用晨昏蒙影',
+        desc: '太阳在地平线以下，但光线充足，户外活动无需人工照明。天空色彩丰富，是拍摄城市景观的好时机。',
+      },
+      blueHour: {
+        title: '蓝色时刻 (Blue Hour)',
+        desc: '日出前或日落后的一短暂时刻，天空呈现迷人的深蓝色。冷暖色调对比强烈，是城市夜景和建筑摄影的黄金时间。',
+      },
+      goldenHour: {
+        title: '黄金时刻 (Golden Hour)',
+        desc: '日出后或日落前，阳光角度低，光线柔和温暖，呈现金黄色。阴影柔和，非常适合人像和风光摄影。',
+      },
+    },
     searchPlaceholder: '搜索地点（支持多语言）',
     refreshLocation: '刷新当前位置',
     selectDate: '选择日期',

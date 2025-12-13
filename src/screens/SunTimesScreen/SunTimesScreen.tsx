@@ -18,6 +18,7 @@ import { getTimezoneDisplayName } from '../../utils/timezone';
 import LocationSearch from '../../components/LocationSearch';
 import { formatLocationName } from '../../utils/locationHelpers';
 import { useLocationData } from '../../contexts/LocationDataContext';
+import { LightPhaseGuideModal } from '../../components/SunTimes/LightPhaseGuideModal';
 
 const SunTimesScreen: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -26,6 +27,7 @@ const SunTimesScreen: React.FC = () => {
   const navigation = useNavigation();
   
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showGuide, setShowGuide] = useState(false);
   
   // Generate date range (today + next 6 days)
   const dateRange = useMemo(() => {
@@ -58,12 +60,18 @@ const SunTimesScreen: React.FC = () => {
 
   // Effect: Update navigation title when location changes
   useEffect(() => {
-    if (locationName) {
-      navigation.setOptions({
-        title: formatLocationName(locationName),
-      });
-    }
-  }, [locationName, navigation]);
+    navigation.setOptions({
+      title: locationName ? formatLocationName(locationName) : t('sunTimes.title'),
+      headerRight: () => (
+        <Touchable 
+          onPress={() => setShowGuide(true)}
+          style={{ marginRight: 16 }}
+        >
+          <Ionicons name="information-circle-outline" size={24} color={theme.colors.primary} />
+        </Touchable>
+      ),
+    });
+  }, [locationName, navigation, theme.colors.primary, t]);
 
   // Effect: Fetch sun times when date changes
   useEffect(() => {
@@ -208,6 +216,11 @@ const SunTimesScreen: React.FC = () => {
               </Text>
             </View>
           </Card>
+
+          <LightPhaseGuideModal 
+            visible={showGuide}
+            onClose={() => setShowGuide(false)}
+          />
         </>
       )}
     </ScrollView>

@@ -103,6 +103,29 @@ export default {
   
   sunTimes: {
     title: 'Sonnenaufgang & Sonnenuntergang',
+    guide: {
+      title: 'Lichtphasen-Guide',
+      astronomicalTwilight: {
+        title: 'Astronomische Dämmerung',
+        desc: 'Der Himmel ist sehr dunkel und Sterne sind sichtbar. Dies ist die beste Zeit für Astrofotografie. Nur schwaches Licht am Horizont.',
+      },
+      nauticalTwilight: {
+        title: 'Nautische Dämmerung',
+        desc: 'Der Horizont ist sichtbar. Seefahrer nutzten diese Zeit zur Navigation. Der Himmel nimmt einen tiefblauen Farbton an und die Stadtlichter gehen an.',
+      },
+      civilTwilight: {
+        title: 'Bürgerliche Dämmerung',
+        desc: 'Die Sonne ist unter dem Horizont, aber es gibt genug Licht für Aktivitäten im Freien. Der Himmel ist farbenfroh, ideal für Stadtlandschaften.',
+      },
+      blueHour: {
+        title: 'Blaue Stunde',
+        desc: 'Ein kurzer Zeitraum vor Sonnenaufgang oder nach Sonnenuntergang, wenn der Himmel tiefblau ist. Perfekt für nächtliche Stadtansichten und Architektur mit starkem Farbkontrast.',
+      },
+      goldenHour: {
+        title: 'Goldene Stunde',
+        desc: 'Kurz nach Sonnenaufgang oder vor Sonnenuntergang. Das Licht ist weich, warm und golden. Ideal für Porträts und Landschaften mit weichen Schatten.',
+      },
+    },
     searchPlaceholder: 'Ort suchen (Mehrsprachig)',
     refreshLocation: 'Aktuellen Standort aktualisieren',
     selectDate: 'Datum auswählen',
