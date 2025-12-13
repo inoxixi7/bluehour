@@ -332,7 +332,11 @@ const ExposureLabScreen: React.FC = () => {
             {t('calculator.exposureLab.sceneHint')}
           </Text>
         </View>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.sceneScroll}>
+        <ScrollView 
+          horizontal 
+          showsHorizontalScrollIndicator={Platform.OS === 'web'} 
+          style={styles.sceneScroll}
+        >
           {sceneCards.map((scene, index) => (
             <TouchableOpacity
               key={scene.ev}

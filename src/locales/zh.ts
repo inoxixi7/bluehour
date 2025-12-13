@@ -277,15 +277,115 @@ export default {
         digital: '数码/无需校正',
         digitalDescription: '拍摄数码或现代传感器时选用此项。',
         digitalHint: '曝光时间保持不变。',
+        
+        // Foma
         foma100: 'Fomapan 100 Classic',
-        foma100Description: '倒易律失效非常明显，1 秒以上就要修正。',
-        foma100Hint: '务必携带快门线，曝光会迅速延长。',
-        portra400: 'Kodak Portra 400',
-        portra400Description: '轻度补偿，适合色彩长曝光。',
-        portra400Hint: '略微增加几秒可保持色彩纯净。',
-        delta100: 'Ilford Delta 100',
-        delta100Description: '中等倒易律曲线，适合细腻黑白作品。',
-        delta100Hint: '超过 30 秒需仔细记录补偿量。',
+        foma100Description: '倒易率失效极快，1秒以上即需大幅补偿。',
+        foma100Hint: '1秒变3秒，10秒变80秒！',
+        
+        foma200: 'Fomapan 200 Creative',
+        foma200Description: '扁平颗粒技术，失效稍好于100/400。',
+        foma200Hint: '1秒变3秒，10秒变60秒。',
+        
+        foma400: 'Fomapan 400 Action',
+        foma400Description: '倒易率失效极快，类似 Foma 100。',
+        foma400Hint: '1秒变3秒，10秒变80秒！',
+
+        // Kodak Motion Picture
+        kodak_50d: 'Kodak Vision3 50D (5203)',
+        kodak_50dDescription: '日光型低感电影卷，画质极其细腻。',
+        kodak_50dHint: '同 Cinestill 50D，10秒约需13秒。',
+
+        kodak_250d: 'Kodak Vision3 250D (5207)',
+        kodak_250dDescription: '日光型中感电影卷，全能型选手。',
+        kodak_250dHint: '宽容度极高，10秒约需13秒。',
+
+        kodak_500t: 'Kodak Vision3 500T (5219)',
+        kodak_500tDescription: '灯光型高感电影卷，夜景之王。',
+        kodak_500tHint: '同 Cinestill 800T，10秒约需13秒。',
+
+        // Color Negative
+        kodak_portra: 'Kodak Portra 160/400',
+        kodak_portraDescription: '宽容度极高，2秒以上需轻微补偿。',
+        kodak_portraHint: '宁曝勿欠，色彩表现优秀。',
+        
+        kodak_gold: 'Kodak Gold/Ultramax',
+        kodak_goldDescription: '消费级胶卷，长曝建议稍多补偿。',
+        kodak_goldHint: '注意长曝可能偏色。',
+        
+        fuji_superia: 'Fuji Superia/Pro 400H',
+        fuji_superiaDescription: '富士胶卷，长曝可能偏绿/紫。',
+        fuji_superiaHint: '4秒+1/3档，16秒+2/3档。',
+        
+        cinestill_800t: 'Cinestill 800T/50D',
+        cinestill_800tDescription: '基于电影卷，夜景光晕独特。',
+        cinestill_800tHint: '倒易率失效较明显。',
+        
+        lomo_cn: 'Lomography CN 400/800',
+        lomo_cnDescription: '颗粒较粗，建议多给曝光。',
+        lomo_cnHint: '类似早期柯达乳剂。',
+        
+        // B&W
+        kodak_trix: 'Kodak Tri-X 400',
+        kodak_trixDescription: '经典黑白，倒易率失效较明显。',
+        kodak_trixHint: '10秒测光需曝光约50秒。',
+        
+        kodak_tmax100: 'Kodak T-Max 100',
+        kodak_tmax100Description: '极佳的倒易率表现。',
+        kodak_tmax100Hint: '接近 Acros，10秒仅需12秒。',
+        
+        kodak_tmax400: 'Kodak T-Max 400',
+        kodak_tmax400Description: '较好的倒易率表现。',
+        kodak_tmax400Hint: '10秒测光需曝光约18秒。',
+        
+        ilford_hp5: 'Ilford HP5 Plus',
+        ilford_hp5Description: '经典黑白卷，标准倒易率。',
+        ilford_hp5Hint: '10秒测光需曝光约20秒。',
+        
+        ilford_fp4: 'Ilford FP4 Plus',
+        ilford_fp4Description: '中低感光度，表现稳定。',
+        ilford_fp4Hint: '10秒测光需曝光约18秒。',
+        
+        ilford_delta100: 'Ilford Delta 100',
+        ilford_delta100Description: '细腻颗粒，表现稳定。',
+        ilford_delta100Hint: '10秒测光需曝光约18秒。',
+        
+        ilford_delta400: 'Ilford Delta 400',
+        ilford_delta400Description: '高速微粒，失效较快。',
+        ilford_delta400Hint: '10秒测光需曝光约25秒。',
+        
+        ilford_delta3200: 'Ilford Delta 3200',
+        ilford_delta3200Description: '超高速卷，需显著补偿。',
+        ilford_delta3200Hint: '10秒测光需曝光约21秒。',
+        
+        ilford_panf: 'Ilford Pan F Plus',
+        ilford_panfDescription: '低感光度，画质细腻。',
+        ilford_panfHint: '10秒测光需曝光约21秒。',
+        
+        ilford_xp2: 'Ilford XP2 Super',
+        ilford_xp2Description: 'C-41工艺黑白卷。',
+        ilford_xp2Hint: '10秒测光需曝光约20秒。',
+        
+        ilford_sfx: 'Ilford SFX 200',
+        ilford_sfxDescription: '扩展红外感光。',
+        ilford_sfxHint: '10秒测光需曝光约27秒。',
+        
+        fuji_acros: 'Fuji Neopan Acros II',
+        fuji_acrosDescription: '倒易率王者，120秒内无需补偿。',
+        fuji_acrosHint: '长曝首选黑白卷。',
+        
+        // Slide
+        kodak_e100: 'Kodak Ektachrome E100',
+        kodak_e100Description: '现代反转片，表现优秀。',
+        kodak_e100Hint: '10秒+1/3档。',
+        
+        fuji_velvia50: 'Fuji Velvia 50',
+        fuji_velvia50Description: '倒易率极差，慎用于长曝。',
+        fuji_velvia50Hint: '4秒以上需大幅补偿。',
+        
+        fuji_provia100f: 'Fuji Provia 100F',
+        fuji_provia100fDescription: '长曝首选反转片。',
+        fuji_provia100fHint: '128秒内无需补偿！',
       },
       resultTitle: '长曝光结果',
       resultBase: '原始快门',
@@ -380,16 +480,16 @@ export default {
       ],
     },
     section4: {
-      title: '4. 互易律失效补偿',
+      title: '4. 倒易律失效补偿',
       content: [
         '专为胶片摄影设计。',
-        '选择胶片类型预设，系统会自动计算长曝光下因互易律失效而需要增加的补偿时间。',
+        '选择胶片类型预设，系统会自动计算长曝光下因倒易律失效而需要增加的补偿时间。',
       ],
     },
     section5: {
       title: '5. 曝光计时器',
       content: [
-        '根据计算出的最终曝光时间（已包含 ND 减光和互易律补偿），提供倒计时功能，方便进行长曝光拍摄。',
+        '根据计算出的最终曝光时间（已包含 ND 减光和倒易律补偿），提供倒计时功能，方便进行长曝光拍摄。',
       ],
     },
   },

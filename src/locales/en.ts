@@ -276,15 +276,115 @@ export default {
         digital: 'Digital / No correction',
         digitalDescription: 'Use this when shooting digital or modern sensors.',
         digitalHint: 'Exposure time stays the same.',
+        
+        // Foma
         foma100: 'Fomapan 100 Classic',
-        foma100Description: 'Aggressive reciprocity failure, recalculate anything above 1s.',
-        foma100Hint: 'Bring a cable release—exposures stretch quickly.',
-        portra400: 'Kodak Portra 400',
-        portra400Description: 'Mild correction, perfect for color long exposures.',
-        portra400Hint: 'Add a few seconds to keep tones clean.',
-        delta100: 'Ilford Delta 100',
-        delta100Description: 'Moderate correction curve for fine-grain B&W work.',
-        delta100Hint: 'Track compensation carefully beyond 30 seconds.',
+        foma100Description: 'Severe reciprocity failure, compensate above 1s.',
+        foma100Hint: '1s becomes 3s, 10s becomes 80s!',
+        
+        foma200: 'Fomapan 200 Creative',
+        foma200Description: 'Flat grain tech, slightly better than 100/400.',
+        foma200Hint: '1s becomes 3s, 10s becomes 60s.',
+        
+        foma400: 'Fomapan 400 Action',
+        foma400Description: 'Severe reciprocity failure, similar to Foma 100.',
+        foma400Hint: '1s becomes 3s, 10s becomes 80s!',
+
+        // Kodak Motion Picture
+        kodak_50d: 'Kodak Vision3 50D (5203)',
+        kodak_50dDescription: 'Daylight balanced, extremely fine grain.',
+        kodak_50dHint: 'Same as Cinestill 50D, 10s needs ~13s.',
+
+        kodak_250d: 'Kodak Vision3 250D (5207)',
+        kodak_250dDescription: 'Daylight balanced, versatile speed.',
+        kodak_250dHint: 'High latitude, 10s needs ~13s.',
+
+        kodak_500t: 'Kodak Vision3 500T (5219)',
+        kodak_500tDescription: 'Tungsten balanced, king of night scenes.',
+        kodak_500tHint: 'Same as Cinestill 800T, 10s needs ~13s.',
+
+        // Color Negative
+        kodak_portra: 'Kodak Portra 160/400',
+        kodak_portraDescription: 'High latitude, mild correction needed above 2s.',
+        kodak_portraHint: 'Better to overexpose than underexpose.',
+        
+        kodak_gold: 'Kodak Gold/Ultramax',
+        kodak_goldDescription: 'Consumer film, suggest slightly more compensation.',
+        kodak_goldHint: 'Watch for color shifts in long exposures.',
+        
+        fuji_superia: 'Fuji Superia/Pro 400H',
+        fuji_superiaDescription: 'Fuji films, potential green/magenta shift.',
+        fuji_superiaHint: '4s +1/3 stop, 16s +2/3 stop.',
+        
+        cinestill_800t: 'Cinestill 800T/50D',
+        cinestill_800tDescription: 'Based on cinema film, unique halation.',
+        cinestill_800tHint: 'Noticeable reciprocity failure.',
+        
+        lomo_cn: 'Lomography CN 400/800',
+        lomo_cnDescription: 'Coarser grain, give generous exposure.',
+        lomo_cnHint: 'Similar to older Kodak emulsions.',
+        
+        // B&W
+        kodak_trix: 'Kodak Tri-X 400',
+        kodak_trixDescription: 'Classic B&W, significant reciprocity failure.',
+        kodak_trixHint: '10s metered needs ~50s exposure.',
+        
+        kodak_tmax100: 'Kodak T-Max 100',
+        kodak_tmax100Description: 'Excellent reciprocity characteristics.',
+        kodak_tmax100Hint: 'Close to Acros, 10s needs only 12s.',
+        
+        kodak_tmax400: 'Kodak T-Max 400',
+        kodak_tmax400Description: 'Good reciprocity characteristics.',
+        kodak_tmax400Hint: '10s metered needs ~18s exposure.',
+        
+        ilford_hp5: 'Ilford HP5 Plus',
+        ilford_hp5Description: 'Classic B&W, standard reciprocity.',
+        ilford_hp5Hint: '10s metered needs ~20s exposure.',
+        
+        ilford_fp4: 'Ilford FP4 Plus',
+        ilford_fp4Description: 'Medium speed, stable performance.',
+        ilford_fp4Hint: '10s metered needs ~18s exposure.',
+        
+        ilford_delta100: 'Ilford Delta 100',
+        ilford_delta100Description: 'Fine grain, stable performance.',
+        ilford_delta100Hint: '10s metered needs ~18s exposure.',
+        
+        ilford_delta400: 'Ilford Delta 400',
+        ilford_delta400Description: 'High speed fine grain, faster failure.',
+        ilford_delta400Hint: '10s metered needs ~25s exposure.',
+        
+        ilford_delta3200: 'Ilford Delta 3200',
+        ilford_delta3200Description: 'Ultra high speed, needs significant compensation.',
+        ilford_delta3200Hint: '10s metered needs ~21s exposure.',
+        
+        ilford_panf: 'Ilford Pan F Plus',
+        ilford_panfDescription: 'Low speed, fine detail.',
+        ilford_panfHint: '10s metered needs ~21s exposure.',
+        
+        ilford_xp2: 'Ilford XP2 Super',
+        ilford_xp2Description: 'C-41 process B&W film.',
+        ilford_xp2Hint: '10s metered needs ~20s exposure.',
+        
+        ilford_sfx: 'Ilford SFX 200',
+        ilford_sfxDescription: 'Extended red sensitivity.',
+        ilford_sfxHint: '10s metered needs ~27s exposure.',
+        
+        fuji_acros: 'Fuji Neopan Acros II',
+        fuji_acrosDescription: 'Reciprocity King, no compensation under 120s.',
+        fuji_acrosHint: 'Best choice for B&W long exposure.',
+        
+        // Slide
+        kodak_e100: 'Kodak Ektachrome E100',
+        kodak_e100Description: 'Modern slide film, excellent performance.',
+        kodak_e100Hint: '10s +1/3 stop.',
+        
+        fuji_velvia50: 'Fuji Velvia 50',
+        fuji_velvia50Description: 'Poor reciprocity, avoid for long exposures.',
+        fuji_velvia50Hint: 'Significant compensation needed above 4s.',
+        
+        fuji_provia100f: 'Fuji Provia 100F',
+        fuji_provia100fDescription: 'Best slide film for long exposure.',
+        fuji_provia100fHint: 'No compensation needed up to 128s!',
       },
       resultTitle: 'Long exposure result',
       resultBase: 'Metered shutter',

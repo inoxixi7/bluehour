@@ -78,6 +78,15 @@ export interface ReciprocityProfile {
   curve: ReciprocityCurvePoint[];
 }
 
+const BASE_SECONDS = [1, 2, 4, 8, 15, 30, 60, 120, 240, 480, 900, 1800, 3600];
+
+const createPowerCurve = (p: number) => {
+  return BASE_SECONDS.map(t => ({
+    baseSeconds: t,
+    correctedSeconds: Math.round(Math.pow(t, p))
+  }));
+};
+
 export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
   {
     id: 'digital',
@@ -86,6 +95,7 @@ export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
     hintKey: 'calculator.exposureLab.reciprocity.digitalHint',
     curve: [],
   },
+  // --- Foma (Fomapan) ---
   {
     id: 'foma100',
     nameKey: 'calculator.exposureLab.reciprocity.foma100',
@@ -94,43 +104,223 @@ export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
     curve: [
       { baseSeconds: 1, correctedSeconds: 1 },
       { baseSeconds: 2, correctedSeconds: 3 },
-      { baseSeconds: 4, correctedSeconds: 8 },
-      { baseSeconds: 8, correctedSeconds: 25 },
-      { baseSeconds: 15, correctedSeconds: 55 },
-      { baseSeconds: 30, correctedSeconds: 120 },
-      { baseSeconds: 60, correctedSeconds: 300 },
-      { baseSeconds: 120, correctedSeconds: 800 },
+      { baseSeconds: 4, correctedSeconds: 9 },
+      { baseSeconds: 8, correctedSeconds: 28 },
+      { baseSeconds: 15, correctedSeconds: 65 },
+      { baseSeconds: 30, correctedSeconds: 150 },
+      { baseSeconds: 60, correctedSeconds: 360 },
     ],
   },
   {
-    id: 'portra400',
-    nameKey: 'calculator.exposureLab.reciprocity.portra400',
-    descriptionKey: 'calculator.exposureLab.reciprocity.portra400Description',
-    hintKey: 'calculator.exposureLab.reciprocity.portra400Hint',
+    id: 'foma200',
+    nameKey: 'calculator.exposureLab.reciprocity.foma200',
+    descriptionKey: 'calculator.exposureLab.reciprocity.foma200Description',
+    hintKey: 'calculator.exposureLab.reciprocity.foma200Hint',
     curve: [
       { baseSeconds: 1, correctedSeconds: 1 },
-      { baseSeconds: 2, correctedSeconds: 2 },
+      { baseSeconds: 2, correctedSeconds: 3 },
+      { baseSeconds: 4, correctedSeconds: 8 },
+      { baseSeconds: 8, correctedSeconds: 22 },
+      { baseSeconds: 15, correctedSeconds: 50 },
+      { baseSeconds: 30, correctedSeconds: 110 },
+      { baseSeconds: 60, correctedSeconds: 250 },
+    ],
+  },
+  {
+    id: 'foma400',
+    nameKey: 'calculator.exposureLab.reciprocity.foma400',
+    descriptionKey: 'calculator.exposureLab.reciprocity.foma400Description',
+    hintKey: 'calculator.exposureLab.reciprocity.foma400Hint',
+    curve: [
+      { baseSeconds: 1, correctedSeconds: 1 },
+      { baseSeconds: 2, correctedSeconds: 3 },
+      { baseSeconds: 4, correctedSeconds: 9 },
+      { baseSeconds: 8, correctedSeconds: 28 },
+      { baseSeconds: 15, correctedSeconds: 65 },
+      { baseSeconds: 30, correctedSeconds: 150 },
+      { baseSeconds: 60, correctedSeconds: 360 },
+    ],
+  },
+  // --- Kodak Motion Picture (Vision3) ---
+  {
+    id: 'kodak_50d',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_50d',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_50dDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_50dHint',
+    curve: createPowerCurve(1.3),
+  },
+  {
+    id: 'kodak_250d',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_250d',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_250dDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_250dHint',
+    curve: createPowerCurve(1.3),
+  },
+  {
+    id: 'kodak_500t',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_500t',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_500tDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_500tHint',
+    curve: createPowerCurve(1.3),
+  },
+  // --- Color Negative (C-41) ---
+  {
+    id: 'kodak_portra',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_portra',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_portraDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_portraHint',
+    curve: createPowerCurve(1.35),
+  },
+  {
+    id: 'kodak_gold',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_gold',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_goldDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_goldHint',
+    curve: createPowerCurve(1.4),
+  },
+  {
+    id: 'fuji_superia',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_superia',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_superiaDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_superiaHint',
+    curve: createPowerCurve(1.3),
+  },
+  {
+    id: 'cinestill_800t',
+    nameKey: 'calculator.exposureLab.reciprocity.cinestill_800t',
+    descriptionKey: 'calculator.exposureLab.reciprocity.cinestill_800tDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.cinestill_800tHint',
+    curve: createPowerCurve(1.3),
+  },
+  {
+    id: 'lomo_cn',
+    nameKey: 'calculator.exposureLab.reciprocity.lomo_cn',
+    descriptionKey: 'calculator.exposureLab.reciprocity.lomo_cnDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.lomo_cnHint',
+    curve: createPowerCurve(1.45),
+  },
+  // --- Black & White ---
+  {
+    id: 'kodak_trix',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_trix',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_trixDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_trixHint',
+    curve: createPowerCurve(1.54),
+  },
+  {
+    id: 'kodak_tmax100',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_tmax100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_tmax100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_tmax100Hint',
+    curve: createPowerCurve(1.15),
+  },
+  {
+    id: 'kodak_tmax400',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_tmax400',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_tmax400Description',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_tmax400Hint',
+    curve: createPowerCurve(1.3),
+  },
+  {
+    id: 'ilford_hp5',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_hp5',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_hp5Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_hp5Hint',
+    curve: createPowerCurve(1.31),
+  },
+  {
+    id: 'ilford_fp4',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_fp4',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_fp4Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_fp4Hint',
+    curve: createPowerCurve(1.26),
+  },
+  {
+    id: 'ilford_delta100',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_delta100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_delta100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_delta100Hint',
+    curve: createPowerCurve(1.26),
+  },
+  {
+    id: 'ilford_delta400',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_delta400',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_delta400Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_delta400Hint',
+    curve: createPowerCurve(1.41),
+  },
+  {
+    id: 'ilford_delta3200',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_delta3200',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_delta3200Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_delta3200Hint',
+    curve: createPowerCurve(1.33),
+  },
+  {
+    id: 'ilford_panf',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_panf',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_panfDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_panfHint',
+    curve: createPowerCurve(1.33),
+  },
+  {
+    id: 'ilford_xp2',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_xp2',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_xp2Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_xp2Hint',
+    curve: createPowerCurve(1.31),
+  },
+  {
+    id: 'ilford_sfx',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_sfx',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_sfxDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_sfxHint',
+    curve: createPowerCurve(1.43),
+  },
+  {
+    id: 'fuji_acros',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_acros',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_acrosDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_acrosHint',
+    curve: [
+      { baseSeconds: 1, correctedSeconds: 1 },
+      { baseSeconds: 120, correctedSeconds: 120 },
+      { baseSeconds: 240, correctedSeconds: 340 }, // +0.5 stop approx
+      { baseSeconds: 480, correctedSeconds: 680 },
+      { baseSeconds: 900, correctedSeconds: 1270 },
+    ],
+  },
+  // --- Slide (E-6) ---
+  {
+    id: 'kodak_e100',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_e100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_e100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_e100Hint',
+    curve: createPowerCurve(1.1),
+  },
+  {
+    id: 'fuji_velvia50',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_velvia50',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_velvia50Description',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_velvia50Hint',
+    curve: [
+      { baseSeconds: 1, correctedSeconds: 1 },
       { baseSeconds: 4, correctedSeconds: 5 },
       { baseSeconds: 8, correctedSeconds: 12 },
-      { baseSeconds: 15, correctedSeconds: 22 },
-      { baseSeconds: 30, correctedSeconds: 38 },
-      { baseSeconds: 60, correctedSeconds: 65 },
-      { baseSeconds: 120, correctedSeconds: 130 },
+      { baseSeconds: 16, correctedSeconds: 32 },
+      { baseSeconds: 32, correctedSeconds: 80 },
+      { baseSeconds: 60, correctedSeconds: 180 },
     ],
   },
   {
-    id: 'delta100',
-    nameKey: 'calculator.exposureLab.reciprocity.delta100',
-    descriptionKey: 'calculator.exposureLab.reciprocity.delta100Description',
-    hintKey: 'calculator.exposureLab.reciprocity.delta100Hint',
+    id: 'fuji_provia100f',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_provia100f',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_provia100fDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_provia100fHint',
     curve: [
       { baseSeconds: 1, correctedSeconds: 1 },
-      { baseSeconds: 4, correctedSeconds: 5 },
-      { baseSeconds: 8, correctedSeconds: 10 },
-      { baseSeconds: 15, correctedSeconds: 18 },
-      { baseSeconds: 30, correctedSeconds: 32 },
-      { baseSeconds: 60, correctedSeconds: 70 },
-      { baseSeconds: 120, correctedSeconds: 150 },
+      { baseSeconds: 128, correctedSeconds: 128 },
+      { baseSeconds: 240, correctedSeconds: 300 }, // Slight correction after 128s
     ],
   },
 ];
