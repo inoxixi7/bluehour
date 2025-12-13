@@ -355,4 +355,42 @@ export default {
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: 'Made with ❤️ for photographers',
   },
+  exposureLabHelp: {
+    title: 'Exposure Lab - Feature Guide',
+    section1: {
+      title: '1. Basic Exposure Parameters',
+      content: [
+        'Aperture, Shutter, ISO: Freely adjust the three pillars of exposure.',
+        'Smart Lock: Tap the lock icon next to a parameter to lock it. When adjusting other values, the system automatically calculates the unlocked parameter to maintain Exposure Value (EV) balance.',
+        'EV Lock: Lock the current Exposure Value (EV). Adjusting any parameter will automatically update the others to match.',
+      ],
+    },
+    section2: {
+      title: '2. Scene EV Reference',
+      content: [
+        'Provides references for various lighting conditions, from bright daylight to very dark environments (e.g., sunny, overcast, night scenes, starry sky).',
+        'Tap a scene card to directly set its EV as the target value.',
+      ],
+    },
+    section3: {
+      title: '3. ND Filter Calculation',
+      content: [
+        'Simulates the effect of attaching an ND (Neutral Density) filter.',
+        'Select different ND strengths (e.g., ND8, ND1000), and the system automatically calculates the equivalent shutter speed.',
+      ],
+    },
+    section4: {
+      title: '4. Reciprocity Failure Compensation',
+      content: [
+        'Designed for film photography.',
+        'Select a film stock preset, and the system calculates the necessary exposure compensation for long exposures due to reciprocity failure.',
+      ],
+    },
+    section5: {
+      title: '5. Exposure Timer',
+      content: [
+        'Provides a countdown timer based on the final calculated exposure time (including ND and reciprocity adjustments), useful for long exposure shots.',
+      ],
+    },
+  },
 };

@@ -366,4 +366,42 @@ export default {
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: 'Mit ❤️ für Fotografen gemacht',
   },
+  exposureLabHelp: {
+    title: 'Belichtungslabor - Funktionsübersicht',
+    section1: {
+      title: '1. Grundlegende Belichtungsparameter',
+      content: [
+        'Blende (Aperture), Verschlusszeit (Shutter), ISO: Passen Sie die drei Grundpfeiler der Belichtung frei an.',
+        'Smart Lock: Tippen Sie auf das Schloss-Symbol neben einem Parameter, um ihn zu sperren. Wenn Sie andere Werte anpassen, berechnet das System automatisch den nicht gesperrten Parameter, um den Lichtwert (EV) beizubehalten.',
+        'EV Lock: Sperren Sie den aktuellen Lichtwert (EV). Bei Anpassung eines Parameters werden die anderen automatisch aktualisiert.',
+      ],
+    },
+    section2: {
+      title: '2. Szenen-EV-Referenz',
+      content: [
+        'Bietet Referenzwerte für verschiedene Lichtverhältnisse, von hellem Tageslicht bis zu sehr dunklen Umgebungen (z. B. sonnig, bewölkt, Nachtszenen, Sternenhimmel).',
+        'Tippen Sie auf eine Szenenkarte, um deren EV-Wert direkt als Zielwert festzulegen.',
+      ],
+    },
+    section3: {
+      title: '3. ND-Filter-Berechnung',
+      content: [
+        'Simuliert den Effekt eines ND-Filters (Graufilter).',
+        'Wählen Sie verschiedene ND-Stärken (z. B. ND8, ND1000), und das System berechnet automatisch die äquivalente Verschlusszeit.',
+      ],
+    },
+    section4: {
+      title: '4. Schwarzschildeffekt-Korrektur',
+      content: [
+        'Speziell für die Analogfotografie entwickelt.',
+        'Wählen Sie eine Filmvoreinstellung, und das System berechnet die notwendige Belichtungskorrektur für Langzeitbelichtungen aufgrund des Schwarzschildeffekts (Reziprozitätsfehler).',
+      ],
+    },
+    section5: {
+      title: '5. Belichtungstimer',
+      content: [
+        'Bietet einen Countdown-Timer basierend auf der endgültigen Belichtungszeit (einschließlich ND- und Schwarzschildeffekt-Anpassungen), ideal für Langzeitbelichtungen.',
+      ],
+    },
+  },
 };

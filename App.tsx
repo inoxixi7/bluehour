@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { View, StyleSheet, Text } from 'react-native';
 import RootNavigator from './src/navigation/RootNavigator';
@@ -10,6 +10,19 @@ import { initI18n } from './src/locales/i18n';
 function AppContent() {
   const { theme } = useTheme();
   const [i18nInitialized, setI18nInitialized] = useState(false);
+
+  const navigationTheme = {
+    ...(theme.isDark ? DarkTheme : DefaultTheme),
+    colors: {
+      ...(theme.isDark ? DarkTheme.colors : DefaultTheme.colors),
+      primary: theme.colors.primary,
+      background: theme.colors.background,
+      card: theme.colors.card,
+      text: theme.colors.text,
+      border: theme.colors.border,
+      notification: theme.colors.accent,
+    },
+  };
 
   useEffect(() => {
     const init = async () => {
@@ -33,8 +46,8 @@ function AppContent() {
   }
   
   return (
-    <View style={styles.appContainer}>
-      <NavigationContainer>
+    <View style={[styles.appContainer, { backgroundColor: theme.colors.background }]}>
+      <NavigationContainer theme={navigationTheme}>
         <StatusBar style={theme.isDark ? 'light' : 'dark'} />
         <RootNavigator />
       </NavigationContainer>

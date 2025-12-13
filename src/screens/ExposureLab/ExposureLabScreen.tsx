@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Platform, Modal } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -28,7 +29,9 @@ import { formatEV, formatShutterSpeed } from '../../utils/formatters';
 const ExposureLabScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
+  const navigation = useNavigation();
 
+  const [helpModalVisible, setHelpModalVisible] = useState(false);
   const [aperture, setAperture] = useState(8);
   const [shutter, setShutter] = useState(1 / 4);
   const [iso, setISO] = useState(100);
@@ -57,6 +60,19 @@ const ExposureLabScreen: React.FC = () => {
     () => applyReciprocityCorrection(ndAdjustedShutter, reciprocityProfile?.curve),
     [ndAdjustedShutter, reciprocityProfile]
   );
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <TouchableOpacity 
+          onPress={() => setHelpModalVisible(true)} 
+          style={{ marginRight: 16 }}
+        >
+          <Ionicons name="information-circle-outline" size={24} color={theme.colors.primary} />
+        </TouchableOpacity>
+      ),
+    });
+  }, [navigation, theme.colors.primary]);
 
   const roundedTarget = Math.max(0, Math.round(reciprocityCorrected));
 
@@ -397,6 +413,38 @@ const ExposureLabScreen: React.FC = () => {
           {reciprocityProfile ? t(reciprocityProfile.descriptionKey) : ''}
         </Text>
       </Card>
+
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={helpModalVisible}
+        onRequestClose={() => setHelpModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalContent, { backgroundColor: theme.colors.card }]}>
+            <View style={styles.modalHeader}>
+              <Text style={[styles.modalTitle, { color: theme.colors.text }]}>{t('exposureLabHelp.title')}</Text>
+              <TouchableOpacity onPress={() => setHelpModalVisible(false)} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+                <Ionicons name="close" size={24} color={theme.colors.text} />
+              </TouchableOpacity>
+            </View>
+            <ScrollView showsVerticalScrollIndicator={false}>
+              {[1, 2, 3, 4, 5].map((i) => (
+                <View key={i} style={styles.helpSection}>
+                  <Text style={[styles.helpSectionTitle, { color: theme.colors.primary }]}>
+                    {t(`exposureLabHelp.section${i}.title`)}
+                  </Text>
+                  {(t(`exposureLabHelp.section${i}.content`, { returnObjects: true }) as string[]).map((line, index) => (
+                    <Text key={index} style={[styles.helpText, { color: theme.colors.text }]}>
+                      • {line}
+                    </Text>
+                  ))}
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
     </ScrollView>
   );
 };
@@ -693,6 +741,46 @@ const createStyles = (colors: any) =>
     },
     resultHint: {
       fontSize: Layout.fontSize.sm,
+    },
+    modalOverlay: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(0,0,0,0.5)',
+    },
+    modalContent: {
+      width: '90%',
+      maxHeight: '80%',
+      borderRadius: 20,
+      padding: Layout.spacing.lg,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+    },
+    modalHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginBottom: Layout.spacing.md,
+    },
+    modalTitle: {
+      fontSize: Layout.fontSize.lg,
+      fontWeight: 'bold',
+    },
+    helpSection: {
+      marginBottom: Layout.spacing.md,
+    },
+    helpSectionTitle: {
+      fontSize: Layout.fontSize.base,
+      fontWeight: 'bold',
+      marginBottom: Layout.spacing.xs,
+    },
+    helpText: {
+      fontSize: Layout.fontSize.sm,
+      marginBottom: 4,
+      lineHeight: 20,
     },
     timerCard: {
       padding: Layout.spacing.lg,
