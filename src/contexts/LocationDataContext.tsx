@@ -93,7 +93,7 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
     } finally {
       setLocationLoading(false);
     }
-  }, []);
+  }, [i18n.language]);
 
   // Get current GPS location
   const getCurrentLocation = useCallback(async () => {
@@ -171,6 +171,22 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
       fetchSunTimes(new Date());
     }
   }, [location, timezoneInfo.timezone, fetchSunTimes]);
+
+  // 监听语言变化，自动更新位置名称
+  useEffect(() => {
+    if (location) {
+      const updateLocationName = async () => {
+        try {
+          const currentLanguage = (i18n.language || 'en').split('-')[0];
+          const name = await reverseGeocode(location.latitude, location.longitude, currentLanguage);
+          setLocationName(name || '');
+        } catch (error) {
+          console.error('Error updating location name on language change:', error);
+        }
+      };
+      updateLocationName();
+    }
+  }, [i18n.language, location]);
 
   const value: LocationDataContextType = {
     location,

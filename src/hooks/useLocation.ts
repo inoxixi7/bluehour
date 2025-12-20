@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import * as Location from 'expo-location';
 import { reverseGeocode, getTimezone } from '../api/geocodingService';
 
@@ -13,6 +14,7 @@ export interface TimezoneData {
 }
 
 export const useLocation = (autoLoad: boolean = true) => {
+    const { i18n } = useTranslation();
     const [location, setLocation] = useState<LocationData | null>(null);
     const [locationName, setLocationName] = useState<string>('');
     const [timezoneInfo, setTimezoneInfo] = useState<TimezoneData>({ timezone: '', offset: 0 });
@@ -29,7 +31,8 @@ export const useLocation = (autoLoad: boolean = true) => {
             // 1. Get Name if not provided
             let finalName = name;
             if (!finalName) {
-                finalName = await reverseGeocode(lat, lng);
+                const currentLanguage = (i18n.language || 'en').split('-')[0];
+                finalName = await reverseGeocode(lat, lng, currentLanguage);
             }
             setLocationName(finalName || '');
 
@@ -43,7 +46,7 @@ export const useLocation = (autoLoad: boolean = true) => {
         } finally {
             setLoading(false);
         }
-    }, []);
+    }, [i18n.language]);
 
     const getCurrentLocation = useCallback(async () => {
         try {
