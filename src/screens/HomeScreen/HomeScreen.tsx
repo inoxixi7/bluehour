@@ -40,10 +40,13 @@ const HomeScreen: React.FC = () => {
 
   const [refreshing, setRefreshing] = useState(false);
 
+  const [refreshCount, setRefreshCount] = useState(0);
+
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     try {
       await getCurrentLocation();
+      setRefreshCount(prev => prev + 1); // 增加刷新计数，触发建议更新
     } catch (error) {
       console.error('Failed to refresh location:', error);
     } finally {
@@ -67,37 +70,91 @@ const HomeScreen: React.FC = () => {
   const isLoading = locationLoading || (sunTimesLoading && !sunTimes);
 
   const quickActions = useMemo(() => {
+    const getRandomAdvice = (adviceList: Array<{icon: string, title: string, description: string}>) => {
+      const index = (refreshCount + Math.floor(Date.now() / 1000 / 3600)) % adviceList.length;
+      return adviceList[index];
+    };
+
     if (!phaseState) {
-      return {
-        icon: '⏱️',
-        title: t('home.cta.defaultTitle'),
-        description: t('home.cta.defaultDescription'),
-      };
+      const defaultAdvices = [
+        {
+          icon: '⏱️',
+          title: t('home.advice.default.title1'),
+          description: t('home.advice.default.desc1'),
+        },
+        {
+          icon: '📸',
+          title: t('home.advice.default.title2'),
+          description: t('home.advice.default.desc2'),
+        },
+      ];
+      return getRandomAdvice(defaultAdvices);
     }
 
     switch (phaseState.current.id) {
       case 'daylight':
-        return {
-          icon: '🗺️',
-          title: t('home.cta.dayTitle'),
-          description: t('home.cta.dayDescription'),
-        };
+        const dayAdvices = [
+          {
+            icon: '🗺️',
+            title: t('home.advice.day.title1'),
+            description: t('home.advice.day.desc1'),
+          },
+          {
+            icon: '🔍',
+            title: t('home.advice.day.title2'),
+            description: t('home.advice.day.desc2'),
+          },
+          {
+            icon: '🏞️',
+            title: t('home.advice.day.title3'),
+            description: t('home.advice.day.desc3'),
+          },
+        ];
+        return getRandomAdvice(dayAdvices);
+      
       case 'eveningBlueHour':
       case 'morningBlueHour':
       case 'nextMorningBlueHour':
-        return {
-          icon: '⚖️',
-          title: t('home.cta.blueTitle'),
-          description: t('home.cta.blueDescription'),
-        };
+        const blueAdvices = [
+          {
+            icon: '⚖️',
+            title: t('home.advice.blue.title1'),
+            description: t('home.advice.blue.desc1'),
+          },
+          {
+            icon: '🏙️',
+            title: t('home.advice.blue.title2'),
+            description: t('home.advice.blue.desc2'),
+          },
+          {
+            icon: '🌆',
+            title: t('home.advice.blue.title3'),
+            description: t('home.advice.blue.desc3'),
+          },
+        ];
+        return getRandomAdvice(blueAdvices);
+      
       default:
-        return {
-          icon: '✨',
-          title: t('home.cta.nightTitle'),
-          description: t('home.cta.nightDescription'),
-        };
+        const nightAdvices = [
+          {
+            icon: '✨',
+            title: t('home.advice.night.title1'),
+            description: t('home.advice.night.desc1'),
+          },
+          {
+            icon: '🌌',
+            title: t('home.advice.night.title2'),
+            description: t('home.advice.night.desc2'),
+          },
+          {
+            icon: '🚗',
+            title: t('home.advice.night.title3'),
+            description: t('home.advice.night.desc3'),
+          },
+        ];
+        return getRandomAdvice(nightAdvices);
     }
-  }, [phaseState, t]);
+  }, [phaseState, t, refreshCount]);
 
   const dailyTip = useMemo(() => {
     const tips = ['tripod', 'aperture', 'iso', 'raw', 'foreground'];
@@ -228,33 +285,36 @@ const HomeScreen: React.FC = () => {
           </Card>
         </Touchable>
 
-        <Card style={[styles.suggestionCard, { backgroundColor: theme.colors.card }]}>
-          <View style={styles.suggestionHeader}>
-            <Text style={styles.suggestionIcon}>{quickActions.icon}</Text>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.suggestionTitle, { color: theme.colors.text }]}>
-                {quickActions.title}
-              </Text>
-              <Text style={[styles.suggestionText, { color: theme.colors.textSecondary }]}>
-                {quickActions.description}
+        <View style={styles.adviceCardsRow}>
+          {/* 左侧卡片 - 动态建议 */}
+          <Card style={[styles.adviceCardLeft, { backgroundColor: theme.colors.card }]}>
+            <View style={styles.adviceHeaderRow}>
+              <Text style={styles.adviceIconSmall}>{quickActions.icon}</Text>
+              <Text style={[styles.adviceCardLabel, { color: theme.colors.text }]}>
+                {t('home.advice.currentLight')}
               </Text>
             </View>
-          </View>
-        </Card>
+            <Text style={[styles.adviceTitle, { color: theme.colors.text }]}>
+              {quickActions.title}
+            </Text>
+            <Text style={[styles.adviceText, { color: theme.colors.textSecondary }]}>
+              {quickActions.description}
+            </Text>
+          </Card>
 
-        <Card style={[styles.tipCard, { backgroundColor: theme.colors.card }]}>
-          <View style={styles.tipHeader}>
-            <Ionicons name="bulb-outline" size={20} color={theme.colors.accent} style={{ marginRight: 12 }} />
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.tipTitle, { color: theme.colors.text }]}>
+          {/* 右侧卡片 - 每日贴士 */}
+          <Card style={[styles.adviceCardRight, { backgroundColor: theme.colors.card }]}>
+            <View style={styles.tipHeaderRow}>
+              <Ionicons name="bulb-outline" size={20} color={theme.colors.accent} />
+              <Text style={[styles.tipCardLabel, { color: theme.colors.text }]}>
                 {dailyTip.title}
               </Text>
-              <Text style={[styles.tipContent, { color: theme.colors.textSecondary }]}>
-                {dailyTip.content}
-              </Text>
             </View>
-          </View>
-        </Card>
+            <Text style={[styles.tipTitle, { color: theme.colors.text }]}>
+              {dailyTip.content}
+            </Text>
+          </Card>
+        </View>
 
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: theme.colors.textTertiary }]}>
@@ -394,45 +454,57 @@ const styles = StyleSheet.create({
     fontSize: Layout.fontSize.sm,
     lineHeight: 18,
   },
-  suggestionCard: {
-    borderRadius: Layout.borderRadius.lg,
-    padding: Layout.spacing.md,
+  adviceCardsRow: {
+    flexDirection: 'row',
+    gap: Layout.spacing.md,
     marginBottom: Layout.spacing.md,
   },
-  suggestionHeader: {
+  adviceCardLeft: {
+    flex: 1,
+    borderRadius: Layout.borderRadius.lg,
+    padding: Layout.spacing.md,
+  },
+  adviceCardRight: {
+    flex: 1,
+    borderRadius: Layout.borderRadius.lg,
+    padding: Layout.spacing.md,
+  },
+  adviceHeaderRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: Layout.spacing.sm,
+    gap: 6,
   },
-  suggestionIcon: {
-    fontSize: 32,
-    marginRight: Layout.spacing.md,
+  adviceIconSmall: {
+    fontSize: 20,
   },
-  suggestionTitle: {
+  adviceCardLabel: {
     fontSize: Layout.fontSize.base,
     fontWeight: '600',
-    marginBottom: 2,
   },
-  suggestionText: {
+  adviceTitle: {
+    fontSize: Layout.fontSize.sm,
+    fontWeight: '600',
+    marginBottom: Layout.spacing.xs,
+  },
+  adviceText: {
     fontSize: Layout.fontSize.sm,
     lineHeight: 18,
   },
-  tipCard: {
-    borderRadius: Layout.borderRadius.lg,
-    padding: Layout.spacing.md,
-    marginBottom: Layout.spacing.md,
-  },
-  tipHeader: {
+  tipHeaderRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: Layout.spacing.sm,
+    gap: 6,
   },
-  tipTitle: {
+  tipCardLabel: {
     fontSize: Layout.fontSize.base,
     fontWeight: '600',
-    marginBottom: 4,
   },
-  tipContent: {
+  tipTitle: {
     fontSize: Layout.fontSize.sm,
-    lineHeight: 20,
+    fontWeight: '600',
+    marginBottom: Layout.spacing.xs,
   },
   footer: {
     alignItems: 'center',
