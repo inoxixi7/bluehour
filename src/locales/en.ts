@@ -135,6 +135,10 @@ export default {
         title: 'Golden Hour',
         desc: 'Shortly after sunrise or before sunset. The light is soft, warm, and golden. Ideal for portraits and landscapes with soft shadows.',
       },
+      information: {
+        title: 'Types of Twilight',
+        desc: 'There are three types of twilight: civil, nautical, and astronomical. They occur in sequence and happen in the same order everywhere on Earth. The type of twilight depends on the angle of the sun\'s center below the horizon:\n\nCivil twilight: 0° to 6°\nNautical twilight: 6° to 12°\nAstronomical twilight: 12° to 18°\n\nThe period when the sun is more than 18° below the horizon (after astronomical twilight) is called "night" or "complete darkness".',
+      },
     },
     searchPlaceholder: 'Search location (Multi-language)',
     refreshLocation: 'Refresh Current Location',

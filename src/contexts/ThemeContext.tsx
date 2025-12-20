@@ -27,6 +27,7 @@ export interface ThemeColors {
   success: string;
   warning: string;
   error: string;
+  information: string;
   
   // 特殊色（摄影相关）
   sunrise: string;
@@ -75,6 +76,7 @@ const lightColors: ThemeColors = {
   success: '#10B981',
   warning: '#F59E0B',
   error: '#EF4444',
+  information: '#3B82F6',
   
   sunrise: '#FF6B35',
   sunset: '#FF8C42',
@@ -109,6 +111,7 @@ const darkColors: ThemeColors = {
   success: '#34D399',
   warning: '#FBBF24',
   error: '#F87171',
+  information: '#60A5FA',
   
   sunrise: '#FF8C42',
   sunset: '#FFA06B',

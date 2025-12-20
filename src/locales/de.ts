@@ -135,6 +135,10 @@ export default {
         title: 'Goldene Stunde',
         desc: 'Kurz nach Sonnenaufgang oder vor Sonnenuntergang. Das Licht ist weich, warm und golden. Ideal für Porträts und Landschaften mit weichen Schatten.',
       },
+      information: {
+        title: 'Arten der Dämmerung',
+        desc: 'Es gibt drei Arten der Dämmerung: bürgerliche, nautische und astronomische Dämmerung. Sie treten nacheinander auf und geschehen überall auf der Erde in der gleichen Reihenfolge. Die Art der Dämmerung hängt vom Winkel der Sonnenmitte unter dem Horizont ab:\n\nBürgerliche Dämmerung: 0° bis 6°\nNautische Dämmerung: 6° bis 12°\nAstronomische Dämmerung: 12° bis 18°\n\nDer Zeitraum, in dem die Sonne mehr als 18° unter dem Horizont steht (nach der astronomischen Dämmerung), wird "Nacht" oder "vollständige Dunkelheit" genannt.',
+      },
     },
     searchPlaceholder: 'Ort suchen (Mehrsprachig)',
     refreshLocation: 'Aktuellen Standort aktualisieren',

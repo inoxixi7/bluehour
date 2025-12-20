@@ -23,32 +23,43 @@ export const LightPhaseGuideModal: React.FC<LightPhaseGuideModalProps> = ({
       key: 'astronomicalTwilight',
       color: theme.colors.twilight,
       icon: 'moon',
-      // Placeholder for image
-      imageColor: '#0B1026', 
+      image: require('../../../assets/images/astronomical-twilight.jpg'),
+      copyright: '© Photo by Photographer Mike Lewinski',
     },
     {
       key: 'nauticalTwilight',
       color: theme.colors.twilight,
       icon: 'boat',
-      imageColor: '#18264D',
+      image: require('../../../assets/images/nautical-twilight.jpg'),
+      copyright: '© Photo by Photographer LenDog64',
     },
     {
       key: 'blueHour',
       color: theme.colors.blueHour,
       icon: 'camera',
-      imageColor: '#2C4A87',
+      image: require('../../../assets/images/blue-hour.jpg'),
+      copyright: '© Photo by Photographer tomosaki',
     },
     {
       key: 'civilTwilight',
       color: theme.colors.twilight,
       icon: 'partly-sunny',
-      imageColor: '#6B7A8F',
+      image: require('../../../assets/images/civil-twilight.jpg'),
+      copyright: '© Photo by Photographer Gord McKenna',
     },
     {
       key: 'goldenHour',
       color: theme.colors.goldenHour,
       icon: 'sunny',
-      imageColor: '#FFD700',
+      image: require('../../../assets/images/golden-hour.jpg'),
+      copyright: '© Photo by Photographer Malachi Brooks',
+    },
+    {
+      key: 'information',
+      color: theme.colors.information,
+      icon: 'information-circle',
+      image: require('../../../assets/images/information.jpg'),
+      copyright: '© Photo by Vito Technology, Inc.',
     },
   ];
 
@@ -88,10 +99,16 @@ export const LightPhaseGuideModal: React.FC<LightPhaseGuideModalProps> = ({
                   {t(`sunTimes.guide.${phase.key}.desc`)}
                 </Text>
 
-                {/* Image Placeholder Area */}
-                <View style={[styles.imagePlaceholder, { backgroundColor: phase.imageColor }]}>
-                  <Ionicons name="image-outline" size={32} color="rgba(255,255,255,0.5)" />
-                  <Text style={styles.imagePlaceholderText}>Example Photo</Text>
+                {/* Phase Image */}
+                <View>
+                  <Image
+                    source={phase.image}
+                    style={styles.phaseImage}
+                    resizeMode="cover"
+                  />
+                  <Text style={[styles.copyrightText, { color: theme.colors.textSecondary }]}>
+                    {phase.copyright}
+                  </Text>
                 </View>
               </View>
             ))}
@@ -162,17 +179,16 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginBottom: Layout.spacing.md,
   },
-  imagePlaceholder: {
+  phaseImage: {
     width: '100%',
     height: 180,
     borderRadius: Layout.borderRadius.md,
-    alignItems: 'center',
-    justifyContent: 'center',
     overflow: 'hidden',
   },
-  imagePlaceholderText: {
-    color: 'rgba(255,255,255,0.7)',
-    marginTop: 8,
-    fontSize: Layout.fontSize.sm,
+  copyrightText: {
+    fontSize: 10,
+    marginTop: 4,
+    fontStyle: 'italic',
+    opacity: 0.6,
   },
 });
