@@ -26,7 +26,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
   placeholder,
   onRefreshLocation,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<GeocodingResult[]>([]);
@@ -52,7 +52,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
   const performSearch = async (query: string) => {
     try {
       setLoading(true);
-      const searchResults = await searchLocation(query, 8);
+      // 传递当前语言代码
+      const currentLanguage = (i18n.language || 'en').split('-')[0]; // 'zh-CN' -> 'zh'
+      const searchResults = await searchLocation(query, 8, currentLanguage);
       setResults(searchResults);
       setShowResults(true);
     } catch (error) {

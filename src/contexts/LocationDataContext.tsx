@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { LocationData, TimezoneData } from '../hooks/useLocation';
 import { ProcessedSunTimes } from '../types/api';
 import * as Location from 'expo-location';
@@ -32,6 +33,7 @@ interface LocationDataContextType {
 const LocationDataContext = createContext<LocationDataContextType | undefined>(undefined);
 
 export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const { i18n } = useTranslation();
   const [location, setLocation] = useState<LocationData | null>(null);
   const [locationName, setLocationName] = useState<string>('');
   const [timezoneInfo, setTimezoneInfo] = useState<TimezoneData>({ timezone: '', offset: 0 });
@@ -73,7 +75,8 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
       // Get name if not provided
       let finalName = name;
       if (!finalName) {
-        finalName = await reverseGeocode(lat, lng);
+        const currentLanguage = (i18n.language || 'en').split('-')[0]; // 'zh-CN' -> 'zh'
+        finalName = await reverseGeocode(lat, lng, currentLanguage);
       }
       setLocationName(finalName || '');
 
