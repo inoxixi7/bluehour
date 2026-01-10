@@ -115,8 +115,16 @@ export default {
         description: 'See golden hour, blue hour, and twilight for your location.',
       },
       exposureLab: {
-        title: 'Exposure Lab',
+        title: 'Exposure Lab', // Legacy
         description: 'One workflow for EV tuning, ND math, reciprocity and timer.',
+      },
+      exposureCalc: {
+        title: 'Exposure Calculator',
+        description: 'Calculate exposure & ND filters.',
+      },
+      reciprocityCalc: {
+        title: 'Reciprocity Calculator',
+        description: 'Film reciprocity failure correction.',
       },
       settings: {
         title: 'Settings',
@@ -471,6 +479,7 @@ export default {
         countdown: 'Countdown',
         bulb: 'Bulb Timer',
       },
+      willAdjust: 'Will auto-adjust',
     },
   },
 
@@ -525,6 +534,27 @@ export default {
     contactSupport: 'Contact Support',
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: 'Made with ❤️ for photographers',
+
+    userPresets: {
+      title: 'User Presets',
+      createNew: 'Create New Preset',
+      editPreset: 'Edit Preset',
+      empty: 'No presets yet. Create one to quickly configure your gear.',
+      active: 'Active',
+      activate: 'Activate',
+      deactivate: 'Deactivate',
+      presetName: 'Preset Name',
+      presetNamePlaceholder: 'e.g. Landscape Kit',
+      camera: 'Camera',
+      cameraPlaceholder: 'e.g. Nikon Z6 II',
+      lens: 'Lens',
+      lensPlaceholder: 'e.g. 24-70mm f/2.8',
+      useFilm: 'Use Film',
+      selectFilm: 'Select Film',
+      currentPreset: 'Active Preset',
+      noActivePreset: 'No Preset Active',
+      manage: 'Manage',
+    },
   },
   exposureLabHelp: {
     title: 'Exposure Lab - Feature Guide',

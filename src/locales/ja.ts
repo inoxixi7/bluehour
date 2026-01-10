@@ -370,6 +370,7 @@ export default {
         countdown: 'カウントダウン',
         bulb: 'Bバルブタイマー',
       },
+      willAdjust: '自動調整されます',
     },
   },
   

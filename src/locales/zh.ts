@@ -118,6 +118,14 @@ export default {
         title: '曝光实验室',
         description: 'EV、ND、倒易律与计时器整合为一个流程。',
       },
+      exposureCalc: {
+        title: '曝光计算器',
+        description: '计算等效曝光与 ND 滤镜。',
+      },
+      reciprocityCalc: {
+        title: '倒易律计算器',
+        description: '胶卷倒易律修正与计时。',
+      },
       settings: {
         title: '偏好设置',
         description: '管理语言、主题与其他个性化选项。',
@@ -472,6 +480,7 @@ export default {
         countdown: '倒计时',
         bulb: 'B门计时',
       },
+      willAdjust: '会自动调整',
     },
   },
 
@@ -525,6 +534,27 @@ export default {
     contactSupport: '联系支持',
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: '用 ❤️ 为摄影爱好者打造',
+    
+    userPresets: {
+      title: '用户预设',
+      createNew: '创建新预设',
+      editPreset: '编辑预设',
+      empty: '还没有预设。创建一个预设来快速配置您的设备。',
+      active: '使用中',
+      activate: '激活预设',
+      deactivate: '取消激活',
+      presetName: '预设名称',
+      presetNamePlaceholder: '例如：风光套装',
+      camera: '相机',
+      cameraPlaceholder: '例如：Nikon Z6 II',
+      lens: '镜头',
+      lensPlaceholder: '例如：24-70mm f/2.8',
+      useFilm: '使用胶卷',
+      selectFilm: '选择胶卷',
+      currentPreset: '当前预设',
+      noActivePreset: '未选择预设',
+      manage: '管理预设',
+    },
   },
   exposureLabHelp: {
     title: '曝光实验室 - 功能介绍',

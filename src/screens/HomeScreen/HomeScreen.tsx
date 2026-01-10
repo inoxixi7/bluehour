@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -15,8 +15,13 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useLocationData } from '../../contexts/LocationDataContext';
 import { Layout } from '../../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
-import { buildLightTimeline, getCurrentPhaseState, getNextBlueHourWindow } from '../../utils/lightPhases';
-import { formatDate, formatTime } from '../../utils/formatters';
+import { useUserPresets } from '../../hooks/useUserPresets';
+import {
+  buildLightTimeline,
+  getCurrentPhaseState,
+  getNextBlueHourWindow,
+} from '../../utils/lightPhases';
+import { formatTime } from '../../utils/formatters';
 import { formatTimeCountdown } from '../../utils/i18nHelpers';
 import { formatLocationName } from '../../utils/locationHelpers';
 import { Card } from '../../components/common/Card';
@@ -27,8 +32,8 @@ const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
+  const { activePreset } = useUserPresets();
   const {
-    location,
     locationName,
     timezoneInfo,
     getSunTimesForDate,
@@ -53,7 +58,7 @@ const HomeScreen: React.FC = () => {
       setRefreshing(false);
     }
   }, [getCurrentLocation]);
-(locationLoading || (sunTimesLoading && !sunTimes)) && !refreshing
+
   const sunTimes = getSunTimesForDate(new Date());
 
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
@@ -70,7 +75,9 @@ const HomeScreen: React.FC = () => {
   const isLoading = locationLoading || (sunTimesLoading && !sunTimes);
 
   const quickActions = useMemo(() => {
-    const getRandomAdvice = (adviceList: Array<{icon: string, title: string, description: string}>) => {
+    const getRandomAdvice = (
+      adviceList: Array<{ icon: string; title: string; description: string }>
+    ) => {
       const index = (refreshCount + Math.floor(Date.now() / 1000 / 3600)) % adviceList.length;
       return adviceList[index];
     };
@@ -111,7 +118,7 @@ const HomeScreen: React.FC = () => {
           },
         ];
         return getRandomAdvice(dayAdvices);
-      
+
       case 'eveningBlueHour':
       case 'morningBlueHour':
       case 'nextMorningBlueHour':
@@ -133,7 +140,7 @@ const HomeScreen: React.FC = () => {
           },
         ];
         return getRandomAdvice(blueAdvices);
-      
+
       default:
         const nightAdvices = [
           {
@@ -158,21 +165,28 @@ const HomeScreen: React.FC = () => {
 
   const dailyTip = useMemo(() => {
     const tips = ['tripod', 'aperture', 'iso', 'raw', 'foreground'];
-    const dayOfYear = Math.floor((new Date().getTime() - new Date(new Date().getFullYear(), 0, 0).getTime()) / 1000 / 60 / 60 / 24);
+    const dayOfYear = Math.floor(
+      (new Date().getTime() - new Date(new Date().getFullYear(), 0, 0).getTime()) /
+        1000 /
+        60 /
+        60 /
+        24
+    );
     const tipKey = tips[dayOfYear % tips.length];
     return {
       title: t('home.tips.title'),
-      content: t(`home.tips.items.${tipKey}`)
+      content: t(`home.tips.items.${tipKey}`),
     };
   }, [t]);
 
   // Filter timeline to show only photography golden hours (blue hour and golden hour)
   const photographyTimeline = useMemo(() => {
-    return timeline.filter(segment => 
-      segment.id === 'morningBlueHour' || 
-      segment.id === 'morningGoldenHour' || 
-      segment.id === 'eveningGoldenHour' || 
-      segment.id === 'eveningBlueHour'
+    return timeline.filter(
+      segment =>
+        segment.id === 'morningBlueHour' ||
+        segment.id === 'morningGoldenHour' ||
+        segment.id === 'eveningGoldenHour' ||
+        segment.id === 'eveningBlueHour'
     );
   }, [timeline]);
 
@@ -181,7 +195,7 @@ const HomeScreen: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]}> 
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
@@ -201,7 +215,7 @@ const HomeScreen: React.FC = () => {
             <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
               {locationName ? formatLocationName(locationName) : t('home.hero.waitingLocation')}
             </Text>
-            <Touchable 
+            <Touchable
               onPress={() => navigation.navigate('Settings')}
               style={styles.headerButton}
               activeOpacity={0.7}
@@ -211,79 +225,146 @@ const HomeScreen: React.FC = () => {
           </View>
         </View>
 
-        <Card style={[styles.heroCard, { backgroundColor: theme.colors.card }]}> 
+        {activePreset && (
+          <Touchable
+            onPress={() => navigation.navigate('Settings', { screen: 'UserPresets' })}
+            activeOpacity={0.9}
+          >
+            <Card style={[styles.presetCard, { backgroundColor: theme.colors.card }]}>
+              <View style={styles.presetContent}>
+                <View style={styles.presetLeft}>
+                  <View style={styles.presetLabelRow}>
+                    <Ionicons name="camera-outline" size={16} color={theme.colors.primary} />
+                    <Text style={[styles.presetLabel, { color: theme.colors.textSecondary }]}>
+                      {t('settings.userPresets.currentPreset')}
+                    </Text>
+                  </View>
+                  <Text style={[styles.presetName, { color: theme.colors.text }]}>
+                    {activePreset.name}
+                  </Text>
+                  <View style={styles.presetInfoRow}>
+                    {activePreset.camera && (
+                      <Text style={[styles.presetInfoText, { color: theme.colors.textSecondary }]}>
+                        📷 {activePreset.camera}
+                      </Text>
+                    )}
+                    {activePreset.useFilm && activePreset.filmStock && (
+                      <Text style={[styles.presetInfoText, { color: theme.colors.textSecondary }]}>
+                        🎞️ ISO {activePreset.filmStock.iso}
+                      </Text>
+                    )}
+                  </View>
+                </View>
+                <Ionicons name="chevron-forward" size={20} color={theme.colors.textSecondary} />
+              </View>
+            </Card>
+          </Touchable>
+        )}
+
+        <Card style={[styles.heroCard, { backgroundColor: theme.colors.card }]}>
           <View style={styles.heroRow}>
             <Text style={styles.heroEmoji}>{phaseState?.current.icon || '🌌'}</Text>
             <View style={{ flex: 1 }}>
-              <Text style={[styles.heroPhase, { color: theme.colors.text }]}> 
+              <Text style={[styles.heroPhase, { color: theme.colors.text }]}>
                 {phaseState ? t(phaseState.current.labelKey) : t('home.hero.waitingPhase')}
               </Text>
               {nextBlueHour && (
-                <Text style={[styles.heroCountdown, { color: theme.colors.textSecondary }]}> 
+                <Text style={[styles.heroCountdown, { color: theme.colors.textSecondary }]}>
                   {t('sunTimes.currentPhase.distanceTo', {
-                    phase: nextBlueHour.isNextDay 
+                    phase: nextBlueHour.isNextDay
                       ? t('sunTimes.currentPhase.tomorrows') + t(nextBlueHour.labelKey)
                       : t(nextBlueHour.labelKey),
-                    time: formatTimeCountdown(Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)), t),
+                    time: formatTimeCountdown(
+                      Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)),
+                      t
+                    ),
                   })}
                 </Text>
               )}
             </View>
           </View>
           {locationError && (
-            <Text style={[styles.errorText, { color: theme.colors.error }]}>
-              {locationError}
-            </Text>
+            <Text style={[styles.errorText, { color: theme.colors.error }]}>{locationError}</Text>
           )}
         </Card>
 
         {photographyTimeline.length > 0 && (
-            <Card style={[styles.timelineCard, { backgroundColor: theme.colors.card }]}>
-              <Touchable 
-                onPress={() => navigation.navigate('SunTimes')}
-                activeOpacity={0.7}
-                style={styles.timelineTitleRow}
-              >
-                <Text style={[styles.timelineTitle, { color: theme.colors.text }]}>
-                  {t('home.timeline.title')}
+          <Card style={[styles.timelineCard, { backgroundColor: theme.colors.card }]}>
+            <Touchable
+              onPress={() => navigation.navigate('SunTimes')}
+              activeOpacity={0.7}
+              style={styles.timelineTitleRow}
+            >
+              <Text style={[styles.timelineTitle, { color: theme.colors.text }]}>
+                {t('home.timeline.title')}
+              </Text>
+              <Ionicons name="ellipsis-horizontal" size={20} color={theme.colors.textSecondary} />
+            </Touchable>
+            {photographyTimeline.map(segment => (
+              <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
+                <View
+                  style={[
+                    styles.timelineDot,
+                    { backgroundColor: theme.colors[segment.accent] || theme.colors.text },
+                  ]}
+                />
+                <Text style={[styles.timelineLabel, { color: theme.colors.text }]}>
+                  {t(segment.labelKey)}
                 </Text>
-                <Ionicons name="ellipsis-horizontal" size={20} color={theme.colors.textSecondary} />
-              </Touchable>
-              {photographyTimeline.map((segment) => (
-                <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
-                  <View
-                    style={[styles.timelineDot, { backgroundColor: theme.colors[segment.accent] || theme.colors.text }]}
-                  />
-                  <Text style={[styles.timelineLabel, { color: theme.colors.text }]}>
-                    {t(segment.labelKey)}
-                  </Text>
-                  <Text style={[styles.timelineTime, { color: theme.colors.textSecondary }]}>
-                    {formatTime(segment.start, timezoneInfo.timezone)} — {formatTime(segment.end, timezoneInfo.timezone)}
-                  </Text>
-                </View>
-              ))}
-            </Card>
-        )}
-
-        <Touchable
-          onPress={() => navigation.navigate('ExposureLab')}
-          activeOpacity={0.9}
-        >
-          <Card style={[styles.labCard, { backgroundColor: theme.colors.card }]}>
-            <View style={styles.labHeader}>
-              <Ionicons name="flask-outline" size={32} color={theme.colors.accent} style={{ marginRight: 12 }} />
-              <View style={{ flex: 1 }}>
-                <Text style={[styles.labTitle, { color: theme.colors.text }]}>
-                  {t('home.features.exposureLab.title')}
-                </Text>
-                <Text style={[styles.labDescription, { color: theme.colors.textSecondary }]}>
-                  {t('home.features.exposureLab.description')}
+                <Text style={[styles.timelineTime, { color: theme.colors.textSecondary }]}>
+                  {formatTime(segment.start, timezoneInfo.timezone)} —{' '}
+                  {formatTime(segment.end, timezoneInfo.timezone)}
                 </Text>
               </View>
-              <Ionicons name="chevron-forward" size={24} color={theme.colors.accent} />
-            </View>
+            ))}
           </Card>
-        </Touchable>
+        )}
+
+        <View style={{ gap: Layout.spacing.md, marginBottom: Layout.spacing.md }}>
+          <Touchable onPress={() => navigation.navigate('ExposureCalc')} activeOpacity={0.9}>
+            <Card style={[styles.labCard, { backgroundColor: theme.colors.card, marginBottom: 0 }]}>
+              <View style={styles.labHeader}>
+                <Ionicons
+                  name="sunny-outline"
+                  size={32}
+                  color={theme.colors.accent}
+                  style={{ marginRight: 12 }}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.labTitle, { color: theme.colors.text }]}>
+                    {t('home.features.exposureCalc.title')}
+                  </Text>
+                  <Text style={[styles.labDescription, { color: theme.colors.textSecondary }]}>
+                    {t('home.features.exposureCalc.description')}
+                  </Text>
+                </View>
+                <Ionicons name="chevron-forward" size={24} color={theme.colors.accent} />
+              </View>
+            </Card>
+          </Touchable>
+
+          <Touchable onPress={() => navigation.navigate('ReciprocityCalc')} activeOpacity={0.9}>
+            <Card style={[styles.labCard, { backgroundColor: theme.colors.card, marginBottom: 0 }]}>
+              <View style={styles.labHeader}>
+                <Ionicons
+                  name="timer-outline"
+                  size={32}
+                  color={theme.colors.accent}
+                  style={{ marginRight: 12 }}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.labTitle, { color: theme.colors.text }]}>
+                    {t('home.features.reciprocityCalc.title')}
+                  </Text>
+                  <Text style={[styles.labDescription, { color: theme.colors.textSecondary }]}>
+                    {t('home.features.reciprocityCalc.description')}
+                  </Text>
+                </View>
+                <Ionicons name="chevron-forward" size={24} color={theme.colors.accent} />
+              </View>
+            </Card>
+          </Touchable>
+        </View>
 
         <View style={styles.adviceCardsRow}>
           {/* 左侧卡片 - 动态建议 */}
@@ -310,9 +391,7 @@ const HomeScreen: React.FC = () => {
                 {dailyTip.title}
               </Text>
             </View>
-            <Text style={[styles.tipTitle, { color: theme.colors.text }]}>
-              {dailyTip.content}
-            </Text>
+            <Text style={[styles.tipTitle, { color: theme.colors.text }]}>{dailyTip.content}</Text>
           </Card>
         </View>
 
@@ -374,6 +453,45 @@ const styles = StyleSheet.create({
     borderRadius: Layout.borderRadius.xl,
     padding: Layout.spacing.md,
     marginBottom: Layout.spacing.md,
+  },
+  presetCard: {
+    borderRadius: Layout.borderRadius.xl,
+    padding: 0,
+    marginBottom: Layout.spacing.md,
+    overflow: 'hidden',
+  },
+  presetContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    padding: Layout.spacing.md,
+  },
+  presetLeft: {
+    flex: 1,
+  },
+  presetLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Layout.spacing.xs,
+    gap: 4,
+  },
+  presetLabel: {
+    fontSize: Layout.fontSize.xs,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+  },
+  presetName: {
+    fontSize: Layout.fontSize.lg,
+    fontWeight: '700',
+    marginBottom: 4,
+  },
+  presetInfoRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: Layout.spacing.md,
+  },
+  presetInfoText: {
+    fontSize: Layout.fontSize.xs,
   },
   heroRow: {
     flexDirection: 'row',

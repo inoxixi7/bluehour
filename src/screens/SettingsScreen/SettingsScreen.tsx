@@ -14,7 +14,7 @@ const SettingsScreen: React.FC = () => {
   const { theme, themeMode } = useTheme();
   const { t, i18n } = useTranslation();
   const navigation = useNavigation<any>();
-  
+
   const handleOpenGitHub = () => {
     Linking.openURL('https://github.com/inoxixi7/bluehour');
   };
@@ -35,18 +35,17 @@ const SettingsScreen: React.FC = () => {
   };
 
   return (
-    <ScrollView 
+    <ScrollView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.content}>
-
         {/* 偏好设置 */}
         <View style={styles.section}>
           <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
             {t('settings.preferences')}
           </Text>
-          
+
           <Card style={styles.settingCard}>
             <Touchable
               onPress={() => navigation.navigate('LanguageSelection')}
@@ -90,12 +89,35 @@ const SettingsScreen: React.FC = () => {
           </Card>
         </View>
 
+        {/* 用户预设 */}
+        <View style={styles.section}>
+          <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
+            {t('settings.userPresets.title')}
+          </Text>
+
+          <Card style={styles.settingCard}>
+            <Touchable
+              onPress={() => navigation.navigate('UserPresets')}
+              activeOpacity={0.7}
+              style={styles.settingItem}
+            >
+              <View style={styles.settingLeft}>
+                <Ionicons name="camera-outline" size={20} color={theme.colors.primary} />
+                <Text style={[styles.settingLabel, { color: theme.colors.text }]}>
+                  {t('settings.userPresets.manage')}
+                </Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color={theme.colors.textSecondary} />
+            </Touchable>
+          </Card>
+        </View>
+
         {/* 关于 */}
         <View style={styles.section}>
           <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
             {t('settings.about')}
           </Text>
-          
+
           <Card style={styles.settingCard}>
             <Touchable
               onPress={() => navigation.navigate('About')}
@@ -118,27 +140,19 @@ const SettingsScreen: React.FC = () => {
           <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
             {t('settings.feedbackSupport')}
           </Text>
-          
+
           <Card style={styles.card}>
-            <Touchable
-              onPress={handleOpenGitHub}
-              style={styles.linkButton}
-              activeOpacity={0.7}
-            >
+            <Touchable onPress={handleOpenGitHub} style={styles.linkButton} activeOpacity={0.7}>
               <Ionicons name="logo-github" size={20} color={theme.colors.text} />
               <Text style={[styles.linkButtonText, { color: theme.colors.text }]}>
                 {t('settings.github')}
               </Text>
               <Ionicons name="chevron-forward" size={16} color={theme.colors.textSecondary} />
             </Touchable>
-            
+
             <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
-            
-            <Touchable
-              onPress={handleContactSupport}
-              style={styles.linkButton}
-              activeOpacity={0.7}
-            >
+
+            <Touchable onPress={handleContactSupport} style={styles.linkButton} activeOpacity={0.7}>
               <Ionicons name="mail" size={20} color={theme.colors.text} />
               <Text style={[styles.linkButtonText, { color: theme.colors.text }]}>
                 {t('settings.contactSupport')}

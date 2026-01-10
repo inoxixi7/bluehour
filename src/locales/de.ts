@@ -374,6 +374,7 @@ export default {
         countdown: 'Countdown',
         bulb: 'Bulb-Timer',
       },
+      willAdjust: 'Wird automatisch angepasst',
     },
   },
   

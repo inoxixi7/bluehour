@@ -387,3 +387,49 @@ export const EV_SCENES: EVScene[] = [
   { ev: -5, descriptionKey: 'calculator.ev.scenes.evMinus5', icon: '🌑', params: { aperture: 2.8, shutter: 240, iso: 100 } },
   { ev: -6, descriptionKey: 'calculator.ev.scenes.evMinus6', icon: '🌑', params: { aperture: 2.8, shutter: 480, iso: 100 } },
 ];
+
+export const PRESET_SHUTTERS = [
+  { value: 1/64000, label: '1/64000s' },
+  { value: 1/32000, label: '1/32000s' },
+  { value: 1/16000, label: '1/16000s' },
+  { value: 1/8000, label: '1/8000s' },
+  { value: 1/4000, label: '1/4000s' },
+  { value: 1/2000, label: '1/2000s' },
+  { value: 1/1000, label: '1/1000s' },
+  { value: 1/500, label: '1/500s' },
+  { value: 1/250, label: '1/250s' },
+  { value: 1/125, label: '1/125s' },
+  { value: 1/60, label: '1/60s' },
+  { value: 1/30, label: '1/30s' },
+  { value: 1/15, label: '1/15s' },
+  { value: 1/8, label: '1/8s' },
+  { value: 1/4, label: '1/4s' },
+  { value: 1/2, label: '1/2s' },
+  { value: 1, label: '1s' },
+  { value: 2, label: '2s' },
+  { value: 4, label: '4s' },
+  { value: 8, label: '8s' },
+  { value: 15, label: '15s' },
+  { value: 30, label: '30s' },
+  { value: 60, label: '1m' },
+  { value: 120, label: '2m' },
+  { value: 240, label: '4m' },
+  { value: 480, label: '8m' },
+  { value: 900, label: '15m' },
+  { value: 1800, label: '30m' },
+  { value: 3600, label: '1h' },
+  { value: 7200, label: '2h' },
+  { value: 14400, label: '4h' },
+  { value: 28800, label: '8h' },
+  { value: 43200, label: '12h' },
+  { value: 86400, label: '24h' },
+  { value: 172800, label: '2d 0h' },
+];
+
+export const PRESET_APERTURES = [
+  0.5, 0.7, 0.95, 1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 2.8, 3.2, 3.5, 4.0, 4.5, 5.0, 5.6, 6.3, 7.1, 8.0, 9.0, 10, 11, 13, 14, 16, 18, 20, 22, 25, 29, 32, 36, 40, 45, 51, 57, 64, 72, 81, 90, 101, 114, 128, 144, 161, 180, 203, 228, 256
+];
+
+export const PRESET_ISOS = [
+  1, 3, 6, 12, 25, 50, 64, 80, 100, 125, 160, 200, 250, 320, 400, 500, 640, 800, 1000, 1250, 1600, 2000, 2500, 3200, 4000, 5000, 6400, 8000, 10000, 12800, 16000, 20000, 25600, 51200, 102400, 204800, 409600, 509600
+];

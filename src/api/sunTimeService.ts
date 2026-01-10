@@ -1,53 +1,49 @@
 // sunrise-sunset.org API 服务封装
 
 import { SunTimesResponse, SunTimesRequest, ProcessedSunTimes } from '../types/api';
+import { fetchWithRetry, fetchWithCache, generateCacheKey, isNetworkError } from '../utils/apiHelpers';
 
 const BASE_URL = 'https://api.sunrise-sunset.org/json';
+const CACHE_PREFIX = 'suntimes';
+const CACHE_TTL = 6 * 60 * 60 * 1000; // 6小时（日出日落时间变化缓慢）
 
 /**
- * 获取日出日落时间
+ * 获取日出日落时间（内部函数，不带缓存）
  * @param lat 纬度
  * @param lng 经度
  * @param date 日期（可选，格式：YYYY-MM-DD）
  * @returns Promise<SunTimesResponse>
  */
-export const fetchSunTimes = async (
+const fetchSunTimesRaw = async (
   lat: number,
   lng: number,
   date?: string
 ): Promise<SunTimesResponse> => {
-  try {
-    const params = new URLSearchParams({
-      lat: lat.toString(),
-      lng: lng.toString(),
-      formatted: '0', // 返回 ISO 8601 格式
-    });
+  const params = new URLSearchParams({
+    lat: lat.toString(),
+    lng: lng.toString(),
+    formatted: '0', // 返回 ISO 8601 格式
+  });
 
-    if (date) {
-      params.append('date', date);
-    }
-
-    const url = `${BASE_URL}?${params.toString()}`;
-    console.log('🌅 Fetching sun times from:', url);
-
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`API request failed: ${response.status} ${response.statusText}`);
-    }
-
-    const data: SunTimesResponse = await response.json();
-    console.log('✅ API Response:', data);
-
-    if (data.status !== 'OK') {
-      throw new Error(`API returned error status: ${data.status}`);
-    }
-
-    return data;
-  } catch (error) {
-    console.error('❌ Error fetching sun times:', error);
-    throw error;
+  if (date) {
+    params.append('date', date);
   }
+
+  const url = `${BASE_URL}?${params.toString()}`;
+  
+  const response = await fetch(url);
+
+  if (!response.ok) {
+    throw new Error(`API request failed: ${response.status} ${response.statusText}`);
+  }
+
+  const data: SunTimesResponse = await response.json();
+
+  if (data.status !== 'OK') {
+    throw new Error(`API returned error status: ${data.status}`);
+  }
+
+  return data;
 };
 
 /**
@@ -125,17 +121,54 @@ export const processSunTimes = (response: SunTimesResponse): ProcessedSunTimes =
 };
 
 /**
- * 获取并处理太阳时间数据
+ * 获取并处理太阳时间数据（带缓存和重试）
  * @param lat 纬度
  * @param lng 经度
- * @param date 日期（可选）
+ * @param date 日期（可选，格式：YYYY-MM-DD）
+ * @param forceRefresh 强制刷新缓存
  * @returns Promise<ProcessedSunTimes>
  */
 export const getSunTimes = async (
   lat: number,
   lng: number,
-  date?: string
+  date?: string,
+  forceRefresh: boolean = false
 ): Promise<ProcessedSunTimes> => {
-  const response = await fetchSunTimes(lat, lng, date);
-  return processSunTimes(response);
+  // 生成缓存键
+  const cacheKey = generateCacheKey(CACHE_PREFIX, {
+    lat: lat.toFixed(4),
+    lng: lng.toFixed(4),
+    date: date || 'today',
+  });
+
+  try {
+    // 使用缓存包装的重试机制
+    const response = await fetchWithCache(
+      cacheKey,
+      () => fetchWithRetry(() => fetchSunTimesRaw(lat, lng, date)),
+      CACHE_TTL,
+      forceRefresh
+    );
+    
+    return processSunTimes(response);
+  } catch (error) {
+    // 如果是网络错误，尝试从过期缓存中读取
+    if (isNetworkError(error)) {
+      console.warn('⚠️ 网络错误，尝试使用过期缓存...');
+      try {
+        const cachedData = await fetchWithCache(
+          cacheKey,
+          () => Promise.reject(error), // 不会真正执行
+          Infinity, // 接受任何过期时间
+          false
+        );
+        console.log('📦 使用过期缓存数据');
+        return processSunTimes(cachedData);
+      } catch (cacheError) {
+        // 缓存也没有，抛出原始错误
+        throw error;
+      }
+    }
+    throw error;
+  }
 };
