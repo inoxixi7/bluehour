@@ -55,6 +55,7 @@ export default {
   home: {
     title: 'BlueHour',
     subtitle: '光と時間の相棒',
+    greeting: 'ブルーアワー',
     hero: {
       waitingPhase: '本日の光を計算中...',
       waitingLocation: '位置を取得中...',
@@ -104,8 +105,10 @@ export default {
         title3: '車の光跡を記録',
         desc3: 'Bモードまたは長時間露出を使用して、車の光跡を撮影し、ダイナミックな効果を作りましょう。',
       },
-    },    timeline: {
+    },
+    timeline: {
       title: '今日の光の時間割',
+      detail: '詳細',
     },
     features: {
       sunTimeline: {
@@ -115,6 +118,14 @@ export default {
       exposureLab: {
         title: '露出ラボ',
         description: 'EV、ND、相反則不軌、タイマーを1画面で。',
+      },
+      exposureCalc: {
+        title: '露出計算機',
+        description: '露出とNDフィルターを計算。',
+      },
+      reciprocityCalc: {
+        title: '相反則不軌計算機',
+        description: 'フィルムの相反則不軌補正。',
       },
       settings: {
         title: '設定',
@@ -130,6 +141,18 @@ export default {
         raw: 'ホワイトバランスや暗部の調整がしやすいよう、RAW形式での撮影をお勧めします。',
         foreground: '広角レンズでは、面白い前景（水たまりや柵など）を入れると奥行きが出ます。',
       }
+    },
+    intro: {
+      title: 'BlueHourについて',
+      description: 'BlueHourは写真愛好家のために特別に設計されたゴールデンアワーとブルーアワーのツールです。初心者でもベテランでも、一日の中で最も美しい光の瞬間を捉えるお手伝いをします。',
+      featuresTitle: '主な機能：',
+      feature1Title: 'ゴールデン＆ブルーアワータイムライン',
+      feature1Desc: 'あなたの位置の日の出、日の入り、ゴールデンアワー、ブルーアワーの正確な時刻を表示。撮影を事前に計画し、魔法の瞬間を逃さないように。',
+      feature2Title: '露出計算機',
+      feature2Desc: '複雑な露出パラメータをスマートに処理。等価露出計算、NDフィルター計算、一般的なシーンのEV参考値を提供。',
+      feature3Title: '相反則不軌計算機',
+      feature3Desc: 'フィルム写真家のために設計。異なるフィルムストックの長時間露光時の相反則不軌補正を自動計算し、露出タイマー機能も搭載。',
+      footer: 'ナビゲーションバーをタップして、もっと多くの機能を探索し、写真の旅を始めましょう！',
     },
     sections: {
       sunPlannerAction: 'タイムラインを開く',
@@ -330,19 +353,39 @@ export default {
       streetDesc: '中間絞り（例：f/5.6）を使用し、被写界深度とシャッタースピードのバランスをとる',
     },
 
+    exposureCalc: {
+      resultBase: '元のシャッター',
+      resultReciprocity: '相反則不軌補正後',
+      timerTitle: 'B バルブタイマー',
+      startTimer: 'タイマー開始',
+      stopTimer: 'タイマー停止',
+      timerDone: '露出完了',
+    },
+
     exposureLab: {
-      title: '露出ラボ',
+      title: '露出計算機',
       subtitle: '長時間露光のための ND・相反則不軌・B バルブタイマーをワンストップで。',
       currentEv: '測光 EV',
       evHelper: '1 つのパラメータをロックし、他を調整して同じ露出を維持。',
       baseSettings: '測光設定',
       sceneShortcuts: 'シーンプリセット',
+      sceneValues: 'シーンプリセット',
       sceneHint: '典型的なブルーアワー露出をワンタップで呼び出し。',
       ndSection: 'ND フィルター（任意）',
       ndHint: '明るい時間帯でも ND でシャッターを伸ばし、流れる質感を作る。',
       ndNone: 'ND フィルターなし',
+      noScene: 'シーンなし',
+      aperture: '絞り',
+      shutter: 'シャッター',
+      iso: 'ISO',
+      lock: 'ロック',
+      unlock: 'ロック解除',
+      resultNd: 'ND適用後のシャッター',
       reciprocitySection: '相反則不軌補正',
       reciprocity: {
+        filmProfile: 'フィルムプロファイル',
+        selectFilm: 'フィルムを選択',
+        meteredShutter: '測光シャッター速度',
         digital: 'デジタル / 補正不要',
         digitalDescription: 'デジタル撮影や相反則不軌の少ないセンサー向け。',
         digitalHint: '露光時間は変化しません。',
@@ -358,7 +401,6 @@ export default {
       },
       resultTitle: '長時間露光の結果',
       resultBase: '元のシャッター',
-      resultNd: 'ND 適用後',
       resultReciprocity: '相反則不軌補正後',
       timerTitle: 'B バルブタイマー',
       startTimer: 'タイマー開始',
@@ -371,7 +413,15 @@ export default {
         bulb: 'Bバルブタイマー',
       },
       willAdjust: '自動調整されます',
+      preset: 'カメラプリセット',
+      noPreset: 'プリセットなし',
     },
+  },
+  
+  reciprocity: {
+    filmProfile: 'フィルムプロファイル',
+    selectFilm: 'フィルムを選択',
+    meteredShutter: '測光シャッター速度',
   },
   
   settings: {
@@ -426,6 +476,7 @@ export default {
     madeWithLove: '写真愛好家のために ❤️ を込めて作成',
   },  exposureLabHelp: {
     title: '露出ラボ - 機能紹介',
+    description: '露出ラボは、露出パラメータ調整、シーン別EV参考値、NDフィルター計算、相反則不軌補正、露出タイマーを統合した強力な撮影計算ツールです。特に長時間露光撮影において、露出を精密にコントロールするのに役立ちます。',
     section1: {
       title: '1. 基本露出パラメータ',
       content: [
@@ -461,4 +512,5 @@ export default {
         '計算された最終的な露出時間（ND減光や相反則不軌補正を含む）に基づいて、長時間露光撮影に便利なカウントダウンタイマー機能を提供します。',
       ],
     },
-  },};
+  },
+};

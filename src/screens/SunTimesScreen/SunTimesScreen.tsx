@@ -61,7 +61,7 @@ const SunTimesScreen: React.FC = () => {
   // Effect: Update navigation title when location changes
   useEffect(() => {
     navigation.setOptions({
-      title: locationName ? formatLocationName(locationName) : t('sunTimes.title'),
+      title: t('sunTimes.title'),
       headerRight: () => (
         <Touchable 
           onPress={() => setShowGuide(true)}
@@ -71,7 +71,7 @@ const SunTimesScreen: React.FC = () => {
         </Touchable>
       ),
     });
-  }, [locationName, navigation, theme.colors.primary, t]);
+  }, [navigation, theme.colors.primary, t]);
 
   // Effect: Fetch sun times when date changes
   useEffect(() => {
@@ -131,6 +131,7 @@ const SunTimesScreen: React.FC = () => {
       <LocationSearch 
         onLocationSelect={handleLocationSelect}
         onRefreshLocation={getCurrentLocation}
+        currentLocationName={locationName ? formatLocationName(locationName) : undefined}
       />
 
       {/* Date List */}

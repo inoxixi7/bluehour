@@ -9,6 +9,7 @@ import { Layout } from '../../constants/Layout';
 import { Card } from '../../components/common/Card';
 import { HorizontalScrollPicker } from '../../components/common/HorizontalScrollPicker';
 import { Touchable } from '../../components/common/Touchable';
+import { Dropdown } from '../../components/common/Dropdown';
 import {
   APERTURE_VALUES,
   SHUTTER_SPEEDS,
@@ -28,7 +29,7 @@ const ExposureCalcScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
-  const { activePreset } = useUserPresets();
+  const { presets, activePreset, setActivePreset } = useUserPresets();
 
   const [helpModalVisible, setHelpModalVisible] = useState(false);
   const [aperture, setAperture] = useState(8);
@@ -48,6 +49,18 @@ const ExposureCalcScreen: React.FC = () => {
   const [ndStops, setNdStops] = useState(0);
 
   const sceneCards = EV_SCENES;
+  
+  // 场景选项
+  const sceneOptions = useMemo(() => {
+    return [
+      { label: t('calculator.exposureLab.noScene'), value: -1 },
+      ...sceneCards.map((scene, idx) => ({
+        label: `${scene.icon} ${t(scene.descriptionKey)}`,
+        value: idx,
+      })),
+    ];
+  }, [sceneCards, t]);
+  
   const ndOptions = useMemo(
     () => [
       { name: t('calculator.exposureLab.ndNone'), stops: 0 },
@@ -70,26 +83,10 @@ const ExposureCalcScreen: React.FC = () => {
     });
   }, [navigation, theme.colors.primary, t]);
 
-  // 应用预设：如果是胶卷，锁定ISO
+  // 应用预设
   useEffect(() => {
-    if (activePreset?.useFilm && activePreset.filmStock) {
-      setISO(activePreset.filmStock.iso);
-
-      // 强制锁定 ISO
-      setLockedParams(prev => {
-        if (prev.has('iso')) return prev;
-
-        const newLocked = new Set(prev);
-        newLocked.add('iso');
-
-        if (newLocked.has('shutter')) {
-          newLocked.delete('shutter');
-        } else if (newLocked.has('aperture')) {
-          newLocked.delete('aperture');
-        }
-        return newLocked;
-      });
-    }
+    // 这里暂时不自动应用预设的ISO锁定
+    // 用户可以通过预设中定义的默认值来初始化参数
   }, [activePreset]);
 
   const handleParamChange = (param: 'aperture' | 'shutter' | 'iso', value: number) => {
@@ -153,67 +150,86 @@ const ExposureCalcScreen: React.FC = () => {
     }
   };
 
+  // 处理ND滤镜改变
+  const handleNdChange = (stops: number) => {
+    const oldNdStops = ndStops;
+    setNdStops(stops);
+    
+    // ND滤镜只影响显示的最终快门速度，不应该改变EV或其他参数
+    // 因为ND滤镜是在相机前加的，不影响测光
+    // 所以这里不需要调整任何曝光参数
+  };
+
   const handleSceneSelect = (sceneIndex: number) => {
+    if (sceneIndex === -1) {
+      // 取消场景选择
+      setSelectedSceneIndex(null);
+      setEvLocked(false);
+      setTargetEV(null);
+      return;
+    }
+    
     const scene = sceneCards[sceneIndex];
 
     if (selectedSceneIndex === sceneIndex && evLocked) {
+      // 如果再次点击同一个场景，取消EV锁定
       setSelectedSceneIndex(null);
       setEvLocked(false);
       setTargetEV(null);
     } else {
+      // 选择新场景
       setSelectedSceneIndex(sceneIndex);
       setTargetEV(scene.ev);
       setEvLocked(true);
 
-      // 更新参数以匹配目标 EV
-      // 我们需要决定调整哪个参数。在双锁定模式下，通常只有1个自由参数。
-      // 但 EV 改变必然导致所有参数（除非锁定）变化。
-      // 这里简化逻辑：我们尝试保持光圈和 ISO 不变（如果可能），调整快门。
-      // 或者遵循当前的锁定逻辑？
-
-      // 这里的逻辑：直接算出一个合理的组合。
-      // 我们可以复用 calculateEquivalentExposureWithEV，但这需要在"调整EV"而不是"调整参数"的情境下。
-      // 简单起见，我们假设用户想要在这个场景的 EV 下，保持当前的 光圈和ISO（如果它们被锁或合理），调整快门。
-
-      // 我们使用当前的 lockedParams 逻辑
-      // 如果 Shutter 是未锁定的，那就最好。
-
-      // 为了应用新的 EV，我们虚拟地改变一个被锁定的参数的值（不，这样不对）。
-      // 其实我们只需要根据当前的两个锁定参数，算出第三个参数即可。
-      // 找到两个锁定参数
+      // 根据当前锁定的参数，计算其他参数以达到目标EV
       const allParams = ['aperture', 'shutter', 'iso'] as const;
       const lockedList = allParams.filter(p => lockedParams.has(p));
 
       if (lockedList.length >= 2) {
-        // 两个都锁了，那就算第三个
-        const p1 = lockedList[0];
-        // const p2 = lockedList[1];
-
-        // 使用 calculateEquivalentExposureWithEV，这里有一点 tricky
-        // 该函数是：保持 EV 不变，改变 param，求另一个。
-        // 现在我们也想要达成 目标 EV。
-        // 我们可以伪造一个调用：
-        // 我们想求 target 的值。
-        // 已知 EV，已知 lockedList[0] (p1) 和 lockedList[1] (p2)。
-        // 等等，calculateEquivalentExposureWithEV 需要 "changedParam" 和 "lockedParam"。
-        // 如果我们把 p1 当作 lockedParam，把 p2 当作 changedParam (值不变)，
-        // 可是我们不想改变 p2。
-
-        // 其实很简单：EV = log2(A^2/T) + log2(S/100)
-        // 已知 EV, A, S -> 求 T?
-        // 我们没有现成的 helper 来做 "已知EV和两个参数求第三个"。
-        // 但 calculateEquivalentExposureWithEV(targetEV, p1, currentValue_of_p1, p2)
-        // 它的意思是：我想让 EV 变成 targetEV，同时我想把 p1 设为 currentValue。且保持 p2 不变。
-        // 这会算出第三个参数！
-        // 对！就是这样。
-
+        // 如果有两个参数被锁定，计算第三个参数
+        const freeParam = allParams.find(p => !lockedParams.has(p))!;
+        
+        // 使用第一个锁定参数作为changedParam（值不变），第二个作为lockedParam
         const result = calculateEquivalentExposureWithEV(
           scene.ev,
-          p1,
-          p1 === 'aperture' ? aperture : p1 === 'shutter' ? shutter : iso,
+          lockedList[0],
+          lockedList[0] === 'aperture' ? aperture : lockedList[0] === 'shutter' ? shutter : iso,
           lockedList[1],
           { aperture, shutter, iso }
         );
+        
+        if (result) {
+          setAperture(result.aperture);
+          setShutter(result.shutter);
+          setISO(result.iso);
+        }
+      } else if (lockedList.length === 1) {
+        // 只有一个参数被锁定，需要调整另外两个
+        // 这种情况下，我们优先调整快门，保持其他参数相对稳定
+        const lockedParam = lockedList[0];
+        const freeParams = allParams.filter(p => !lockedParams.has(p));
+        
+        // 优先调整快门
+        let adjustParam: 'aperture' | 'shutter' | 'iso';
+        let keepParam: 'aperture' | 'shutter' | 'iso';
+        
+        if (freeParams.includes('shutter')) {
+          adjustParam = 'shutter';
+          keepParam = freeParams.find(p => p !== 'shutter')!;
+        } else {
+          adjustParam = freeParams[0];
+          keepParam = freeParams[1];
+        }
+        
+        const result = calculateEquivalentExposureWithEV(
+          scene.ev,
+          keepParam,
+          keepParam === 'aperture' ? aperture : keepParam === 'shutter' ? shutter : iso,
+          lockedParam,
+          { aperture, shutter, iso }
+        );
+        
         if (result) {
           setAperture(result.aperture);
           setShutter(result.shutter);
@@ -274,13 +290,12 @@ const ExposureCalcScreen: React.FC = () => {
           let toRemove = others[0];
 
           // 智能选择要移除的锁：
-          // 如果 others 包含 ISO 且是胶卷模式，不要移除 ISO。
-          if (activePreset?.useFilm) {
-            const nonISO = others.find(p => p !== 'iso');
-            if (nonISO) toRemove = nonISO; // 移除光圈或快门，保留 ISO
+          // 默认移除第一个非ISO的参数
+          const nonISO = others.find(p => p !== 'iso');
+          if (nonISO) {
+            toRemove = nonISO;
           } else {
-            // 默认逻辑（比如移除快门，保留光圈？）
-            // 或者移除列表里的第一个
+            toRemove = others[0];
           }
           next.delete(toRemove as any);
         }
@@ -335,45 +350,39 @@ const ExposureCalcScreen: React.FC = () => {
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
-      {/* activePreset 卡片 ... (省略，保持不变) */}
-      {activePreset && (
-        <Touchable
-          onPress={() => navigation.navigate('Settings', { screen: 'UserPresets' })}
-          activeOpacity={0.9}
-        >
-          <Card style={[styles.presetCard, { backgroundColor: colors.card }]}>
-            <View style={styles.presetHeader}>
-              <View style={styles.presetTitleRow}>
-                <Ionicons name="camera-outline" size={16} color={colors.primary} />
-                <Text style={[styles.presetTitle, { color: colors.textSecondary }]}>
-                  {t('settings.userPresets.currentPreset')}
-                </Text>
-              </View>
-              <Touchable
-                onPress={() => navigation.navigate('Settings', { screen: 'UserPresets' })}
-                style={{ padding: 4 }}
-              >
-                <Ionicons name="settings-outline" size={16} color={colors.textSecondary} />
-              </Touchable>
-            </View>
-
-            <Text style={[styles.presetName, { color: colors.text }]}>{activePreset.name}</Text>
-
-            <View style={styles.presetDetailsRow}>
-              {activePreset.camera && (
-                <Text style={[styles.presetDetailText, { color: colors.textSecondary }]}>
-                  📷 {activePreset.camera} {activePreset.lens ? `+ ${activePreset.lens}` : ''}
-                </Text>
-              )}
-              {activePreset.useFilm && activePreset.filmStock && (
-                <Text style={[styles.presetDetailText, { color: colors.textSecondary }]}>
-                  🎞️ {activePreset.filmStock.name} (ISO {activePreset.filmStock.iso})
-                </Text>
-              )}
-            </View>
-          </Card>
-        </Touchable>
-      )}
+      {/* 场景预设和ND Filter选择器 - 并排显示 */}
+      <View style={styles.topControlsRow}>
+        <View style={[styles.controlHalf, styles.controlHalfLeft]}>
+          <Text style={[styles.controlLabel, { color: colors.textSecondary }]}>
+            {t('calculator.exposureLab.sceneValues')}
+          </Text>
+          <Dropdown
+            options={sceneOptions}
+            selectedValue={selectedSceneIndex ?? -1}
+            onValueChange={handleSceneSelect}
+            placeholder={t('calculator.exposureLab.noScene')}
+            textColor={colors.text}
+            backgroundColor={colors.card}
+            borderColor={colors.border}
+            accentColor={theme.colors.primary}
+          />
+        </View>
+        <View style={[styles.controlHalf, styles.controlHalfRight]}>
+          <Text style={[styles.controlLabel, { color: colors.textSecondary }]}>
+            ND Filter
+          </Text>
+          <Dropdown
+            options={ndOptions.map(o => ({ label: o.name, value: o.stops }))}
+            selectedValue={ndStops}
+            onValueChange={handleNdChange}
+            placeholder="None"
+            textColor={colors.text}
+            backgroundColor={colors.card}
+            borderColor={colors.border}
+            accentColor={theme.colors.primary}
+          />
+        </View>
+      </View>
 
       {/* EV Display */}
       <Card style={[styles.evBadge, { backgroundColor: colors.card }]}>
@@ -424,55 +433,6 @@ const ExposureCalcScreen: React.FC = () => {
         )}
       </View>
 
-      {/* Scenes */}
-      <View style={styles.sectionCard}>
-        <Text style={[styles.sectionTitle, { color: colors.text }]}>
-          {t('calculator.exposureLab.sceneValues')}
-        </Text>
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.sceneScroll}>
-          {sceneCards.map((scene, index) => {
-            const isSelected = selectedSceneIndex === index;
-            return (
-              <Touchable
-                key={index}
-                onPress={() => handleSceneSelect(index)}
-                style={[
-                  styles.scenePill,
-                  {
-                    borderColor: isSelected ? colors.primary : colors.border,
-                    backgroundColor: isSelected ? colors.primary + '10' : 'transparent',
-                  },
-                ]}
-              >
-                <Text style={styles.sceneEmoji}>{scene.icon}</Text>
-                <View>
-                  <Text style={[styles.sceneTitle, { color: colors.text }]}>
-                    {t(scene.descriptionKey)}
-                  </Text>
-                  <Text style={[styles.sceneParams, { color: colors.textSecondary }]}>
-                    Target EV {scene.ev}
-                  </Text>
-                </View>
-              </Touchable>
-            );
-          })}
-        </ScrollView>
-      </View>
-
-      {/* ND Filter */}
-      <View style={styles.sectionCard}>
-        <Text style={[styles.sectionTitle, { color: colors.text }]}>ND Filter</Text>
-        <HorizontalScrollPicker
-          label=""
-          options={ndOptions.map(o => ({ value: o.stops, label: o.name }))}
-          selectedValue={ndStops}
-          onValueChange={setNdStops}
-          textColor={colors.text}
-          accentColor={theme.colors.primary}
-          disabledColor={colors.textSecondary}
-        />
-      </View>
-
       {/* Result */}
       {ndStops > 0 && (
         <Card style={[styles.resultCard, { backgroundColor: colors.card }]}>
@@ -521,6 +481,32 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: Layout.spacing.md,
+  },
+  topControlsRow: {
+    flexDirection: 'row',
+    gap: Layout.spacing.md,
+    marginBottom: Layout.spacing.md,
+    zIndex: 100,
+  },
+  controlHalf: {
+    flex: 1,
+    zIndex: 1,
+  },
+  controlHalfLeft: {
+    paddingRight: Layout.spacing.xs,
+    zIndex: 2,
+  },
+  controlHalfRight: {
+    paddingLeft: Layout.spacing.xs,
+    zIndex: 1,
+  },
+  controlLabel: {
+    fontSize: Layout.fontSize.sm,
+    fontWeight: '600',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+    marginBottom: Layout.spacing.xs,
+    paddingHorizontal: Layout.spacing.xs,
   },
   presetCard: {
     marginBottom: Layout.spacing.md,

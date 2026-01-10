@@ -118,6 +118,14 @@ export default {
         title: 'Exposure Lab',
         description: 'Ein Arbeitsablauf für EV-Abstimmung, ND-Berechnung, Schwarzschild-Effekt und Timer.',
       },
+      exposureCalc: {
+        title: 'Belichtungsrechner',
+        description: 'Berechnung von Belichtung und ND-Filtern.',
+      },
+      reciprocityCalc: {
+        title: 'Schwarzschild-Rechner',
+        description: 'Film-Reziprozitäts-Fehlerkorrektur.',
+      },
       settings: {
         title: 'Einstellungen',
         description: 'Sprache, Design und Personalisierung.',
@@ -132,6 +140,18 @@ export default {
         raw: 'Fotografieren Sie in RAW, um Weißabgleich und Schatten später besser bearbeiten zu können.',
         foreground: 'Suchen Sie bei Weitwinkelaufnahmen einen interessanten Vordergrund für mehr Tiefe.',
       }
+    },
+    intro: {
+      title: 'Über BlueHour',
+      description: 'BlueHour ist ein speziell für Fotografie-Enthusiasten entwickeltes Tool für die goldene und blaue Stunde. Egal ob Sie gerade erst anfangen oder ein erfahrener Fotograf sind, wir helfen Ihnen, die schönsten Lichtmomente des Tages einzufangen.',
+      featuresTitle: 'Hauptfunktionen:',
+      feature1Title: 'Goldene & Blaue Stunde Timeline',
+      feature1Desc: 'Zeigt präzise Sonnenaufgang, Sonnenuntergang, goldene Stunde und blaue Stunde für Ihren Standort an. Planen Sie Ihre Aufnahmen im Voraus und verpassen Sie nie den magischen Moment.',
+      feature2Title: 'Belichtungsrechner',
+      feature2Desc: 'Smart Calculator hilft Ihnen bei komplexen Belichtungsparametern. Unterstützt äquivalente Belichtungsberechnung, ND-Filter-Berechnung und bietet EV-Referenzwerte für gängige Szenen.',
+      feature3Title: 'Schwarzschild-Rechner',
+      feature3Desc: 'Entwickelt für Filmfotografen. Berechnet automatisch die Schwarzschildeffekt-Korrektur für verschiedene Filmtypen bei Langzeitbelichtungen, mit integriertem Belichtungstimer.',
+      footer: 'Tippen Sie auf die Navigationsleiste, um weitere Funktionen zu erkunden und Ihre Fotoreise zu beginnen!',
     },
     sections: {
       sunPlannerAction: 'Komplette Timeline öffnen',
@@ -334,19 +354,39 @@ export default {
       streetDesc: 'Mittlere Blende verwenden (z.B. f/5.6) für Balance zwischen Schärfentiefe und Verschlusszeit',
     },
 
+    exposureCalc: {
+      resultBase: 'Gemessener Verschluss',
+      resultReciprocity: 'Nach Schwarzschild-Effekt',
+      timerTitle: 'Bulb-Timer',
+      startTimer: 'Timer starten',
+      stopTimer: 'Timer stoppen',
+      timerDone: 'Belichtung abgeschlossen',
+    },
+
     exposureLab: {
-      title: 'Exposure Lab',
+      title: 'Belichtungsrechner',
       subtitle: 'Langzeitbelichtungs-Workflow für ND-Filter, Schwarzschild-Effekt und Bulb-Timer.',
       currentEv: 'Gemessener EV',
       evHelper: 'Sperren Sie einen Parameter und passen Sie die anderen an, um die gleiche Belichtung beizubehalten.',
       baseSettings: 'Messeinstellungen',
       sceneShortcuts: 'Szenenvoreinstellungen',
+      sceneValues: 'Szenenvoreinstellung',
       sceneHint: 'Starten Sie mit einer typischen Blaue-Stunde-Belichtung mit einem Tippen.',
       ndSection: 'ND-Filter (optional)',
       ndHint: 'Fügen Sie ND hinzu, wenn Sie Langzeitverschluss-Effekte bei hellem Licht wünschen.',
       ndNone: 'Kein ND-Filter',
+      noScene: 'Keine Szene',
+      aperture: 'Blende',
+      shutter: 'Verschlusszeit',
+      iso: 'ISO',
+      lock: 'Sperren',
+      unlock: 'Entsperren',
+      resultNd: 'Verschluss nach ND',
       reciprocitySection: 'Film-Schwarzschild-Effekt-Profile',
       reciprocity: {
+        filmProfile: 'Filmprofil',
+        selectFilm: 'Film auswählen',
+        meteredShutter: 'Gemessene Verschlusszeit',
         digital: 'Digital / Keine Korrektur',
         digitalDescription: 'Verwenden Sie dies beim Fotografieren mit digitalen oder modernen Sensoren.',
         digitalHint: 'Die Belichtungszeit bleibt gleich.',
@@ -376,6 +416,12 @@ export default {
       },
       willAdjust: 'Wird automatisch angepasst',
     },
+  },
+  
+  reciprocity: {
+    filmProfile: 'Filmprofil',
+    selectFilm: 'Film auswählen',
+    meteredShutter: 'Gemessene Verschlusszeit',
   },
   
   settings: {
@@ -440,6 +486,7 @@ export default {
   },
   exposureLabHelp: {
     title: 'Belichtungslabor - Funktionsübersicht',
+    description: 'Das Belichtungslabor ist ein leistungsstarkes Fotografie-Berechnungstool, das Belichtungsparameter-Anpassung, Szenen-EV-Referenz, ND-Filter-Berechnung, Schwarzschildeffekt-Korrektur und Belichtungstimer integriert. Es hilft Ihnen, die Belichtung präzise zu steuern, insbesondere bei Langzeitbelichtungen.',
     section1: {
       title: '1. Grundlegende Belichtungsparameter',
       content: [

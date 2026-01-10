@@ -2,6 +2,7 @@
 
 import { SunTimesResponse, SunTimesRequest, ProcessedSunTimes } from '../types/api';
 import { fetchWithRetry, fetchWithCache, generateCacheKey, isNetworkError } from '../utils/apiHelpers';
+import { calculateGoldenAndBlueHours } from '../utils/sunPosition';
 
 const BASE_URL = 'https://api.sunrise-sunset.org/json';
 const CACHE_PREFIX = 'suntimes';
@@ -49,9 +50,11 @@ const fetchSunTimesRaw = async (
 /**
  * 处理 API 返回的数据，计算黄金时刻和蓝色时刻
  * @param response API 响应
+ * @param lat 纬度（用于精确计算太阳高度角）
+ * @param lng 经度（用于精确计算太阳高度角）
  * @returns 处理后的太阳时间数据
  */
-export const processSunTimes = (response: SunTimesResponse): ProcessedSunTimes => {
+export const processSunTimes = (response: SunTimesResponse, lat: number, lng: number): ProcessedSunTimes => {
   const { results } = response;
 
   // 直接解析 ISO 8601 时间字符串为 Date 对象，不做任何转换
@@ -65,25 +68,23 @@ export const processSunTimes = (response: SunTimesResponse): ProcessedSunTimes =
   const astronomicalTwilightBegin = new Date(results.astronomical_twilight_begin);
   const astronomicalTwilightEnd = new Date(results.astronomical_twilight_end);
 
-  // 计算黄金时刻（Golden Hour）
-  // 黄金时刻发生在太阳高度角低于6度时
-  // 早晨黄金时刻：日出前约1小时到日出后约1小时
-  const morningGoldenHourStart = new Date(sunrise.getTime() - 60 * 60 * 1000); // 日出前1小时
-  const morningGoldenHourEnd = new Date(sunrise.getTime() + 60 * 60 * 1000);   // 日出后1小时
-
-  // 傍晚黄金时刻：日落前1小时到日落后约1小时
-  const eveningGoldenHourStart = new Date(sunset.getTime() - 60 * 60 * 1000);  // 日落前1小时
-  const eveningGoldenHourEnd = new Date(sunset.getTime() + 60 * 60 * 1000);    // 日落后1小时
-
-  // 计算蓝色时刻（Blue Hour）
-  // 蓝色时刻发生在太阳在地平线下4-8度时（民用和航海晨昏蒙影之间）
-  // 早晨蓝色时刻：航海晨昏蒙影结束到民用晨昏蒙影结束之间
-  const morningBlueHourStart = new Date(nauticalTwilightBegin.getTime());
-  const morningBlueHourEnd = new Date(civilTwilightBegin.getTime());
-
-  // 傍晚蓝色时刻：民用晨昏蒙影结束到航海晨昏蒙影结束之间
-  const eveningBlueHourStart = new Date(civilTwilightEnd.getTime());
-  const eveningBlueHourEnd = new Date(nauticalTwilightEnd.getTime());
+  // 使用精确的太阳高度角计算黄金时刻和蓝调时刻
+  // 计算标准：
+  // - 早晨蓝调时刻：太阳从 -6° 上升到 -4°
+  // - 早晨黄金时刻：太阳从 0° 上升到 +6°
+  // - 傍晚黄金时刻：太阳从 +6° 下降到 0°
+  // - 傍晚蓝调时刻：太阳从 -4° 下降到 -6°
+  console.log('🌅 使用精确太阳高度角计算黄金时刻和蓝调时刻...');
+  const {
+    morningBlueHourStart,
+    morningBlueHourEnd,
+    morningGoldenHourStart,
+    morningGoldenHourEnd,
+    eveningGoldenHourStart,
+    eveningGoldenHourEnd,
+    eveningBlueHourStart,
+    eveningBlueHourEnd,
+  } = calculateGoldenAndBlueHours(sunrise, sunset, lat, lng);
 
   // 计算白昼长度（分钟）
   // API 可能返回字符串 "HH:MM:SS" 或数字（秒数）
@@ -150,7 +151,7 @@ export const getSunTimes = async (
       forceRefresh
     );
     
-    return processSunTimes(response);
+    return processSunTimes(response, lat, lng);
   } catch (error) {
     // 如果是网络错误，尝试从过期缓存中读取
     if (isNetworkError(error)) {
@@ -163,7 +164,7 @@ export const getSunTimes = async (
           false
         );
         console.log('📦 使用过期缓存数据');
-        return processSunTimes(cachedData);
+        return processSunTimes(cachedData, lat, lng);
       } catch (cacheError) {
         // 缓存也没有，抛出原始错误
         throw error;

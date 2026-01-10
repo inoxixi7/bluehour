@@ -55,6 +55,7 @@ export default {
   home: {
     title: 'BlueHour',
     subtitle: 'Light & time companion',
+    greeting: 'Blue Hour',
     hero: {
       waitingPhase: "Calculating today's light...",
       waitingLocation: 'Getting location...',
@@ -108,6 +109,7 @@ export default {
     },
     timeline: {
       title: 'Light timeline (today)',
+      detail: 'Details',
     },
     features: {
       sunTimeline: {
@@ -140,6 +142,18 @@ export default {
         raw: 'Shoot in RAW format to easily adjust white balance and recover shadow details later.',
         foreground: 'With wide-angle lenses, find an interesting foreground to add depth to your composition.',
       }
+    },
+    intro: {
+      title: 'About BlueHour',
+      description: 'BlueHour is a golden hour and blue hour tool designed specifically for photography enthusiasts. Whether you\'re just starting out or you\'re a seasoned photographer, we help you capture the most beautiful light moments of the day.',
+      featuresTitle: 'Main Features:',
+      feature1Title: 'Golden & Blue Hour Timeline',
+      feature1Desc: 'Accurately displays sunrise, sunset, golden hour, and blue hour times for your location. Plan your shoots in advance and never miss the magic moment.',
+      feature2Title: 'Exposure Calculator',
+      feature2Desc: 'Smart calculator helps you handle complex exposure parameters. Supports equivalent exposure calculation, ND filter calculation, and provides EV reference values for common scenes.',
+      feature3Title: 'Reciprocity Calculator',
+      feature3Desc: 'Designed for film photographers. Automatically calculates reciprocity failure compensation for different film stocks during long exposures, with a built-in exposure timer.',
+      footer: 'Tap the navigation bar to explore more features and start your photography journey!',
     },
     sections: {
       sunPlannerAction: 'Open full timeline',
@@ -340,18 +354,29 @@ export default {
     },
 
     exposureLab: {
-      title: 'Exposure Lab',
+      title: 'Exposure Calculator',
       subtitle: 'Long exposure workflow for ND filters, reciprocity, and the bulb timer.',
       currentEv: 'Metered EV',
       evHelper: 'Lock one parameter and adjust the others to stay on the same exposure.',
       baseSettings: 'Metered settings',
       sceneShortcuts: 'Scene presets',
+      sceneValues: 'Scene Preset',
       sceneHint: 'Start from a typical blue-hour exposure with one tap.',
       ndSection: 'ND filter (optional)',
       ndHint: 'Add ND when you want slow shutter effects under bright light.',
       ndNone: 'No ND filter',
+      noScene: 'No Scene',
+      aperture: 'Aperture',
+      shutter: 'Shutter',
+      iso: 'ISO',
+      lock: 'Lock',
+      unlock: 'Unlock',
+      resultNd: 'Shutter w/ ND',
       reciprocitySection: 'Film reciprocity profiles',
       reciprocity: {
+        filmProfile: 'Film Profile',
+        selectFilm: 'Select film',
+        meteredShutter: 'Metered Shutter Speed',
         digital: 'Digital / No correction',
         digitalDescription: 'Use this when shooting digital or modern sensors.',
         digitalHint: 'Exposure time stays the same.',
@@ -480,7 +505,16 @@ export default {
         bulb: 'Bulb Timer',
       },
       willAdjust: 'Will auto-adjust',
+      preset: 'Camera Preset',
+      noPreset: 'No Preset',
+      noScene: 'No Scene',
     },
+  },
+
+  reciprocity: {
+    filmProfile: 'Film Profile',
+    selectFilm: 'Select film',
+    meteredShutter: 'Metered Shutter Speed',
   },
 
   settings: {
@@ -558,6 +592,7 @@ export default {
   },
   exposureLabHelp: {
     title: 'Exposure Lab - Feature Guide',
+    description: 'Exposure Lab is a powerful photography calculation tool that integrates exposure parameter adjustment, scene EV reference, ND filter calculation, reciprocity failure compensation, and exposure timer. It helps you precisely control exposure, especially for long exposure photography.',
     section1: {
       title: '1. Basic Exposure Parameters',
       content: [

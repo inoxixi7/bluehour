@@ -55,6 +55,7 @@ export default {
   home: {
     title: 'BlueHour',
     subtitle: '光线与时间的口袋伙伴',
+    greeting: '蓝色时刻',
     hero: {
       waitingPhase: '正在计算今日光线...',
       waitingLocation: '获取位置中...',
@@ -108,6 +109,7 @@ export default {
     },
     timeline: {
       title: '今日光线时间轴',
+      detail: '详细',
     },
     features: {
       sunTimeline: {
@@ -140,6 +142,18 @@ export default {
         raw: '建议使用 RAW 格式拍摄，以便后期调整白平衡和找回暗部细节。',
         foreground: '广角拍摄时，寻找有趣的前景（如水坑、栏杆）能增加照片的层次感。',
       }
+    },
+    intro: {
+      title: '关于 BlueHour',
+      description: 'BlueHour 是专为摄影爱好者设计的黄金时刻与蓝调时刻工具。无论您是刚开始接触摄影，还是经验丰富的摄影师，我们都能帮助您捕捉一天中最美的光线瞬间。',
+      featuresTitle: '主要功能：',
+      feature1Title: '黄金时刻与蓝调时刻时间表',
+      feature1Desc: '精确显示您所在位置的日出、日落、黄金时刻和蓝调时刻的确切时间。提前规划您的拍摄，确保不错过任何精彩瞬间。',
+      feature2Title: '曝光计算器',
+      feature2Desc: '智能计算器帮助您处理复杂的曝光参数。支持等效曝光计算、ND滤镜计算，还提供各种常见场景的EV参考值，让曝光设置变得简单明了。',
+      feature3Title: '胶片倒易律计算器',
+      feature3Desc: '专为胶片摄影者设计。针对不同胶片型号，自动计算长时间曝光时的倒易律失效补偿，并提供曝光计时器功能。',
+      footer: '点击底部导航栏探索更多功能，开启您的摄影之旅！',
     },
     sections: {
       sunPlannerAction: '打开完整时间轴',
@@ -341,18 +355,29 @@ export default {
     },
 
     exposureLab: {
-      title: '曝光实验室',
+      title: '曝光计算器',
       subtitle: '长曝光一条龙：ND、倒易律与 B 门计时一次完成。',
       currentEv: '测光 EV',
       evHelper: '锁定一个参数，调整另两个，保持同一曝光量。',
       baseSettings: '测光设置',
       sceneShortcuts: '场景预设',
+      sceneValues: '场景预设',
       sceneHint: '常见蓝调曝光一键套用，快速进入状态。',
       ndSection: 'ND 滤镜（可选）',
       ndHint: '在强光下使用 ND，延长快门创造流动感。',
       ndNone: '不使用 ND 滤镜',
+      noScene: '无场景',
+      aperture: '光圈',
+      shutter: '快门',
+      iso: 'ISO',
+      lock: '锁定',
+      unlock: '解锁',
+      resultNd: '加 ND 后快门',
       reciprocitySection: '胶片倒易律',
       reciprocity: {
+        filmProfile: '胶片型号',
+        selectFilm: '选择胶片',
+        meteredShutter: '测光快门速度',
         digital: '数码/无需校正',
         digitalDescription: '拍摄数码或现代传感器时选用此项。',
         digitalHint: '曝光时间保持不变。',
@@ -481,7 +506,16 @@ export default {
         bulb: 'B门计时',
       },
       willAdjust: '会自动调整',
+      preset: '相机预设',
+      noPreset: '无预设',
+      noScene: '无场景',
     },
+  },
+
+  reciprocity: {
+    filmProfile: '胶片型号',
+    selectFilm: '选择胶片',
+    meteredShutter: '测光快门速度',
   },
 
   settings: {
@@ -558,6 +592,7 @@ export default {
   },
   exposureLabHelp: {
     title: '曝光实验室 - 功能介绍',
+    description: '曝光实验室是一个强大的摄影计算工具，集成了曝光参数调整、场景EV参考、ND滤镜计算、倒易律补偿和曝光计时器于一体。帮助您精确控制曝光，尤其适用于长时间曝光摄影。',
     section1: {
       title: '1. 基础曝光参数',
       content: [

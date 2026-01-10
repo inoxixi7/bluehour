@@ -7,7 +7,6 @@ import { Layout } from '../constants/Layout';
 // 导入屏幕
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import SunTimesScreen from '../screens/SunTimesScreen/SunTimesScreen';
-import ExposureLabScreen from '../screens/ExposureLab/ExposureLabScreen'; // Deprecated, keeping for safety
 import ExposureCalcScreen from '../screens/ExposureCalc/ExposureCalcScreen';
 import ReciprocityCalcScreen from '../screens/ReciprocityCalc/ReciprocityCalcScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
@@ -19,7 +18,6 @@ import UserPresetsScreen from '../screens/UserPresetsScreen/UserPresetsScreen';
 export type RootStackParamList = {
   Home: undefined;
   SunTimes: undefined;
-  ExposureLab: undefined; // Deprecated
   ExposureCalc: undefined;
   ReciprocityCalc: undefined;
   Settings: undefined;
@@ -64,13 +62,6 @@ const RootNavigator: React.FC = () => {
         component={SunTimesScreen}
         options={{
           title: t('sunTimes.title'),
-        }}
-      />
-      <Stack.Screen
-        name="ExposureLab"
-        component={ExposureLabScreen}
-        options={{
-          title: t('calculator.exposureLab.title'),
         }}
       />
       <Stack.Screen

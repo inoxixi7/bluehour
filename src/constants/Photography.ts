@@ -34,6 +34,13 @@ export const SHUTTER_SPEEDS = [
   { value: 480, label: '8min' },
   { value: 900, label: '15min' },
   { value: 1800, label: '30min' },
+  { value: 3600, label: '1h' },
+  { value: 7200, label: '2h' },
+  { value: 14400, label: '4h' },
+  { value: 28800, label: '8h' },
+  { value: 43200, label: '12h' },
+  { value: 86400, label: '24h' },
+  { value: 172800, label: '48h' },
 ];
 
 // ISO 值列表

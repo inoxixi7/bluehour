@@ -1,6 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Platform } from 'react-native';
-import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -8,7 +7,9 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { Card } from '../../components/common/Card';
 import { AppButton } from '../../components/common/AppButton';
-import { RECIPROCITY_PROFILES } from '../../constants/Photography';
+import { Dropdown } from '../../components/common/Dropdown';
+import { RECIPROCITY_PROFILES, SHUTTER_SPEEDS } from '../../constants/Photography';
+import { useUserPresets } from '../../hooks/useUserPresets';
 import { applyReciprocityCorrection } from '../../utils/photographyCalculations';
 import { formatShutterSpeed } from '../../utils/formatters';
 
@@ -40,6 +41,7 @@ const LONG_EXPOSURE_TIMES = [
 const ReciprocityCalcScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
+  const { activePreset } = useUserPresets();
 
   const [baseShutter, setBaseShutter] = useState(1);
   const [profileId, setProfileId] = useState('digital');
@@ -50,6 +52,43 @@ const ReciprocityCalcScreen: React.FC = () => {
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const reciprocityProfile = RECIPROCITY_PROFILES.find(profile => profile.id === profileId);
+
+  // 胶片选项
+  const filmOptions = useMemo(
+    () =>
+      RECIPROCITY_PROFILES.map((profile, idx) => ({
+        label: t(profile.nameKey),
+        value: idx,
+      })),
+    [t]
+  );
+
+  // 快门选项：优先使用activePreset的快门速度，否则使用LONG_EXPOSURE_TIMES
+  const shutterOptions = useMemo(() => {
+    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
+      // 从预设中获取快门速度，并转换为秒值
+      const presetShutters = activePreset.shutterSpeeds
+        .map(value => {
+          const shutterItem = SHUTTER_SPEEDS.find(s => s.value === value);
+          return shutterItem ? { value: shutterItem.value, label: shutterItem.label } : null;
+        })
+        .filter((item): item is { value: number; label: string } => item !== null)
+        // 只保留 >= 1秒的快门速度用于长曝光（包括秒、分钟、小时）
+        .filter(item => item.value >= 1);
+
+      if (presetShutters.length > 0) {
+        return presetShutters.map((item, idx) => ({
+          label: item.label,
+          value: idx,
+        }));
+      }
+    }
+    // 备用：使用LONG_EXPOSURE_TIMES
+    return LONG_EXPOSURE_TIMES.map((item, idx) => ({
+      label: item.label,
+      value: idx,
+    }));
+  }, [activePreset]);
 
   const reciprocityCorrected = useMemo(
     () => applyReciprocityCorrection(baseShutter, reciprocityProfile?.curve),
@@ -106,52 +145,65 @@ const ReciprocityCalcScreen: React.FC = () => {
 
   const colors = theme.colors;
 
+  const handleFilmChange = (index: number) => {
+    const profile = RECIPROCITY_PROFILES[index];
+    if (profile) {
+      setProfileId(profile.id);
+    }
+  };
+
+  const handleShutterChange = (index: number) => {
+    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
+      // 从预设快门速度获取
+      const presetShutters = activePreset.shutterSpeeds
+        .map(value => SHUTTER_SPEEDS.find(s => s.value === value))
+        .filter((item): item is { value: number; label: string } => item !== undefined && item !== null && item.value >= 1);
+      
+      const time = presetShutters[index];
+      if (time) {
+        setBaseShutter(time.value);
+      }
+    } else {
+      // 使用LONG_EXPOSURE_TIMES
+      const time = LONG_EXPOSURE_TIMES[index];
+      if (time) {
+        setBaseShutter(time.value);
+      }
+    }
+  };
+
+  const selectedFilmIndex = RECIPROCITY_PROFILES.findIndex(p => p.id === profileId);
+  
+  // 计算选中的快门索引
+  const selectedShutterIndex = useMemo(() => {
+    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
+      const presetShutters = activePreset.shutterSpeeds
+        .map(value => SHUTTER_SPEEDS.find(s => s.value === value))
+        .filter((item): item is { value: number; label: string } => item !== undefined && item !== null && item.value >= 1);
+      return presetShutters.findIndex(t => t.value === baseShutter);
+    }
+    return LONG_EXPOSURE_TIMES.findIndex(t => t.value === baseShutter);
+  }, [activePreset, baseShutter]);
+
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
-      <Card style={[styles.card, { backgroundColor: colors.card }]}>
+      <Card style={[styles.card, styles.firstCard, { backgroundColor: colors.card }]}>
         <View style={styles.header}>
           <Text style={[styles.title, { color: colors.text }]}>
-            {t('calculator.exposureLab.reciprocityProfiles')}
+            {t('reciprocity.filmProfile')}
           </Text>
         </View>
 
-        <View style={styles.pickerWrapper}>
-          {Platform.OS === 'ios' ? (
-            <View>
-              <Text style={[styles.pickerLabel, { color: colors.textSecondary }]}>
-                {reciprocityProfile
-                  ? t(reciprocityProfile.nameKey)
-                  : t('calculator.exposureLab.reciprocity.digital')}
-              </Text>
-              {/* iOS Picker can be modal or expanded, here simplified */}
-              <Picker
-                selectedValue={profileId}
-                onValueChange={itemValue => setProfileId(itemValue)}
-                itemStyle={{ color: colors.text, height: 120 }}
-              >
-                {RECIPROCITY_PROFILES.map(profile => (
-                  <Picker.Item
-                    key={profile.id}
-                    label={t(profile.nameKey)}
-                    value={profile.id}
-                    color={colors.text}
-                  />
-                ))}
-              </Picker>
-            </View>
-          ) : (
-            <Picker
-              selectedValue={profileId}
-              onValueChange={itemValue => setProfileId(itemValue)}
-              style={{ color: colors.text, backgroundColor: colors.background }}
-              dropdownIconColor={colors.text}
-            >
-              {RECIPROCITY_PROFILES.map(profile => (
-                <Picker.Item key={profile.id} label={t(profile.nameKey)} value={profile.id} />
-              ))}
-            </Picker>
-          )}
-        </View>
+        <Dropdown
+          options={filmOptions}
+          selectedValue={selectedFilmIndex}
+          onValueChange={handleFilmChange}
+          placeholder={t('reciprocity.selectFilm')}
+          textColor={colors.text}
+          backgroundColor={colors.card}
+          borderColor={colors.border}
+          accentColor={theme.colors.primary}
+        />
 
         {reciprocityProfile && reciprocityProfile.descriptionKey && (
           <Text style={[styles.description, { color: colors.textSecondary }]}>
@@ -160,45 +212,23 @@ const ReciprocityCalcScreen: React.FC = () => {
         )}
       </Card>
 
-      <Card style={[styles.card, { backgroundColor: colors.card }]}>
+      <Card style={[styles.card, styles.secondCard, { backgroundColor: colors.card }]}>
         <View style={styles.header}>
-          <Text style={[styles.title, { color: colors.text }]}>Metered Shutter Speed</Text>
+          <Text style={[styles.title, { color: colors.text }]}>
+            {t('reciprocity.meteredShutter')}
+          </Text>
         </View>
 
-        <View style={styles.pickerWrapper}>
-          {Platform.OS === 'ios' ? (
-            <View>
-              <Text style={[styles.pickerLabel, { color: colors.textSecondary }]}>
-                {LONG_EXPOSURE_TIMES.find(i => i.value === baseShutter)?.label}
-              </Text>
-              <Picker
-                selectedValue={baseShutter}
-                onValueChange={itemValue => setBaseShutter(itemValue)}
-                itemStyle={{ color: colors.text, height: 120 }}
-              >
-                {LONG_EXPOSURE_TIMES.map(item => (
-                  <Picker.Item
-                    key={item.value}
-                    label={item.label}
-                    value={item.value}
-                    color={colors.text}
-                  />
-                ))}
-              </Picker>
-            </View>
-          ) : (
-            <Picker
-              selectedValue={baseShutter}
-              onValueChange={itemValue => setBaseShutter(itemValue)}
-              style={{ color: colors.text, backgroundColor: colors.background }}
-              dropdownIconColor={colors.text}
-            >
-              {LONG_EXPOSURE_TIMES.map(item => (
-                <Picker.Item key={item.value} label={item.label} value={item.value} />
-              ))}
-            </Picker>
-          )}
-        </View>
+        <Dropdown
+          options={shutterOptions}
+          selectedValue={selectedShutterIndex}
+          onValueChange={handleShutterChange}
+          placeholder="1s"
+          textColor={colors.text}
+          backgroundColor={colors.card}
+          borderColor={colors.border}
+          accentColor={theme.colors.primary}
+        />
       </Card>
 
       {/* Result Display */}
@@ -206,7 +236,7 @@ const ReciprocityCalcScreen: React.FC = () => {
         <View style={styles.resultRow}>
           <View style={styles.resultItem}>
             <Text style={[styles.resultLabel, { color: colors.textSecondary }]}>
-              {t('calculator.exposureLab.resultBase')}
+              {t('calculator.exposureCalc.resultBase')}
             </Text>
             <Text style={[styles.resultValueSmall, { color: colors.text }]}>
               {formatShutterSpeed(baseShutter)}
@@ -217,7 +247,7 @@ const ReciprocityCalcScreen: React.FC = () => {
 
           <View style={styles.resultItem}>
             <Text style={[styles.resultLabel, { color: colors.textSecondary }]}>
-              {t('calculator.exposureLab.resultReciprocity')}
+              {t('calculator.exposureCalc.resultReciprocity')}
             </Text>
             <Text style={[styles.resultValue, { color: colors.accent }]}>
               {formatShutterSpeed(reciprocityCorrected)}
@@ -229,7 +259,7 @@ const ReciprocityCalcScreen: React.FC = () => {
       {/* Timer */}
       <Card style={[styles.timerCard, { backgroundColor: colors.card }]}>
         <Text style={[styles.timerTitle, { color: colors.text }]}>
-          {t('calculator.exposureLab.timerTitle')}
+          {t('calculator.exposureCalc.timerTitle')}
         </Text>
         <Text
           style={[
@@ -243,10 +273,10 @@ const ReciprocityCalcScreen: React.FC = () => {
         <AppButton
           title={
             timerState === 'running'
-              ? t('calculator.exposureLab.stopTimer')
+              ? t('calculator.exposureCalc.stopTimer')
               : timerState === 'done'
-                ? t('calculator.exposureLab.timerDone')
-                : t('calculator.exposureLab.startTimer')
+                ? t('calculator.exposureCalc.timerDone')
+                : t('calculator.exposureCalc.startTimer')
           }
           onPress={toggleTimer}
           variant={timerState === 'running' ? 'outline' : 'primary'}
@@ -265,7 +295,14 @@ const styles = StyleSheet.create({
   card: {
     padding: Layout.spacing.md,
     borderRadius: Layout.borderRadius.lg,
-    marginBottom: Layout.spacing.md,
+    marginTop: Layout.spacing.lg,
+  },
+  firstCard: {
+    zIndex: 10,
+    marginTop: 0,
+  },
+  secondCard: {
+    zIndex: 5,
   },
   header: {
     marginBottom: Layout.spacing.sm,
@@ -274,15 +311,6 @@ const styles = StyleSheet.create({
     fontSize: Layout.fontSize.base,
     fontWeight: '600',
     textTransform: 'uppercase',
-  },
-  pickerWrapper: {
-    marginHorizontal: -Layout.spacing.xs,
-  },
-  pickerLabel: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '500',
-    textAlign: 'center',
-    marginBottom: 8,
   },
   description: {
     fontSize: Layout.fontSize.sm,
@@ -300,7 +328,7 @@ const styles = StyleSheet.create({
   resultCard: {
     padding: Layout.spacing.lg,
     borderRadius: Layout.borderRadius.lg,
-    marginBottom: Layout.spacing.lg,
+    marginTop: Layout.spacing.lg,
   },
   resultRow: {
     flexDirection: 'row',
@@ -328,7 +356,7 @@ const styles = StyleSheet.create({
     padding: Layout.spacing.lg,
     borderRadius: Layout.borderRadius.lg,
     alignItems: 'center',
-    marginBottom: Layout.spacing.xl,
+    marginTop: Layout.spacing.lg,
   },
   timerTitle: {
     fontSize: Layout.fontSize.base,
