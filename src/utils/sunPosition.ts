@@ -251,19 +251,6 @@ export const calculateGoldenAndBlueHours = (
   lat: number,
   lng: number
 ) => {
-  console.log('🌅 开始计算黄金时刻和蓝调时刻');
-  console.log('📍 位置:', { lat, lng });
-  console.log('⏰ 日出时间 (API):', sunrise.toISOString());
-  console.log('⏰ 日落时间 (API):', sunset.toISOString());
-  
-  // 验证日出时的太阳高度角
-  const sunriseElevation = getSolarElevation(sunrise, lat, lng);
-  console.log('🌅 日出时太阳高度角:', sunriseElevation.toFixed(2), '° (API时间)');
-  
-  // 验证日落时的太阳高度角
-  const sunsetElevation = getSolarElevation(sunset, lat, lng);
-  console.log('🌇 日落时太阳高度角:', sunsetElevation.toFixed(2), '° (API时间)');
-  
   // 搜索窗口（前后2小时）
   const searchWindow = 2 * 60 * 60 * 1000;
   
@@ -273,7 +260,6 @@ export const calculateGoldenAndBlueHours = (
   // 注意：黄金时刻从蓝调结束（-4°）开始，而不是从0°开始
   
   // 早晨蓝调时刻：太阳从 -6° 上升到 -4°
-  console.log('🔍 搜索早晨蓝调时刻开始 (-6°)...');
   const morningBlueHourStart = findTimeForElevation(
     -6,
     new Date(sunrise.getTime() - searchWindow),
@@ -282,9 +268,7 @@ export const calculateGoldenAndBlueHours = (
     lng,
     true // 上升
   );
-  console.log('🌌 早晨蓝调开始:', morningBlueHourStart?.toISOString());
   
-  console.log('🔍 搜索早晨蓝调时刻结束 (-4°)...');
   const morningBlueHourEnd = findTimeForElevation(
     -4,
     morningBlueHourStart || new Date(sunrise.getTime() - searchWindow),
@@ -293,14 +277,11 @@ export const calculateGoldenAndBlueHours = (
     lng,
     true
   );
-  console.log('🌌 早晨蓝调结束:', morningBlueHourEnd?.toISOString());
   
   // 早晨黄金时刻：太阳从 -4° 上升到 +6°
   // 黄金时刻从蓝调结束（-4°）开始
   const morningGoldenHourStart = morningBlueHourEnd;
-  console.log('🌅 早晨黄金开始 (-4°):', morningGoldenHourStart?.toISOString());
   
-  console.log('🔍 搜索早晨黄金时刻结束 (+6°)...');
   const morningGoldenHourEnd = findTimeForElevation(
     6,
     morningBlueHourEnd || sunrise,
@@ -309,10 +290,8 @@ export const calculateGoldenAndBlueHours = (
     lng,
     true
   );
-  console.log('🌅 早晨黄金结束 (+6°):', morningGoldenHourEnd?.toISOString());
   
   // 傍晚黄金时刻：太阳从 +6° 下降到 -4°
-  console.log('🔍 搜索傍晚黄金时刻开始 (+6°)...');
   const eveningGoldenHourStart = findTimeForElevation(
     6,
     new Date(sunset.getTime() - searchWindow),
@@ -321,9 +300,7 @@ export const calculateGoldenAndBlueHours = (
     lng,
     false // 下降
   );
-  console.log('🌇 傍晚黄金开始 (+6°):', eveningGoldenHourStart?.toISOString());
   
-  console.log('🔍 搜索傍晚黄金时刻结束 (-4°)...');
   const eveningGoldenHourEnd = findTimeForElevation(
     -4,
     sunset,
@@ -332,14 +309,11 @@ export const calculateGoldenAndBlueHours = (
     lng,
     false
   );
-  console.log('🌇 傍晚黄金结束 (-4°):', eveningGoldenHourEnd?.toISOString());
   
   // 傍晚蓝调时刻：太阳从 -4° 下降到 -6°
   // 蓝调开始就是黄金结束
   const eveningBlueHourStart = eveningGoldenHourEnd;
-  console.log('🌌 傍晚蓝调开始 (-4°):', eveningBlueHourStart?.toISOString());
   
-  console.log('🔍 搜索傍晚蓝调时刻结束 (-6°)...');
   const eveningBlueHourEnd = findTimeForElevation(
     -6,
     eveningBlueHourStart || sunset,
@@ -348,7 +322,6 @@ export const calculateGoldenAndBlueHours = (
     lng,
     false
   );
-  console.log('🌌 傍晚蓝调结束 (-6°):', eveningBlueHourEnd?.toISOString());
   
   return {
     morningBlueHourStart: morningBlueHourStart || new Date(sunrise.getTime() - 40 * 60 * 1000),

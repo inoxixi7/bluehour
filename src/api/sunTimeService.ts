@@ -69,12 +69,9 @@ export const processSunTimes = (response: SunTimesResponse, lat: number, lng: nu
   const astronomicalTwilightEnd = new Date(results.astronomical_twilight_end);
 
   // 使用精确的太阳高度角计算黄金时刻和蓝调时刻
-  // 计算标准：
-  // - 早晨蓝调时刻：太阳从 -6° 上升到 -4°
-  // - 早晨黄金时刻：太阳从 0° 上升到 +6°
-  // - 傍晚黄金时刻：太阳从 +6° 下降到 0°
-  // - 傍晚蓝调时刻：太阳从 -4° 下降到 -6°
-  console.log('🌅 使用精确太阳高度角计算黄金时刻和蓝调时刻...');
+  // 计算标准（参考 PhotoPills, TPE 等专业应用）：
+  // - 蓝调时刻（Blue Hour）：太阳高度角 -6° 到 -4°
+  // - 黄金时刻（Golden Hour）：太阳高度角 -4° 到 +6°
   const {
     morningBlueHourStart,
     morningBlueHourEnd,
@@ -88,7 +85,6 @@ export const processSunTimes = (response: SunTimesResponse, lat: number, lng: nu
 
   // 计算白昼长度（分钟）
   // API 可能返回字符串 "HH:MM:SS" 或数字（秒数）
-  console.log('📊 day_length type:', typeof results.day_length, 'value:', results.day_length);
   let dayLength: number;
   if (typeof results.day_length === 'string') {
     const [hours, minutes, seconds] = results.day_length.split(':').map(Number);
@@ -97,7 +93,6 @@ export const processSunTimes = (response: SunTimesResponse, lat: number, lng: nu
     // 如果是数字，假设单位是秒，转换为分钟
     dayLength = results.day_length / 60;
   }
-  console.log('⏱️  Calculated day length (minutes):', dayLength);
 
   return {
     sunrise,
