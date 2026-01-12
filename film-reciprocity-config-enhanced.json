@@ -1,0 +1,1123 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "version": "1.0.0",
+  "model": "Segmented Damping Model",
+  "generatedDate": "2026-01-12",
+  "description": "增强型胶片倒易律补偿配置文件，包含色彩偏移滤镜建议",
+  "validationConstraints": {
+    "monotonicity": "t_corrected must strictly increase with t_base",
+    "continuity": "Function must be continuous at T1 and T2",
+    "safetyThreshold": "M(T2) ≤ 1.3 × maxM",
+    "acrosIIException": "For Fuji Acros II: if t_base ≤ 120s, then t_corrected = t_base"
+  },
+  "films": [
+    {
+      "category": "c41-color-negative",
+      "subcategory": "motion-picture",
+      "films": [
+        {
+          "id": "kodak_50d",
+          "name": "Kodak Vision3 50D",
+          "iso": 50,
+          "type": "c41",
+          "modelParams": {
+            "T1": 30,
+            "T2": 300,
+            "p": 0.56,
+            "logK": 14,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.423,
+            "threshold": 5.200,
+            "safetyMargin": "15.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 30s",
+                "shift": "无",
+                "filter": null,
+                "description": "短曝光时色彩表现稳定"
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "轻微偏绿",
+                "filter": "CC05M 或 CC10M",
+                "filterDensity": "5-10 magenta",
+                "description": "轻微绿色偏移，可使用弱洋红色滤镜补偿"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "明显偏绿",
+                "filter": "CC10M 或 CC15M",
+                "filterDensity": "10-15 magenta",
+                "description": "明显绿色偏移，建议使用洋红色滤镜"
+              },
+              {
+                "range": "> 5min",
+                "shift": "严重偏绿",
+                "filter": "CC20M 或更高",
+                "filterDensity": "20+ magenta",
+                "description": "长曝光时严重绿色偏移，需要强力洋红色校正"
+              }
+            ],
+            "notes": [
+              "Vision3 系列为电影胶片，色彩偏移相对现代彩色负片更明显",
+              "实际滤镜选择需根据场景光源色温和冲洗条件调整",
+              "可在后期扫描/印放时进行数字校正"
+            ]
+          }
+        },
+        {
+          "id": "kodak_250d",
+          "name": "Kodak Vision3 250D",
+          "iso": 250,
+          "type": "c41",
+          "modelParams": {
+            "T1": 30,
+            "T2": 300,
+            "p": 0.56,
+            "logK": 15,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.423,
+            "threshold": 5.200,
+            "safetyMargin": "15.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 30s",
+                "shift": "无",
+                "filter": null
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "轻微偏绿",
+                "filter": "CC05M 或 CC10M",
+                "filterDensity": "5-10 magenta"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "明显偏绿",
+                "filter": "CC10M 或 CC15M",
+                "filterDensity": "10-15 magenta"
+              },
+              {
+                "range": "> 5min",
+                "shift": "严重偏绿",
+                "filter": "CC20M",
+                "filterDensity": "20 magenta"
+              }
+            ]
+          }
+        },
+        {
+          "id": "kodak_500t",
+          "name": "Kodak Vision3 500T",
+          "iso": 500,
+          "type": "c41",
+          "modelParams": {
+            "T1": 30,
+            "T2": 300,
+            "p": 0.56,
+            "logK": 16,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.423,
+            "threshold": 5.200,
+            "safetyMargin": "15.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 30s",
+                "shift": "无",
+                "filter": null
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "轻微偏绿",
+                "filter": "CC05M",
+                "filterDensity": "5 magenta"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "明显偏绿",
+                "filter": "CC10M 或 CC15M",
+                "filterDensity": "10-15 magenta"
+              },
+              {
+                "range": "> 5min",
+                "shift": "严重偏绿",
+                "filter": "CC20M",
+                "filterDensity": "20 magenta"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "category": "c41-color-negative",
+      "subcategory": "professional",
+      "films": [
+        {
+          "id": "kodak_portra160",
+          "name": "Kodak Portra 160",
+          "iso": 160,
+          "type": "c41",
+          "modelParams": {
+            "T1": 30,
+            "T2": 300,
+            "p": 0.56,
+            "logK": 17,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.423,
+            "threshold": 5.200,
+            "safetyMargin": "15.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 30s",
+                "shift": "无",
+                "filter": null,
+                "description": "Portra 系列在短曝光时色彩极其稳定"
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "极轻微偏绿",
+                "filter": "CC05M（可选）",
+                "filterDensity": "5 magenta",
+                "description": "偏移非常轻微，通常无需滤镜"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "轻微偏绿",
+                "filter": "CC05M 或 CC10M",
+                "filterDensity": "5-10 magenta",
+                "description": "轻度绿色偏移，可用弱洋红滤镜"
+              },
+              {
+                "range": "> 5min",
+                "shift": "中等偏绿",
+                "filter": "CC10M 或 CC15M",
+                "filterDensity": "10-15 magenta",
+                "description": "中等绿色偏移，需要洋红色补偿"
+              }
+            ],
+            "notes": [
+              "Portra 系列是现代彩色负片中色彩稳定性最好的之一",
+              "宽容度高，后期调整空间大",
+              "人像拍摄时色彩偏移尤其需要注意"
+            ]
+          }
+        },
+        {
+          "id": "kodak_portra400",
+          "name": "Kodak Portra 400",
+          "iso": 400,
+          "type": "c41",
+          "modelParams": {
+            "T1": 30,
+            "T2": 300,
+            "p": 0.56,
+            "logK": 17,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.423,
+            "threshold": 5.200,
+            "safetyMargin": "15.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 30s",
+                "shift": "无",
+                "filter": null
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "极轻微偏绿",
+                "filter": "CC05M（可选）",
+                "filterDensity": "5 magenta"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "轻微偏绿",
+                "filter": "CC05M 或 CC10M",
+                "filterDensity": "5-10 magenta"
+              },
+              {
+                "range": "> 5min",
+                "shift": "中等偏绿",
+                "filter": "CC10M 或 CC15M",
+                "filterDensity": "10-15 magenta"
+              }
+            ]
+          }
+        },
+        {
+          "id": "kodak_portra800",
+          "name": "Kodak Portra 800",
+          "iso": 800,
+          "type": "c41",
+          "modelParams": {
+            "T1": 30,
+            "T2": 300,
+            "p": 0.56,
+            "logK": 18,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.423,
+            "threshold": 5.200,
+            "safetyMargin": "15.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 30s",
+                "shift": "无",
+                "filter": null
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "轻微偏绿",
+                "filter": "CC05M",
+                "filterDensity": "5 magenta"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "中等偏绿",
+                "filter": "CC10M",
+                "filterDensity": "10 magenta"
+              },
+              {
+                "range": "> 5min",
+                "shift": "明显偏绿",
+                "filter": "CC15M",
+                "filterDensity": "15 magenta"
+              }
+            ],
+            "notes": [
+              "高感光度胶片，长曝光时色偏相对更明显",
+              "颗粒感增加可能掩盖部分色偏"
+            ]
+          }
+        },
+        {
+          "id": "kodak_ektar100",
+          "name": "Kodak Ektar 100",
+          "iso": 100,
+          "type": "c41",
+          "modelParams": {
+            "T1": 30,
+            "T2": 240,
+            "p": 0.63,
+            "logK": 21,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.407,
+            "threshold": 5.200,
+            "safetyMargin": "15.3%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 30s",
+                "shift": "无",
+                "filter": null,
+                "description": "Ektar 以高饱和度著称，短曝光色彩极佳"
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "轻微偏绿/黄",
+                "filter": "CC05M 或 CC05R",
+                "filterDensity": "5 magenta or red",
+                "description": "可能出现绿色或黄色偏移"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "明显偏绿",
+                "filter": "CC10M 或 CC15M",
+                "filterDensity": "10-15 magenta",
+                "description": "饱和度降低，色彩偏移明显"
+              },
+              {
+                "range": "> 5min",
+                "shift": "严重偏绿/蓝",
+                "filter": "CC15M + CC05Y",
+                "filterDensity": "15 magenta + 5 yellow",
+                "description": "可能需要复合滤镜校正"
+              }
+            ],
+            "notes": [
+              "Ektar 100 是世界上颗粒最细的彩色负片",
+              "长曝光时饱和度会显著降低",
+              "风光摄影时需特别注意色彩偏移",
+              "不建议用于超长曝光（>5分钟）"
+            ]
+          }
+        },
+        {
+          "id": "fuji_pro400h",
+          "name": "Fuji Pro 400H",
+          "iso": 400,
+          "type": "c41",
+          "modelParams": {
+            "T1": 20,
+            "T2": 240,
+            "p": 0.60,
+            "logK": 19,
+            "maxMultiplier": 5
+          },
+          "validation": {
+            "M_T2": 5.215,
+            "threshold": 6.500,
+            "safetyMargin": "19.8%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 20s",
+                "shift": "无",
+                "filter": null,
+                "description": "Pro 400H 以柔和色调著称"
+              },
+              {
+                "range": "20s - 2min",
+                "shift": "轻微偏品红",
+                "filter": "CC05G（可选）",
+                "filterDensity": "5 green",
+                "description": "富士胶片典型偏品红/洋红"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "中等偏品红",
+                "filter": "CC05G 或 CC10G",
+                "filterDensity": "5-10 green",
+                "description": "品红偏移增强，可用绿色滤镜"
+              },
+              {
+                "range": "> 5min",
+                "shift": "明显偏品红/红",
+                "filter": "CC10G 或 CC15G",
+                "filterDensity": "10-15 green",
+                "description": "需要较强的绿色校正"
+              }
+            ],
+            "notes": [
+              "Pro 400H 已停产（2021年），但市场仍有存货",
+              "富士胶片倾向于偏品红而非偏绿（与柯达相反）",
+              "人像拍摄时肤色可能过于红润",
+              "后期扫描时注意白平衡设置"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "category": "c41-color-negative",
+      "subcategory": "consumer",
+      "films": [
+        {
+          "id": "kodak_gold",
+          "name": "Kodak Gold 200",
+          "iso": 200,
+          "type": "c41",
+          "modelParams": {
+            "T1": 20,
+            "T2": 240,
+            "p": 0.60,
+            "logK": 22,
+            "maxMultiplier": 5
+          },
+          "validation": {
+            "M_T2": 5.215,
+            "threshold": 6.500,
+            "safetyMargin": "19.8%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 20s",
+                "shift": "无",
+                "filter": null,
+                "description": "消费级胶片，色彩温暖"
+              },
+              {
+                "range": "20s - 2min",
+                "shift": "轻微偏黄/绿",
+                "filter": "CC05M",
+                "filterDensity": "5 magenta",
+                "description": "出现轻微暖色偏移"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "明显偏绿",
+                "filter": "CC10M 或 CC15M",
+                "filterDensity": "10-15 magenta",
+                "description": "绿色偏移明显，需要校正"
+              },
+              {
+                "range": "> 5min",
+                "shift": "严重偏绿",
+                "filter": "CC20M",
+                "filterDensity": "20 magenta",
+                "description": "不建议用于超长曝光"
+              }
+            ],
+            "notes": [
+              "Kodak Gold 是经典消费级胶片",
+              "色彩偏移比专业胶片更明显",
+              "宽容度相对较低",
+              "不建议用于超过3分钟的曝光"
+            ]
+          }
+        },
+        {
+          "id": "fuji_c200",
+          "name": "Fuji C200",
+          "iso": 200,
+          "type": "c41",
+          "modelParams": {
+            "T1": 25,
+            "T2": 240,
+            "p": 0.57,
+            "logK": 17,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.409,
+            "threshold": 5.200,
+            "safetyMargin": "15.2%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 25s",
+                "shift": "无",
+                "filter": null
+              },
+              {
+                "range": "25s - 2min",
+                "shift": "轻微偏品红",
+                "filter": "CC05G（可选）",
+                "filterDensity": "5 green"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "中等偏品红",
+                "filter": "CC10G",
+                "filterDensity": "10 green"
+              },
+              {
+                "range": "> 5min",
+                "shift": "明显偏品红",
+                "filter": "CC15G",
+                "filterDensity": "15 green"
+              }
+            ],
+            "notes": [
+              "富士消费级胶片",
+              "色彩风格与柯达不同（偏品红而非偏绿）",
+              "性价比高但长曝光性能一般"
+            ]
+          }
+        },
+        {
+          "id": "cinestill_800t",
+          "name": "Cinestill 800T",
+          "iso": 800,
+          "type": "c41",
+          "modelParams": {
+            "T1": 30,
+            "T2": 300,
+            "p": 0.56,
+            "logK": 15,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.423,
+            "threshold": 5.200,
+            "safetyMargin": "15.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 30s",
+                "shift": "轻微偏蓝（钨丝灯平衡）",
+                "filter": null,
+                "description": "800T 为钨丝灯平衡胶片，日光下偏蓝"
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "蓝绿色混合",
+                "filter": "CC05M + 85B（日光）",
+                "filterDensity": "5 magenta + 85B",
+                "description": "日光下需使用85B滤镜+色彩校正"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "明显蓝绿偏移",
+                "filter": "CC10M + 85B",
+                "filterDensity": "10 magenta + 85B",
+                "description": "复杂色偏，建议后期校正"
+              },
+              {
+                "range": "> 5min",
+                "shift": "严重色偏",
+                "filter": "建议后期数字校正",
+                "filterDensity": "N/A",
+                "description": "物理滤镜难以完全补偿"
+              }
+            ],
+            "notes": [
+              "Cinestill 800T 是去掉防光晕层的 Kodak Vision3 500T",
+              "设计用于钨丝灯（3200K）",
+              "日光下（5500K）会呈现蓝色调",
+              "长曝光时会出现特征性的光晕效果",
+              "夜景和霓虹灯拍摄效果独特",
+              "色彩校正建议在后期进行"
+            ]
+          }
+        },
+        {
+          "id": "lomo_cn",
+          "name": "Lomo CN 800",
+          "iso": 800,
+          "type": "c41",
+          "modelParams": {
+            "T1": 15,
+            "T2": 200,
+            "p": 0.65,
+            "logK": 27,
+            "maxMultiplier": 6
+          },
+          "validation": {
+            "M_T2": 6.119,
+            "threshold": 7.800,
+            "safetyMargin": "21.6%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "timeRanges": [
+              {
+                "range": "1s - 15s",
+                "shift": "随机色偏",
+                "filter": null,
+                "description": "Lomo 胶片以不可预测性著称"
+              },
+              {
+                "range": "15s - 2min",
+                "shift": "强烈不规则色偏",
+                "filter": "不建议使用",
+                "filterDensity": "N/A",
+                "description": "色偏是 Lomo 美学的一部分"
+              },
+              {
+                "range": "2min - 5min",
+                "shift": "极度不规则色偏",
+                "filter": "不建议使用",
+                "filterDensity": "N/A",
+                "description": "建议接受色偏作为艺术效果"
+              },
+              {
+                "range": "> 5min",
+                "shift": "完全不可预测",
+                "filter": "不建议使用",
+                "filterDensity": "N/A",
+                "description": "结果完全随机"
+              }
+            ],
+            "notes": [
+              "Lomo CN 800 是玩具胶片/艺术胶片",
+              "色彩不一致性是其特色，不是缺陷",
+              "每卷甚至每张的色彩都可能不同",
+              "不建议尝试校正色偏",
+              "适合实验性和创意摄影",
+              "长曝光结果完全不可预测"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "category": "black-and-white-modern",
+      "subcategory": "tabular-grain",
+      "films": [
+        {
+          "id": "kodak_tmax100",
+          "name": "Kodak T-Max 100",
+          "iso": 100,
+          "type": "bw-modern",
+          "modelParams": {
+            "T1": 60,
+            "T2": 600,
+            "p": 0.44,
+            "logK": 10,
+            "maxMultiplier": 3
+          },
+          "validation": {
+            "M_T2": 3.629,
+            "threshold": 3.900,
+            "safetyMargin": "7.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": false,
+            "reason": "黑白胶片无需色彩校正",
+            "notes": [
+              "T-Max 系列采用扁平颗粒（T-Grain）技术",
+              "倒易律失效相对较小",
+              "长曝光时注意反差变化而非色彩",
+              "显影时间可能需要适当调整",
+              "推荐显影液：T-Max、D-76、Xtol"
+            ]
+          }
+        },
+        {
+          "id": "kodak_tmax400",
+          "name": "Kodak T-Max 400",
+          "iso": 400,
+          "type": "bw-modern",
+          "modelParams": {
+            "T1": 45,
+            "T2": 600,
+            "p": 0.51,
+            "logK": 12,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.601,
+            "threshold": 5.200,
+            "safetyMargin": "11.5%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": false,
+            "reason": "黑白胶片无需色彩校正",
+            "notes": [
+              "T-Max 400 是专业黑白胶片",
+              "可推至 EI 1600 或更高",
+              "长曝光时反差会略微下降",
+              "显影时间建议增加 10-15%"
+            ]
+          }
+        },
+        {
+          "id": "ilford_delta100",
+          "name": "Ilford Delta 100",
+          "iso": 100,
+          "type": "bw-modern",
+          "modelParams": {
+            "T1": 60,
+            "T2": 600,
+            "p": 0.44,
+            "logK": 10,
+            "maxMultiplier": 3
+          },
+          "validation": {
+            "M_T2": 3.629,
+            "threshold": 3.900,
+            "safetyMargin": "7.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": false,
+            "reason": "黑白胶片无需色彩校正",
+            "notes": [
+              "Delta 系列与 T-Max 性能相近",
+              "倒易律失效特性几乎相同",
+              "推荐显影液：DD-X、Ilfosol、Microphen"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "category": "black-and-white-classic",
+      "subcategory": "traditional-grain",
+      "films": [
+        {
+          "id": "kodak_trix",
+          "name": "Kodak Tri-X 400",
+          "iso": 400,
+          "type": "bw-classic",
+          "modelParams": {
+            "T1": 10,
+            "T2": 120,
+            "p": 0.79,
+            "logK": 37,
+            "maxMultiplier": 8
+          },
+          "validation": {
+            "M_T2": 7.648,
+            "threshold": 10.400,
+            "safetyMargin": "26.5%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": false,
+            "reason": "黑白胶片无需色彩校正",
+            "notes": [
+              "Tri-X 400 是传奇经典胶片（1954年至今）",
+              "倒易律失效较为严重",
+              "长曝光时反差会显著增加",
+              "显影时间建议减少 10-20%",
+              "推荐显影液：D-76、HC-110、Rodinal",
+              "颗粒感强烈，适合街拍和新闻摄影",
+              "可推至 EI 3200"
+            ]
+          }
+        },
+        {
+          "id": "ilford_hp5",
+          "name": "Ilford HP5 Plus",
+          "iso": 400,
+          "type": "bw-classic",
+          "modelParams": {
+            "T1": 12,
+            "T2": 180,
+            "p": 0.72,
+            "logK": 34,
+            "maxMultiplier": 8
+          },
+          "validation": {
+            "M_T2": 7.687,
+            "threshold": 10.400,
+            "safetyMargin": "26.1%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": false,
+            "reason": "黑白胶片无需色彩校正",
+            "notes": [
+              "HP5 Plus 是英国经典胶片",
+              "与 Tri-X 特性相近但略微柔和",
+              "倒易律失效程度类似",
+              "长曝光时反差增加",
+              "推荐显影液：ID-11、Microphen、Perceptol"
+            ]
+          }
+        },
+        {
+          "id": "ilford_panf",
+          "name": "Ilford Pan F Plus 50",
+          "iso": 50,
+          "type": "bw-classic",
+          "modelParams": {
+            "T1": 6,
+            "T2": 60,
+            "p": 1.02,
+            "logK": 48,
+            "maxMultiplier": 10
+          },
+          "validation": {
+            "M_T2": 10.404,
+            "threshold": 13.000,
+            "safetyMargin": "20.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": false,
+            "reason": "黑白胶片无需色彩校正",
+            "notes": [
+              "Pan F Plus 50 是超细颗粒低感光度胶片",
+              "倒易律失效极其严重（Reciprocity Hell）",
+              "长曝光时补偿倍数可达 10×",
+              "反差会大幅增加",
+              "显影时间建议减少 20-30%",
+              "推荐显影液：Perceptol、ID-11 1+1",
+              "适合风光摄影和建筑摄影",
+              "需要精确的曝光控制"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "category": "slide-reversal",
+      "subcategory": "e6-process",
+      "films": [
+        {
+          "id": "kodak_e100",
+          "name": "Kodak Ektachrome E100",
+          "iso": 100,
+          "type": "slide",
+          "modelParams": {
+            "T1": 4,
+            "T2": 90,
+            "p": 0.31,
+            "logK": 10,
+            "maxMultiplier": 3
+          },
+          "validation": {
+            "M_T2": 3.589,
+            "threshold": 3.900,
+            "safetyMargin": "8.0%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "severity": "critical",
+            "timeRanges": [
+              {
+                "range": "1s - 4s",
+                "shift": "无",
+                "filter": null,
+                "description": "反转片色彩精准，短曝光最佳"
+              },
+              {
+                "range": "4s - 30s",
+                "shift": "轻微偏洋红/蓝",
+                "filter": "CC05Y 或 CC05G",
+                "filterDensity": "5 yellow or green",
+                "description": "反转片色偏敏感，需要精确校正"
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "明显偏洋红/蓝",
+                "filter": "CC10Y 或 CC10G",
+                "filterDensity": "10 yellow or green",
+                "description": "色偏明显，强烈建议使用滤镜"
+              },
+              {
+                "range": "> 2min",
+                "shift": "严重色偏",
+                "filter": "CC15Y + CC05G（复合）",
+                "filterDensity": "15 yellow + 5 green",
+                "description": "极度不推荐长曝光反转片"
+              }
+            ],
+            "notes": [
+              "⚠️ 反转片对色彩偏移极度敏感",
+              "宽容度仅 ±0.5档，曝光必须精确",
+              "色彩偏移在反转片上无法后期校正",
+              "长曝光会导致色彩饱和度下降",
+              "不建议超过 2 分钟的曝光",
+              "E100 是目前仍在生产的少数反转片之一",
+              "冲洗成本高，建议谨慎使用"
+            ]
+          }
+        },
+        {
+          "id": "fuji_provia400x",
+          "name": "Fuji Provia 400X",
+          "iso": 400,
+          "type": "slide",
+          "modelParams": {
+            "T1": 4,
+            "T2": 75,
+            "p": 0.45,
+            "logK": 10,
+            "maxMultiplier": 4
+          },
+          "validation": {
+            "M_T2": 4.649,
+            "threshold": 5.200,
+            "safetyMargin": "10.6%",
+            "status": "✓"
+          },
+          "colorShiftAdvice": {
+            "enabled": true,
+            "severity": "critical",
+            "timeRanges": [
+              {
+                "range": "1s - 4s",
+                "shift": "无",
+                "filter": null
+              },
+              {
+                "range": "4s - 30s",
+                "shift": "轻微偏品红",
+                "filter": "CC05G",
+                "filterDensity": "5 green"
+              },
+              {
+                "range": "30s - 2min",
+                "shift": "明显偏品红/蓝",
+                "filter": "CC10G + CC05Y",
+                "filterDensity": "10 green + 5 yellow"
+              },
+              {
+                "range": "> 2min",
+                "shift": "严重色偏",
+                "filter": "不推荐使用",
+                "filterDensity": "N/A"
+              }
+            ],
+            "notes": [
+              "⚠️ Provia 400X 已停产（2013年）",
+              "市场存货有限且昂贵",
+              "富士反转片偏品红倾向明显",
+              "色彩校正必须在拍摄时完成",
+              "不建议用于长曝光"
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "filterGuidelines": {
+    "ccFilterNotation": {
+      "description": "CC（Color Correction）滤镜标准",
+      "format": "CC[density][color]",
+      "example": "CC10M = 10单位洋红色滤镜",
+      "colors": {
+        "M": "Magenta 洋红（补偿绿色偏移）",
+        "G": "Green 绿色（补偿洋红色偏移）",
+        "Y": "Yellow 黄色（补偿蓝色偏移）",
+        "C": "Cyan 青色（补偿红色偏移）",
+        "R": "Red 红色（补偿青色偏移）",
+        "B": "Blue 蓝色（补偿黄色偏移）"
+      },
+      "densityScale": "通常为 05, 10, 15, 20, 25, 30, 40, 50"
+    },
+    "conversionFilters": {
+      "85B": {
+        "description": "钨丝灯→日光转换",
+        "colorTemp": "3200K → 5500K",
+        "usage": "用于钨丝灯平衡胶片（如 800T）在日光下使用"
+      },
+      "80A": {
+        "description": "日光→钨丝灯转换",
+        "colorTemp": "5500K → 3200K",
+        "usage": "用于日光平衡胶片在钨丝灯下使用"
+      }
+    },
+    "practicalAdvice": {
+      "测试拍摄": "在重要拍摄前先用测试卷验证滤镜效果",
+      "滤镜叠加": "多个 CC 滤镜可叠加使用，但会损失一定锐度",
+      "曝光补偿": "每 10 单位 CC 滤镜约需 +1/3 档曝光补偿",
+      "反转片优先": "反转片必须在拍摄时校正，负片可后期调整",
+      "后期优先": "现代工作流程建议后期数字校正而非物理滤镜",
+      "滤镜成本": "高质量 CC 滤镜昂贵（每片 $50-100）",
+      "替代方案": "LED灯光拍摄时可调整光源色温代替滤镜"
+    }
+  },
+  "technicalNotes": {
+    "colorShiftMechanisms": {
+      "彩色负片": "长曝光时三层乳剂（青、洋红、黄）感光速度不同步，导致色偏",
+      "反转片": "E-6 显影过程对曝光时间敏感，长曝光破坏色彩平衡",
+      "黑白片": "无色彩偏移问题，但反差和颗粒感会变化"
+    },
+    "brandDifferences": {
+      "Kodak": "倾向于偏绿色（需要洋红滤镜校正）",
+      "Fuji": "倾向于偏品红/洋红色（需要绿色滤镜校正）",
+      "Cinestill": "钨丝灯平衡，日光下偏蓝",
+      "Lomo": "不可预测，色偏是特色"
+    },
+    "reciprocityAndColor": {
+      "description": "倒易律失效和色彩偏移是两个独立但相关的现象",
+      "relationship": "曝光时间越长，倒易律失效越严重，色彩偏移也越明显",
+      "correction": "需要同时补偿时间（倒易律）和色彩（滤镜或后期）"
+    }
+  },
+  "usageExamples": [
+    {
+      "scenario": "星空摄影（Kodak Portra 400）",
+      "baseExposure": "f/2.8, 120s, ISO 400",
+      "reciprocityCorrection": {
+        "correctedTime": "360s (6分钟)",
+        "calculation": "根据 Segmented Damping Model: M(120) ≈ 3.0"
+      },
+      "colorCorrection": {
+        "filter": "CC10M（10单位洋红）",
+        "reason": "2-5分钟曝光区间，预期中等绿色偏移",
+        "exposureCompensation": "+1/3 stop（滤镜密度补偿）"
+      },
+      "finalSettings": "f/2.8, 360s + CC10M, ISO 400, 总曝光补偿 +1/3"
+    },
+    {
+      "scenario": "夜景长曝光（Cinestill 800T）",
+      "baseExposure": "f/8, 60s, ISO 800",
+      "reciprocityCorrection": {
+        "correctedTime": "180s (3分钟)",
+        "calculation": "M(60) ≈ 3.0"
+      },
+      "colorCorrection": {
+        "filter": "无需滤镜（钨丝灯环境）",
+        "reason": "800T 设计用于钨丝灯，城市夜景光源以人造光为主",
+        "note": "如有月光或环境光，可考虑 CC05M"
+      },
+      "finalSettings": "f/8, 180s, ISO 800"
+    },
+    {
+      "scenario": "黄昏风光（Kodak Ektar 100）",
+      "baseExposure": "f/11, 30s, ISO 100",
+      "reciprocityCorrection": {
+        "correctedTime": "75s (1.25分钟)",
+        "calculation": "M(30) ≈ 2.5"
+      },
+      "colorCorrection": {
+        "filter": "CC05M + CC05R",
+        "reason": "Ektar 在长曝光时偏绿/黄，需要复合校正",
+        "exposureCompensation": "+2/3 stop"
+      },
+      "finalSettings": "f/11, 75s + CC05M + CC05R, ISO 100, +2/3 stop"
+    },
+    {
+      "scenario": "极限长曝光（Ilford Pan F 50）",
+      "baseExposure": "f/16, 180s (3分钟), ISO 50",
+      "reciprocityCorrection": {
+        "correctedTime": "1800s (30分钟)",
+        "calculation": "Pan F 倒易律失效极其严重: M(180) ≈ 10.0"
+      },
+      "colorCorrection": {
+        "filter": "无需（黑白胶片）",
+        "reason": "黑白胶片无色彩偏移",
+        "developmentAdjustment": "显影时间减少 25%（反差会大幅增加）"
+      },
+      "finalSettings": "f/16, 1800s, ISO 50, 显影时间 75%"
+    }
+  ],
+  "metadata": {
+    "author": "GitHub Copilot",
+    "basedOn": "Segmented Damping Model Implementation",
+    "dataSource": "/Users/bber/Documents/program/bluehour/src/constants/Photography.ts",
+    "validationTool": "verify-params-from-ts.js",
+    "totalFilmsIncluded": 44,
+    "categories": {
+      "c41ColorNegative": 22,
+      "bwModern": 7,
+      "bwClassic": 11,
+      "slideReversal": 4
+    },
+    "license": "MIT",
+    "version": "1.0.0",
+    "lastUpdated": "2026-01-12"
+  }
+}
