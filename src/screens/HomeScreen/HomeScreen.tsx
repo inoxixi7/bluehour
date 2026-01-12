@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -28,6 +28,11 @@ import { formatLocationName } from '../../utils/locationHelpers';
 import { Card } from '../../components/common/Card';
 import { LoadingIndicator } from '../../components/common/LoadingIndicator';
 import { Touchable } from '../../components/common/Touchable';
+import { 
+  scheduleGoldenHourNotification,
+  isNotificationsEnabled,
+  cancelAllNotifications
+} from '../../services/notificationService';
 
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -47,6 +52,33 @@ const HomeScreen: React.FC = () => {
   const [showIntro, setShowIntro] = useState(false);
 
   const [refreshCount, setRefreshCount] = useState(0);
+
+  // 当日出日落时间变化时，安排通知
+  useEffect(() => {
+    const scheduleNotifications = async () => {
+      const enabled = await isNotificationsEnabled();
+      if (!enabled || !sunTimes) return;
+
+      // 取消旧的通知
+      await cancelAllNotifications();
+
+      // 安排日出黄金时刻提醒
+      if (sunTimes.sunrise) {
+        const sunriseGolden = new Date(sunTimes.sunrise);
+        sunriseGolden.setMinutes(sunriseGolden.getMinutes() - 30); // 黄金时刻是日出前30分钟开始
+        await scheduleGoldenHourNotification(sunriseGolden, 'sunrise', i18n.language);
+      }
+
+      // 安排日落黄金时刻提醒
+      if (sunTimes.sunset) {
+        const sunsetGolden = new Date(sunTimes.sunset);
+        sunsetGolden.setMinutes(sunsetGolden.getMinutes() - 30); // 黄金时刻是日落前30分钟开始
+        await scheduleGoldenHourNotification(sunsetGolden, 'sunset', i18n.language);
+      }
+    };
+
+    scheduleNotifications();
+  }, [sunTimes, i18n.language]);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -241,69 +273,63 @@ const HomeScreen: React.FC = () => {
           </Touchable>
         </View>
 
-        <Card style={[styles.heroCard, { backgroundColor: theme.colors.card }]}>
-          <View style={styles.heroRow}>
-            <Text style={styles.heroEmoji}>{phaseState?.current.icon || '🌌'}</Text>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.heroPhase, { color: theme.colors.text }]}>
-                {phaseState ? t(phaseState.current.labelKey) : t('home.hero.waitingPhase')}
-              </Text>
-              {nextBlueHour && (
-                <Text style={[styles.heroCountdown, { color: theme.colors.textSecondary }]}>
-                  {t('sunTimes.currentPhase.distanceTo', {
-                    phase: nextBlueHour.isNextDay
-                      ? t('sunTimes.currentPhase.tomorrows') + t(nextBlueHour.labelKey)
-                      : t(nextBlueHour.labelKey),
-                    time: formatTimeCountdown(
-                      Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)),
-                      t
-                    ),
-                  })}
+        <Touchable onPress={() => navigation.navigate('SunTimes')} activeOpacity={0.9}>
+          <Card style={[styles.heroCard, { backgroundColor: theme.colors.card }]}>
+            <View style={styles.heroRow}>
+              <Text style={styles.heroEmoji}>{phaseState?.current.icon || '🌌'}</Text>
+              <View style={{ flex: 1 }}>
+                <Text style={[styles.heroPhase, { color: theme.colors.text }]}>
+                  {phaseState ? t(phaseState.current.labelKey) : t('home.hero.waitingPhase')}
                 </Text>
-              )}
-            </View>
-          </View>
-          {locationError && (
-            <Text style={[styles.errorText, { color: theme.colors.error }]}>{locationError}</Text>
-          )}
-          
-          {photographyTimeline.length > 0 && (
-            <View style={styles.timelineSection}>
-              <View style={styles.divider} />
-              <View style={styles.timelineTitleRow}>
-                <Text style={[styles.timelineTitle, { color: theme.colors.text }]}>
-                  {t('home.timeline.title')}
-                </Text>
-                <Touchable
-                  onPress={() => navigation.navigate('SunTimes')}
-                  activeOpacity={0.7}
-                  hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                >
-                  <Text style={[styles.detailText, { color: theme.colors.textSecondary }]}>
-                    {t('home.timeline.detail')}
+                {nextBlueHour && (
+                  <Text style={[styles.heroCountdown, { color: theme.colors.textSecondary }]}>
+                    {t('sunTimes.currentPhase.distanceTo', {
+                      phase: nextBlueHour.isNextDay
+                        ? t('sunTimes.currentPhase.tomorrows') + t(nextBlueHour.labelKey)
+                        : t(nextBlueHour.labelKey),
+                      time: formatTimeCountdown(
+                        Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)),
+                        t
+                      ),
+                    })}
                   </Text>
-                </Touchable>
+                )}
               </View>
-              {photographyTimeline.map(segment => (
-                <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
-                  <View
-                    style={[
-                      styles.timelineDot,
-                      { backgroundColor: theme.colors[segment.accent] || theme.colors.text },
-                    ]}
-                  />
-                  <Text style={[styles.timelineLabel, { color: theme.colors.text }]}>
-                    {t(segment.labelKey)}
-                  </Text>
-                  <Text style={[styles.timelineTime, { color: theme.colors.textSecondary }]}>
-                    {formatTime(segment.start, timezoneInfo.timezone)} —{' '}
-                    {formatTime(segment.end, timezoneInfo.timezone)}
-                  </Text>
-                </View>
-              ))}
             </View>
-          )}
-        </Card>
+            {locationError && (
+              <Text style={[styles.errorText, { color: theme.colors.error }]}>{locationError}</Text>
+            )}
+            
+            {photographyTimeline.length > 0 && (
+              <View style={styles.timelineSection}>
+                <View style={styles.divider} />
+                <View style={styles.timelineTitleRow}>
+                  <Text style={[styles.timelineTitle, { color: theme.colors.text }]}>
+                    {t('home.timeline.title')}
+                  </Text>
+                  <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
+                </View>
+                {photographyTimeline.map(segment => (
+                  <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
+                    <View
+                      style={[
+                        styles.timelineDot,
+                        { backgroundColor: theme.colors[segment.accent] || theme.colors.text },
+                      ]}
+                    />
+                    <Text style={[styles.timelineLabel, { color: theme.colors.text }]}>
+                      {t(segment.labelKey)}
+                    </Text>
+                    <Text style={[styles.timelineTime, { color: theme.colors.textSecondary }]}>
+                      {formatTime(segment.start, timezoneInfo.timezone)} —{' '}
+                      {formatTime(segment.end, timezoneInfo.timezone)}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            )}
+          </Card>
+        </Touchable>
 
         <View style={{ gap: Layout.spacing.md, marginBottom: Layout.spacing.md }}>
           <Touchable onPress={() => navigation.navigate('ExposureCalc')} activeOpacity={0.9}>
@@ -355,7 +381,7 @@ const HomeScreen: React.FC = () => {
           {/* 左侧卡片 - 动态建议 */}
           <Card style={[styles.adviceCardLeft, { backgroundColor: theme.colors.card }]}>
             <View style={styles.adviceHeaderRow}>
-              <Text style={styles.adviceIconSmall}>{quickActions.icon}</Text>
+              <Ionicons name="sparkles-outline" size={20} color={theme.colors.accent} />
               <Text style={[styles.adviceCardLabel, { color: theme.colors.text }]}>
                 {t('home.advice.currentLight')}
               </Text>
@@ -583,6 +609,11 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontVariant: ['tabular-nums'],
   },
+  detailButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+  },
   detailText: {
     fontSize: Layout.fontSize.sm,
     fontWeight: '500',
@@ -626,21 +657,19 @@ const styles = StyleSheet.create({
     marginBottom: Layout.spacing.sm,
     gap: 6,
   },
-  adviceIconSmall: {
-    fontSize: 20,
-  },
   adviceCardLabel: {
-    fontSize: Layout.fontSize.base,
+    fontSize: Layout.fontSize.md,
     fontWeight: '600',
   },
   adviceTitle: {
-    fontSize: Layout.fontSize.sm,
+    fontSize: Layout.fontSize.base,
     fontWeight: '600',
     marginBottom: Layout.spacing.xs,
+    lineHeight: 22,
   },
   adviceText: {
-    fontSize: Layout.fontSize.sm,
-    lineHeight: 18,
+    fontSize: Layout.fontSize.md,
+    lineHeight: 20,
   },
   tipHeaderRow: {
     flexDirection: 'row',
@@ -649,13 +678,13 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   tipCardLabel: {
-    fontSize: Layout.fontSize.base,
+    fontSize: Layout.fontSize.md,
     fontWeight: '600',
   },
   tipTitle: {
-    fontSize: Layout.fontSize.sm,
-    fontWeight: '600',
-    marginBottom: Layout.spacing.xs,
+    fontSize: Layout.fontSize.md,
+    fontWeight: '500',
+    lineHeight: 20,
   },
   locationCard: {
     borderRadius: Layout.borderRadius.lg,

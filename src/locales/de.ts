@@ -1,6 +1,8 @@
 // Deutsche Übersetzungen
 export default {
   common: {
+    ok: 'OK',
+    cancel: 'Abbrechen',
     loading: 'Lädt...',
     loadingPhase: 'Lädt...',
     fetchingPhaseInfo: 'Aktuelle Phaseninformationen werden abgerufen',
@@ -436,8 +438,13 @@ export default {
     preferences: 'Einstellungen',
     language: 'Sprache',
     theme: 'Design',
-    aboutApp: 'Über die App',
-    appearance: 'Erscheinungsbild',
+    aboutApp: 'Über die App',    notifications: {
+      title: 'Foto-Erinnerungen',
+      enableTitle: 'Goldene Stunde Erinnerung',
+      enableDescription: '30 Minuten vor der goldenen Stunde erinnern',
+      permissionTitle: 'Benachrichtigungsberechtigung erforderlich',
+      permissionMessage: 'Bitte erlauben Sie die Benachrichtigungsberechtigung in den Systemeinstellungen, um Fotoerinnerungen zu erhalten',
+    },    appearance: 'Erscheinungsbild',
     appearanceDescription: 'Wählen Sie Ihren bevorzugten Designmodus',
     themeLight: 'Heller Modus',
     themeDark: 'Dunkler Modus',

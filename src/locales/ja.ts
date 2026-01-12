@@ -1,6 +1,8 @@
 // 日本語翻訳
 export default {
   common: {
+    ok: 'OK',
+    cancel: 'キャンセル',
     loading: '読み込み中...',
     loadingPhase: '読み込み中...',
     fetchingPhaseInfo: '現在の時間帯情報を取得中',
@@ -437,6 +439,13 @@ export default {
     language: '言語',
     theme: 'テーマ',
     aboutApp: 'アプリについて',
+    notifications: {
+      title: '撮影リマインダー',
+      enableTitle: 'ゴールデンアワー通知',
+      enableDescription: 'ゴールデンアワーの30分前に通知',
+      permissionTitle: '通知権限が必要です',
+      permissionMessage: '撮影リマインダーを受信するには、システム設定で通知権限を許可してください',
+    },
     appearance: '外観',
     appearanceDescription: 'お好みのテーマモードを選択',
     themeLight: 'ライトモード',

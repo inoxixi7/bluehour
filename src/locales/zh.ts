@@ -1,6 +1,8 @@
 // 中文翻译
 export default {
   common: {
+    ok: '好的',
+    cancel: '取消',
     loading: '加载中...',
     loadingPhase: '正在加载...',
     fetchingPhaseInfo: '正在获取当前时段信息',
@@ -550,6 +552,13 @@ export default {
     description: '专为摄影爱好者设计的工具应用，帮助您规划完美的拍摄时间，轻松计算曝光参数、ND 滤镜和景深。',
     features: '功能',
     support: '支持',
+    notifications: {
+      title: '拍摄提醒',
+      enableTitle: '黄金时刻提醒',
+      enableDescription: '在黄金时刻开始前30分钟提醒您',
+      permissionTitle: '需要通知权限',
+      permissionMessage: '请在系统设置中允许通知权限，以便接收拍摄提醒',
+    },
     featureList: {
       blueHour: {
         title: '蓝调时刻规划器',

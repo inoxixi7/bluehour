@@ -1,6 +1,8 @@
 // English translations
 export default {
   common: {
+    ok: 'OK',
+    cancel: 'Cancel',
     loading: 'Loading...',
     loadingPhase: 'Loading...',
     fetchingPhaseInfo: 'Fetching current phase information',
@@ -530,6 +532,13 @@ export default {
     language: 'Language',
     theme: 'Theme',
     aboutApp: 'About App',
+    notifications: {
+      title: 'Photo Reminders',
+      enableTitle: 'Golden Hour Reminder',
+      enableDescription: 'Remind you 30 minutes before golden hour',
+      permissionTitle: 'Notification Permission Required',
+      permissionMessage: 'Please allow notification permission in system settings to receive photo reminders',
+    },
     appearance: 'Appearance',
     appearanceDescription: 'Choose your preferred theme mode',
     themeLight: 'Light Mode',
