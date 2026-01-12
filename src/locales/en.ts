@@ -512,9 +512,16 @@ export default {
   },
 
   reciprocity: {
+    title: 'Reciprocity Calculator',
     filmProfile: 'Film Profile',
     selectFilm: 'Select film',
     meteredShutter: 'Metered Shutter Speed',
+    resultBase: 'Base Shutter',
+    resultReciprocity: 'Corrected',
+    timerTitle: 'Bulb Timer',
+    startTimer: 'Start Timer',
+    stopTimer: 'Stop Timer',
+    timerDone: 'Done',
   },
 
   settings: {
@@ -590,6 +597,38 @@ export default {
       manage: 'Manage',
     },
   },
+  reciprocityHelp: {
+    title: 'Reciprocity Calculator - Guide',
+    description: 'The Reciprocity Calculator is designed for film photography to help you compensate for reciprocity failure during long exposures. When exposure times exceed 1 second, film sensitivity decreases, requiring extended exposure times to achieve correct exposure.',
+    section1: {
+      title: 'What is Reciprocity Failure?',
+      content: [
+        'Reciprocity Law states: Exposure = Light Intensity × Time',
+        'In theory, reducing intensity and extending time should produce identical exposure',
+        'However, during long exposures (typically >1s), film sensitivity decreases',
+        'This phenomenon is called "Reciprocity Failure" and requires additional exposure time compensation',
+      ],
+    },
+    section2: {
+      title: 'How to Use the Calculator?',
+      content: [
+        '1. Select your film stock (different films have different reciprocity characteristics)',
+        '2. Enter the metered shutter speed (initial exposure time)',
+        '3. The calculator automatically displays the corrected exposure time',
+        '4. Use the built-in bulb timer to precisely control your exposure',
+      ],
+    },
+    section3: {
+      title: 'Practical Tips',
+      content: [
+        'Digital Cameras: Almost unaffected by reciprocity failure, no compensation needed',
+        'Film Variations: Black & white and color negative films have significantly different characteristics',
+        'Extreme Cases: Some films may require several times the compensation for ultra-long exposures',
+        'Rule of Thumb: At 1s metered exposure, compensation is minimal; beyond 10s, compensation increases significantly',
+      ],
+    },
+  },
+
   exposureLabHelp: {
     title: 'Exposure Lab - Feature Guide',
     description: 'Exposure Lab is a powerful photography calculation tool that integrates exposure parameter adjustment, scene EV reference, ND filter calculation, reciprocity failure compensation, and exposure timer. It helps you precisely control exposure, especially for long exposure photography.',

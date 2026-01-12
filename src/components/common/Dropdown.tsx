@@ -32,11 +32,86 @@ export const Dropdown: React.FC<DropdownProps> = ({
   accentColor,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [tempValue, setTempValue] = useState(selectedValue);
 
   const selectedOption = options.find(opt => opt.value === selectedValue);
 
-  // 对于移动端，使用原生Picker
-  if (Platform.OS !== 'web') {
+  // 对于iOS，使用Modal模式的Picker
+  if (Platform.OS === 'ios') {
+    return (
+      <>
+        <Touchable
+          onPress={() => {
+            setTempValue(selectedValue);
+            setIsOpen(true);
+          }}
+          style={[styles.pickerWrapper, { backgroundColor, borderColor }]}
+        >
+          <Text
+            style={[
+              styles.pickerText,
+              { color: textColor },
+              !selectedOption && styles.placeholderText,
+            ]}
+            numberOfLines={1}
+          >
+            {selectedOption?.label || placeholder}
+          </Text>
+          <Ionicons name="chevron-down" size={20} color={textColor} style={styles.icon} />
+        </Touchable>
+
+        <Modal
+          visible={isOpen}
+          transparent
+          animationType="slide"
+          onRequestClose={() => setIsOpen(false)}
+        >
+          <View style={styles.modalOverlay}>
+            <TouchableOpacity 
+              style={styles.modalBackdrop} 
+              onPress={() => setIsOpen(false)}
+              activeOpacity={1}
+            />
+            <View style={[styles.modalContent, { backgroundColor }]}>
+              <View style={styles.modalHeader}>
+                <TouchableOpacity onPress={() => setIsOpen(false)}>
+                  <Text style={[styles.modalButton, { color: accentColor }]}>取消</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => {
+                    onValueChange(tempValue);
+                    setIsOpen(false);
+                  }}
+                >
+                  <Text style={[styles.modalButton, styles.modalButtonDone, { color: accentColor }]}>
+                    完成
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <Picker
+                selectedValue={tempValue}
+                onValueChange={setTempValue}
+                style={styles.iosPicker}
+                itemStyle={{ color: textColor }}
+              >
+                {options.map((option) => (
+                  <Picker.Item 
+                    key={option.value} 
+                    label={option.label} 
+                    value={option.value}
+                    color={textColor}
+                  />
+                ))}
+              </Picker>
+            </View>
+          </View>
+        </Modal>
+      </>
+    );
+  }
+
+  // 对于Android，使用原生Picker
+  if (Platform.OS === 'android') {
     return (
       <View style={[styles.pickerWrapper, { backgroundColor, borderColor }]}>
         <Picker
@@ -143,9 +218,53 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     height: 50,
     justifyContent: 'center',
+    ...(Platform.OS === 'ios' && {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: Layout.spacing.md,
+    }),
+  },
+  pickerText: {
+    fontSize: Layout.fontSize.base,
+    flex: 1,
   },
   picker: {
     height: 50,
+    ...(Platform.OS === 'android' && { height: 50 }),
+  },
+  iosPicker: {
+    height: 216, // iOS Picker标准高度
+    width: '100%',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  modalBackdrop: {
+    flex: 1,
+  },
+  modalContent: {
+    borderTopLeftRadius: Layout.borderRadius.lg,
+    borderTopRightRadius: Layout.borderRadius.lg,
+    paddingBottom: 34, // iOS底部安全区域
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: Layout.spacing.md,
+    paddingVertical: Layout.spacing.sm,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: 'rgba(0, 0, 0, 0.1)',
+  },
+  modalButton: {
+    fontSize: Layout.fontSize.base,
+    padding: Layout.spacing.xs,
+  },
+  modalButtonDone: {
+    fontWeight: '600',
   },
   selector: {
     flexDirection: 'row',

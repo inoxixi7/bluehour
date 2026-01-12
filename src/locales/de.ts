@@ -419,9 +419,16 @@ export default {
   },
   
   reciprocity: {
+    title: 'Schwarzschild-Effekt Rechner',
     filmProfile: 'Filmprofil',
     selectFilm: 'Film auswählen',
     meteredShutter: 'Gemessene Verschlusszeit',
+    resultBase: 'Basis-Verschluss',
+    resultReciprocity: 'Korrigiert',
+    timerTitle: 'Bulb-Timer',
+    startTimer: 'Timer starten',
+    stopTimer: 'Timer stoppen',
+    timerDone: 'Fertig',
   },
   
   settings: {
@@ -484,6 +491,38 @@ export default {
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: 'Mit ❤️ für Fotografen gemacht',
   },
+  reciprocityHelp: {
+    title: 'Schwarzschild-Effekt Rechner - Anleitung',
+    description: 'Der Schwarzschild-Effekt Rechner ist für die Filmfotografie konzipiert und hilft Ihnen, den Schwarzschild-Effekt bei Langzeitbelichtungen zu kompensieren. Wenn die Belichtungszeiten 1 Sekunde überschreiten, nimmt die Filmempfindlichkeit ab und erfordert verlängerte Belichtungszeiten für korrekte Belichtung.',
+    section1: {
+      title: 'Was ist der Schwarzschild-Effekt?',
+      content: [
+        'Reziprozitätsgesetz: Belichtung = Lichtintensität × Zeit',
+        'Theoretisch sollten reduzierte Intensität und verlängerte Zeit identische Belichtung erzeugen',
+        'Bei Langzeitbelichtungen (typischerweise >1s) nimmt jedoch die Filmempfindlichkeit ab',
+        'Dieses Phänomen wird "Schwarzschild-Effekt" genannt und erfordert zusätzliche Belichtungszeitkompensation',
+      ],
+    },
+    section2: {
+      title: 'Verwendung des Rechners',
+      content: [
+        '1. Wählen Sie Ihren Film (verschiedene Filme haben unterschiedliche Reziprozitätscharakteristiken)',
+        '2. Geben Sie die gemessene Verschlusszeit ein (anfängliche Belichtungszeit)',
+        '3. Der Rechner zeigt automatisch die korrigierte Belichtungszeit an',
+        '4. Verwenden Sie den integrierten Bulb-Timer zur präzisen Belichtungssteuerung',
+      ],
+    },
+    section3: {
+      title: 'Praktische Tipps',
+      content: [
+        'Digitalkameras: Fast nicht vom Schwarzschild-Effekt betroffen, keine Kompensation erforderlich',
+        'Filmvariationen: Schwarz-Weiß- und Farbfilme haben deutlich unterschiedliche Charakteristiken',
+        'Extremfälle: Einige Filme erfordern bei extrem langen Belichtungen mehrfache Kompensation',
+        'Faustregel: Bei 1s gemessener Belichtung ist die Kompensation minimal; ab 10s steigt sie deutlich',
+      ],
+    },
+  },
+
   exposureLabHelp: {
     title: 'Belichtungslabor - Funktionsübersicht',
     description: 'Das Belichtungslabor ist ein leistungsstarkes Fotografie-Berechnungstool, das Belichtungsparameter-Anpassung, Szenen-EV-Referenz, ND-Filter-Berechnung, Schwarzschildeffekt-Korrektur und Belichtungstimer integriert. Es hilft Ihnen, die Belichtung präzise zu steuern, insbesondere bei Langzeitbelichtungen.',
