@@ -410,10 +410,18 @@ export default {
         kodak_500tHint: 'Same as Cinestill 800T, 10s needs ~13s.',
 
         // Color Negative
-        kodak_portra: 'Kodak Portra 160/400',
-        kodak_portraDescription: 'High latitude, mild correction needed above 2s.',
-        kodak_portraHint: 'Better to overexpose than underexpose.',
-        
+        kodak_portra160: 'Kodak Portra 160',
+        kodak_portra160Description: 'Neutral tones, gentle reciprocity correction.',
+        kodak_portra160Hint: 'Use this profile for Portra 160.',
+
+        kodak_portra400: 'Kodak Portra 400',
+        kodak_portra400Description: 'High latitude, stable color in long exposures.',
+        kodak_portra400Hint: 'Use this profile for Portra 400.',
+
+        kodak_portra800: 'Kodak Portra 800',
+        kodak_portra800Description: 'Fast speed, moderate correction needed.',
+        kodak_portra800Hint: 'Use this profile for Portra 800.',
+
         kodak_gold: 'Kodak Gold/Ultramax',
         kodak_goldDescription: 'Consumer film, suggest slightly more compensation.',
         kodak_goldHint: 'Watch for color shifts in long exposures.',
@@ -483,6 +491,26 @@ export default {
         kodak_e100: 'Kodak Ektachrome E100',
         kodak_e100Description: 'Modern slide film, excellent performance.',
         kodak_e100Hint: '10s +1/3 stop.',
+
+        fuji_astia100f: 'Fujichrome Astia 100F',
+        fuji_astia100fDescription: 'Soft tones, moderate reciprocity compensation.',
+        fuji_astia100fHint: 'Use for Astia 100F.',
+
+        fuji_provia400x: 'Fujichrome Provia 400X',
+        fuji_provia400xDescription: 'High-speed slide film, needs compensation in long exposures.',
+        fuji_provia400xHint: 'Use for Provia 400X.',
+
+        fuji_sensia200: 'Fujichrome Sensia 200',
+        fuji_sensia200Description: 'Consumer slide film, noticeable reciprocity failure.',
+        fuji_sensia200Hint: 'Use for Sensia 200.',
+
+        fuji_64t: 'Fujichrome 64T',
+        fuji_64tDescription: 'Tungsten-balanced slide film, compensate in long exposures.',
+        fuji_64tHint: 'Use for 64T.',
+
+        fuji_t64: 'Fujichrome T64',
+        fuji_t64Description: 'Tungsten-balanced slide film, compensate in long exposures.',
+        fuji_t64Hint: 'Use for T64.',
         
         fuji_velvia50: 'Fuji Velvia 50',
         fuji_velvia50Description: 'Poor reciprocity, avoid for long exposures.',

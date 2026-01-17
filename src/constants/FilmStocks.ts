@@ -35,7 +35,6 @@ function getFilmISO(filmId: string): number {
 
   // 默认ISO值映射
   const defaultISO: Record<string, number> = {
-    kodak_portra: 400,
     kodak_gold: 200,
     kodak_trix: 400,
     fuji_superia: 400,
@@ -56,11 +55,11 @@ function getFilmISO(filmId: string): number {
  */
 export const POPULAR_FILMS: FilmStock[] = [
   {
-    id: 'kodak_portra_400',
+    id: 'kodak_portra400',
     name: 'Kodak Portra 400',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_portra',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_portra400',
     iso: 400,
-    reciprocityCurve: RECIPROCITY_PROFILES.find((p) => p.id === 'kodak_portra')?.curve,
+    reciprocityCurve: RECIPROCITY_PROFILES.find((p) => p.id === 'kodak_portra400')?.curve,
     isCustom: false,
   },
   {

@@ -411,10 +411,18 @@ export default {
         kodak_500tHint: '同 Cinestill 800T，10秒约需13秒。',
 
         // Color Negative
-        kodak_portra: 'Kodak Portra 160/400',
-        kodak_portraDescription: '宽容度极高，2秒以上需轻微补偿。',
-        kodak_portraHint: '宁曝勿欠，色彩表现优秀。',
-        
+        kodak_portra160: 'Kodak Portra 160',
+        kodak_portra160Description: '中性肤色，倒易率补偿温和。',
+        kodak_portra160Hint: 'Portra 160 请选此项。',
+
+        kodak_portra400: 'Kodak Portra 400',
+        kodak_portra400Description: '宽容度高，长曝色彩稳定。',
+        kodak_portra400Hint: 'Portra 400 请选此项。',
+
+        kodak_portra800: 'Kodak Portra 800',
+        kodak_portra800Description: '高感彩负，需适度补偿。',
+        kodak_portra800Hint: 'Portra 800 请选此项。',
+
         kodak_gold: 'Kodak Gold/Ultramax',
         kodak_goldDescription: '消费级胶卷，长曝建议稍多补偿。',
         kodak_goldHint: '注意长曝可能偏色。',
@@ -484,6 +492,26 @@ export default {
         kodak_e100: 'Kodak Ektachrome E100',
         kodak_e100Description: '现代反转片，表现优秀。',
         kodak_e100Hint: '10秒+1/3档。',
+
+        fuji_astia100f: 'Fujichrome Astia 100F',
+        fuji_astia100fDescription: '色调柔和，需适度补偿。',
+        fuji_astia100fHint: 'Astia 100F 请选择此项。',
+
+        fuji_provia400x: 'Fujichrome Provia 400X',
+        fuji_provia400xDescription: '高感反转片，长曝需补偿。',
+        fuji_provia400xHint: 'Provia 400X 请选择此项。',
+
+        fuji_sensia200: 'Fujichrome Sensia 200',
+        fuji_sensia200Description: '消费级反转片，倒易率失效明显。',
+        fuji_sensia200Hint: 'Sensia 200 请选择此项。',
+
+        fuji_64t: 'Fujichrome 64T',
+        fuji_64tDescription: '钨光平衡反转片，长曝需补偿。',
+        fuji_64tHint: '64T 请选择此项。',
+
+        fuji_t64: 'Fujichrome T64',
+        fuji_t64Description: '钨光平衡反转片，长曝需补偿。',
+        fuji_t64Hint: 'T64 请选择此项。',
         
         fuji_velvia50: 'Fuji Velvia 50',
         fuji_velvia50Description: '倒易率极差，慎用于长曝。',

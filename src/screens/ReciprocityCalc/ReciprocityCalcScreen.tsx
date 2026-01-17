@@ -70,11 +70,21 @@ const ReciprocityCalcScreen: React.FC = () => {
 
   // 胶片选项
   const filmOptions = useMemo(
-    () =>
-      RECIPROCITY_PROFILES.map((profile, idx) => ({
+    () => {
+      const options = RECIPROCITY_PROFILES.map((profile, idx) => ({
         label: t(profile.nameKey),
         value: idx,
-      })),
+        isDigital: profile.id === 'digital',
+      }));
+
+      return options
+        .sort((a, b) => {
+          if (a.isDigital) return -1;
+          if (b.isDigital) return 1;
+          return a.label.localeCompare(b.label);
+        })
+        .map(({ label, value }) => ({ label, value }));
+    },
     [t]
   );
 
@@ -106,7 +116,7 @@ const ReciprocityCalcScreen: React.FC = () => {
   }, [activePreset]);
 
   const reciprocityCorrected = useMemo(
-    () => applyReciprocityCorrection(baseShutter, reciprocityProfile?.curve),
+    () => applyReciprocityCorrection(baseShutter, reciprocityProfile?.curve, reciprocityProfile?.segmentParams),
     [baseShutter, reciprocityProfile]
   );
 
