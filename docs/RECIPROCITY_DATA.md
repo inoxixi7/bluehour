@@ -1,63 +1,208 @@
-# 胶片倒易率失效补偿参考表 (Reciprocity Failure Reference)
+# 胶片倒易律失效补偿参考
 
-本文档列出了常见胶片的倒易率失效补偿参数。数据来源于官方技术数据表及摄影社区的长期测试经验。
+本文档说明应用中使用的倒易律失效补偿模型和胶片参数配置。
 
-> **注意**：倒易率失效受温度、批次和冲洗条件影响，以下数据仅供参考。在关键拍摄中，建议进行包围曝光。
+> **模型版本**: 2026.01_calibrated_v1  
+> **配置文件**: `docs/allfilm.json`
 
-## 1. 彩色负片 (Color Negative - C-41)
+## 倒易律失效模型
 
-| 品牌 | 型号 | 官方/经验法则 | 补偿公式参考 (t=测光时间) | 备注 |
-| :--- | :--- | :--- | :--- | :--- |
-| **Kodak** | **Portra 160 / 400** | 1秒以内无需补偿。<br>2秒以上需补偿。 | $t_{new} = t^{1.35}$ | 宽容度极高，宁曝勿欠。 |
-| **Kodak** | **Gold 200 / Ultramax 400** | 类似 Portra，但建议稍多补偿。 | $t_{new} = t^{1.4}$ | 消费级胶卷，长曝易偏色。 |
-| **Kodak** | **Pro Image 100** | 介于 Gold 和 Portra 之间。 | $t_{new} = t^{1.38}$ | |
-| **Fujifilm** | **Superia X-TRA 400** | 4s (+1/3档), 16s (+2/3档), 64s (+1档) | 相对较好 | 富士胶卷长曝易偏绿/紫。 |
-| **Fujifilm** | **Pro 400H** | 4s (+1/3档), 16s (+2/3档) | 相对较好 | 已停产。 |
-| **Cinestill** | **800T / 50D** | 基于 Kodak Vision3 电影卷。 | $t_{new} = t^{1.3}$ | 800T 夜景光晕明显。 |
-| **Kodak** | **Vision3 50D (5203)** | 日光型低感电影卷。 | $t_{new} = t^{1.3}$ | 极细颗粒，Cinestill 50D 原型。 |
-| **Kodak** | **Vision3 250D (5207)** | 日光型中感电影卷。 | $t_{new} = t^{1.3}$ | 宽容度极高，全能型。 |
-| **Kodak** | **Vision3 500T (5219)** | 灯光型高感电影卷。 | $t_{new} = t^{1.3}$ | 夜景之王，Cinestill 800T 原型。 |
-| **Lomography** | **CN 400 / 800** | 类似 Kodak 早期乳剂。 | $t_{new} = t^{1.45}$ | 颗粒较粗，建议多给曝光。 |
+### 计算公式
 
-## 2. 黑白负片 (Black & White)
+```
+M(t) = min(pow(max(1, t / T1), p), maxMultiplier)
+t_corrected = t * M(t)
+```
 
-Ilford 官方提供了具体的 P 因子 (Schwarzschild exponent)。公式：$t_{new} = t_{measured} ^ P$
+**参数说明:**
+- **T1** (t1): 基准时间（秒），T1秒内倍率为1（无失效）
+- **p**: 幂函数指数，控制失效增长速率  
+- **maxMultiplier** (max_mult): 最大补偿倍率上限
 
-| 品牌 | 型号 | P 因子 / 规则 | 10秒测光 -> 实际曝光 | 备注 |
-| :--- | :--- | :--- | :--- | :--- |
-| **Foma** | **Fomapan 100** | 极差。 | ~80秒 | 1s->3s, 10s->80s。 |
-| **Foma** | **Fomapan 200** | 较差。 | ~60秒 | 扁平颗粒技术。 |
-| **Foma** | **Fomapan 400** | 极差。 | ~80秒 | 类似 Foma 100。 |
-| **Kodak** | **Tri-X 400 (400TX)** | 经验公式 | ~50秒 | 倒易率失效较明显。 |
-| **Kodak** | **T-Max 100 (100TMX)** | 极佳。 | ~12秒 | 接近 Acros 的表现。 |
-| **Kodak** | **T-Max 400 (400TMY)** | 较好。 | ~18秒 | |
-| **Ilford** | **HP5 Plus 400** | $P = 1.31$ | 20秒 | 经典的黑白卷。 |
-| **Ilford** | **FP4 Plus 125** | $P = 1.26$ | 18秒 | |
-| **Ilford** | **Delta 100** | $P = 1.26$ | 18秒 | |
-| **Ilford** | **Delta 400** | $P = 1.41$ | 25秒 | 失效较快。 |
-| **Ilford** | **Delta 3200** | $P = 1.33$ | 21秒 | 高感卷。 |
-| **Ilford** | **Pan F Plus 50** | $P = 1.33$ | 21秒 | 低感细腻。 |
-| **Ilford** | **XP2 Super** | $P = 1.31$ | 20秒 | C-41 工艺黑白卷。 |
-| **Ilford** | **SFX 200** | $P = 1.43$ | 27秒 | 扩展红外感光。 |
-| **Fujifilm** | **Neopan 100 Acros II** | **王者**。 | 10秒 (无需补偿) | 120秒内无需补偿，120-1000秒 +0.5档。 |
-| **Kentmere** | **Pan 100 / 400** | 类似 HP5 但稍差。 | ~25秒 | 经济型胶卷。 |
-| **Lucky** | **SHD 100 / 200** | 缺乏官方数据，建议按 Tri-X 参考。 | ~50秒 | 国产乐凯，已停产/复产情况复杂。 |
+### 模型特点
 
-## 3. 反转片 (Slide / E-6)
+1. **T1秒内无补偿**: 测光时间  T1时，M=1，无需补偿
+2. **幂函数增长**: 测光时间 > T1时，按幂函数计算补偿倍率
+3. **倍率上限**: 补偿倍率不超过 maxMultiplier
 
-反转片宽容度低，曝光必须精准。
+## 胶片分组及参数
 
-| 品牌 | 型号 | 规则 | 备注 |
-| :--- | :--- | :--- | :--- |
-| **Kodak** | **Ektachrome E100** | 10s (+1/3), 30s (+2/3) | 现代反转片，表现优秀。 |
-| **Fujifilm** | **Velvia 50** | **极差**。4s (+1/3), 8s (+1/2), 16s (+1), 32s (+1.5) | 拍风光慎用长曝，或需极长曝光。 |
-| **Fujifilm** | **Provia 100F** | **极佳**。128秒内无需补偿！ | 长曝首选反转片。 |
-| **Fujifilm** | **Astia 100F** | 类似 Provia。 | 已停产。 |
-| **Agfa** | **RSX II 100** | 10s (+1/2) | 已停产。 |
-| **Lomography** | **X-Pro 200** | 类似 Agfa RSX (贴牌)。 | 建议按 Agfa RSX 参考。 |
+### 1. 专业彩色负片 (Professional Color Negative)
 
-## 4. 特殊胶片
+**ID**: `professional_color_neg`
 
-| 品牌 | 型号 | 建议 |
-| :--- | :--- | :--- |
-| **Lomography** | **Redscale XR** | 建议按 ISO 50 拍摄，长曝参考 CN 400。 |
+**胶片列表:**
+- Kodak Portra 160, 400, 800
+- Kodak Ektar 100  
+- Fuji Pro 400H, Pro 160NS
+
+**参数:** `{ t1: 1.0, p: 0.35, max_mult: 4.0 }`
+
+**说明:** 专业卷在1s内非常稳定，之后按幂函数补偿，400H已移至此处
+
+---
+
+### 2. Kodak Vision3 系列 (Motion Picture Film)
+
+**ID**: `kodak_vision3_series`
+
+**胶片列表:**
+- Kodak Vision3 50D, 250D, 500T
+- Cinestill 800T, 50D, 400D
+
+**参数:** `{ t1: 1.0, p: 0.32, max_mult: 4.0 }`
+
+**说明:** Vision3官方建议10s补1档(20s)，100s补2档(400s)，t1降至1s是关键
+
+---
+
+### 3. 消费级彩色负片 (Consumer Color Negative)
+
+**ID**: `consumer_color_neg`
+
+**胶片列表:**
+- Kodak Gold 200, ColorPlus 200, UltraMax 400
+- Fuji C200, X-TRA 400
+- Lomo CN 100/400/800
+
+**参数:** `{ t1: 1.0, p: 0.42, max_mult: 5.0 }`
+
+**说明:** 民用卷涂层较薄，长曝下感光效率下降比专业卷快
+
+---
+
+### 4. Fuji Acros 系列 (Premium B&W)
+
+**ID**: `fuji_acros_series`
+
+**胶片列表:**
+- Fuji Acros II
+- Fuji Acros (Original)
+
+**参数:** `{ t1: 120.0, p: 0.30, max_mult: 2.0 }`
+
+**说明:** Acros II在120s内无需补偿，这是其核心优势 
+
+---
+
+### 5. 现代黑白 T-Grain (Modern B&W T-Grain)
+
+**ID**: `modern_bw_t_grain`
+
+**胶片列表:**
+- Kodak T-Max 100, 400
+- Ilford Delta 100, 400, 3200
+
+**参数:** `{ t1: 1.0, p: 0.30, max_mult: 4.0 }`
+
+**说明:** T-Grain扁平颗粒底片比传统颗粒略稳定
+
+---
+
+### 6. 传统黑白 (Traditional B&W)
+
+**ID**: `traditional_bw_standard`
+
+**胶片列表:**
+- Kodak Tri-X 400
+- Ilford HP5 Plus, FP4 Plus
+- Kentmere 100/400
+
+**参数:** `{ t1: 1.0, p: 0.40, max_mult: 6.0 }`
+
+**说明:** 经典配方底片，1s后开始显著失效
+
+---
+
+### 7. Fomapan 系列 (Budget Film)
+
+**ID**: `fomapan_disaster`
+
+**胶片列表:**
+- Fomapan 100, 200, 400
+- Arista EDU Ultra
+
+**参数:** `{ t1: 1.0, p: 0.75, max_mult: 10.0 }`
+
+**说明:** Fomapan失效极快，10s测光通常需要补偿到50s以上 
+
+---
+
+### 8. Ilford Pan F 50 (Fine Grain B&W)
+
+**ID**: `ilford_pan_f_50`
+
+**胶片列表:**
+- Ilford Pan F 50
+
+**参数:** `{ t1: 1.0, p: 0.60, max_mult: 8.0 }`
+
+**说明:** Pan F虽是低感卷，但倒易律表现很差
+
+---
+
+### 9. Provia 100F (Premium Slide)
+
+**ID**: `modern_slide_provia`
+
+**胶片列表:**
+- Fujichrome Provia 100F
+
+**参数:** `{ t1: 128.0, p: 0.40, max_mult: 2.0 }`
+
+**说明:** Provia 100F非常强悍，官方称128s内无需补偿 
+
+---
+
+### 10. 经典反转片 (Classic Slide E-6)
+
+**ID**: `classic_slide_e6`
+
+**胶片列表:**
+- Kodak Ektachrome E100
+- Fujichrome Velvia 100
+- Fujichrome Astia 100F
+
+**参数:** `{ t1: 1.0, p: 0.35, max_mult: 3.0 }`
+
+**说明:** E100表现稳健，Velvia 100在1分钟内表现尚可
+
+---
+
+### 11. Velvia 50 (Sensitive Slide)
+
+**ID**: `sensitive_slide_velvia50`
+
+**胶片列表:**
+- Fujichrome Velvia 50
+
+**参数:** `{ t1: 1.0, p: 0.55, max_mult: 4.0 }`
+
+**说明:** Velvia 50对长曝非常敏感，且容易出现严重的色彩偏绿 
+
+---
+
+## 使用建议
+
+### 长曝光推荐胶片
+
+**最佳选择:**
+1. **Fuji Acros II** - 120s内无补偿
+2. **Provia 100F** - 128s内无补偿
+3. **Portra 系列** - 宽容度极高
+
+**谨慎使用:**
+- Fomapan系列 - 失效极快
+- Velvia 50 - 易偏色
+
+### 注意事项
+
+1. 倒易律失效受温度、批次影响，参数仅供参考
+2. 关键拍摄建议包围曝光
+3. 长曝光时注意色彩偏移
+4. 不同显影条件可能影响结果
+
+---
+
+**最后更新**: 2026年1月  
+**数据来源**: 官方技术文档 + 社区测试经验

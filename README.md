@@ -1,131 +1,164 @@
-# BlueHour - Photography Companion 📷
+# 📱 Blue Hour - Landscape & Astrophotography Planning App
 
-[![Expo](https://img.shields.io/badge/Expo-Go-blue.svg)](https://expo.dev/)
-[![React Native](https://img.shields.io/badge/React_Native-v0.73-61dafb.svg)](https://reactnative.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-v5.3-3178c6.svg)](https://www.typescriptlang.org/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-
-**BlueHour** is an all-in-one assistant designed for photographers. It helps you plan for the perfect "Golden Hour" and "Blue Hour" light, and provides a suite of professional calculators to handle complex shooting scenarios.
-
-[English](README.md) | [日本語](README_ja.md) | [中文](README_zh.md)
-
----
+A comprehensive photography planning tool designed for landscape and outdoor photographers. This React Native app provides a rich set of features including blue hour calculations, sunrise/sunset times, exposure calculations, and film reciprocity calculations for analog photography.
 
 ## ✨ Key Features
 
-### 🌅 Blue Hour Planner
-Never miss the perfect light again.
-- **Smart Location**: GPS auto-location, city search, and map pinning.
-- **Precise Timeline**:
-  - 🔵 **Blue Hour**: The magical time when the sky turns deep blue.
-  - 🟡 **Golden Hour**: Soft, warm light during sunrise and sunset.
-  - 🌑 **Twilights**: Detailed data for Astronomical, Nautical, and Civil twilights.
-  - ☀️ **Sunrise/Sunset & Solar Noon**: Key solar events.
-- **Future Planning**: Select any date to plan your shoots in advance.
-- **Visuals**: Intuitive solar path and light phase charts.
+### 📍 Blue Hour Planning
+- Search and calculate precise blue hour times for any location
+- Display sunrise/sunset times along with blue hour start/end times
+- Save your favorite photography locations for quick access
+- Support for current location or manual location search
+- **What is Blue Hour?** The brief period before sunrise and after sunset when the sky takes on a deep blue color. The "magic hour" for landscape and architectural photography.
 
-### 🧮 Calculator Suite
+### 📸 Exposure Calculator
+- Exposure triangle calculations: Aperture, Shutter Speed, ISO
+- **EV Lock Feature**: Lock base EV, change one parameter and others auto-adjust
+- **ND Filter Calculation**: Supports automatic shutter speed adjustment when using ND filters
+- Direct jump to Reciprocity Calculator from calculation results
 
-#### 1. Exposure Calculator (EV)
-- **Reciprocity**: Convert between Aperture, Shutter Speed, and ISO while maintaining exposure.
-- **Parameter Lock**: Lock any parameter to automatically calculate the others.
-- **ND Filter**: Built-in conversion for Neutral Density filters.
+### 🎞️ Reciprocity Calculator (Film Compensation)
+- **Reciprocity Failure Correction**: Automatically compensates for film sensitivity loss during long exposures
+- Support for 11 major film types: Portra 400, Ektar 100, Provia 100F, Velvia 50, etc.
+- **Built-in Timer Function**: Countdown with corrected shutter speed, supports background operation and notifications
+- Detailed explanation of each film's parameters and characteristics
 
-#### 2. Reciprocity Failure Calculator
-- **For Film Photography**: Compensate for sensitivity loss during long exposures.
-- **Film Presets**: Built-in data for popular films like Kodak Portra, Fujifilm Acros, Ilford HP5, etc.
-- **Timer**: Integrated countdown timer with progress bar.
+### 🎨 User Preset Management
+- Save custom photography presets (aperture, ISO, ND combinations)
+- Quick application and management of presets
+- Personalized settings for your shooting style
 
-#### 3. Depth of Field (DoF) & Hyperfocal
-- **Sharpness Range**: Calculate Near Limit, Far Limit, and Total Depth of Field.
-- **Hyperfocal Distance**: Essential for landscape photography to maximize sharpness.
-- **Multi-Format**: Supports Full Frame, APS-C, M4/3, and Medium Format systems.
+### 🌍 Multi-language Support
+- Simplified Chinese (default)
+- English
+- Japanese
+- German
 
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-Ensure your development environment has:
-- **Node.js** (v18+)
-- **Expo CLI**: `npm install -g expo-cli`
-- **Expo Go App**: Download on your iOS or Android device.
-
-### Installation
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/inoxixi7/bluehournew.git
-   cd bluehournew
-   ```
-
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
-
-3. **Start the project**
-   ```bash
-   npx expo start
-   ```
-
-4. **Run the app**
-   - Scan the QR code with Expo Go on your phone.
-   - Or press `a` for Android Emulator, `i` for iOS Simulator.
+### 🎭 Dark/Light Theme
+- Follows system theme
+- Toggle between light/dark mode with one tap
 
 ---
 
-## 📂 Project Structure
+## 📖 Photography Terms Explained
 
+### What is Blue Hour?
+
+**Definition**: Blue hour is the brief period before sunrise and after sunset when the sun dips below the horizon, causing scattered light to paint the sky in deep, vibrant blues.
+
+**Characteristics**:
+- Soft, even lighting without excessive contrast
+- Sky displays deep blue tones with low color temperature
+- Good balance between ambient and artificial lighting
+- Typically occurs about 30 minutes before sunrise and after sunset
+
+**Best Subjects**:
+- Urban landscapes: Good balance between night scenes and sky
+- Architectural photography: Soft light highlights building contours
+- Astrophotography: Combine foreground when sky isn't completely dark yet
+- Coastal landscapes: Calm and serene light atmosphere
+
+---
+
+### What is the Reciprocity Law?
+
+**Definition**: The reciprocity law states that Exposure = Illuminance × Time. Theoretically, if you halve the illuminance and double the time, the exposure remains the same.
+
+**Formula**:
 ```
-bluehournew/
-├── assets/             # Static assets (images, fonts)
-├── src/
-│   ├── api/            # API services (Geocoding, SunTimes)
-│   ├── components/     # UI Components
-│   ├── constants/      # Global constants (Colors, Layout)
-│   ├── contexts/       # React Contexts (Theme, Location)
-│   ├── hooks/          # Custom Hooks
-│   ├── locales/        # i18n localization files
-│   ├── navigation/     # Navigation configuration
-│   ├── screens/        # Screen components
-│   └── utils/          # Utility functions (Calculations, Formatters)
-└── docs/               # Documentation
+E = I × t
 ```
+- E: Exposure
+- I: Illuminance
+- t: Time
+
+**Example**:
+- Aperture F/8, Shutter speed 1/125s, ISO 100
+- Change aperture to F/11 (reduces light by 1 stop)
+- Change shutter speed to 1/60s (doubles time)
+- Final exposure remains the same
+
+This is the fundamental principle when adjusting the **exposure triangle** (aperture, shutter speed, ISO).
 
 ---
 
-## 🗺️ Roadmap
+### What is Reciprocity Failure?
 
-- [x] **v1.0 Foundation**
-  - [x] Solar timeline & Blue Hour calculation
-  - [x] Basic Exposure Calculator
-  - [x] Multi-language support (EN/ZH/JA/DE)
-  - [x] Dark Mode
-- [ ] **v1.1 Advanced**
-  - [ ] Moon Phase & Milky Way planner
-  - [ ] Timelapse Calculator
-  - [ ] Local Weather integration
-- [ ] **v2.0 Community**
-  - [ ] User photo sharing
-  - [ ] Spot recommendations
+**Definition**: In film photography, when exposure time exceeds a certain threshold (typically more than 1 second), the **reciprocity law breaks down**, and the actual exposure becomes less than the theoretical value.
+
+**Cause**:
+- Chemical properties of film emulsion
+- Light-sensitive particle reaction efficiency decreases during long exposures
+- Different film types have varying degrees of failure
+
+**Impact**:
+- **Underexposure**: Shooting normally by the meter will make the film too dark
+- **Color Shift**: Color films may experience color temperature changes or saturation loss
+- **Contrast Change**: Shadow detail may be lost
+
+**Solution**:
+This app's **Reciprocity Calculator** automatically calculates the correction factor based on each film type and provides you with the actual required shutter speed.
+
+**Example**:
+- Using Kodak Portra 400 film
+- Metered shutter speed: 30 seconds
+- Considering reciprocity failure, you actually need to expose for **52 seconds**
+- This app calculates it automatically and also provides a timer function
 
 ---
 
-## 🛠 Tech Stack
+## 📥 Download and Usage
 
-- **Framework**: [React Native](https://reactnative.dev/) + [Expo](https://expo.dev/)
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Navigation**: [React Navigation](https://reactnavigation.org/)
-- **Maps**: [react-native-maps](https://github.com/react-native-maps/react-native-maps)
-- **i18n**: [i18next](https://www.i18next.com/)
+### Installation Methods
+
+1. **Android**: Download and install the APK file (coming soon)
+2. **iOS**: Download from App Store (coming soon)
+3. **Developer Mode**: Clone the project and run `npm install && npm start`
+
+### Usage Tips
+
+**For Landscape Photographers**:
+1. Search for blue hour times at your photo location in advance and plan your arrival time
+2. Use the exposure calculator to quickly calculate aperture and shutter speed based on on-site light conditions
+3. Save frequently used settings (e.g., F/11 + ISO 100 for landscapes) as presets
+
+**For Film Photographers**:
+1. Always use the reciprocity calculator for long exposures (especially night scenes and astrophotography)
+2. Select your film type (e.g., Portra 400 or Provia 100F)
+3. Input the shutter speed measured by your meter and get the corrected time
+4. Use the built-in timer to accurately control exposure time
+
+---
+
+## 🛠️ Tech Stack
+
+- **React Native** + **Expo** - Cross-platform mobile development
+- **TypeScript** - Type safety
+- **React Navigation** - Navigation management
+- **i18next** - Internationalization support
+- **AsyncStorage** - Local data persistence
+
+---
+
+## 📚 Developer Information
+
+For project architecture, API specifications, and development guides, see:
+- [Development Notes](docs/DEVELOPMENT_NOTES.md)
+- [Internationalization Explanation](docs/I18N.md)
+- [Reciprocity Data](docs/RECIPROCITY_DATA.md)
+
+---
 
 ## 📄 License
 
-This project is licensed under the [MIT License](LICENSE).
+MIT License - See [LICENSE](LICENSE) file for details.
 
-## ⚖️ Legal & Credits
+---
 
-- **Data Source**: Sunrise and sunset data provided by [sunrise-sunset.org](https://sunrise-sunset.org/api).
-- **Privacy Policy**: This application processes location data locally on your device to calculate solar times. No location data is uploaded to any external server.
-- **Trademarks**: All product names, logos, and brands (e.g., Kodak, Fujifilm) are property of their respective owners. All company, product and service names used in this application are for identification purposes only.
+## 📧 Contact
+
+If you have any questions or suggestions, please submit an Issue on GitHub.
+
+---
+
+**Capture the beautiful moments of landscapes and starry skies! 🌄✨**
