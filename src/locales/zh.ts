@@ -520,6 +520,82 @@ export default {
         fuji_provia100f: 'Fuji Provia 100F',
         fuji_provia100fDescription: '长曝首选反转片。',
         fuji_provia100fHint: '128秒内无需补偿！',
+
+        kodak_ektar100: 'Kodak Ektar 100',
+        kodak_ektar100Description: '用于 Kodak Ektar 100 的倒易律补偿配置。',
+        kodak_ektar100Hint: '使用此胶卷请选择此项。',
+
+        fuji_superia200: 'Fuji Superia 200',
+        fuji_superia200Description: '用于 Fuji Superia 200 的倒易律补偿配置。',
+        fuji_superia200Hint: '使用此胶卷请选择此项。',
+
+        fuji_superia1600: 'Fuji Superia 1600',
+        fuji_superia1600Description: '用于 Fuji Superia 1600 的倒易律补偿配置。',
+        fuji_superia1600Hint: '使用此胶卷请选择此项。',
+
+        fuji_c200: 'Fuji C200',
+        fuji_c200Description: '用于 Fuji C200 的倒易律补偿配置。',
+        fuji_c200Hint: '使用此胶卷请选择此项。',
+
+        fuji_color100: 'Fuji Color 100',
+        fuji_color100Description: '用于 Fuji Color 100 的倒易律补偿配置。',
+        fuji_color100Hint: '使用此胶卷请选择此项。',
+
+        fuji_pro160c: 'Fuji Pro 160C',
+        fuji_pro160cDescription: '用于 Fuji Pro 160C 的倒易律补偿配置。',
+        fuji_pro160cHint: '使用此胶卷请选择此项。',
+
+        fuji_pro160ns: 'Fuji Pro 160NS',
+        fuji_pro160nsDescription: '用于 Fuji Pro 160NS 的倒易律补偿配置。',
+        fuji_pro160nsHint: '使用此胶卷请选择此项。',
+
+        fuji_xtra400: 'Fuji X-TRA 400',
+        fuji_xtra400Description: '用于 Fuji X-TRA 400 的倒易律补偿配置。',
+        fuji_xtra400Hint: '使用此胶卷请选择此项。',
+
+        fuji_nexia400: 'Fuji Nexia 400',
+        fuji_nexia400Description: '用于 Fuji Nexia 400 的倒易律补偿配置。',
+        fuji_nexia400Hint: '使用此胶卷请选择此项。',
+
+        holga400: 'Holga 400',
+        holga400Description: '用于 Holga 400 的倒易律补偿配置。',
+        holga400Hint: '使用此胶卷请选择此项。',
+
+        kodak_trix320: 'Kodak Tri-X 320',
+        kodak_trix320Description: '用于 Kodak Tri-X 320 的倒易律补偿配置。',
+        kodak_trix320Hint: '使用此胶卷请选择此项。',
+
+        kodak_tmax3200: 'Kodak T-Max 3200',
+        kodak_tmax3200Description: '用于 Kodak T-Max 3200 的倒易律补偿配置。',
+        kodak_tmax3200Hint: '使用此胶卷请选择此项。',
+
+        ilford_kentmere100: 'Kentmere 100',
+        ilford_kentmere100Description: '用于 Kentmere 100 的倒易律补偿配置。',
+        ilford_kentmere100Hint: '使用此胶卷请选择此项。',
+
+        ilford_kentmere400: 'Kentmere 400',
+        ilford_kentmere400Description: '用于 Kentmere 400 的倒易律补偿配置。',
+        ilford_kentmere400Hint: '使用此胶卷请选择此项。',
+
+        shanghai_gp3: 'Shanghai GP3',
+        shanghai_gp3Description: '用于 Shanghai GP3 的倒易律补偿配置。',
+        shanghai_gp3Hint: '使用此胶卷请选择此项。',
+
+        lomo_potsdam100: 'Lomo Potsdam 100',
+        lomo_potsdam100Description: '用于 Lomo Potsdam 100 的倒易律补偿配置。',
+        lomo_potsdam100Hint: '使用此胶卷请选择此项。',
+
+        fuji_velvia100: 'Fujichrome Velvia 100',
+        fuji_velvia100Description: '用于 Fujichrome Velvia 100 的倒易律补偿配置。',
+        fuji_velvia100Hint: '使用此胶卷请选择此项。',
+
+        fuji_velvia100f: 'Fujichrome Velvia 100F',
+        fuji_velvia100fDescription: '用于 Fujichrome Velvia 100F 的倒易律补偿配置。',
+        fuji_velvia100fHint: '使用此胶卷请选择此项。',
+
+        fuji_pro400h: 'Fuji Pro 400H',
+        fuji_pro400hDescription: '用于 Fuji Pro 400H 的倒易律补偿配置。',
+        fuji_pro400hHint: '使用此胶卷请选择此项。',
       },
       resultTitle: '长曝光结果',
       resultBase: '原始快门',

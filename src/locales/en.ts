@@ -519,6 +519,82 @@ export default {
         fuji_provia100f: 'Fuji Provia 100F',
         fuji_provia100fDescription: 'Best slide film for long exposure.',
         fuji_provia100fHint: 'No compensation needed up to 128s!',
+
+        kodak_ektar100: 'Kodak Ektar 100',
+        kodak_ektar100Description: 'Reciprocity profile for Kodak Ektar 100.',
+        kodak_ektar100Hint: 'Select this for Kodak Ektar 100.',
+
+        fuji_superia200: 'Fuji Superia 200',
+        fuji_superia200Description: 'Reciprocity profile for Fuji Superia 200.',
+        fuji_superia200Hint: 'Select this for Fuji Superia 200.',
+
+        fuji_superia1600: 'Fuji Superia 1600',
+        fuji_superia1600Description: 'Reciprocity profile for Fuji Superia 1600.',
+        fuji_superia1600Hint: 'Select this for Fuji Superia 1600.',
+
+        fuji_c200: 'Fuji C200',
+        fuji_c200Description: 'Reciprocity profile for Fuji C200.',
+        fuji_c200Hint: 'Select this for Fuji C200.',
+
+        fuji_color100: 'Fuji Color 100',
+        fuji_color100Description: 'Reciprocity profile for Fuji Color 100.',
+        fuji_color100Hint: 'Select this for Fuji Color 100.',
+
+        fuji_pro160c: 'Fuji Pro 160C',
+        fuji_pro160cDescription: 'Reciprocity profile for Fuji Pro 160C.',
+        fuji_pro160cHint: 'Select this for Fuji Pro 160C.',
+
+        fuji_pro160ns: 'Fuji Pro 160NS',
+        fuji_pro160nsDescription: 'Reciprocity profile for Fuji Pro 160NS.',
+        fuji_pro160nsHint: 'Select this for Fuji Pro 160NS.',
+
+        fuji_xtra400: 'Fuji X-TRA 400',
+        fuji_xtra400Description: 'Reciprocity profile for Fuji X-TRA 400.',
+        fuji_xtra400Hint: 'Select this for Fuji X-TRA 400.',
+
+        fuji_nexia400: 'Fuji Nexia 400',
+        fuji_nexia400Description: 'Reciprocity profile for Fuji Nexia 400.',
+        fuji_nexia400Hint: 'Select this for Fuji Nexia 400.',
+
+        holga400: 'Holga 400',
+        holga400Description: 'Reciprocity profile for Holga 400.',
+        holga400Hint: 'Select this for Holga 400.',
+
+        kodak_trix320: 'Kodak Tri-X 320',
+        kodak_trix320Description: 'Reciprocity profile for Kodak Tri-X 320.',
+        kodak_trix320Hint: 'Select this for Kodak Tri-X 320.',
+
+        kodak_tmax3200: 'Kodak T-Max 3200',
+        kodak_tmax3200Description: 'Reciprocity profile for Kodak T-Max 3200.',
+        kodak_tmax3200Hint: 'Select this for Kodak T-Max 3200.',
+
+        ilford_kentmere100: 'Kentmere 100',
+        ilford_kentmere100Description: 'Reciprocity profile for Kentmere 100.',
+        ilford_kentmere100Hint: 'Select this for Kentmere 100.',
+
+        ilford_kentmere400: 'Kentmere 400',
+        ilford_kentmere400Description: 'Reciprocity profile for Kentmere 400.',
+        ilford_kentmere400Hint: 'Select this for Kentmere 400.',
+
+        shanghai_gp3: 'Shanghai GP3',
+        shanghai_gp3Description: 'Reciprocity profile for Shanghai GP3.',
+        shanghai_gp3Hint: 'Select this for Shanghai GP3.',
+
+        lomo_potsdam100: 'Lomo Potsdam 100',
+        lomo_potsdam100Description: 'Reciprocity profile for Lomo Potsdam 100.',
+        lomo_potsdam100Hint: 'Select this for Lomo Potsdam 100.',
+
+        fuji_velvia100: 'Fujichrome Velvia 100',
+        fuji_velvia100Description: 'Reciprocity profile for Fujichrome Velvia 100.',
+        fuji_velvia100Hint: 'Select this for Fujichrome Velvia 100.',
+
+        fuji_velvia100f: 'Fujichrome Velvia 100F',
+        fuji_velvia100fDescription: 'Reciprocity profile for Fujichrome Velvia 100F.',
+        fuji_velvia100fHint: 'Select this for Fujichrome Velvia 100F.',
+
+        fuji_pro400h: 'Fuji Pro 400H',
+        fuji_pro400hDescription: 'Reciprocity profile for Fuji Pro 400H.',
+        fuji_pro400hHint: 'Select this for Fuji Pro 400H.',
       },
       resultTitle: 'Long exposure result',
       resultBase: 'Metered shutter',

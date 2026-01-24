@@ -1,0 +1,2569 @@
+{
+  "generatedAt": "2026-01-24T01:13:37.794Z",
+  "baseSeconds": [
+    1,
+    2,
+    4,
+    8,
+    15,
+    30,
+    60,
+    120,
+    240,
+    480,
+    900,
+    1800,
+    3600
+  ],
+  "totalProfiles": 40,
+  "profiles": [
+    {
+      "id": "cinestill_800t",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 480,
+        "p": 0.3,
+        "maxMultiplier": 2
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 120
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 240
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 480
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1087
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 2676
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 6589
+        }
+      ]
+    },
+    {
+      "id": "digital",
+      "type": "digital",
+      "params": null,
+      "curve": []
+    },
+    {
+      "id": "foma100",
+      "type": "bw-classic",
+      "params": {
+        "type": "bw-classic",
+        "T1": 1,
+        "T2": 800,
+        "p": 0.42,
+        "logK": 20,
+        "maxMultiplier": 8
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 3
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 7
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 19
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 47
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 125
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 335
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 896
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 3840
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 14400
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 28800
+        }
+      ]
+    },
+    {
+      "id": "foma200",
+      "type": "bw-classic",
+      "params": {
+        "type": "bw-classic",
+        "T1": 1,
+        "T2": 800,
+        "p": 0.38,
+        "logK": 18,
+        "maxMultiplier": 7
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 3
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 7
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 18
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 42
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 109
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 284
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 740
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 1680
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 3360
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 6300
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 12600
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 25200
+        }
+      ]
+    },
+    {
+      "id": "foma400",
+      "type": "bw-classic",
+      "params": {
+        "type": "bw-classic",
+        "T1": 1,
+        "T2": 800,
+        "p": 0.42,
+        "logK": 20,
+        "maxMultiplier": 8
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 3
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 7
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 19
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 47
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 125
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 335
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 896
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 3840
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 14400
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 28800
+        }
+      ]
+    },
+    {
+      "id": "fuji_64t",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 20,
+        "T2": 180,
+        "p": 0.44,
+        "logK": 11,
+        "maxMultiplier": 3
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 36
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 97
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 264
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 716
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1440
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 2700
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 5400
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 10800
+        }
+      ]
+    },
+    {
+      "id": "fuji_astia100f",
+      "type": "slide",
+      "params": {
+        "type": "slide",
+        "T1": 128,
+        "T2": 2000,
+        "p": 10.3,
+        "logK": 50,
+        "maxMultiplier": 1.33
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 120
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 319
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 638
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1197
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 2394
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 4788
+        }
+      ]
+    },
+    {
+      "id": "fuji_c200",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 45,
+        "p": 0.45,
+        "maxMultiplier": 2.5
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 68
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 187
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 510
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1200
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 2250
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 4500
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 9000
+        }
+      ]
+    },
+    {
+      "id": "fuji_color100",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 25,
+        "T2": 240,
+        "p": 0.57,
+        "logK": 17,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 33
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 99
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 293
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 871
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_nexia400",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 25,
+        "T2": 240,
+        "p": 0.57,
+        "logK": 18,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 33
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 99
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 293
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 871
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_pro160c",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 25,
+        "T2": 240,
+        "p": 0.57,
+        "logK": 17,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 33
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 99
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 293
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 871
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_pro160ns",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 25,
+        "T2": 240,
+        "p": 0.57,
+        "logK": 17,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 33
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 99
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 293
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 871
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_pro400h",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 60,
+        "p": 0.4,
+        "maxMultiplier": 2
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 158
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 418
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 960
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1800
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 7200
+        }
+      ]
+    },
+    {
+      "id": "fuji_provia100f",
+      "type": "slide",
+      "params": {
+        "type": "slide",
+        "T1": 128,
+        "T2": 2000,
+        "p": 10.3,
+        "logK": 50,
+        "maxMultiplier": 1.33
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 120
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 319
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 638
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1197
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 2394
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 4788
+        }
+      ]
+    },
+    {
+      "id": "fuji_provia400x",
+      "type": "slide",
+      "params": {
+        "type": "slide",
+        "T1": 4,
+        "T2": 75,
+        "p": 0.45,
+        "logK": 10,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 11
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 27
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 74
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 203
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 480
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 960
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_sensia200",
+      "type": "slide",
+      "params": {
+        "type": "slide",
+        "T1": 4,
+        "T2": 80,
+        "p": 0.44,
+        "logK": 10,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 11
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 27
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 73
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 198
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 480
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 960
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_superia",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 25,
+        "T2": 240,
+        "p": 0.57,
+        "logK": 17,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 33
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 99
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 293
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 871
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_superia1600",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 20,
+        "T2": 240,
+        "p": 0.6,
+        "logK": 21,
+        "maxMultiplier": 5
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 38
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 116
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 352
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 1066
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 2400
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 4500
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 9000
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 18000
+        }
+      ]
+    },
+    {
+      "id": "fuji_superia200",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 25,
+        "T2": 240,
+        "p": 0.57,
+        "logK": 17,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 33
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 99
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 293
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 871
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_t64",
+      "type": "slide",
+      "params": {
+        "type": "slide",
+        "T1": 3,
+        "T2": 60,
+        "p": 0.44,
+        "logK": 11,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 5
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 12
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 83
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 224
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 480
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 960
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_velvia100",
+      "type": "slide",
+      "params": {
+        "type": "slide",
+        "T1": 8,
+        "T2": 90,
+        "p": 0.15,
+        "logK": 25,
+        "maxMultiplier": 3
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 16
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 37
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 81
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 180
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 400
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 887
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1828
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 4056
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 9001
+        }
+      ]
+    },
+    {
+      "id": "fuji_velvia100f",
+      "type": "slide",
+      "params": {
+        "type": "slide",
+        "T1": 8,
+        "T2": 90,
+        "p": 0.15,
+        "logK": 25,
+        "maxMultiplier": 3
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 16
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 37
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 81
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 180
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 400
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 887
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1828
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 4056
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 9001
+        }
+      ]
+    },
+    {
+      "id": "fuji_velvia50",
+      "type": "slide",
+      "params": {
+        "type": "slide",
+        "T1": 4,
+        "T2": 60,
+        "p": 0.26,
+        "logK": 25,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 10
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 21
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 51
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 121
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 291
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 696
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1667
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "fuji_xtra400",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 25,
+        "T2": 240,
+        "p": 0.57,
+        "logK": 18,
+        "maxMultiplier": 4
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 33
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 99
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 293
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 871
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 14400
+        }
+      ]
+    },
+    {
+      "id": "holga400",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 20,
+        "T2": 240,
+        "p": 0.6,
+        "logK": 22,
+        "maxMultiplier": 5
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 38
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 116
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 352
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 1066
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 2400
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 4500
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 9000
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 18000
+        }
+      ]
+    },
+    {
+      "id": "kodak_250d",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 480,
+        "p": 0.3,
+        "maxMultiplier": 2
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 120
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 240
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 480
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1087
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 2676
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 6589
+        }
+      ]
+    },
+    {
+      "id": "kodak_500t",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 480,
+        "p": 0.3,
+        "maxMultiplier": 2
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 120
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 240
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 480
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1087
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 2676
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 6589
+        }
+      ]
+    },
+    {
+      "id": "kodak_50d",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 480,
+        "p": 0.3,
+        "maxMultiplier": 2
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 120
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 240
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 480
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1087
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 2676
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 6589
+        }
+      ]
+    },
+    {
+      "id": "kodak_e100",
+      "type": "slide",
+      "params": {
+        "type": "slide",
+        "T1": 10,
+        "p": 0.4,
+        "maxMultiplier": 2.5
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 18
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 47
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 123
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 300
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 600
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1200
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 2250
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 4500
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 9000
+        }
+      ]
+    },
+    {
+      "id": "kodak_ektar100",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 30,
+        "p": 0.5,
+        "maxMultiplier": 3
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 85
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 240
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 679
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1440
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 2700
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 5400
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 10800
+        }
+      ]
+    },
+    {
+      "id": "kodak_gold",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 45,
+        "p": 0.45,
+        "maxMultiplier": 2.5
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 68
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 187
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 510
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1200
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 2250
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 4500
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 9000
+        }
+      ]
+    },
+    {
+      "id": "kodak_portra160",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 60,
+        "p": 0.4,
+        "maxMultiplier": 2
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 158
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 418
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 960
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1800
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 7200
+        }
+      ]
+    },
+    {
+      "id": "kodak_portra400",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 60,
+        "p": 0.4,
+        "maxMultiplier": 2
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 158
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 418
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 960
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1800
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 7200
+        }
+      ]
+    },
+    {
+      "id": "kodak_portra800",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 60,
+        "p": 0.4,
+        "maxMultiplier": 2
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 158
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 418
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 960
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1800
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 3600
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 7200
+        }
+      ]
+    },
+    {
+      "id": "kodak_tmax100",
+      "type": "bw-modern",
+      "params": {
+        "type": "bw-modern",
+        "T1": 60,
+        "p": 0.45,
+        "maxMultiplier": 3
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 164
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 448
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1224
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 2700
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 5400
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 10800
+        }
+      ]
+    },
+    {
+      "id": "kodak_tmax3200",
+      "type": "bw-modern",
+      "params": {
+        "type": "bw-modern",
+        "T1": 120,
+        "T2": 240,
+        "p": 5,
+        "logK": 50,
+        "maxMultiplier": 1.42
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 120
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 341
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 682
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 1278
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 2556
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 5112
+        }
+      ]
+    },
+    {
+      "id": "kodak_tmax400",
+      "type": "bw-modern",
+      "params": {
+        "type": "bw-modern",
+        "T1": 60,
+        "p": 0.45,
+        "maxMultiplier": 3
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 60
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 164
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 448
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1224
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 2700
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 5400
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 10800
+        }
+      ]
+    },
+    {
+      "id": "kodak_trix",
+      "type": "bw-classic",
+      "params": {
+        "type": "bw-classic",
+        "T1": 15,
+        "p": 0.75,
+        "maxMultiplier": 6
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 50
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 170
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 571
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 1440
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 2880
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 5400
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 10800
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 21600
+        }
+      ]
+    },
+    {
+      "id": "kodak_trix320",
+      "type": "bw-classic",
+      "params": {
+        "type": "bw-classic",
+        "T1": 10,
+        "T2": 120,
+        "p": 0.79,
+        "logK": 37,
+        "maxMultiplier": 8
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 21
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 71
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 247
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 855
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 1920
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 3840
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 7200
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 14400
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 28800
+        }
+      ]
+    },
+    {
+      "id": "lomo_cn",
+      "type": "c41",
+      "params": {
+        "type": "c41",
+        "T1": 45,
+        "p": 0.45,
+        "maxMultiplier": 2.5
+      },
+      "curve": [
+        {
+          "baseSeconds": 1,
+          "correctedSeconds": 1
+        },
+        {
+          "baseSeconds": 2,
+          "correctedSeconds": 2
+        },
+        {
+          "baseSeconds": 4,
+          "correctedSeconds": 4
+        },
+        {
+          "baseSeconds": 8,
+          "correctedSeconds": 8
+        },
+        {
+          "baseSeconds": 15,
+          "correctedSeconds": 15
+        },
+        {
+          "baseSeconds": 30,
+          "correctedSeconds": 30
+        },
+        {
+          "baseSeconds": 60,
+          "correctedSeconds": 68
+        },
+        {
+          "baseSeconds": 120,
+          "correctedSeconds": 187
+        },
+        {
+          "baseSeconds": 240,
+          "correctedSeconds": 510
+        },
+        {
+          "baseSeconds": 480,
+          "correctedSeconds": 1200
+        },
+        {
+          "baseSeconds": 900,
+          "correctedSeconds": 2250
+        },
+        {
+          "baseSeconds": 1800,
+          "correctedSeconds": 4500
+        },
+        {
+          "baseSeconds": 3600,
+          "correctedSeconds": 9000
+        }
+      ]
+    }
+  ]
+}
