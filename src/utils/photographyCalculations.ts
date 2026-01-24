@@ -201,9 +201,11 @@ export const calculateNDShutter = (baseShutter: number, ndStops: number): number
 };
 
 /**
- * 使用 Segmented Damping Model 计算倒易律校正倍率
+ * 计算倒易律校正倍率 (2026.01_calibrated_v1)
+ * 公式: M(t) = min(pow(max(1, t / T1), p), maxMultiplier)
  * @param t 基础曝光时间（秒）
- * @param params 分段模型参数
+ * @param params 倒易律模型参数 {T1: 基准时间, p: 幂函数指数, maxMultiplier: 最大倍率}
+ * @returns 校正倍率 M(t)
  */
 export const calculateSegmentedMultiplier = (
   t: number,

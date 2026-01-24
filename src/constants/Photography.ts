@@ -92,13 +92,17 @@ export interface ReciprocityProfile {
 /**
  * 倒易律分段参数（三段式模型）
  */
+/**
+ * 倒易律模型参数 (2026.01_calibrated_v1)
+ * 公式: t_adj = t_base * pow(max(1, t_base / t1), p) | limit by max_mult
+ */
 export interface ReciprocitySegmentParams {
   type: 'c41' | 'bw-modern' | 'bw-classic' | 'slide';
-  T1: number;           // 幂函数结束点（秒）
-  p: number;            // 幂函数指数
-  maxMultiplier: number; // 超长曝光最大倍率
-  T2?: number;           // 兼容旧模型（不再使用）
-  logK?: number;         // 兼容旧模型（不再使用）
+  T1: number;           // t1: 基准时间（秒），T1秒内无失效（M=1）
+  p: number;            // p: 幂函数指数，控制失效增长速率
+  maxMultiplier: number; // max_mult: 最大补偿倍率上限
+  T2?: number;           // 已废弃（兼容旧代码）
+  logK?: number;         // 已废弃（兼容旧代码）
   note?: string;
 }
 
@@ -240,15 +244,16 @@ const getReciprocityParams = (
 const BASE_SECONDS = [1, 2, 4, 8, 15, 30, 60, 120, 240, 480, 900, 1800, 3600];
 
 /**
- * Segmented Damping Model - 三段连续函数(C¹连续)
- * 这是感知建模(Perceptual Model),非化学仿真,所有参数均为相对尺度
+ * 倒易律失效补偿模型 (2026.01_calibrated_v1)
+ * 公式: t_adj = t_base * pow(max(1, t_base / t1), p) | limit by max_mult
  * 
- * Segment 1 (t ≤ T1): M(t) = 1 (Toe - 线性,无失败)
- * Segment 2 (T1 < t ≤ T2): M(t) = 1 + ((t - T1) / T1)^p (Mid - 非线性增长)
- * Segment 3 (t > T2): M(t) = min(M_T2 + ln(1 + (t - T2) / logK), maxM) (Shoulder - 对数阻尼)
- * 
- * 其中 M_T2 = 1 + ((T2 - T1) / T1)^p 保证 C¹ 连续性
+ * M(t) = min(pow(max(1, t / T1), p), maxMultiplier)
  * t_corrected = t * M(t)
+ * 
+ * 参数说明:
+ * - T1 (t1): 基准时间，T1秒内倍率为1（无失效）
+ * - p: 幂函数指数，控制失效增长速率
+ * - maxMultiplier (max_mult): 最大补偿倍率上限
  */
 const createSegmentedCurve = (params: ReciprocitySegmentParams) => {
   const { T1, p, maxMultiplier } = params;
@@ -451,15 +456,9 @@ export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
   createReciprocityProfile('kodak_tmax3200',
     'calculator.exposureLab.reciprocity.kodak_tmax3200',
     'calculator.exposureLab.reciprocity.kodak_tmax3200Description',
-      {
-        type: 'bw-modern',
-        T1: 120,
-        T2: 240,
-        p: 5.0,
-        logK: 50,
-        maxMultiplier: 1.42,
-      }),
-    // --- Slide (E-6) ---
+    'calculator.exposureLab.reciprocity.kodak_tmax3200Hint',
+    { type: 'bw-modern', T1: 120, T2: 240, p: 5.0, logK: 50, maxMultiplier: 1.42 }),
+  // --- Slide (E-6) ---
     createReciprocityProfile('kodak_e100',
       'calculator.exposureLab.reciprocity.kodak_e100',
       'calculator.exposureLab.reciprocity.kodak_e100Description',
