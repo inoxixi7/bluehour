@@ -7,20 +7,24 @@ import { Layout } from '../constants/Layout';
 // 导入屏幕
 import HomeScreen from '../screens/HomeScreen/HomeScreen';
 import SunTimesScreen from '../screens/SunTimesScreen/SunTimesScreen';
-import ExposureLabScreen from '../screens/ExposureLab/ExposureLabScreen';
+import ExposureCalcScreen from '../screens/ExposureCalc/ExposureCalcScreen';
+import ReciprocityCalcScreen from '../screens/ReciprocityCalc/ReciprocityCalcScreen';
 import SettingsScreen from '../screens/SettingsScreen/SettingsScreen';
 import LanguageSelectionScreen from '../screens/SettingsScreen/LanguageSelectionScreen';
 import ThemeSelectionScreen from '../screens/SettingsScreen/ThemeSelectionScreen';
 import AboutScreen from '../screens/SettingsScreen/AboutScreen';
+import UserPresetsScreen from '../screens/UserPresetsScreen/UserPresetsScreen';
 
 export type RootStackParamList = {
   Home: undefined;
   SunTimes: undefined;
-  ExposureLab: undefined;
+  ExposureCalc: undefined;
+  ReciprocityCalc: { initialShutter?: number } | undefined;
   Settings: undefined;
   LanguageSelection: undefined;
   ThemeSelection: undefined;
   About: undefined;
+  UserPresets: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -61,10 +65,17 @@ const RootNavigator: React.FC = () => {
         }}
       />
       <Stack.Screen
-        name="ExposureLab"
-        component={ExposureLabScreen}
+        name="ExposureCalc"
+        component={ExposureCalcScreen}
         options={{
-          title: t('calculator.exposureLab.title'),
+          title: t('home.features.exposureCalc.title'),
+        }}
+      />
+      <Stack.Screen
+        name="ReciprocityCalc"
+        component={ReciprocityCalcScreen}
+        options={{
+          title: t('home.features.reciprocityCalc.title'),
         }}
       />
       <Stack.Screen
@@ -86,6 +97,13 @@ const RootNavigator: React.FC = () => {
         component={ThemeSelectionScreen}
         options={{
           title: t('settings.theme'),
+        }}
+      />
+      <Stack.Screen
+        name="UserPresets"
+        component={UserPresetsScreen}
+        options={{
+          title: t('settings.userPresets.title'),
         }}
       />
       <Stack.Screen

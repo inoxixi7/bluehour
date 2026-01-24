@@ -27,6 +27,7 @@ export interface ThemeColors {
   success: string;
   warning: string;
   error: string;
+  information: string;
   
   // 特殊色（摄影相关）
   sunrise: string;
@@ -42,8 +43,16 @@ export interface ThemeColors {
   // 按钮
   buttonPrimary: string;
   buttonPrimaryText: string;
+  buttonPrimaryHover: string;
+  buttonPrimaryPressed: string;
   buttonSecondary: string;
   buttonSecondaryText: string;
+  buttonSecondaryHover: string;
+  buttonSecondaryPressed: string;
+  
+  // 交互状态
+  ripple: string;
+  overlay: string;
 }
 
 interface Theme {
@@ -75,6 +84,7 @@ const lightColors: ThemeColors = {
   success: '#10B981',
   warning: '#F59E0B',
   error: '#EF4444',
+  information: '#3B82F6',
   
   sunrise: '#FF6B35',
   sunset: '#FF8C42',
@@ -87,8 +97,15 @@ const lightColors: ThemeColors = {
   
   buttonPrimary: '#3B82F6',
   buttonPrimaryText: '#FFFFFF',
+  buttonPrimaryHover: '#2563EB',
+  buttonPrimaryPressed: '#1E40AF',
   buttonSecondary: '#F3F4F6',
   buttonSecondaryText: '#374151',
+  buttonSecondaryHover: '#D1D5DB',
+  buttonSecondaryPressed: '#9CA3AF',
+  
+  ripple: 'rgba(59, 130, 246, 0.3)',
+  overlay: 'rgba(0, 0, 0, 0.1)',
 };
 
 const darkColors: ThemeColors = {
@@ -109,6 +126,7 @@ const darkColors: ThemeColors = {
   success: '#34D399',
   warning: '#FBBF24',
   error: '#F87171',
+  information: '#60A5FA',
   
   sunrise: '#FF8C42',
   sunset: '#FFA06B',
@@ -121,8 +139,15 @@ const darkColors: ThemeColors = {
   
   buttonPrimary: '#3B82F6',
   buttonPrimaryText: '#FFFFFF',
+  buttonPrimaryHover: '#2563EB',
+  buttonPrimaryPressed: '#1E40AF',
   buttonSecondary: '#334155',
   buttonSecondaryText: '#F1F5F9',
+  buttonSecondaryHover: '#64748B',
+  buttonSecondaryPressed: '#94A3B8',
+  
+  ripple: 'rgba(96, 165, 250, 0.3)',
+  overlay: 'rgba(255, 255, 255, 0.1)',
 };
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);

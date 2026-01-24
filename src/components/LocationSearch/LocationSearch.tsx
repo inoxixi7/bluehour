@@ -19,14 +19,16 @@ interface LocationSearchProps {
   onLocationSelect: (latitude: number, longitude: number, name: string) => void;
   placeholder?: string;
   onRefreshLocation?: () => void;
+  currentLocationName?: string;
 }
 
 const LocationSearch: React.FC<LocationSearchProps> = ({
   onLocationSelect,
   placeholder,
   onRefreshLocation,
+  currentLocationName,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { theme } = useTheme();
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<GeocodingResult[]>([]);
@@ -52,7 +54,9 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
   const performSearch = async (query: string) => {
     try {
       setLoading(true);
-      const searchResults = await searchLocation(query, 8);
+      // 传递当前语言代码
+      const currentLanguage = (i18n.language || 'en').split('-')[0]; // 'zh-CN' -> 'zh'
+      const searchResults = await searchLocation(query, 8, currentLanguage);
       setResults(searchResults);
       setShowResults(true);
     } catch (error) {
@@ -105,6 +109,23 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 
   return (
     <View style={styles.container}>
+      {/* 当前位置显示 */}
+      {currentLocationName && !searchQuery && (
+        <View style={[styles.currentLocationBar, { backgroundColor: theme.colors.backgroundSecondary }]}>
+          <View style={styles.currentLocationContent}>
+            <Ionicons name="location" size={16} color={theme.colors.primary} />
+            <Text style={[styles.currentLocationText, { color: theme.colors.text }]} numberOfLines={1}>
+              {currentLocationName}
+            </Text>
+          </View>
+          {onRefreshLocation && (
+            <Touchable onPress={onRefreshLocation} style={styles.refreshButton}>
+              <Ionicons name="refresh" size={16} color={theme.colors.textSecondary} />
+            </Touchable>
+          )}
+        </View>
+      )}
+
       <View style={styles.searchRow}>
         <View style={[styles.searchInputContainer, { backgroundColor: theme.colors.background, borderColor: theme.colors.border }]}>
           <Ionicons name="search" size={20} color={theme.colors.textTertiary} style={{ marginRight: 8 }} />
@@ -172,6 +193,28 @@ const createStyles = (colors: any) =>
       width: '100%',
       position: 'relative',
       zIndex: 1000,
+    },
+    currentLocationBar: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      paddingHorizontal: Layout.spacing.md,
+      paddingVertical: Layout.spacing.sm,
+      borderRadius: Layout.borderRadius.md,
+      marginBottom: Layout.spacing.sm,
+    },
+    currentLocationContent: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      flex: 1,
+    },
+    currentLocationText: {
+      fontSize: Layout.fontSize.sm,
+      flex: 1,
+    },
+    refreshButton: {
+      padding: Layout.spacing.xs,
     },
     backdrop: {
       position: 'absolute',

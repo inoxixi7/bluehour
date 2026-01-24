@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useCallback } from 'react';
+import React, { useMemo, useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -8,27 +8,37 @@ import {
   Platform,
   StatusBar,
   RefreshControl,
+  Modal,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
+import i18n from '../../locales/i18n';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLocationData } from '../../contexts/LocationDataContext';
 import { Layout } from '../../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
-import { buildLightTimeline, getCurrentPhaseState, getNextBlueHourWindow } from '../../utils/lightPhases';
-import { formatDate, formatTime } from '../../utils/formatters';
+import {
+  buildLightTimeline,
+  getCurrentPhaseState,
+  getNextBlueHourWindow,
+} from '../../utils/lightPhases';
+import { formatTime } from '../../utils/formatters';
 import { formatTimeCountdown } from '../../utils/i18nHelpers';
 import { formatLocationName } from '../../utils/locationHelpers';
 import { Card } from '../../components/common/Card';
 import { LoadingIndicator } from '../../components/common/LoadingIndicator';
 import { Touchable } from '../../components/common/Touchable';
+import { 
+  scheduleGoldenHourNotification,
+  isNotificationsEnabled,
+  cancelAllNotifications
+} from '../../services/notificationService';
 
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
   const {
-    location,
     locationName,
     timezoneInfo,
     getSunTimesForDate,
@@ -39,18 +49,49 @@ const HomeScreen: React.FC = () => {
   } = useLocationData();
 
   const [refreshing, setRefreshing] = useState(false);
+  const [showIntro, setShowIntro] = useState(false);
+
+  const [refreshCount, setRefreshCount] = useState(0);
+
+  // 当日出日落时间变化时，安排通知
+  useEffect(() => {
+    const scheduleNotifications = async () => {
+      const enabled = await isNotificationsEnabled();
+      if (!enabled || !sunTimes) return;
+
+      // 取消旧的通知
+      await cancelAllNotifications();
+
+      // 安排日出黄金时刻提醒
+      if (sunTimes.sunrise) {
+        const sunriseGolden = new Date(sunTimes.sunrise);
+        sunriseGolden.setMinutes(sunriseGolden.getMinutes() - 30); // 黄金时刻是日出前30分钟开始
+        await scheduleGoldenHourNotification(sunriseGolden, 'sunrise', i18n.language);
+      }
+
+      // 安排日落黄金时刻提醒
+      if (sunTimes.sunset) {
+        const sunsetGolden = new Date(sunTimes.sunset);
+        sunsetGolden.setMinutes(sunsetGolden.getMinutes() - 30); // 黄金时刻是日落前30分钟开始
+        await scheduleGoldenHourNotification(sunsetGolden, 'sunset', i18n.language);
+      }
+    };
+
+    scheduleNotifications();
+  }, [sunTimes, i18n.language]);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     try {
       await getCurrentLocation();
+      setRefreshCount(prev => prev + 1); // 增加刷新计数，触发建议更新
     } catch (error) {
       console.error('Failed to refresh location:', error);
     } finally {
       setRefreshing(false);
     }
   }, [getCurrentLocation]);
-(locationLoading || (sunTimesLoading && !sunTimes)) && !refreshing
+
   const sunTimes = getSunTimesForDate(new Date());
 
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
@@ -67,45 +108,118 @@ const HomeScreen: React.FC = () => {
   const isLoading = locationLoading || (sunTimesLoading && !sunTimes);
 
   const quickActions = useMemo(() => {
+    const getRandomAdvice = (
+      adviceList: Array<{ icon: string; title: string; description: string }>
+    ) => {
+      const index = (refreshCount + Math.floor(Date.now() / 1000 / 3600)) % adviceList.length;
+      return adviceList[index];
+    };
+
     if (!phaseState) {
-      return {
-        icon: '⏱️',
-        title: t('home.cta.defaultTitle'),
-        description: t('home.cta.defaultDescription'),
-      };
+      const defaultAdvices = [
+        {
+          icon: '⏱️',
+          title: t('home.advice.default.title1'),
+          description: t('home.advice.default.desc1'),
+        },
+        {
+          icon: '📸',
+          title: t('home.advice.default.title2'),
+          description: t('home.advice.default.desc2'),
+        },
+      ];
+      return getRandomAdvice(defaultAdvices);
     }
 
     switch (phaseState.current.id) {
       case 'daylight':
-        return {
-          icon: '⚫',
-          title: t('home.cta.dayTitle'),
-          description: t('home.cta.dayDescription'),
-        };
+        const dayAdvices = [
+          {
+            icon: '🗺️',
+            title: t('home.advice.day.title1'),
+            description: t('home.advice.day.desc1'),
+          },
+          {
+            icon: '🔍',
+            title: t('home.advice.day.title2'),
+            description: t('home.advice.day.desc2'),
+          },
+          {
+            icon: '🏞️',
+            title: t('home.advice.day.title3'),
+            description: t('home.advice.day.desc3'),
+          },
+        ];
+        return getRandomAdvice(dayAdvices);
+
       case 'eveningBlueHour':
       case 'morningBlueHour':
       case 'nextMorningBlueHour':
-        return {
-          icon: '🔵',
-          title: t('home.cta.blueTitle'),
-          description: t('home.cta.blueDescription'),
-        };
+        const blueAdvices = [
+          {
+            icon: '⚖️',
+            title: t('home.advice.blue.title1'),
+            description: t('home.advice.blue.desc1'),
+          },
+          {
+            icon: '🏙️',
+            title: t('home.advice.blue.title2'),
+            description: t('home.advice.blue.desc2'),
+          },
+          {
+            icon: '🌆',
+            title: t('home.advice.blue.title3'),
+            description: t('home.advice.blue.desc3'),
+          },
+        ];
+        return getRandomAdvice(blueAdvices);
+
       default:
-        return {
-          icon: '🌙',
-          title: t('home.cta.nightTitle'),
-          description: t('home.cta.nightDescription'),
-        };
+        const nightAdvices = [
+          {
+            icon: '✨',
+            title: t('home.advice.night.title1'),
+            description: t('home.advice.night.desc1'),
+          },
+          {
+            icon: '🌌',
+            title: t('home.advice.night.title2'),
+            description: t('home.advice.night.desc2'),
+          },
+          {
+            icon: '🚗',
+            title: t('home.advice.night.title3'),
+            description: t('home.advice.night.desc3'),
+          },
+        ];
+        return getRandomAdvice(nightAdvices);
     }
-  }, [phaseState, t]);
+  }, [phaseState, t, refreshCount]);
+
+  const dailyTip = useMemo(() => {
+    const tips = ['tripod', 'aperture', 'iso', 'raw', 'foreground'];
+    const dayOfYear = Math.floor(
+      (new Date().getTime() - new Date(new Date().getFullYear(), 0, 0).getTime()) /
+        1000 /
+        60 /
+        60 /
+        24
+    );
+    const tipKey = tips[dayOfYear % tips.length];
+    return {
+      title: t('home.tips.title'),
+      content: t(`home.tips.items.${tipKey}`),
+    };
+  }, [t]);
 
   // Filter timeline to show only photography golden hours (blue hour and golden hour)
   const photographyTimeline = useMemo(() => {
-    return timeline.filter(segment => 
-      segment.id === 'morningBlueHour' || 
-      segment.id === 'morningGoldenHour' || 
-      segment.id === 'eveningGoldenHour' || 
-      segment.id === 'eveningBlueHour'
+    return timeline.filter(
+      segment =>
+        segment.id === 'morningBlueHour' ||
+        segment.id === 'morningGoldenHour' ||
+        segment.id === 'eveningGoldenHour' ||
+        segment.id === 'eveningBlueHour'
     );
   }, [timeline]);
 
@@ -114,7 +228,7 @@ const HomeScreen: React.FC = () => {
   }
 
   return (
-    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]}> 
+    <SafeAreaView style={[styles.safeArea, { backgroundColor: theme.colors.background }]}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}
@@ -130,93 +244,192 @@ const HomeScreen: React.FC = () => {
         }
       >
         <View style={styles.header}>
-          <View style={styles.headerTop}>
-            <Text style={[styles.headerTitle, { color: theme.colors.text }]}>
-              {locationName ? formatLocationName(locationName) : t('home.hero.waitingLocation')}
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.greeting, { color: theme.colors.text }]}>
+              {t('home.greeting')}
             </Text>
-            <Touchable 
-              onPress={() => navigation.navigate('Settings')}
-              style={styles.headerButton}
-              activeOpacity={0.7}
-            >
-              <Ionicons name="settings-outline" size={26} color={theme.colors.text} />
-            </Touchable>
+            <Text style={[styles.dateText, { color: theme.colors.textSecondary }]}>
+              {new Intl.DateTimeFormat(i18n.language === 'zh' ? 'zh-CN' : i18n.language, {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                weekday: 'long',
+              }).format(now)}
+            </Text>
           </View>
+          <Touchable
+            onPress={() => setShowIntro(true)}
+            style={styles.headerButton}
+            activeOpacity={0.7}
+          >
+            <Ionicons name="information-circle-outline" size={26} color={theme.colors.text} />
+          </Touchable>
+          <Touchable
+            onPress={() => navigation.navigate('Settings')}
+            style={styles.headerButton}
+            activeOpacity={0.7}
+          >
+            <Ionicons name="settings-outline" size={26} color={theme.colors.text} />
+          </Touchable>
         </View>
 
-        <Card style={[styles.heroCard, { backgroundColor: theme.colors.card }]}> 
-          <View style={styles.heroRow}>
-            <Text style={styles.heroEmoji}>{phaseState?.current.icon || '🌌'}</Text>
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.heroPhase, { color: theme.colors.text }]}> 
-                {phaseState ? t(phaseState.current.labelKey) : t('home.hero.waitingPhase')}
-              </Text>
-              {nextBlueHour && (
-                <Text style={[styles.heroCountdown, { color: theme.colors.textSecondary }]}> 
-                  {t('sunTimes.currentPhase.distanceTo', {
-                    phase: nextBlueHour.isNextDay 
-                      ? t('sunTimes.currentPhase.tomorrows') + t(nextBlueHour.labelKey)
-                      : t(nextBlueHour.labelKey),
-                    time: formatTimeCountdown(Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)), t),
-                  })}
-                </Text>
-              )}
-            </View>
-          </View>
-          {locationError && (
-            <Text style={[styles.errorText, { color: theme.colors.error }]}>
-              {locationError}
-            </Text>
-          )}
-        </Card>
-
-        {photographyTimeline.length > 0 && (
-            <Card style={[styles.timelineCard, { backgroundColor: theme.colors.card }]}>
-              <Touchable 
-                onPress={() => navigation.navigate('SunTimes')}
-                activeOpacity={0.7}
-                style={styles.timelineTitleRow}
-              >
-                <Text style={[styles.timelineTitle, { color: theme.colors.text }]}>
-                  {t('home.timeline.title')}
-                </Text>
-                <Ionicons name="ellipsis-horizontal" size={20} color={theme.colors.textSecondary} />
-              </Touchable>
-              {photographyTimeline.map((segment) => (
-                <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
-                  <View
-                    style={[styles.timelineDot, { backgroundColor: theme.colors[segment.accent] || theme.colors.text }]}
-                  />
-                  <Text style={[styles.timelineLabel, { color: theme.colors.text }]}>
-                    {t(segment.labelKey)}
-                  </Text>
-                  <Text style={[styles.timelineTime, { color: theme.colors.textSecondary }]}>
-                    {formatTime(segment.start, timezoneInfo.timezone)} — {formatTime(segment.end, timezoneInfo.timezone)}
-                  </Text>
-                </View>
-              ))}
-            </Card>
-        )}
-
-        <Touchable
-          onPress={() => navigation.navigate('ExposureLab')}
-          activeOpacity={0.9}
-        >
-          <Card style={[styles.labCard, { backgroundColor: theme.colors.card }]}>
-            <View style={styles.labHeader}>
-              <Ionicons name="flask-outline" size={32} color={theme.colors.accent} style={{ marginRight: 12 }} />
+        <Touchable onPress={() => navigation.navigate('SunTimes')} activeOpacity={0.9}>
+          <Card style={[styles.heroCard, { backgroundColor: theme.colors.card }]}>
+            <View style={styles.heroRow}>
+              <Text style={styles.heroEmoji}>{phaseState?.current.icon || '🌌'}</Text>
               <View style={{ flex: 1 }}>
-                <Text style={[styles.labTitle, { color: theme.colors.text }]}>
-                  {t('home.features.exposureLab.title')}
+                <Text style={[styles.heroPhase, { color: theme.colors.text }]}>
+                  {phaseState ? t(phaseState.current.labelKey) : t('home.hero.waitingPhase')}
                 </Text>
-                <Text style={[styles.labDescription, { color: theme.colors.textSecondary }]}>
-                  {t('home.features.exposureLab.description')}
-                </Text>
+                {nextBlueHour && (
+                  <Text style={[styles.heroCountdown, { color: theme.colors.textSecondary }]}>
+                    {t('sunTimes.currentPhase.distanceTo', {
+                      phase: nextBlueHour.isNextDay
+                        ? t('sunTimes.currentPhase.tomorrows') + t(nextBlueHour.labelKey)
+                        : t(nextBlueHour.labelKey),
+                      time: formatTimeCountdown(
+                        Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)),
+                        t
+                      ),
+                    })}
+                  </Text>
+                )}
               </View>
-              <Ionicons name="chevron-forward" size={24} color={theme.colors.accent} />
             </View>
+            {locationError && (
+              <Text style={[styles.errorText, { color: theme.colors.error }]}>{locationError}</Text>
+            )}
+            
+            {photographyTimeline.length > 0 && (
+              <View style={styles.timelineSection}>
+                <View style={styles.divider} />
+                <View style={styles.timelineTitleRow}>
+                  <Text style={[styles.timelineTitle, { color: theme.colors.text }]}>
+                    {t('home.timeline.title')}
+                  </Text>
+                  <Ionicons name="chevron-forward" size={18} color={theme.colors.textSecondary} />
+                </View>
+                {photographyTimeline.map(segment => (
+                  <View key={segment.id + segment.start.toISOString()} style={styles.timelineRow}>
+                    <View
+                      style={[
+                        styles.timelineDot,
+                        { backgroundColor: theme.colors[segment.accent] || theme.colors.text },
+                      ]}
+                    />
+                    <Text style={[styles.timelineLabel, { color: theme.colors.text }]}>
+                      {t(segment.labelKey)}
+                    </Text>
+                    <Text style={[styles.timelineTime, { color: theme.colors.textSecondary }]}>
+                      {formatTime(segment.start, timezoneInfo.timezone)} —{' '}
+                      {formatTime(segment.end, timezoneInfo.timezone)}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            )}
           </Card>
         </Touchable>
+
+        <View style={{ gap: Layout.spacing.md, marginBottom: Layout.spacing.md }}>
+          <Touchable onPress={() => navigation.navigate('ExposureCalc')} activeOpacity={0.9}>
+            <Card style={[styles.labCard, { backgroundColor: theme.colors.card, marginBottom: 0 }]}>
+              <View style={styles.labHeader}>
+                <Ionicons
+                  name="sunny-outline"
+                  size={32}
+                  color={theme.colors.accent}
+                  style={{ marginRight: 12 }}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.labTitle, { color: theme.colors.text }]}>
+                    {t('home.features.exposureCalc.title')}
+                  </Text>
+                  <Text style={[styles.labDescription, { color: theme.colors.textSecondary }]}>
+                    {t('home.features.exposureCalc.description')}
+                  </Text>
+                </View>
+                <Ionicons name="chevron-forward" size={24} color={theme.colors.accent} />
+              </View>
+            </Card>
+          </Touchable>
+
+          <Touchable onPress={() => navigation.navigate('ReciprocityCalc')} activeOpacity={0.9}>
+            <Card style={[styles.labCard, { backgroundColor: theme.colors.card, marginBottom: 0 }]}>
+              <View style={styles.labHeader}>
+                <Ionicons
+                  name="timer-outline"
+                  size={32}
+                  color={theme.colors.accent}
+                  style={{ marginRight: 12 }}
+                />
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.labTitle, { color: theme.colors.text }]}>
+                    {t('home.features.reciprocityCalc.title')}
+                  </Text>
+                  <Text style={[styles.labDescription, { color: theme.colors.textSecondary }]}>
+                    {t('home.features.reciprocityCalc.description')}
+                  </Text>
+                </View>
+                <Ionicons name="chevron-forward" size={24} color={theme.colors.accent} />
+              </View>
+            </Card>
+          </Touchable>
+        </View>
+
+        <View style={styles.adviceCardsRow}>
+          {/* 左侧卡片 - 动态建议 */}
+          <Card style={[styles.adviceCardLeft, { backgroundColor: theme.colors.card }]}>
+            <View style={styles.adviceHeaderRow}>
+              <Ionicons name="sparkles-outline" size={20} color={theme.colors.accent} />
+              <Text style={[styles.adviceCardLabel, { color: theme.colors.text }]}>
+                {t('home.advice.currentLight')}
+              </Text>
+            </View>
+            <Text style={[styles.adviceTitle, { color: theme.colors.text }]}>
+              {quickActions.title}
+            </Text>
+            <Text style={[styles.adviceText, { color: theme.colors.textSecondary }]}>
+              {quickActions.description}
+            </Text>
+          </Card>
+
+          {/* 右侧卡片 - 每日贴士 */}
+          <Card style={[styles.adviceCardRight, { backgroundColor: theme.colors.card }]}>
+            <View style={styles.tipHeaderRow}>
+              <Ionicons name="bulb-outline" size={20} color={theme.colors.accent} />
+              <Text style={[styles.tipCardLabel, { color: theme.colors.text }]}>
+                {dailyTip.title}
+              </Text>
+            </View>
+            <Text style={[styles.tipTitle, { color: theme.colors.text }]}>{dailyTip.content}</Text>
+          </Card>
+        </View>
+
+        {/* 位置信息条 - 移到底部 */}
+        <Card style={[styles.locationCard, { backgroundColor: theme.colors.backgroundSecondary }]}>
+          <View style={styles.locationContent}>
+            <View style={styles.locationLeft}>
+              <Ionicons name="location-outline" size={16} color={theme.colors.textSecondary} />
+              <Text style={[styles.locationText, { color: theme.colors.textSecondary }]}>
+                {locationName ? formatLocationName(locationName) : t('home.hero.waitingLocation')}
+              </Text>
+            </View>
+            <Touchable
+              onPress={onRefresh}
+              style={styles.refreshButton}
+              disabled={refreshing}
+              activeOpacity={0.7}
+            >
+              <Ionicons
+                name="refresh"
+                size={16}
+                color={theme.colors.textSecondary}
+                style={refreshing ? { opacity: 0.5 } : {}}
+              />
+            </Touchable>
+          </View>
+        </Card>
 
         <View style={styles.footer}>
           <Text style={[styles.footerText, { color: theme.colors.textTertiary }]}>
@@ -224,6 +437,74 @@ const HomeScreen: React.FC = () => {
           </Text>
         </View>
       </ScrollView>
+
+      {/* App Introduction Modal */}
+      <Modal
+        visible={showIntro}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setShowIntro(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={[styles.modalContent, { backgroundColor: theme.colors.card }]}>
+            <View style={styles.modalHeader}>
+              <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
+                {t('home.intro.title')}
+              </Text>
+              <Touchable onPress={() => setShowIntro(false)} style={styles.modalCloseButton}>
+                <Ionicons name="close" size={24} color={theme.colors.text} />
+              </Touchable>
+            </View>
+            <ScrollView style={styles.modalScroll} showsVerticalScrollIndicator={false}>
+              <Text style={[styles.modalDescription, { color: theme.colors.text }]}>
+                {t('home.intro.description')}
+              </Text>
+              
+              <Text style={[styles.modalSectionTitle, { color: theme.colors.text }]}>
+                {t('home.intro.featuresTitle')}
+              </Text>
+              
+              <View style={styles.modalFeature}>
+                <Text style={styles.modalFeatureIcon}>🌅</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.modalFeatureTitle, { color: theme.colors.text }]}>
+                    {t('home.intro.feature1Title')}
+                  </Text>
+                  <Text style={[styles.modalFeatureDesc, { color: theme.colors.textSecondary }]}>
+                    {t('home.intro.feature1Desc')}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.modalFeature}>
+                <Text style={styles.modalFeatureIcon}>📷</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.modalFeatureTitle, { color: theme.colors.text }]}>
+                    {t('home.intro.feature2Title')}
+                  </Text>
+                  <Text style={[styles.modalFeatureDesc, { color: theme.colors.textSecondary }]}>
+                    {t('home.intro.feature2Desc')}
+                  </Text>
+                </View>
+              </View>
+
+              <View style={styles.modalFeature}>
+                <Text style={styles.modalFeatureIcon}>🎞️</Text>
+                <View style={{ flex: 1 }}>
+                  <Text style={[styles.modalFeatureTitle, { color: theme.colors.text }]}>
+                    {t('home.intro.feature3Title')}
+                  </Text>
+                  <Text style={[styles.modalFeatureDesc, { color: theme.colors.textSecondary }]}>
+                    {t('home.intro.feature3Desc')}
+                  </Text>
+                </View>
+              </View>
+
+              
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };
@@ -242,35 +523,22 @@ const styles = StyleSheet.create({
     paddingBottom: Layout.spacing.xl,
   },
   header: {
-    alignItems: 'center',
-    marginBottom: Layout.spacing.sm,
-  },
-  headerTop: {
-    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: Layout.spacing.sm,
-  },
-  headerTitle: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '700',
-    flex: 1,
+    alignItems: 'flex-start',
+    marginBottom: Layout.spacing.lg,
   },
   headerButton: {
     padding: Layout.spacing.xs,
-    marginLeft: Layout.spacing.sm,
   },
-  title: {
-    fontSize: Layout.fontSize.hero,
+  greeting: {
+    fontSize: Layout.fontSize.xl,
     fontWeight: 'bold',
-  },
-  subtitle: {
-    fontSize: Layout.fontSize.base,
-    marginTop: Layout.spacing.xs,
+    marginBottom: 2,
   },
   dateText: {
-    marginTop: Layout.spacing.xs,
+    fontSize: Layout.fontSize.sm,
+    marginTop: 2,
   },
   heroCard: {
     borderRadius: Layout.borderRadius.xl,
@@ -299,9 +567,12 @@ const styles = StyleSheet.create({
     marginTop: Layout.spacing.sm,
     fontSize: Layout.fontSize.sm,
   },
-  timelineCard: {
-    padding: Layout.spacing.md,
-    borderRadius: Layout.borderRadius.lg,
+  timelineSection: {
+    marginTop: Layout.spacing.md,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: 'rgba(128, 128, 128, 0.2)',
     marginBottom: Layout.spacing.md,
   },
   timelineTitleRow: {
@@ -333,10 +604,19 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   timelineTime: {
-    fontSize: Layout.fontSize.sm,
-    fontWeight: '400',
+    fontSize: Layout.fontSize.base,
+    fontWeight: '500',
     textAlign: 'right',
     fontVariant: ['tabular-nums'],
+  },
+  detailButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 2,
+  },
+  detailText: {
+    fontSize: Layout.fontSize.sm,
+    fontWeight: '500',
   },
   labCard: {
     padding: Layout.spacing.md,
@@ -356,12 +636,155 @@ const styles = StyleSheet.create({
     fontSize: Layout.fontSize.sm,
     lineHeight: 18,
   },
+  adviceCardsRow: {
+    flexDirection: 'row',
+    gap: Layout.spacing.md,
+    marginBottom: Layout.spacing.md,
+  },
+  adviceCardLeft: {
+    flex: 1,
+    borderRadius: Layout.borderRadius.lg,
+    padding: Layout.spacing.md,
+  },
+  adviceCardRight: {
+    flex: 1,
+    borderRadius: Layout.borderRadius.lg,
+    padding: Layout.spacing.md,
+  },
+  adviceHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Layout.spacing.sm,
+    gap: 6,
+  },
+  adviceCardLabel: {
+    fontSize: Layout.fontSize.md,
+    fontWeight: '600',
+  },
+  adviceTitle: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '600',
+    marginBottom: Layout.spacing.xs,
+    lineHeight: 22,
+  },
+  adviceText: {
+    fontSize: Layout.fontSize.md,
+    lineHeight: 20,
+  },
+  tipHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: Layout.spacing.sm,
+    gap: 6,
+  },
+  tipCardLabel: {
+    fontSize: Layout.fontSize.md,
+    fontWeight: '600',
+  },
+  tipTitle: {
+    fontSize: Layout.fontSize.md,
+    fontWeight: '500',
+    lineHeight: 20,
+  },
+  locationCard: {
+    borderRadius: Layout.borderRadius.lg,
+    padding: Layout.spacing.sm,
+    marginBottom: Layout.spacing.md,
+  },
+  locationContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  locationLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    flex: 1,
+  },
+  locationText: {
+    fontSize: Layout.fontSize.xs,
+    flex: 1,
+  },
+  refreshButton: {
+    padding: Layout.spacing.xs,
+  },
   footer: {
     alignItems: 'center',
     paddingVertical: Layout.spacing.md,
   },
   footerText: {
     fontSize: Layout.fontSize.sm,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: Layout.spacing.lg,
+  },
+  modalContent: {
+    borderRadius: Layout.borderRadius.xl,
+    maxWidth: 500,
+    width: '100%',
+    maxHeight: '80%',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: Layout.spacing.lg,
+    paddingBottom: Layout.spacing.md,
+  },
+  modalTitle: {
+    fontSize: Layout.fontSize.xl,
+    fontWeight: 'bold',
+    flex: 1,
+  },
+  modalCloseButton: {
+    padding: Layout.spacing.xs,
+  },
+  modalScroll: {
+    paddingHorizontal: Layout.spacing.lg,
+    paddingBottom: Layout.spacing.lg,
+  },
+  modalDescription: {
+    fontSize: Layout.fontSize.base,
+    lineHeight: 24,
+    marginBottom: Layout.spacing.lg,
+  },
+  modalSectionTitle: {
+    fontSize: Layout.fontSize.lg,
+    fontWeight: '600',
+    marginBottom: Layout.spacing.md,
+  },
+  modalFeature: {
+    flexDirection: 'row',
+    gap: Layout.spacing.md,
+    marginBottom: Layout.spacing.lg,
+  },
+  modalFeatureIcon: {
+    fontSize: 28,
+  },
+  modalFeatureTitle: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '600',
+    marginBottom: Layout.spacing.xs,
+  },
+  modalFeatureDesc: {
+    fontSize: Layout.fontSize.sm,
+    lineHeight: 20,
+  },
+  modalFooter: {
+    fontSize: Layout.fontSize.sm,
+    lineHeight: 20,
+    marginTop: Layout.spacing.md,
+    fontStyle: 'italic',
   },
 });
 

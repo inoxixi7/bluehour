@@ -1,0 +1,72 @@
+{
+  "reciprocity_model_version": "2026.01_calibrated_v1",
+  "formula": "t_adj = t_base * pow(max(1, t_base / t1), p) | limit by max_mult",
+  "films": [
+    {
+      "id": "professional_color_neg",
+      "names": ["Kodak Portra 160", "Kodak Portra 400", "Kodak Portra 800", "Kodak Ektar 100", "Fuji Pro 400H", "Fuji Pro 160NS"],
+      "params": { "t1": 1.0, "p": 0.35, "max_mult": 4.0 },
+      "note": "专业卷在1s内非常稳定，之后按幂函数补偿，400H已移至此处"
+    },
+    {
+      "id": "kodak_vision3_series",
+      "names": ["Kodak Vision3 50D", "Kodak Vision3 250D", "Kodak Vision3 500T", "Cinestill 800T", "Cinestill 50D", "Cinestill 400D"],
+      "params": { "t1": 1.0, "p": 0.32, "max_mult": 4.0 },
+      "note": "Vision3官方建议10s补1档(20s)，100s补2档(400s)，t1降至1s是关键"
+    },
+    {
+      "id": "consumer_color_neg",
+      "names": ["Kodak Gold 200", "Kodak ColorPlus 200", "Kodak UltraMax 400", "Fuji C200", "Fuji X-TRA 400", "Lomo CN 100/400/800"],
+      "params": { "t1": 1.0, "p": 0.42, "max_mult": 5.0 },
+      "note": "民用卷涂层较薄，长曝下感光效率下降比专业卷快"
+    },
+    {
+      "id": "fuji_acros_series",
+      "names": ["Fuji Acros II", "Fuji Acros (Original)"],
+      "params": { "t1": 120.0, "p": 0.30, "max_mult": 2.0 },
+      "note": "Acros II在120s内无需补偿，这是其核心优势"
+    },
+    {
+      "id": "modern_bw_t_grain",
+      "names": ["Kodak T-Max 100", "Kodak T-Max 400", "Ilford Delta 100", "Ilford Delta 400", "Ilford Delta 3200"],
+      "params": { "t1": 1.0, "p": 0.30, "max_mult": 4.0 },
+      "note": "T-Grain扁平颗粒底片比传统颗粒略稳定"
+    },
+    {
+      "id": "traditional_bw_standard",
+      "names": ["Kodak Tri-X 400", "Ilford HP5 Plus", "Ilford FP4 Plus", "Kentmere 100/400"],
+      "params": { "t1": 1.0, "p": 0.40, "max_mult": 6.0 },
+      "note": "经典配方底片，1s后开始显著失效"
+    },
+    {
+      "id": "fomapan_disaster",
+      "names": ["Fomapan 100", "Fomapan 200", "Fomapan 400", "Arista EDU Ultra"],
+      "params": { "t1": 1.0, "p": 0.75, "max_mult": 10.0 },
+      "note": "Fomapan失效极快，10s测光通常需要补偿到50s以上"
+    },
+    {
+      "id": "ilford_pan_f_50",
+      "names": ["Ilford Pan F 50"],
+      "params": { "t1": 1.0, "p": 0.60, "max_mult": 8.0 },
+      "note": "Pan F虽是低感卷，但倒易律表现很差，修正了原有的极端p=1.0"
+    },
+    {
+      "id": "modern_slide_provia",
+      "names": ["Fujichrome Provia 100F"],
+      "params": { "t1": 128.0, "p": 0.40, "max_mult": 2.0 },
+      "note": "Provia 100F非常强悍，官方称128s内无需补偿"
+    },
+    {
+      "id": "classic_slide_e6",
+      "names": ["Kodak Ektachrome E100", "Fujichrome Velvia 100", "Fujichrome Astia 100F"],
+      "params": { "t1": 1.0, "p": 0.35, "max_mult": 3.0 },
+      "note": "E100表现稳健，Velvia 100在1分钟内表现尚可"
+    },
+    {
+      "id": "sensitive_slide_velvia50",
+      "names": ["Fujichrome Velvia 50"],
+      "params": { "t1": 1.0, "p": 0.55, "max_mult": 4.0 },
+      "note": "Velvia 50对长曝非常敏感，且容易出现严重的色彩偏绿"
+    }
+  ]
+}

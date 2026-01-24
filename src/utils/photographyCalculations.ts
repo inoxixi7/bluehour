@@ -1,6 +1,6 @@
 // 摄影计算核心逻辑
 
-import { ReciprocityCurvePoint } from '../constants/Photography';
+import { ReciprocityCurvePoint, ReciprocitySegmentParams } from '../constants/Photography';
 
 /**
  * 计算曝光值 (EV)
@@ -201,18 +201,46 @@ export const calculateNDShutter = (baseShutter: number, ndStops: number): number
 };
 
 /**
- * 根据倒易律曲线计算校正后的曝光时间
+ * 计算倒易律校正倍率 (2026.01_calibrated_v1)
+ * 公式: M(t) = min(pow(max(1, t / T1), p), maxMultiplier)
+ * @param t 基础曝光时间（秒）
+ * @param params 倒易律模型参数 {T1: 基准时间, p: 幂函数指数, maxMultiplier: 最大倍率}
+ * @returns 校正倍率 M(t)
+ */
+export const calculateSegmentedMultiplier = (
+  t: number,
+  params: ReciprocitySegmentParams
+): number => {
+  const { T1, p, maxMultiplier } = params;
+  const ratio = Math.max(1, t / Math.max(T1, 1));
+  return Math.min(Math.pow(ratio, p), maxMultiplier);
+};
+
+/**
+ * 根据倒易律曲线或参数计算校正后的曝光时间
  * @param baseSeconds ND 修正后的基础曝光时间
- * @param curve 选定胶片的倒易律曲线
+ * @param curve 选定胶片的倒易律曲线(可选)
+ * @param segmentParams 分段模型参数(可选,优先使用)
  */
 export const applyReciprocityCorrection = (
   baseSeconds: number,
-  curve?: ReciprocityCurvePoint[]
+  curve?: ReciprocityCurvePoint[],
+  segmentParams?: ReciprocitySegmentParams
 ): number => {
-  if (!curve || curve.length === 0 || baseSeconds <= 0) {
+  if (baseSeconds <= 0) {
     return baseSeconds;
   }
 
+  // 优先使用 segmentParams 进行精确计算
+  if (segmentParams) {
+    const M = calculateSegmentedMultiplier(baseSeconds, segmentParams);
+    return Math.round(baseSeconds * M);
+  }
+
+  // 回退到曲线插值方法
+  if (!curve || curve.length === 0) {
+    return baseSeconds;
+  }
   const sorted = [...curve].sort((a, b) => a.baseSeconds - b.baseSeconds);
 
   if (baseSeconds <= sorted[0].baseSeconds) {

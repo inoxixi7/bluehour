@@ -1,6 +1,8 @@
 // 日本語翻訳
 export default {
   common: {
+    ok: 'OK',
+    cancel: 'キャンセル',
     loading: '読み込み中...',
     loadingPhase: '読み込み中...',
     fetchingPhaseInfo: '現在の時間帯情報を取得中',
@@ -55,6 +57,7 @@ export default {
   home: {
     title: 'BlueHour',
     subtitle: '光と時間の相棒',
+    greeting: 'ブルーアワー',
     hero: {
       waitingPhase: '本日の光を計算中...',
       waitingLocation: '位置を取得中...',
@@ -63,17 +66,51 @@ export default {
       nextBlueHour: '次のブルーアワー',
     },
     cta: {
-      defaultTitle: '長時間露光を計画',
-      defaultDescription: '露出ラボで ND・相反則不軌補正・タイマーを一括管理。',
-      dayTitle: '日中にブルーアワーの空気感を再現',
-      dayDescription: 'NDを重ねて水面や雲を滑らかに。',
-      blueTitle: '今がまさにブルーアワー',
-      blueDescription: '光が消える前に露出を決めてタイマーを開始。',
-      nightTitle: '夜のうちに準備しておく',
-      nightDescription: '次のブルーアワー用に設定を仕込んでおきましょう。',
+      defaultTitle: '創造的なオプションを探る',
+      defaultDescription: '光は常に変化します。さまざまな露出の組み合わせを試してください。',
+      dayTitle: '構図を探す',
+      dayDescription: '強い光はロケハンに最適です。今夜の撮影場所を計画しましょう。',
+      blueTitle: '街明かりとのバランス',
+      blueDescription: '空と人工光の明るさが等しくなる瞬間です。白飛びに注意してください。',
+      nightTitle: 'ライトペインティングに挑戦',
+      nightDescription: '暗闇を利用して、創造的なライトペインティングや星の軌跡を撮影しましょう。',
+    },    advice: {
+      sectionTitle: '撮影アドバイス',
+      currentLight: '今の光で何をするか',
+      default: {
+        title1: 'クリエイティブなオプションを探る',
+        desc1: '光は常に変化します。さまざまな露出の組み合わせを試してください。',
+        title2: '機材の準備',
+        desc2: 'バッテリーを確認し、メモリーカードを整理し、すべてが準備できていることを確認しましょう。',
+      },
+      day: {
+        title1: '構図を探す',
+        desc1: '強い光はロケハンに最適です。今夜の撮影場所を計画しましょう。',
+        title2: 'さまざまな角度を試す',
+        desc2: '十分な日光を利用して、最適な撮影角度と前景要素を見つけましょう。',
+        title3: '光の変化を観察',
+        desc3: '影の方向と強度に注目し、夕方の光の効果を予測しましょう。',
+      },
+      blue: {
+        title1: '街明かりとのバランス',
+        desc1: '空と人工光の明るさが等しくなる瞬間です。白飛びに注意してください。',
+        title2: '都市の夜景を撮影',
+        desc2: '今は都市のスカイラインを撮影するゴールデンタイムで、空には豊かな青い色があります。',
+        title3: 'ブラケット撮影を使用',
+        desc3: '空と地面を別々に露出し、後処理で合成するとより良い結果が得られます。',
+      },
+      night: {
+        title1: 'ライトペインティングに挑戦',
+        desc1: '暗闇を利用して、創造的なライトペインティングや星の軌跡を撮影しましょう。',
+        title2: '天の川を撮影',
+        desc2: '光害から離れ、明るいレンズと高ISOを使用して星空を撮影しましょう。',
+        title3: '車の光跡を記録',
+        desc3: 'Bモードまたは長時間露出を使用して、車の光跡を撮影し、ダイナミックな効果を作りましょう。',
+      },
     },
     timeline: {
       title: '今日の光の時間割',
+      detail: '詳細',
     },
     features: {
       sunTimeline: {
@@ -84,10 +121,40 @@ export default {
         title: '露出ラボ',
         description: 'EV、ND、相反則不軌、タイマーを1画面で。',
       },
+      exposureCalc: {
+        title: '露出計算機',
+        description: '露出とNDフィルターを計算。',
+      },
+      reciprocityCalc: {
+        title: '相反則不軌計算機',
+        description: 'フィルムの相反則不軌補正。',
+      },
       settings: {
         title: '設定',
         description: '言語・テーマなどをカスタマイズ。',
       },
+    },
+    tips: {
+      title: '今日の撮影ヒント',
+      items: {
+        tripod: 'ブルーアワーは光が弱いため、三脚を使用してブレを防ぎましょう。',
+        aperture: '夜景撮影では、絞りを f/8〜f/11 に絞ると綺麗な光条（ウニ）が撮れます。',
+        iso: 'ノイズを抑えるため、できるだけ基準感度（ISO 100など）を使用しましょう。',
+        raw: 'ホワイトバランスや暗部の調整がしやすいよう、RAW形式での撮影をお勧めします。',
+        foreground: '広角レンズでは、面白い前景（水たまりや柵など）を入れると奥行きが出ます。',
+      }
+    },
+    intro: {
+      title: 'BlueHourについて',
+      description: 'BlueHourは写真愛好家のために特別に設計されたゴールデンアワーとブルーアワーのツールです。初心者でもベテランでも、一日の中で最も美しい光の瞬間を捉えるお手伝いをします。',
+      featuresTitle: '主な機能：',
+      feature1Title: 'ゴールデン＆ブルーアワータイムライン',
+      feature1Desc: 'あなたの位置の日の出、日の入り、ゴールデンアワー、ブルーアワーの正確な時刻を表示。撮影を事前に計画し、魔法の瞬間を逃さないように。',
+      feature2Title: '露出計算機',
+      feature2Desc: '複雑な露出パラメータをスマートに処理。等価露出計算、NDフィルター計算、一般的なシーンのEV参考値を提供。',
+      feature3Title: '相反則不軌計算機',
+      feature3Desc: 'フィルム写真家のために設計。異なるフィルムストックの長時間露光時の相反則不軌補正を自動計算し、露出タイマー機能も搭載。',
+      footer: 'ナビゲーションバーをタップして、もっと多くの機能を探索し、写真の旅を始めましょう！',
     },
     sections: {
       sunPlannerAction: 'タイムラインを開く',
@@ -103,6 +170,33 @@ export default {
   
   sunTimes: {
     title: '日の出・日の入り時刻',
+    guide: {
+      title: '光のフェーズガイド',
+      astronomicalTwilight: {
+        title: '天文薄明',
+        desc: '空は非常に暗く、星が見えます。天体写真に最適な時間帯です。地平線にはわずかな光しかありません。',
+      },
+      nauticalTwilight: {
+        title: '航海薄明',
+        desc: '地平線が見えます。船乗りが航海のためにこの時間を利用しました。空は深い青色になり、街の明かりが点き始めます。',
+      },
+      civilTwilight: {
+        title: '市民薄明',
+        desc: '太陽は地平線の下にありますが、屋外活動には十分な明るさがあります。空はカラフルで、都市の風景に最適です。',
+      },
+      blueHour: {
+        title: 'ブルーアワー',
+        desc: '日の出前や日没後の短い期間で、空が深い青色になります。強い色のコントラストを持つ都市の夜景や建築写真に最適です。',
+      },
+      goldenHour: {
+        title: 'ゴールデンアワー',
+        desc: '日の出直後や日没直前。光は柔らかく、暖かく、金色です。柔らかい影を持つポートレートや風景写真に最適です。',
+      },
+      information: {
+        title: '薄明の種類',
+        desc: '薄明には市民薄明、航海薄明、天文薄明の３種類があります。これらは順番に続き、地球上のどこでも同じ順序で起こります。薄明のタイプは、太陽の中心が地平線の下にある角度によって異なります：\n\n市民薄明（civil twilight）：0度〜6度\n航海薄明（nautical twilight）：6度〜12度\n天文薄明（astronomical twilight）：12度〜18度\n\n天文薄明（太陽が地平線下18°以上にある時）の間の時間帯は、「夜」または「真っ暗間」と呼ばれます。',
+      },
+    },
     searchPlaceholder: '場所を検索（多言語対応）',
     refreshLocation: '現在地を更新',
     selectDate: '日付を選択',
@@ -261,35 +355,243 @@ export default {
       streetDesc: '中間絞り（例：f/5.6）を使用し、被写界深度とシャッタースピードのバランスをとる',
     },
 
+    exposureCalc: {
+      resultBase: '元のシャッター',
+      resultReciprocity: '相反則不軌補正後',
+      timerTitle: 'B バルブタイマー',
+      startTimer: 'タイマー開始',
+      stopTimer: 'タイマー停止',
+      timerDone: '露出完了',
+    },
+
     exposureLab: {
-      title: '露出ラボ',
+      title: '露出計算機',
       subtitle: '長時間露光のための ND・相反則不軌・B バルブタイマーをワンストップで。',
       currentEv: '測光 EV',
       evHelper: '1 つのパラメータをロックし、他を調整して同じ露出を維持。',
       baseSettings: '測光設定',
       sceneShortcuts: 'シーンプリセット',
+      sceneValues: 'シーンプリセット',
       sceneHint: '典型的なブルーアワー露出をワンタップで呼び出し。',
       ndSection: 'ND フィルター（任意）',
       ndHint: '明るい時間帯でも ND でシャッターを伸ばし、流れる質感を作る。',
       ndNone: 'ND フィルターなし',
+      noScene: 'シーンなし',
+      aperture: '絞り',
+      shutter: 'シャッター',
+      iso: 'ISO',
+      lock: 'ロック',
+      unlock: 'ロック解除',
+      resultNd: 'ND適用後のシャッター',
+      toReciprocity: '相反則を計算',
       reciprocitySection: '相反則不軌補正',
       reciprocity: {
+        filmProfile: 'フィルムプロファイル',
+        selectFilm: 'フィルムを選択',
+        meteredShutter: '測光シャッター速度',
         digital: 'デジタル / 補正不要',
         digitalDescription: 'デジタル撮影や相反則不軌の少ないセンサー向け。',
         digitalHint: '露光時間は変化しません。',
         foma100: 'Fomapan 100 Classic',
         foma100Description: '1 秒以上で急激に補正が必要になる古典的フィルム。',
         foma100Hint: '必ずレリーズを使い、長時間露光に備えてください。',
-        portra400: 'Kodak Portra 400',
-        portra400Description: '穏やかな補正で、カラー長時間露光に最適。',
-        portra400Hint: '数秒足すだけで色再現が安定します。',
-        delta100: 'Ilford Delta 100',
-        delta100Description: '中程度の補正カーブ、繊細なモノクロ作品に。',
-        delta100Hint: '30 秒を超えたら補正量を丁寧に記録しましょう。',
+        kodak_e100: 'Kodak Ektachrome E100',
+        kodak_e100Description: '現代的なリバーサルフィルム、安定した性能。',
+        kodak_e100Hint: 'E100 はこれを選択。',
+        fuji_astia100f: 'Fujichrome Astia 100F',
+        fuji_astia100fDescription: '柔らかな発色、適度な補正が必要。',
+        fuji_astia100fHint: 'Astia 100F はこれを選択。',
+        fuji_provia400x: 'Fujichrome Provia 400X',
+        fuji_provia400xDescription: '高感度リバーサル、長秒露光で補正が必要。',
+        fuji_provia400xHint: 'Provia 400X はこれを選択。',
+        fuji_sensia200: 'Fujichrome Sensia 200',
+        fuji_sensia200Description: 'コンシューマー向け、相反則不軌が目立つ。',
+        fuji_sensia200Hint: 'Sensia 200 はこれを選択。',
+        fuji_64t: 'Fujichrome 64T',
+        fuji_64tDescription: 'タングステンバランス、長秒露光で補正。',
+        fuji_64tHint: '64T はこれを選択。',
+        fuji_t64: 'Fujichrome T64',
+        fuji_t64Description: 'タングステンバランス、長秒露光で補正。',
+        fuji_t64Hint: 'T64 はこれを選択。',
+        kodak_portra160: 'Kodak Portra 160',
+        kodak_portra160Description: 'ニュートラルな色調、補正は穏やか。',
+        kodak_portra160Hint: 'Portra 160 はこれを選択。',
+        kodak_portra400: 'Kodak Portra 400',
+        kodak_portra400Description: 'ラチチュードが広く長秒露光に強い。',
+        kodak_portra400Hint: 'Portra 400 はこれを選択。',
+        kodak_portra800: 'Kodak Portra 800',
+        kodak_portra800Description: '高感度、適度な補正が必要。',
+        kodak_portra800Hint: 'Portra 800 はこれを選択。',
+        ilford_delta100: 'Ilford Delta 100',
+        ilford_delta100Description: '中程度の補正カーブ、繊細なモノクロ作品に。',
+        ilford_delta100Hint: '30 秒を超えたら補正量を丁寧に記録しましょう。',
+
+        foma200: 'Fomapan 200 Creative',
+        foma200Description: 'Fomapan 200 用の相反則不軌プロファイル。',
+        foma200Hint: 'Fomapan 200 を使用する場合に選択。',
+
+        foma400: 'Fomapan 400 Action',
+        foma400Description: 'Fomapan 400 用の相反則不軌プロファイル。',
+        foma400Hint: 'Fomapan 400 を使用する場合に選択。',
+
+        kodak_50d: 'Kodak Vision3 50D (5203)',
+        kodak_50dDescription: 'Kodak Vision3 50D 用の相反則不軌プロファイル。',
+        kodak_50dHint: 'Kodak Vision3 50D を使用する場合に選択。',
+
+        kodak_250d: 'Kodak Vision3 250D (5207)',
+        kodak_250dDescription: 'Kodak Vision3 250D 用の相反則不軌プロファイル。',
+        kodak_250dHint: 'Kodak Vision3 250D を使用する場合に選択。',
+
+        kodak_500t: 'Kodak Vision3 500T (5219)',
+        kodak_500tDescription: 'Kodak Vision3 500T 用の相反則不軌プロファイル。',
+        kodak_500tHint: 'Kodak Vision3 500T を使用する場合に選択。',
+
+        kodak_ektar100: 'Kodak Ektar 100',
+        kodak_ektar100Description: 'Kodak Ektar 100 用の相反則不軌プロファイル。',
+        kodak_ektar100Hint: 'Kodak Ektar 100 を使用する場合に選択。',
+
+        kodak_gold: 'Kodak Gold 200',
+        kodak_goldDescription: 'Kodak Gold 200 用の相反則不軌プロファイル。',
+        kodak_goldHint: 'Kodak Gold 200 を使用する場合に選択。',
+
+        fuji_superia: 'Fuji Superia 100',
+        fuji_superiaDescription: 'Fuji Superia 100 用の相反則不軌プロファイル。',
+        fuji_superiaHint: 'Fuji Superia 100 を使用する場合に選択。',
+
+        fuji_superia200: 'Fuji Superia 200',
+        fuji_superia200Description: 'Fuji Superia 200 用の相反則不軌プロファイル。',
+        fuji_superia200Hint: 'Fuji Superia 200 を使用する場合に選択。',
+
+        fuji_superia1600: 'Fuji Superia 1600',
+        fuji_superia1600Description: 'Fuji Superia 1600 用の相反則不軌プロファイル。',
+        fuji_superia1600Hint: 'Fuji Superia 1600 を使用する場合に選択。',
+
+        fuji_c200: 'Fuji C200',
+        fuji_c200Description: 'Fuji C200 用の相反則不軌プロファイル。',
+        fuji_c200Hint: 'Fuji C200 を使用する場合に選択。',
+
+        fuji_color100: 'Fuji Color 100',
+        fuji_color100Description: 'Fuji Color 100 用の相反則不軌プロファイル。',
+        fuji_color100Hint: 'Fuji Color 100 を使用する場合に選択。',
+
+        fuji_pro160c: 'Fuji Pro 160C',
+        fuji_pro160cDescription: 'Fuji Pro 160C 用の相反則不軌プロファイル。',
+        fuji_pro160cHint: 'Fuji Pro 160C を使用する場合に選択。',
+
+        fuji_pro160ns: 'Fuji Pro 160NS',
+        fuji_pro160nsDescription: 'Fuji Pro 160NS 用の相反則不軌プロファイル。',
+        fuji_pro160nsHint: 'Fuji Pro 160NS を使用する場合に選択。',
+
+        fuji_xtra400: 'Fuji X-TRA 400',
+        fuji_xtra400Description: 'Fuji X-TRA 400 用の相反則不軌プロファイル。',
+        fuji_xtra400Hint: 'Fuji X-TRA 400 を使用する場合に選択。',
+
+        fuji_nexia400: 'Fuji Nexia 400',
+        fuji_nexia400Description: 'Fuji Nexia 400 用の相反則不軌プロファイル。',
+        fuji_nexia400Hint: 'Fuji Nexia 400 を使用する場合に選択。',
+
+        cinestill_800t: 'Cinestill 800T',
+        cinestill_800tDescription: 'Cinestill 800T 用の相反則不軌プロファイル。',
+        cinestill_800tHint: 'Cinestill 800T を使用する場合に選択。',
+
+        lomo_cn: 'Lomography CN 400/800',
+        lomo_cnDescription: 'Lomography CN 400/800 用の相反則不軌プロファイル。',
+        lomo_cnHint: 'Lomography CN 400/800 を使用する場合に選択。',
+
+        holga400: 'Holga 400',
+        holga400Description: 'Holga 400 用の相反則不軌プロファイル。',
+        holga400Hint: 'Holga 400 を使用する場合に選択。',
+
+        kodak_trix320: 'Kodak Tri-X 320',
+        kodak_trix320Description: 'Kodak Tri-X 320 用の相反則不軌プロファイル。',
+        kodak_trix320Hint: 'Kodak Tri-X 320 を使用する場合に選択。',
+
+        kodak_trix: 'Kodak Tri-X 400',
+        kodak_trixDescription: 'Kodak Tri-X 400 用の相反則不軌プロファイル。',
+        kodak_trixHint: 'Kodak Tri-X 400 を使用する場合に選択。',
+
+        kodak_tmax100: 'Kodak T-Max 100',
+        kodak_tmax100Description: 'Kodak T-Max 100 用の相反則不軌プロファイル。',
+        kodak_tmax100Hint: 'Kodak T-Max 100 を使用する場合に選択。',
+
+        kodak_tmax400: 'Kodak T-Max 400',
+        kodak_tmax400Description: 'Kodak T-Max 400 用の相反則不軌プロファイル。',
+        kodak_tmax400Hint: 'Kodak T-Max 400 を使用する場合に選択。',
+
+        kodak_tmax3200: 'Kodak T-Max 3200',
+        kodak_tmax3200Description: 'Kodak T-Max 3200 用の相反則不軌プロファイル。',
+        kodak_tmax3200Hint: 'Kodak T-Max 3200 を使用する場合に選択。',
+
+        ilford_hp5: 'Ilford HP5 Plus',
+        ilford_hp5Description: 'Ilford HP5 Plus 用の相反則不軌プロファイル。',
+        ilford_hp5Hint: 'Ilford HP5 Plus を使用する場合に選択。',
+
+        ilford_fp4: 'Ilford FP4 Plus',
+        ilford_fp4Description: 'Ilford FP4 Plus 用の相反則不軌プロファイル。',
+        ilford_fp4Hint: 'Ilford FP4 Plus を使用する場合に選択。',
+
+        ilford_delta400: 'Ilford Delta 400',
+        ilford_delta400Description: 'Ilford Delta 400 用の相反則不軌プロファイル。',
+        ilford_delta400Hint: 'Ilford Delta 400 を使用する場合に選択。',
+
+        ilford_delta3200: 'Ilford Delta 3200',
+        ilford_delta3200Description: 'Ilford Delta 3200 用の相反則不軌プロファイル。',
+        ilford_delta3200Hint: 'Ilford Delta 3200 を使用する場合に選択。',
+
+        ilford_panf: 'Ilford Pan F Plus',
+        ilford_panfDescription: 'Ilford Pan F Plus 用の相反則不軌プロファイル。',
+        ilford_panfHint: 'Ilford Pan F Plus を使用する場合に選択。',
+
+        ilford_xp2: 'Ilford XP2 Super',
+        ilford_xp2Description: 'Ilford XP2 Super 用の相反則不軌プロファイル。',
+        ilford_xp2Hint: 'Ilford XP2 Super を使用する場合に選択。',
+
+        ilford_sfx: 'Ilford SFX 200',
+        ilford_sfxDescription: 'Ilford SFX 200 用の相反則不軌プロファイル。',
+        ilford_sfxHint: 'Ilford SFX 200 を使用する場合に選択。',
+
+        ilford_kentmere100: 'Kentmere 100',
+        ilford_kentmere100Description: 'Kentmere 100 用の相反則不軌プロファイル。',
+        ilford_kentmere100Hint: 'Kentmere 100 を使用する場合に選択。',
+
+        ilford_kentmere400: 'Kentmere 400',
+        ilford_kentmere400Description: 'Kentmere 400 用の相反則不軌プロファイル。',
+        ilford_kentmere400Hint: 'Kentmere 400 を使用する場合に選択。',
+
+        shanghai_gp3: 'Shanghai GP3',
+        shanghai_gp3Description: 'Shanghai GP3 用の相反則不軌プロファイル。',
+        shanghai_gp3Hint: 'Shanghai GP3 を使用する場合に選択。',
+
+        lomo_potsdam100: 'Lomo Potsdam 100',
+        lomo_potsdam100Description: 'Lomo Potsdam 100 用の相反則不軌プロファイル。',
+        lomo_potsdam100Hint: 'Lomo Potsdam 100 を使用する場合に選択。',
+
+        fuji_acros: 'Fuji Neopan Acros II',
+        fuji_acrosDescription: 'Fuji Neopan Acros II 用の相反則不軌プロファイル。',
+        fuji_acrosHint: 'Fuji Neopan Acros II を使用する場合に選択。',
+
+        fuji_velvia100: 'Fujichrome Velvia 100',
+        fuji_velvia100Description: 'Fujichrome Velvia 100 用の相反則不軌プロファイル。',
+        fuji_velvia100Hint: 'Fujichrome Velvia 100 を使用する場合に選択。',
+
+        fuji_velvia100f: 'Fujichrome Velvia 100F',
+        fuji_velvia100fDescription: 'Fujichrome Velvia 100F 用の相反則不軌プロファイル。',
+        fuji_velvia100fHint: 'Fujichrome Velvia 100F を使用する場合に選択。',
+
+        fuji_velvia50: 'Fuji Velvia 50',
+        fuji_velvia50Description: 'Fuji Velvia 50 用の相反則不軌プロファイル。',
+        fuji_velvia50Hint: 'Fuji Velvia 50 を使用する場合に選択。',
+
+        fuji_pro400h: 'Fuji Pro 400H',
+        fuji_pro400hDescription: 'Fuji Pro 400H 用の相反則不軌プロファイル。',
+        fuji_pro400hHint: 'Fuji Pro 400H を使用する場合に選択。',
+
+        fuji_provia100f: 'Fuji Provia 100F',
+        fuji_provia100fDescription: 'Fuji Provia 100F 用の相反則不軌プロファイル。',
+        fuji_provia100fHint: 'Fuji Provia 100F を使用する場合に選択。',
       },
       resultTitle: '長時間露光の結果',
       resultBase: '元のシャッター',
-      resultNd: 'ND 適用後',
       resultReciprocity: '相反則不軌補正後',
       timerTitle: 'B バルブタイマー',
       startTimer: 'タイマー開始',
@@ -301,7 +603,23 @@ export default {
         countdown: 'カウントダウン',
         bulb: 'Bバルブタイマー',
       },
+      willAdjust: '自動調整されます',
+      preset: 'カメラプリセット',
+      noPreset: 'プリセットなし',
     },
+  },
+  
+  reciprocity: {
+    title: '相反則不軌計算機',
+    filmProfile: 'フィルムプロファイル',
+    selectFilm: 'フィルムを選択',
+    meteredShutter: '測光シャッター速度',
+    resultBase: '元のシャッター',
+    resultReciprocity: '補正後',
+    timerTitle: 'バルブタイマー',
+    startTimer: 'タイマー開始',
+    stopTimer: 'タイマー停止',
+    timerDone: '完了',
   },
   
   settings: {
@@ -310,6 +628,13 @@ export default {
     language: '言語',
     theme: 'テーマ',
     aboutApp: 'アプリについて',
+    notifications: {
+      title: '撮影リマインダー',
+      enableTitle: 'ゴールデンアワー通知',
+      enableDescription: 'ゴールデンアワーの30分前に通知',
+      permissionTitle: '通知権限が必要です',
+      permissionMessage: '撮影リマインダーを受信するには、システム設定で通知権限を許可してください',
+    },
     appearance: '外観',
     appearanceDescription: 'お好みのテーマモードを選択',
     themeLight: 'ライトモード',
@@ -354,8 +679,43 @@ export default {
     contactSupport: 'サポートに連絡',
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: '写真愛好家のために ❤️ を込めて作成',
-  },  exposureLabHelp: {
+  },
+
+  reciprocityHelp: {
+    title: '相反則不軌計算機 - ガイド',
+    description: '相反則不軌計算機は、フィルム写真の長時間露光における相反則不軌の補正を支援するツールです。露光時間が1秒を超えると、フィルムの感度が低下し、正しい露光を得るために露光時間を延長する必要があります。',
+    section1: {
+      title: '相反則不軌とは？',
+      content: [
+        '相反則の法則：露光量 = 光の強度 × 露光時間',
+        '理論上、光の強度を下げて時間を延ばしても同じ露光効果が得られるはず',
+        'しかし、長時間露光（通常1秒以上）では、フィルムの感光効率が低下',
+        'この現象を「相反則不軌」と呼び、追加の露光時間補正が必要',
+      ],
+    },
+    section2: {
+      title: '計算機の使い方',
+      content: [
+        '1. 使用するフィルムを選択（フィルムごとに相反則特性が異なる）',
+        '2. 露出計で測定したシャッター速度を入力',
+        '3. 計算機が自動的に補正後の露光時間を表示',
+        '4. 内蔵のバルブタイマーで正確な露光時間を制御',
+      ],
+    },
+    section3: {
+      title: '実用的なヒント',
+      content: [
+        'デジタルカメラ：相反則不軌の影響をほとんど受けず、補正不要',
+        'フィルムの違い：モノクロとカラーネガでは相反則特性が大きく異なる',
+        '極端な場合：一部のフィルムでは超長時間露光時に数倍の補正が必要',
+        '経験則：測光値1秒では補正はわずか、10秒以上では補正が大幅に増加',
+      ],
+    },
+  },
+
+  exposureLabHelp: {
     title: '露出ラボ - 機能紹介',
+    description: '露出ラボは、露出パラメータ調整、シーン別EV参考値、NDフィルター計算、相反則不軌補正、露出タイマーを統合した強力な撮影計算ツールです。特に長時間露光撮影において、露出を精密にコントロールするのに役立ちます。',
     section1: {
       title: '1. 基本露出パラメータ',
       content: [
@@ -391,4 +751,5 @@ export default {
         '計算された最終的な露出時間（ND減光や相反則不軌補正を含む）に基づいて、長時間露光撮影に便利なカウントダウンタイマー機能を提供します。',
       ],
     },
-  },};
+  },
+};

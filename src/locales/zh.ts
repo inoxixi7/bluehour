@@ -1,6 +1,8 @@
 // 中文翻译
 export default {
   common: {
+    ok: '好的',
+    cancel: '取消',
     loading: '加载中...',
     loadingPhase: '正在加载...',
     fetchingPhaseInfo: '正在获取当前时段信息',
@@ -55,6 +57,7 @@ export default {
   home: {
     title: 'BlueHour',
     subtitle: '光线与时间的口袋伙伴',
+    greeting: '蓝色时刻',
     hero: {
       waitingPhase: '正在计算今日光线...',
       waitingLocation: '获取位置中...',
@@ -63,17 +66,52 @@ export default {
       nextBlueHour: '下一次蓝调时刻',
     },
     cta: {
-      defaultTitle: '规划一次长曝光',
-      defaultDescription: '使用曝光实验室，一次完成 ND、倒易律和计时。',
-      dayTitle: '在白天模拟蓝调的流动感',
-      dayDescription: '叠加 ND 滤镜，让水面与云朵拖出丝滑轨迹。',
-      blueTitle: '此刻正是蓝调时间',
-      blueDescription: '趁光线尚在，先算好曝光并启动计时器。',
-      nightTitle: '为下一次黎明提前准备',
-      nightDescription: '提前算好参数，蓝调一到就能按下快门。',
+      defaultTitle: '探索更多拍摄可能',
+      defaultDescription: '光线总在变化，尝试不同的曝光组合。',
+      dayTitle: '寻找构图的最佳时机',
+      dayDescription: '强光下适合踩点。提前确认机位，为晚上的拍摄做准备。',
+      blueTitle: '捕捉冷暖色调的平衡',
+      blueDescription: '天空与城市灯光亮度最接近的时刻，注意控制高光。',
+      nightTitle: '尝试光绘或星空摄影',
+      nightDescription: '利用黑暗环境创作，或者使用 B 门拍摄车轨。',
+    },
+    advice: {
+      sectionTitle: '摄影建议',
+      currentLight: '当前光线下应该做什么',
+      default: {
+        title1: '探索更多拍摄可能',
+        desc1: '光线总在变化，尝试不同的曝光组合。',
+        title2: '准备你的相机',
+        desc2: '检查电池电量，清理存储卡，确保设备就绪。',
+      },
+      day: {
+        title1: '寻找构图的最佳时机',
+        desc1: '强光下适合踩点。提前确认机位，为晚上的拍摄做准备。',
+        title2: '测试不同角度',
+        desc2: '利用白天的充足光线，寻找最佳的拍摄角度和前景元素。',
+        title3: '观察光线变化',
+        desc3: '注意阴影的方向和强度，预判黄昏时分的光线效果。',
+      },
+      blue: {
+        title1: '捕捉冷暖色调的平衡',
+        desc1: '天空与城市灯光亮度最接近的时刻，注意控制高光。',
+        title2: '拍摄城市夜景',
+        desc2: '现在是拍摄城市天际线的黄金时间，天空有丰富的蓝色。',
+        title3: '使用包围曝光',
+        desc3: '对天空和地面分别曝光，后期合成可获得更好效果。',
+      },
+      night: {
+        title1: '尝试光绘创作',
+        desc1: '利用黑暗环境进行光绘创作，或拍摄星空轨迹。',
+        title2: '拍摄星空银河',
+        desc2: '远离光污染，使用大光圈镜头和高 ISO 拍摄星空。',
+        title3: '记录车流轨迹',
+        desc3: '使用 B 门或长曝光拍摄车流轨迹，创造动态效果。',
+      },
     },
     timeline: {
       title: '今日光线时间轴',
+      detail: '详细',
     },
     features: {
       sunTimeline: {
@@ -84,10 +122,40 @@ export default {
         title: '曝光实验室',
         description: 'EV、ND、倒易律与计时器整合为一个流程。',
       },
+      exposureCalc: {
+        title: '曝光计算器',
+        description: '计算等效曝光与 ND 滤镜。',
+      },
+      reciprocityCalc: {
+        title: '倒易律计算器',
+        description: '胶卷倒易律修正与计时。',
+      },
       settings: {
         title: '偏好设置',
         description: '管理语言、主题与其他个性化选项。',
       },
+    },
+    tips: {
+      title: '每日摄影贴士',
+      items: {
+        tripod: '蓝调时刻光线较暗，务必使用三脚架以保持画质清晰。',
+        aperture: '拍摄城市夜景时，使用 f/8 - f/11 的小光圈可以拍出漂亮的星芒。',
+        iso: '尽量使用原生最低 ISO（如 ISO 100）以减少噪点，保证天空纯净。',
+        raw: '建议使用 RAW 格式拍摄，以便后期调整白平衡和找回暗部细节。',
+        foreground: '广角拍摄时，寻找有趣的前景（如水坑、栏杆）能增加照片的层次感。',
+      }
+    },
+    intro: {
+      title: '关于 BlueHour',
+      description: 'BlueHour 是专为摄影爱好者设计的黄金时刻与蓝调时刻工具。无论您是刚开始接触摄影，还是经验丰富的摄影师，我们都能帮助您捕捉一天中最美的光线瞬间。',
+      featuresTitle: '主要功能：',
+      feature1Title: '黄金时刻与蓝调时刻时间表',
+      feature1Desc: '精确显示您所在位置的日出、日落、黄金时刻和蓝调时刻的确切时间。提前规划您的拍摄，确保不错过任何精彩瞬间。',
+      feature2Title: '曝光计算器',
+      feature2Desc: '智能计算器帮助您处理复杂的曝光参数。支持等效曝光计算、ND滤镜计算，还提供各种常见场景的EV参考值，让曝光设置变得简单明了。',
+      feature3Title: '胶片倒易律计算器',
+      feature3Desc: '专为胶片摄影者设计。针对不同胶片型号，自动计算长时间曝光时的倒易律失效补偿，并提供曝光计时器功能。',
+      footer: '点击底部导航栏探索更多功能，开启您的摄影之旅！',
     },
     sections: {
       sunPlannerAction: '打开完整时间轴',
@@ -103,6 +171,33 @@ export default {
 
   sunTimes: {
     title: '日出日落时间',
+    guide: {
+      title: '光线阶段指南',
+      astronomicalTwilight: {
+        title: '天文晨昏蒙影',
+        desc: '天空非常黑暗，肉眼几乎看不到星星。这是拍摄星空、银河的最佳时机。地平线上仅有微弱的光线。',
+      },
+      nauticalTwilight: {
+        title: '航海晨昏蒙影',
+        desc: '地平线依稀可见，过去水手利用此时段进行星象导航。天空呈现深蓝色调，城市灯光开始亮起。',
+      },
+      civilTwilight: {
+        title: '民用晨昏蒙影',
+        desc: '太阳在地平线以下，但光线充足，户外活动无需人工照明。天空色彩丰富，是拍摄城市景观的好时机。',
+      },
+      blueHour: {
+        title: '蓝色时刻 (Blue Hour)',
+        desc: '日出前或日落后的一短暂时刻，天空呈现迷人的深蓝色。冷暖色调对比强烈，是城市夜景和建筑摄影的黄金时间。',
+      },
+      goldenHour: {
+        title: '黄金时刻 (Golden Hour)',
+        desc: '日出后或日落前，阳光角度低，光线柔和温暖，呈现金黄色。阴影柔和，非常适合人像和风光摄影。',
+      },
+      information: {
+        title: '暮光的类型',
+        desc: '暮光分为三种类型：民用暮光、航海暮光和天文暮光。它们按顺序发生，在地球上的任何地方都以相同顺序出现。暮光的类型取决于太阳中心在地平线下的角度：\n\n民用暮光：0°至12°\n航海暮光：6°至12°\n天文暮光：12°至18°\n\n当太阳在地平线下超过18°（天文暮光之后）时，这段时间被称为“夜晚”或“完全黑暗”。',
+      },
+    },
     searchPlaceholder: '搜索地点（支持多语言）',
     refreshLocation: '刷新当前位置',
     selectDate: '选择日期',
@@ -262,18 +357,30 @@ export default {
     },
 
     exposureLab: {
-      title: '曝光实验室',
+      title: '曝光计算器',
       subtitle: '长曝光一条龙：ND、倒易律与 B 门计时一次完成。',
       currentEv: '测光 EV',
       evHelper: '锁定一个参数，调整另两个，保持同一曝光量。',
       baseSettings: '测光设置',
       sceneShortcuts: '场景预设',
+      sceneValues: '场景预设',
       sceneHint: '常见蓝调曝光一键套用，快速进入状态。',
       ndSection: 'ND 滤镜（可选）',
       ndHint: '在强光下使用 ND，延长快门创造流动感。',
       ndNone: '不使用 ND 滤镜',
+      noScene: '无场景',
+      aperture: '光圈',
+      shutter: '快门',
+      iso: 'ISO',
+      lock: '锁定',
+      unlock: '解锁',
+      resultNd: '加 ND 后快门',
+      toReciprocity: '计算倒易律',
       reciprocitySection: '胶片倒易律',
       reciprocity: {
+        filmProfile: '胶片型号',
+        selectFilm: '选择胶片',
+        meteredShutter: '测光快门速度',
         digital: '数码/无需校正',
         digitalDescription: '拍摄数码或现代传感器时选用此项。',
         digitalHint: '曝光时间保持不变。',
@@ -305,10 +412,18 @@ export default {
         kodak_500tHint: '同 Cinestill 800T，10秒约需13秒。',
 
         // Color Negative
-        kodak_portra: 'Kodak Portra 160/400',
-        kodak_portraDescription: '宽容度极高，2秒以上需轻微补偿。',
-        kodak_portraHint: '宁曝勿欠，色彩表现优秀。',
-        
+        kodak_portra160: 'Kodak Portra 160',
+        kodak_portra160Description: '中性肤色，倒易率补偿温和。',
+        kodak_portra160Hint: 'Portra 160 请选此项。',
+
+        kodak_portra400: 'Kodak Portra 400',
+        kodak_portra400Description: '宽容度高，长曝色彩稳定。',
+        kodak_portra400Hint: 'Portra 400 请选此项。',
+
+        kodak_portra800: 'Kodak Portra 800',
+        kodak_portra800Description: '高感彩负，需适度补偿。',
+        kodak_portra800Hint: 'Portra 800 请选此项。',
+
         kodak_gold: 'Kodak Gold/Ultramax',
         kodak_goldDescription: '消费级胶卷，长曝建议稍多补偿。',
         kodak_goldHint: '注意长曝可能偏色。',
@@ -378,6 +493,26 @@ export default {
         kodak_e100: 'Kodak Ektachrome E100',
         kodak_e100Description: '现代反转片，表现优秀。',
         kodak_e100Hint: '10秒+1/3档。',
+
+        fuji_astia100f: 'Fujichrome Astia 100F',
+        fuji_astia100fDescription: '色调柔和，需适度补偿。',
+        fuji_astia100fHint: 'Astia 100F 请选择此项。',
+
+        fuji_provia400x: 'Fujichrome Provia 400X',
+        fuji_provia400xDescription: '高感反转片，长曝需补偿。',
+        fuji_provia400xHint: 'Provia 400X 请选择此项。',
+
+        fuji_sensia200: 'Fujichrome Sensia 200',
+        fuji_sensia200Description: '消费级反转片，倒易率失效明显。',
+        fuji_sensia200Hint: 'Sensia 200 请选择此项。',
+
+        fuji_64t: 'Fujichrome 64T',
+        fuji_64tDescription: '钨光平衡反转片，长曝需补偿。',
+        fuji_64tHint: '64T 请选择此项。',
+
+        fuji_t64: 'Fujichrome T64',
+        fuji_t64Description: '钨光平衡反转片，长曝需补偿。',
+        fuji_t64Hint: 'T64 请选择此项。',
         
         fuji_velvia50: 'Fuji Velvia 50',
         fuji_velvia50Description: '倒易率极差，慎用于长曝。',
@@ -386,6 +521,82 @@ export default {
         fuji_provia100f: 'Fuji Provia 100F',
         fuji_provia100fDescription: '长曝首选反转片。',
         fuji_provia100fHint: '128秒内无需补偿！',
+
+        kodak_ektar100: 'Kodak Ektar 100',
+        kodak_ektar100Description: '用于 Kodak Ektar 100 的倒易律补偿配置。',
+        kodak_ektar100Hint: '使用此胶卷请选择此项。',
+
+        fuji_superia200: 'Fuji Superia 200',
+        fuji_superia200Description: '用于 Fuji Superia 200 的倒易律补偿配置。',
+        fuji_superia200Hint: '使用此胶卷请选择此项。',
+
+        fuji_superia1600: 'Fuji Superia 1600',
+        fuji_superia1600Description: '用于 Fuji Superia 1600 的倒易律补偿配置。',
+        fuji_superia1600Hint: '使用此胶卷请选择此项。',
+
+        fuji_c200: 'Fuji C200',
+        fuji_c200Description: '用于 Fuji C200 的倒易律补偿配置。',
+        fuji_c200Hint: '使用此胶卷请选择此项。',
+
+        fuji_color100: 'Fuji Color 100',
+        fuji_color100Description: '用于 Fuji Color 100 的倒易律补偿配置。',
+        fuji_color100Hint: '使用此胶卷请选择此项。',
+
+        fuji_pro160c: 'Fuji Pro 160C',
+        fuji_pro160cDescription: '用于 Fuji Pro 160C 的倒易律补偿配置。',
+        fuji_pro160cHint: '使用此胶卷请选择此项。',
+
+        fuji_pro160ns: 'Fuji Pro 160NS',
+        fuji_pro160nsDescription: '用于 Fuji Pro 160NS 的倒易律补偿配置。',
+        fuji_pro160nsHint: '使用此胶卷请选择此项。',
+
+        fuji_xtra400: 'Fuji X-TRA 400',
+        fuji_xtra400Description: '用于 Fuji X-TRA 400 的倒易律补偿配置。',
+        fuji_xtra400Hint: '使用此胶卷请选择此项。',
+
+        fuji_nexia400: 'Fuji Nexia 400',
+        fuji_nexia400Description: '用于 Fuji Nexia 400 的倒易律补偿配置。',
+        fuji_nexia400Hint: '使用此胶卷请选择此项。',
+
+        holga400: 'Holga 400',
+        holga400Description: '用于 Holga 400 的倒易律补偿配置。',
+        holga400Hint: '使用此胶卷请选择此项。',
+
+        kodak_trix320: 'Kodak Tri-X 320',
+        kodak_trix320Description: '用于 Kodak Tri-X 320 的倒易律补偿配置。',
+        kodak_trix320Hint: '使用此胶卷请选择此项。',
+
+        kodak_tmax3200: 'Kodak T-Max 3200',
+        kodak_tmax3200Description: '用于 Kodak T-Max 3200 的倒易律补偿配置。',
+        kodak_tmax3200Hint: '使用此胶卷请选择此项。',
+
+        ilford_kentmere100: 'Kentmere 100',
+        ilford_kentmere100Description: '用于 Kentmere 100 的倒易律补偿配置。',
+        ilford_kentmere100Hint: '使用此胶卷请选择此项。',
+
+        ilford_kentmere400: 'Kentmere 400',
+        ilford_kentmere400Description: '用于 Kentmere 400 的倒易律补偿配置。',
+        ilford_kentmere400Hint: '使用此胶卷请选择此项。',
+
+        shanghai_gp3: 'Shanghai GP3',
+        shanghai_gp3Description: '用于 Shanghai GP3 的倒易律补偿配置。',
+        shanghai_gp3Hint: '使用此胶卷请选择此项。',
+
+        lomo_potsdam100: 'Lomo Potsdam 100',
+        lomo_potsdam100Description: '用于 Lomo Potsdam 100 的倒易律补偿配置。',
+        lomo_potsdam100Hint: '使用此胶卷请选择此项。',
+
+        fuji_velvia100: 'Fujichrome Velvia 100',
+        fuji_velvia100Description: '用于 Fujichrome Velvia 100 的倒易律补偿配置。',
+        fuji_velvia100Hint: '使用此胶卷请选择此项。',
+
+        fuji_velvia100f: 'Fujichrome Velvia 100F',
+        fuji_velvia100fDescription: '用于 Fujichrome Velvia 100F 的倒易律补偿配置。',
+        fuji_velvia100fHint: '使用此胶卷请选择此项。',
+
+        fuji_pro400h: 'Fuji Pro 400H',
+        fuji_pro400hDescription: '用于 Fuji Pro 400H 的倒易律补偿配置。',
+        fuji_pro400hHint: '使用此胶卷请选择此项。',
       },
       resultTitle: '长曝光结果',
       resultBase: '原始快门',
@@ -401,7 +612,24 @@ export default {
         countdown: '倒计时',
         bulb: 'B门计时',
       },
+      willAdjust: '会自动调整',
+      preset: '相机预设',
+      noPreset: '无预设',
+      noScene: '无场景',
     },
+  },
+
+  reciprocity: {
+    title: '倒易律计算器',
+    filmProfile: '胶片型号',
+    selectFilm: '选择胶片',
+    meteredShutter: '测光快门速度',
+    resultBase: '原始快门',
+    resultReciprocity: '倒易律校正后',
+    timerTitle: 'B 门计时器',
+    startTimer: '开始计时',
+    stopTimer: '停止计时',
+    timerDone: '完成',
   },
 
   settings: {
@@ -429,6 +657,13 @@ export default {
     description: '专为摄影爱好者设计的工具应用，帮助您规划完美的拍摄时间，轻松计算曝光参数、ND 滤镜和景深。',
     features: '功能',
     support: '支持',
+    notifications: {
+      title: '拍摄提醒',
+      enableTitle: '黄金时刻提醒',
+      enableDescription: '在黄金时刻开始前30分钟提醒您',
+      permissionTitle: '需要通知权限',
+      permissionMessage: '请在系统设置中允许通知权限，以便接收拍摄提醒',
+    },
     featureList: {
       blueHour: {
         title: '蓝调时刻规划器',
@@ -454,9 +689,63 @@ export default {
     contactSupport: '联系支持',
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: '用 ❤️ 为摄影爱好者打造',
+    
+    userPresets: {
+      title: '用户预设',
+      createNew: '创建新预设',
+      editPreset: '编辑预设',
+      empty: '还没有预设。创建一个预设来快速配置您的设备。',
+      active: '使用中',
+      activate: '激活预设',
+      deactivate: '取消激活',
+      presetName: '预设名称',
+      presetNamePlaceholder: '例如：风光套装',
+      camera: '相机',
+      cameraPlaceholder: '例如：Nikon Z6 II',
+      lens: '镜头',
+      lensPlaceholder: '例如：24-70mm f/2.8',
+      useFilm: '使用胶卷',
+      selectFilm: '选择胶卷',
+      currentPreset: '当前预设',
+      noActivePreset: '未选择预设',
+      manage: '管理预设',
+    },
   },
+  reciprocityHelp: {
+    title: '倒易律计算器 - 功能介绍',
+    description: '倒易律计算器专为胶片摄影设计，帮助您在长时间曝光时补偿倒易律失效效应。当曝光时间超过1秒时，胶片的感光效率会降低，需要延长曝光时间来获得正确的曝光效果。',
+    section1: {
+      title: '什么是倒易律失效？',
+      content: [
+        '倒易律（Reciprocity Law）指出：曝光量 = 光强度 × 曝光时间',
+        '理论上，降低光强度并延长时间应该产生相同的曝光效果',
+        '但在长时间曝光（通常 >1秒）时，胶片的感光效率会降低',
+        '这种现象称为"倒易律失效"（Reciprocity Failure），需要补偿额外的曝光时间',
+      ],
+    },
+    section2: {
+      title: '如何使用计算器？',
+      content: [
+        '1. 选择您使用的胶片型号（不同胶片的倒易律特性不同）',
+        '2. 输入测光表读取的快门速度（原始快门时间）',
+        '3. 计算器会自动显示补偿后的实际曝光时间',
+        '4. 使用内置的B门计时器来精确控制曝光时间',
+      ],
+    },
+    section3: {
+      title: '实用技巧',
+      content: [
+        '数码相机：几乎不受倒易律失效影响，无需补偿',
+        '不同胶片：黑白胶片和彩色负片的倒易律特性差异较大',
+        '极限情况：某些胶片在超长曝光时可能需要数倍的补偿时间',
+        '经验法则：当测光快门为1秒时，补偿通常较小；10秒以上时补偿会显著增加',
+      ],
+    },
+  },
+
   exposureLabHelp: {
     title: '曝光实验室 - 功能介绍',
+    description: '曝光实验室是一个强大的摄影计算工具，集成了曝光参数调整、场景EV参考、ND滤镜计算、倒易律补偿和曝光计时器于一体。帮助您精确控制曝光，尤其适用于长时间曝光摄影。',
     section1: {
       title: '1. 基础曝光参数',
       content: [

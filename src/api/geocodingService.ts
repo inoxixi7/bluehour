@@ -17,22 +17,34 @@ const NOMINATIM_BASE_URL = 'https://nominatim.openstreetmap.org';
  * 搜索地点（支持多语言）
  * @param query 搜索关键词（可以是任何语言）
  * @param limit 返回结果数量限制
+ * @param userLanguage 用户当前使用的语言代码 (zh/en/ja/de)
  * @returns Promise<GeocodingResult[]>
  */
 export const searchLocation = async (
   query: string,
-  limit: number = 5
+  limit: number = 5,
+  userLanguage: string = 'en'
 ): Promise<GeocodingResult[]> => {
   try {
     if (!query || query.trim().length < 2) {
       return [];
     }
 
+    // 根据用户语言构建优先级语言列表
+    const languageMap: { [key: string]: string } = {
+      zh: 'zh-CN,zh,en,ja,de',
+      en: 'en,zh-CN,ja,de',
+      ja: 'ja,en,zh-CN,de',
+      de: 'de,en,zh-CN,ja',
+    };
+    
+    const acceptLanguage = languageMap[userLanguage] || languageMap['en'];
+
     const params = new URLSearchParams({
       q: query.trim(),
       format: 'json',
       limit: limit.toString(),
-      'accept-language': 'zh-CN,en,ja,de', // 支持中文、英文、日文、德文
+      'accept-language': acceptLanguage,
       addressdetails: '1',
     });
 
@@ -71,18 +83,30 @@ export const searchLocation = async (
  * 反向地理编码 - 根据坐标获取地址
  * @param latitude 纬度
  * @param longitude 经度
+ * @param userLanguage 用户当前使用的语言代码 (zh/en/ja/de)
  * @returns Promise<string> 地址名称
  */
 export const reverseGeocode = async (
   latitude: number,
-  longitude: number
+  longitude: number,
+  userLanguage: string = 'en'
 ): Promise<string> => {
   try {
+    // 根据用户语言构建语言参数
+    const languageMap: { [key: string]: string } = {
+      zh: 'zh-CN,zh',
+      en: 'en',
+      ja: 'ja',
+      de: 'de',
+    };
+    
+    const acceptLanguage = languageMap[userLanguage] || 'en';
+
     const params = new URLSearchParams({
       lat: latitude.toString(),
       lon: longitude.toString(),
       format: 'json',
-      'accept-language': 'zh-CN',
+      'accept-language': acceptLanguage,
       addressdetails: '1',
     });
 

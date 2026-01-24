@@ -1,6 +1,8 @@
 // Deutsche Übersetzungen
 export default {
   common: {
+    ok: 'OK',
+    cancel: 'Abbrechen',
     loading: 'Lädt...',
     loadingPhase: 'Lädt...',
     fetchingPhaseInfo: 'Aktuelle Phaseninformationen werden abgerufen',
@@ -63,14 +65,48 @@ export default {
       nextBlueHour: 'Nächste blaue Stunde',
     },
     cta: {
-      defaultTitle: 'Langzeitbelichtung planen',
-      defaultDescription: 'Verwenden Sie das Exposure Lab, um ND-Filter, Schwarzschild-Effekt und den Bulb-Timer in einem Arbeitsablauf zu kombinieren.',
-      dayTitle: 'Blaue Stunde bei Tageslicht simulieren',
-      dayDescription: 'Stapeln Sie ND-Filter, um seidiges Wasser und fließende Wolken bei hellem Licht einzufangen.',
-      blueTitle: 'Jetzt ist die blaue Stunde',
-      blueDescription: 'Stellen Sie die Belichtung ein und starten Sie den Timer, bevor das magische Licht verschwindet.',
-      nightTitle: 'Bereiten Sie sich auf die nächste Dämmerung vor',
-      nightDescription: 'Berechnen Sie jetzt die Einstellungen, damit Sie bereit sind, wenn die blaue Stunde zurückkehrt.',
+      defaultTitle: 'Kreative Optionen erkunden',
+      defaultDescription: 'Das Licht ändert sich ständig. Probieren Sie verschiedene Belichtungskombinationen aus.',
+      dayTitle: 'Kompositionen suchen',
+      dayDescription: 'Hartes Licht eignet sich perfekt zum Erkunden. Planen Sie Ihren Standort für heute Abend.',
+      blueTitle: 'Stadtlichter ausbalancieren',
+      blueDescription: 'Himmel und künstliche Lichter sind gleich hell. Achten Sie auf die Lichter.',
+      nightTitle: 'Light Painting ausprobieren',
+      nightDescription: 'Nutzen Sie die Dunkelheit für kreatives Light Painting oder Sternspuren.',
+    },
+    advice: {
+      sectionTitle: 'Fototipps',
+      currentLight: 'Was bei diesem Licht tun',
+      default: {
+        title1: 'Kreative Optionen erkunden',
+        desc1: 'Das Licht ändert sich ständig. Probieren Sie verschiedene Belichtungskombinationen aus.',
+        title2: 'Ausrüstung vorbereiten',
+        desc2: 'Überprüfen Sie den Akkustand, leeren Sie Ihre Speicherkarten und stellen Sie sicher, dass alles bereit ist.',
+      },
+      day: {
+        title1: 'Nach Kompositionen suchen',
+        desc1: 'Hartes Licht eignet sich perfekt zum Finden von Winkeln. Planen Sie Ihren Spot für heute Abend.',
+        title2: 'Verschiedene Winkel testen',
+        desc2: 'Nutzen Sie das reichliche Tageslicht, um die besten Aufnahmewinkel und Vordergrundelemente zu finden.',
+        title3: 'Lichtänderungen beobachten',
+        desc3: 'Achten Sie auf Schattenrichtung und -intensität, um abendliche Lichteffekte vorherzusagen.',
+      },
+      blue: {
+        title1: 'Stadtlichter ausgleichen',
+        desc1: 'Himmel und künstliche Lichter haben gleiche Helligkeit. Achten Sie auf Ihre Highlights.',
+        title2: 'Städtische Nachtaufnahmen machen',
+        desc2: 'Dies ist die goldene Zeit für Stadt-Skylines mit satten Blautönen im Himmel.',
+        title3: 'Belichtungsreihen verwenden',
+        desc3: 'Erstellen Sie Belichtungsreihen für Himmel und Boden separat für bessere Nachbearbeitung.',
+      },
+      night: {
+        title1: 'Light Painting ausprobieren',
+        desc1: 'Nutzen Sie die Dunkelheit für kreatives Light Painting oder Sternspuren.',
+        title2: 'Milchstraße fotografieren',
+        desc2: 'Entfernen Sie sich von Lichtverschmutzung, verwenden Sie Weitwinkelobjektive und hohe ISO für Sterne.',
+        title3: 'Verkehrsspuren aufnehmen',
+        desc3: 'Verwenden Sie Bulb-Modus oder Langzeitbelichtungen, um Verkehrslichtspuren für dynamische Effekte aufzunehmen.',
+      },
     },
     timeline: {
       title: 'Licht-Zeitachse (heute)',
@@ -84,10 +120,40 @@ export default {
         title: 'Exposure Lab',
         description: 'Ein Arbeitsablauf für EV-Abstimmung, ND-Berechnung, Schwarzschild-Effekt und Timer.',
       },
+      exposureCalc: {
+        title: 'Belichtungsrechner',
+        description: 'Berechnung von Belichtung und ND-Filtern.',
+      },
+      reciprocityCalc: {
+        title: 'Schwarzschild-Rechner',
+        description: 'Film-Reziprozitäts-Fehlerkorrektur.',
+      },
       settings: {
         title: 'Einstellungen',
         description: 'Sprache, Design und Personalisierung.',
       },
+    },
+    tips: {
+      title: 'Foto-Tipp des Tages',
+      items: {
+        tripod: 'Das Licht der blauen Stunde ist schwach; nutzen Sie ein Stativ für scharfe Bilder.',
+        aperture: 'Für Stadtlandschaften nutzen Sie eine kleine Blende (f/8 - f/11) für Blendensterne.',
+        iso: 'Bleiben Sie bei der Basis-ISO (z.B. ISO 100), um Rauschen zu minimieren.',
+        raw: 'Fotografieren Sie in RAW, um Weißabgleich und Schatten später besser bearbeiten zu können.',
+        foreground: 'Suchen Sie bei Weitwinkelaufnahmen einen interessanten Vordergrund für mehr Tiefe.',
+      }
+    },
+    intro: {
+      title: 'Über BlueHour',
+      description: 'BlueHour ist ein speziell für Fotografie-Enthusiasten entwickeltes Tool für die goldene und blaue Stunde. Egal ob Sie gerade erst anfangen oder ein erfahrener Fotograf sind, wir helfen Ihnen, die schönsten Lichtmomente des Tages einzufangen.',
+      featuresTitle: 'Hauptfunktionen:',
+      feature1Title: 'Goldene & Blaue Stunde Timeline',
+      feature1Desc: 'Zeigt präzise Sonnenaufgang, Sonnenuntergang, goldene Stunde und blaue Stunde für Ihren Standort an. Planen Sie Ihre Aufnahmen im Voraus und verpassen Sie nie den magischen Moment.',
+      feature2Title: 'Belichtungsrechner',
+      feature2Desc: 'Smart Calculator hilft Ihnen bei komplexen Belichtungsparametern. Unterstützt äquivalente Belichtungsberechnung, ND-Filter-Berechnung und bietet EV-Referenzwerte für gängige Szenen.',
+      feature3Title: 'Schwarzschild-Rechner',
+      feature3Desc: 'Entwickelt für Filmfotografen. Berechnet automatisch die Schwarzschildeffekt-Korrektur für verschiedene Filmtypen bei Langzeitbelichtungen, mit integriertem Belichtungstimer.',
+      footer: 'Tippen Sie auf die Navigationsleiste, um weitere Funktionen zu erkunden und Ihre Fotoreise zu beginnen!',
     },
     sections: {
       sunPlannerAction: 'Komplette Timeline öffnen',
@@ -103,6 +169,33 @@ export default {
   
   sunTimes: {
     title: 'Sonnenaufgang & Sonnenuntergang',
+    guide: {
+      title: 'Lichtphasen-Guide',
+      astronomicalTwilight: {
+        title: 'Astronomische Dämmerung',
+        desc: 'Der Himmel ist sehr dunkel und Sterne sind sichtbar. Dies ist die beste Zeit für Astrofotografie. Nur schwaches Licht am Horizont.',
+      },
+      nauticalTwilight: {
+        title: 'Nautische Dämmerung',
+        desc: 'Der Horizont ist sichtbar. Seefahrer nutzten diese Zeit zur Navigation. Der Himmel nimmt einen tiefblauen Farbton an und die Stadtlichter gehen an.',
+      },
+      civilTwilight: {
+        title: 'Bürgerliche Dämmerung',
+        desc: 'Die Sonne ist unter dem Horizont, aber es gibt genug Licht für Aktivitäten im Freien. Der Himmel ist farbenfroh, ideal für Stadtlandschaften.',
+      },
+      blueHour: {
+        title: 'Blaue Stunde',
+        desc: 'Ein kurzer Zeitraum vor Sonnenaufgang oder nach Sonnenuntergang, wenn der Himmel tiefblau ist. Perfekt für nächtliche Stadtansichten und Architektur mit starkem Farbkontrast.',
+      },
+      goldenHour: {
+        title: 'Goldene Stunde',
+        desc: 'Kurz nach Sonnenaufgang oder vor Sonnenuntergang. Das Licht ist weich, warm und golden. Ideal für Porträts und Landschaften mit weichen Schatten.',
+      },
+      information: {
+        title: 'Arten der Dämmerung',
+        desc: 'Es gibt drei Arten der Dämmerung: bürgerliche, nautische und astronomische Dämmerung. Sie treten nacheinander auf und geschehen überall auf der Erde in der gleichen Reihenfolge. Die Art der Dämmerung hängt vom Winkel der Sonnenmitte unter dem Horizont ab:\n\nBürgerliche Dämmerung: 0° bis 6°\nNautische Dämmerung: 6° bis 12°\nAstronomische Dämmerung: 12° bis 18°\n\nDer Zeitraum, in dem die Sonne mehr als 18° unter dem Horizont steht (nach der astronomischen Dämmerung), wird "Nacht" oder "vollständige Dunkelheit" genannt.',
+      },
+    },
     searchPlaceholder: 'Ort suchen (Mehrsprachig)',
     refreshLocation: 'Aktuellen Standort aktualisieren',
     selectDate: 'Datum auswählen',
@@ -263,31 +356,248 @@ export default {
       streetDesc: 'Mittlere Blende verwenden (z.B. f/5.6) für Balance zwischen Schärfentiefe und Verschlusszeit',
     },
 
+    exposureCalc: {
+      resultBase: 'Gemessener Verschluss',
+      resultReciprocity: 'Nach Schwarzschild-Effekt',
+      timerTitle: 'Bulb-Timer',
+      startTimer: 'Timer starten',
+      stopTimer: 'Timer stoppen',
+      timerDone: 'Belichtung abgeschlossen',
+    },
+
     exposureLab: {
-      title: 'Exposure Lab',
+      title: 'Belichtungsrechner',
       subtitle: 'Langzeitbelichtungs-Workflow für ND-Filter, Schwarzschild-Effekt und Bulb-Timer.',
       currentEv: 'Gemessener EV',
       evHelper: 'Sperren Sie einen Parameter und passen Sie die anderen an, um die gleiche Belichtung beizubehalten.',
       baseSettings: 'Messeinstellungen',
       sceneShortcuts: 'Szenenvoreinstellungen',
+      sceneValues: 'Szenenvoreinstellung',
       sceneHint: 'Starten Sie mit einer typischen Blaue-Stunde-Belichtung mit einem Tippen.',
       ndSection: 'ND-Filter (optional)',
       ndHint: 'Fügen Sie ND hinzu, wenn Sie Langzeitverschluss-Effekte bei hellem Licht wünschen.',
       ndNone: 'Kein ND-Filter',
+      noScene: 'Keine Szene',
+      aperture: 'Blende',
+      shutter: 'Verschlusszeit',
+      iso: 'ISO',
+      lock: 'Sperren',
+      unlock: 'Entsperren',
+      resultNd: 'Verschluss nach ND',
+      toReciprocity: 'Reziprozität berechnen',
       reciprocitySection: 'Film-Schwarzschild-Effekt-Profile',
       reciprocity: {
+        filmProfile: 'Filmprofil',
+        selectFilm: 'Film auswählen',
+        meteredShutter: 'Gemessene Verschlusszeit',
         digital: 'Digital / Keine Korrektur',
         digitalDescription: 'Verwenden Sie dies beim Fotografieren mit digitalen oder modernen Sensoren.',
         digitalHint: 'Die Belichtungszeit bleibt gleich.',
         foma100: 'Fomapan 100 Classic',
         foma100Description: 'Aggressiver Schwarzschild-Effekt, neu berechnen bei allem über 1s.',
         foma100Hint: 'Bringen Sie einen Kabelauslöser mit – Belichtungen werden schnell länger.',
-        portra400: 'Kodak Portra 400',
-        portra400Description: 'Milde Korrektur, perfekt für Farb-Langzeitbelichtungen.',
-        portra400Hint: 'Fügen Sie ein paar Sekunden hinzu, um saubere Töne zu erhalten.',
-        delta100: 'Ilford Delta 100',
-        delta100Description: 'Moderate Korrekturkurve für feinkörnige SW-Arbeit.',
-        delta100Hint: 'Verfolgen Sie die Kompensation sorgfältig über 30 Sekunden hinaus.',
+        kodak_portra400: 'Kodak Portra 400',
+        kodak_portra400Description: 'Milde Korrektur, perfekt für Farb-Langzeitbelichtungen.',
+        kodak_portra400Hint: 'Fügen Sie ein paar Sekunden hinzu, um saubere Töne zu erhalten.',
+        ilford_delta100: 'Ilford Delta 100',
+        ilford_delta100Description: 'Moderate Korrekturkurve für feinkörnige SW-Arbeit.',
+        ilford_delta100Hint: 'Verfolgen Sie die Kompensation sorgfältig über 30 Sekunden hinaus.',
+
+        foma200: 'Fomapan 200 Creative',
+        foma200Description: 'Reciprocity-Profil für Fomapan 200.',
+        foma200Hint: 'Auswählen, wenn Sie Fomapan 200 verwenden.',
+
+        foma400: 'Fomapan 400 Action',
+        foma400Description: 'Reciprocity-Profil für Fomapan 400.',
+        foma400Hint: 'Auswählen, wenn Sie Fomapan 400 verwenden.',
+
+        kodak_50d: 'Kodak Vision3 50D (5203)',
+        kodak_50dDescription: 'Reciprocity-Profil für Kodak Vision3 50D.',
+        kodak_50dHint: 'Auswählen, wenn Sie Kodak Vision3 50D verwenden.',
+
+        kodak_250d: 'Kodak Vision3 250D (5207)',
+        kodak_250dDescription: 'Reciprocity-Profil für Kodak Vision3 250D.',
+        kodak_250dHint: 'Auswählen, wenn Sie Kodak Vision3 250D verwenden.',
+
+        kodak_500t: 'Kodak Vision3 500T (5219)',
+        kodak_500tDescription: 'Reciprocity-Profil für Kodak Vision3 500T.',
+        kodak_500tHint: 'Auswählen, wenn Sie Kodak Vision3 500T verwenden.',
+
+        kodak_portra160: 'Kodak Portra 160',
+        kodak_portra160Description: 'Reciprocity-Profil für Kodak Portra 160.',
+        kodak_portra160Hint: 'Auswählen, wenn Sie Kodak Portra 160 verwenden.',
+
+        kodak_portra800: 'Kodak Portra 800',
+        kodak_portra800Description: 'Reciprocity-Profil für Kodak Portra 800.',
+        kodak_portra800Hint: 'Auswählen, wenn Sie Kodak Portra 800 verwenden.',
+
+        kodak_ektar100: 'Kodak Ektar 100',
+        kodak_ektar100Description: 'Reciprocity-Profil für Kodak Ektar 100.',
+        kodak_ektar100Hint: 'Auswählen, wenn Sie Kodak Ektar 100 verwenden.',
+
+        kodak_gold: 'Kodak Gold 200',
+        kodak_goldDescription: 'Reciprocity-Profil für Kodak Gold 200.',
+        kodak_goldHint: 'Auswählen, wenn Sie Kodak Gold 200 verwenden.',
+
+        fuji_superia: 'Fuji Superia 100',
+        fuji_superiaDescription: 'Reciprocity-Profil für Fuji Superia 100.',
+        fuji_superiaHint: 'Auswählen, wenn Sie Fuji Superia 100 verwenden.',
+
+        fuji_superia200: 'Fuji Superia 200',
+        fuji_superia200Description: 'Reciprocity-Profil für Fuji Superia 200.',
+        fuji_superia200Hint: 'Auswählen, wenn Sie Fuji Superia 200 verwenden.',
+
+        fuji_superia1600: 'Fuji Superia 1600',
+        fuji_superia1600Description: 'Reciprocity-Profil für Fuji Superia 1600.',
+        fuji_superia1600Hint: 'Auswählen, wenn Sie Fuji Superia 1600 verwenden.',
+
+        fuji_c200: 'Fuji C200',
+        fuji_c200Description: 'Reciprocity-Profil für Fuji C200.',
+        fuji_c200Hint: 'Auswählen, wenn Sie Fuji C200 verwenden.',
+
+        fuji_color100: 'Fuji Color 100',
+        fuji_color100Description: 'Reciprocity-Profil für Fuji Color 100.',
+        fuji_color100Hint: 'Auswählen, wenn Sie Fuji Color 100 verwenden.',
+
+        fuji_pro160c: 'Fuji Pro 160C',
+        fuji_pro160cDescription: 'Reciprocity-Profil für Fuji Pro 160C.',
+        fuji_pro160cHint: 'Auswählen, wenn Sie Fuji Pro 160C verwenden.',
+
+        fuji_pro160ns: 'Fuji Pro 160NS',
+        fuji_pro160nsDescription: 'Reciprocity-Profil für Fuji Pro 160NS.',
+        fuji_pro160nsHint: 'Auswählen, wenn Sie Fuji Pro 160NS verwenden.',
+
+        fuji_xtra400: 'Fuji X-TRA 400',
+        fuji_xtra400Description: 'Reciprocity-Profil für Fuji X-TRA 400.',
+        fuji_xtra400Hint: 'Auswählen, wenn Sie Fuji X-TRA 400 verwenden.',
+
+        fuji_nexia400: 'Fuji Nexia 400',
+        fuji_nexia400Description: 'Reciprocity-Profil für Fuji Nexia 400.',
+        fuji_nexia400Hint: 'Auswählen, wenn Sie Fuji Nexia 400 verwenden.',
+
+        cinestill_800t: 'Cinestill 800T',
+        cinestill_800tDescription: 'Reciprocity-Profil für Cinestill 800T.',
+        cinestill_800tHint: 'Auswählen, wenn Sie Cinestill 800T verwenden.',
+
+        lomo_cn: 'Lomography CN 400/800',
+        lomo_cnDescription: 'Reciprocity-Profil für Lomography CN 400/800.',
+        lomo_cnHint: 'Auswählen, wenn Sie Lomography CN 400/800 verwenden.',
+
+        holga400: 'Holga 400',
+        holga400Description: 'Reciprocity-Profil für Holga 400.',
+        holga400Hint: 'Auswählen, wenn Sie Holga 400 verwenden.',
+
+        kodak_trix320: 'Kodak Tri-X 320',
+        kodak_trix320Description: 'Reciprocity-Profil für Kodak Tri-X 320.',
+        kodak_trix320Hint: 'Auswählen, wenn Sie Kodak Tri-X 320 verwenden.',
+
+        kodak_trix: 'Kodak Tri-X 400',
+        kodak_trixDescription: 'Reciprocity-Profil für Kodak Tri-X 400.',
+        kodak_trixHint: 'Auswählen, wenn Sie Kodak Tri-X 400 verwenden.',
+
+        kodak_tmax100: 'Kodak T-Max 100',
+        kodak_tmax100Description: 'Reciprocity-Profil für Kodak T-Max 100.',
+        kodak_tmax100Hint: 'Auswählen, wenn Sie Kodak T-Max 100 verwenden.',
+
+        kodak_tmax400: 'Kodak T-Max 400',
+        kodak_tmax400Description: 'Reciprocity-Profil für Kodak T-Max 400.',
+        kodak_tmax400Hint: 'Auswählen, wenn Sie Kodak T-Max 400 verwenden.',
+
+        kodak_tmax3200: 'Kodak T-Max 3200',
+        kodak_tmax3200Description: 'Reciprocity-Profil für Kodak T-Max 3200.',
+        kodak_tmax3200Hint: 'Auswählen, wenn Sie Kodak T-Max 3200 verwenden.',
+
+        ilford_hp5: 'Ilford HP5 Plus',
+        ilford_hp5Description: 'Reciprocity-Profil für Ilford HP5 Plus.',
+        ilford_hp5Hint: 'Auswählen, wenn Sie Ilford HP5 Plus verwenden.',
+
+        ilford_fp4: 'Ilford FP4 Plus',
+        ilford_fp4Description: 'Reciprocity-Profil für Ilford FP4 Plus.',
+        ilford_fp4Hint: 'Auswählen, wenn Sie Ilford FP4 Plus verwenden.',
+
+        ilford_delta400: 'Ilford Delta 400',
+        ilford_delta400Description: 'Reciprocity-Profil für Ilford Delta 400.',
+        ilford_delta400Hint: 'Auswählen, wenn Sie Ilford Delta 400 verwenden.',
+
+        ilford_delta3200: 'Ilford Delta 3200',
+        ilford_delta3200Description: 'Reciprocity-Profil für Ilford Delta 3200.',
+        ilford_delta3200Hint: 'Auswählen, wenn Sie Ilford Delta 3200 verwenden.',
+
+        ilford_panf: 'Ilford Pan F Plus',
+        ilford_panfDescription: 'Reciprocity-Profil für Ilford Pan F Plus.',
+        ilford_panfHint: 'Auswählen, wenn Sie Ilford Pan F Plus verwenden.',
+
+        ilford_xp2: 'Ilford XP2 Super',
+        ilford_xp2Description: 'Reciprocity-Profil für Ilford XP2 Super.',
+        ilford_xp2Hint: 'Auswählen, wenn Sie Ilford XP2 Super verwenden.',
+
+        ilford_sfx: 'Ilford SFX 200',
+        ilford_sfxDescription: 'Reciprocity-Profil für Ilford SFX 200.',
+        ilford_sfxHint: 'Auswählen, wenn Sie Ilford SFX 200 verwenden.',
+
+        ilford_kentmere100: 'Kentmere 100',
+        ilford_kentmere100Description: 'Reciprocity-Profil für Kentmere 100.',
+        ilford_kentmere100Hint: 'Auswählen, wenn Sie Kentmere 100 verwenden.',
+
+        ilford_kentmere400: 'Kentmere 400',
+        ilford_kentmere400Description: 'Reciprocity-Profil für Kentmere 400.',
+        ilford_kentmere400Hint: 'Auswählen, wenn Sie Kentmere 400 verwenden.',
+
+        shanghai_gp3: 'Shanghai GP3',
+        shanghai_gp3Description: 'Reciprocity-Profil für Shanghai GP3.',
+        shanghai_gp3Hint: 'Auswählen, wenn Sie Shanghai GP3 verwenden.',
+
+        lomo_potsdam100: 'Lomo Potsdam 100',
+        lomo_potsdam100Description: 'Reciprocity-Profil für Lomo Potsdam 100.',
+        lomo_potsdam100Hint: 'Auswählen, wenn Sie Lomo Potsdam 100 verwenden.',
+
+        fuji_acros: 'Fuji Neopan Acros II',
+        fuji_acrosDescription: 'Reciprocity-Profil für Fuji Neopan Acros II.',
+        fuji_acrosHint: 'Auswählen, wenn Sie Fuji Neopan Acros II verwenden.',
+
+        kodak_e100: 'Kodak Ektachrome E100',
+        kodak_e100Description: 'Reciprocity-Profil für Kodak Ektachrome E100.',
+        kodak_e100Hint: 'Auswählen, wenn Sie Kodak Ektachrome E100 verwenden.',
+
+        fuji_astia100f: 'Fujichrome Astia 100F',
+        fuji_astia100fDescription: 'Reciprocity-Profil für Fujichrome Astia 100F.',
+        fuji_astia100fHint: 'Auswählen, wenn Sie Fujichrome Astia 100F verwenden.',
+
+        fuji_provia400x: 'Fujichrome Provia 400X',
+        fuji_provia400xDescription: 'Reciprocity-Profil für Fujichrome Provia 400X.',
+        fuji_provia400xHint: 'Auswählen, wenn Sie Fujichrome Provia 400X verwenden.',
+
+        fuji_sensia200: 'Fujichrome Sensia 200',
+        fuji_sensia200Description: 'Reciprocity-Profil für Fujichrome Sensia 200.',
+        fuji_sensia200Hint: 'Auswählen, wenn Sie Fujichrome Sensia 200 verwenden.',
+
+        fuji_64t: 'Fujichrome 64T',
+        fuji_64tDescription: 'Reciprocity-Profil für Fujichrome 64T.',
+        fuji_64tHint: 'Auswählen, wenn Sie Fujichrome 64T verwenden.',
+
+        fuji_t64: 'Fujichrome T64',
+        fuji_t64Description: 'Reciprocity-Profil für Fujichrome T64.',
+        fuji_t64Hint: 'Auswählen, wenn Sie Fujichrome T64 verwenden.',
+
+        fuji_velvia100: 'Fujichrome Velvia 100',
+        fuji_velvia100Description: 'Reciprocity-Profil für Fujichrome Velvia 100.',
+        fuji_velvia100Hint: 'Auswählen, wenn Sie Fujichrome Velvia 100 verwenden.',
+
+        fuji_velvia100f: 'Fujichrome Velvia 100F',
+        fuji_velvia100fDescription: 'Reciprocity-Profil für Fujichrome Velvia 100F.',
+        fuji_velvia100fHint: 'Auswählen, wenn Sie Fujichrome Velvia 100F verwenden.',
+
+        fuji_velvia50: 'Fuji Velvia 50',
+        fuji_velvia50Description: 'Reciprocity-Profil für Fuji Velvia 50.',
+        fuji_velvia50Hint: 'Auswählen, wenn Sie Fuji Velvia 50 verwenden.',
+
+        fuji_pro400h: 'Fuji Pro 400H',
+        fuji_pro400hDescription: 'Reciprocity-Profil für Fuji Pro 400H.',
+        fuji_pro400hHint: 'Auswählen, wenn Sie Fuji Pro 400H verwenden.',
+
+        fuji_provia100f: 'Fuji Provia 100F',
+        fuji_provia100fDescription: 'Reciprocity-Profil für Fuji Provia 100F.',
+        fuji_provia100fHint: 'Auswählen, wenn Sie Fuji Provia 100F verwenden.',
       },
       resultTitle: 'Langzeitbelichtungs-Ergebnis',
       resultBase: 'Gemessener Verschluss',
@@ -303,7 +613,21 @@ export default {
         countdown: 'Countdown',
         bulb: 'Bulb-Timer',
       },
+      willAdjust: 'Wird automatisch angepasst',
     },
+  },
+  
+  reciprocity: {
+    title: 'Schwarzschild-Effekt Rechner',
+    filmProfile: 'Filmprofil',
+    selectFilm: 'Film auswählen',
+    meteredShutter: 'Gemessene Verschlusszeit',
+    resultBase: 'Basis-Verschluss',
+    resultReciprocity: 'Korrigiert',
+    timerTitle: 'Bulb-Timer',
+    startTimer: 'Timer starten',
+    stopTimer: 'Timer stoppen',
+    timerDone: 'Fertig',
   },
   
   settings: {
@@ -311,8 +635,13 @@ export default {
     preferences: 'Einstellungen',
     language: 'Sprache',
     theme: 'Design',
-    aboutApp: 'Über die App',
-    appearance: 'Erscheinungsbild',
+    aboutApp: 'Über die App',    notifications: {
+      title: 'Foto-Erinnerungen',
+      enableTitle: 'Goldene Stunde Erinnerung',
+      enableDescription: '30 Minuten vor der goldenen Stunde erinnern',
+      permissionTitle: 'Benachrichtigungsberechtigung erforderlich',
+      permissionMessage: 'Bitte erlauben Sie die Benachrichtigungsberechtigung in den Systemeinstellungen, um Fotoerinnerungen zu erhalten',
+    },    appearance: 'Erscheinungsbild',
     appearanceDescription: 'Wählen Sie Ihren bevorzugten Designmodus',
     themeLight: 'Heller Modus',
     themeDark: 'Dunkler Modus',
@@ -366,8 +695,41 @@ export default {
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: 'Mit ❤️ für Fotografen gemacht',
   },
+  reciprocityHelp: {
+    title: 'Schwarzschild-Effekt Rechner - Anleitung',
+    description: 'Der Schwarzschild-Effekt Rechner ist für die Filmfotografie konzipiert und hilft Ihnen, den Schwarzschild-Effekt bei Langzeitbelichtungen zu kompensieren. Wenn die Belichtungszeiten 1 Sekunde überschreiten, nimmt die Filmempfindlichkeit ab und erfordert verlängerte Belichtungszeiten für korrekte Belichtung.',
+    section1: {
+      title: 'Was ist der Schwarzschild-Effekt?',
+      content: [
+        'Reziprozitätsgesetz: Belichtung = Lichtintensität × Zeit',
+        'Theoretisch sollten reduzierte Intensität und verlängerte Zeit identische Belichtung erzeugen',
+        'Bei Langzeitbelichtungen (typischerweise >1s) nimmt jedoch die Filmempfindlichkeit ab',
+        'Dieses Phänomen wird "Schwarzschild-Effekt" genannt und erfordert zusätzliche Belichtungszeitkompensation',
+      ],
+    },
+    section2: {
+      title: 'Verwendung des Rechners',
+      content: [
+        '1. Wählen Sie Ihren Film (verschiedene Filme haben unterschiedliche Reziprozitätscharakteristiken)',
+        '2. Geben Sie die gemessene Verschlusszeit ein (anfängliche Belichtungszeit)',
+        '3. Der Rechner zeigt automatisch die korrigierte Belichtungszeit an',
+        '4. Verwenden Sie den integrierten Bulb-Timer zur präzisen Belichtungssteuerung',
+      ],
+    },
+    section3: {
+      title: 'Praktische Tipps',
+      content: [
+        'Digitalkameras: Fast nicht vom Schwarzschild-Effekt betroffen, keine Kompensation erforderlich',
+        'Filmvariationen: Schwarz-Weiß- und Farbfilme haben deutlich unterschiedliche Charakteristiken',
+        'Extremfälle: Einige Filme erfordern bei extrem langen Belichtungen mehrfache Kompensation',
+        'Faustregel: Bei 1s gemessener Belichtung ist die Kompensation minimal; ab 10s steigt sie deutlich',
+      ],
+    },
+  },
+
   exposureLabHelp: {
     title: 'Belichtungslabor - Funktionsübersicht',
+    description: 'Das Belichtungslabor ist ein leistungsstarkes Fotografie-Berechnungstool, das Belichtungsparameter-Anpassung, Szenen-EV-Referenz, ND-Filter-Berechnung, Schwarzschildeffekt-Korrektur und Belichtungstimer integriert. Es hilft Ihnen, die Belichtung präzise zu steuern, insbesondere bei Langzeitbelichtungen.',
     section1: {
       title: '1. Grundlegende Belichtungsparameter',
       content: [

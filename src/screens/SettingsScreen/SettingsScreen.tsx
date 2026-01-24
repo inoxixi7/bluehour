@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Linking } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, ScrollView, StyleSheet, Linking, Switch, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
@@ -9,12 +9,53 @@ import { Touchable } from '../../components/common/Touchable';
 import { useTheme, ThemeMode } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { LANGUAGE_NAMES } from '../../locales/i18n';
+import { 
+  requestNotificationPermissions, 
+  isNotificationsEnabled, 
+  setNotificationsEnabled 
+} from '../../services/notificationService';
 
 const SettingsScreen: React.FC = () => {
   const { theme, themeMode } = useTheme();
   const { t, i18n } = useTranslation();
   const navigation = useNavigation<any>();
   
+  const [notificationsEnabled, setNotificationsEnabledState] = useState(false);
+  const [isLoadingNotifications, setIsLoadingNotifications] = useState(true);
+
+  useEffect(() => {
+    loadNotificationSettings();
+  }, []);
+
+  const loadNotificationSettings = async () => {
+    try {
+      const enabled = await isNotificationsEnabled();
+      setNotificationsEnabledState(enabled);
+    } catch (error) {
+      console.error('加载通知设置失败:', error);
+    } finally {
+      setIsLoadingNotifications(false);
+    }
+  };
+
+  const handleToggleNotifications = async (value: boolean) => {
+    if (value) {
+      // 请求权限
+      const hasPermission = await requestNotificationPermissions();
+      if (!hasPermission) {
+        Alert.alert(
+          t('settings.notifications.permissionTitle'),
+          t('settings.notifications.permissionMessage'),
+          [{ text: t('common.ok'), style: 'cancel' }]
+        );
+        return;
+      }
+    }
+
+    setNotificationsEnabledState(value);
+    await setNotificationsEnabled(value);
+  };
+
   const handleOpenGitHub = () => {
     Linking.openURL('https://github.com/inoxixi7/bluehour');
   };
@@ -35,18 +76,17 @@ const SettingsScreen: React.FC = () => {
   };
 
   return (
-    <ScrollView 
+    <ScrollView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.content}>
-
         {/* 偏好设置 */}
         <View style={styles.section}>
           <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
             {t('settings.preferences')}
           </Text>
-          
+
           <Card style={styles.settingCard}>
             <Touchable
               onPress={() => navigation.navigate('LanguageSelection')}
@@ -90,12 +130,65 @@ const SettingsScreen: React.FC = () => {
           </Card>
         </View>
 
+        {/* 用户预设 */}
+        <View style={styles.section}>
+          <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
+            {t('settings.userPresets.title')}
+          </Text>
+
+          <Card style={styles.settingCard}>
+            <Touchable
+              onPress={() => navigation.navigate('UserPresets')}
+              activeOpacity={0.7}
+              style={styles.settingItem}
+            >
+              <View style={styles.settingLeft}>
+                <Ionicons name="camera-outline" size={20} color={theme.colors.primary} />
+                <Text style={[styles.settingLabel, { color: theme.colors.text }]}>
+                  {t('settings.userPresets.manage')}
+                </Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color={theme.colors.textSecondary} />
+            </Touchable>
+          </Card>
+        </View>
+
+        {/* 拍摄提醒 */}
+        <View style={styles.section}>
+          <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
+            {t('settings.notifications.title')}
+          </Text>
+
+          <Card style={styles.settingCard}>
+            <View style={styles.settingItem}>
+              <View style={styles.settingLeft}>
+                <Ionicons name="notifications-outline" size={20} color={theme.colors.primary} />
+                <View style={styles.settingTextContainer}>
+                  <Text style={[styles.settingLabel, { color: theme.colors.text }]}>
+                    {t('settings.notifications.enableTitle')}
+                  </Text>
+                  <Text style={[styles.settingDescription, { color: theme.colors.textSecondary }]}>
+                    {t('settings.notifications.enableDescription')}
+                  </Text>
+                </View>
+              </View>
+              <Switch
+                value={notificationsEnabled}
+                onValueChange={handleToggleNotifications}
+                disabled={isLoadingNotifications}
+                trackColor={{ false: theme.colors.border, true: theme.colors.primary + '80' }}
+                thumbColor={notificationsEnabled ? theme.colors.primary : theme.colors.textSecondary}
+              />
+            </View>
+          </Card>
+        </View>
+
         {/* 关于 */}
         <View style={styles.section}>
           <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
             {t('settings.about')}
           </Text>
-          
+
           <Card style={styles.settingCard}>
             <Touchable
               onPress={() => navigation.navigate('About')}
@@ -118,27 +211,19 @@ const SettingsScreen: React.FC = () => {
           <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
             {t('settings.feedbackSupport')}
           </Text>
-          
+
           <Card style={styles.card}>
-            <Touchable
-              onPress={handleOpenGitHub}
-              style={styles.linkButton}
-              activeOpacity={0.7}
-            >
+            <Touchable onPress={handleOpenGitHub} style={styles.linkButton} activeOpacity={0.7}>
               <Ionicons name="logo-github" size={20} color={theme.colors.text} />
               <Text style={[styles.linkButtonText, { color: theme.colors.text }]}>
                 {t('settings.github')}
               </Text>
               <Ionicons name="chevron-forward" size={16} color={theme.colors.textSecondary} />
             </Touchable>
-            
+
             <View style={[styles.divider, { backgroundColor: theme.colors.border }]} />
-            
-            <Touchable
-              onPress={handleContactSupport}
-              style={styles.linkButton}
-              activeOpacity={0.7}
-            >
+
+            <Touchable onPress={handleContactSupport} style={styles.linkButton} activeOpacity={0.7}>
               <Ionicons name="mail" size={20} color={theme.colors.text} />
               <Text style={[styles.linkButtonText, { color: theme.colors.text }]}>
                 {t('settings.contactSupport')}
@@ -199,9 +284,17 @@ const styles = StyleSheet.create({
     gap: Layout.spacing.md,
     flex: 1,
   },
+  settingTextContainer: {
+    flex: 1,
+  },
   settingLabel: {
     fontSize: Layout.fontSize.lg,
     fontWeight: '500',
+  },
+  settingDescription: {
+    fontSize: Layout.fontSize.sm,
+    marginTop: 2,
+    lineHeight: 18,
   },
   settingRight: {
     flexDirection: 'row',

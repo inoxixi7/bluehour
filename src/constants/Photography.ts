@@ -1,3 +1,6 @@
+import reciprocityConfig from '../../film-reciprocity-config-enhanced.json';
+import allfilmConfig from '../../docs/allfilm.json';
+
 // 光圈值（F值）列表
 export const APERTURE_VALUES = [
   1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 2.8,
@@ -34,6 +37,13 @@ export const SHUTTER_SPEEDS = [
   { value: 480, label: '8min' },
   { value: 900, label: '15min' },
   { value: 1800, label: '30min' },
+  { value: 3600, label: '1h' },
+  { value: 7200, label: '2h' },
+  { value: 14400, label: '4h' },
+  { value: 28800, label: '8h' },
+  { value: 43200, label: '12h' },
+  { value: 86400, label: '24h' },
+  { value: 172800, label: '48h' },
 ];
 
 // ISO 值列表
@@ -76,10 +86,214 @@ export interface ReciprocityProfile {
   descriptionKey: string;
   hintKey: string;
   curve: ReciprocityCurvePoint[];
+  segmentParams?: ReciprocitySegmentParams; // 分段模型参数
 }
+
+/**
+ * 倒易律分段参数（三段式模型）
+ */
+/**
+ * 倒易律模型参数 (2026.01_calibrated_v1)
+ * 公式: t_adj = t_base * pow(max(1, t_base / t1), p) | limit by max_mult
+ */
+export interface ReciprocitySegmentParams {
+  type: 'c41' | 'bw-modern' | 'bw-classic' | 'slide';
+  T1: number;           // t1: 基准时间（秒），T1秒内无失效（M=1）
+  p: number;            // p: 幂函数指数，控制失效增长速率
+  maxMultiplier: number; // max_mult: 最大补偿倍率上限
+  T2?: number;           // 已废弃（兼容旧代码）
+  logK?: number;         // 已废弃（兼容旧代码）
+  note?: string;
+}
+
+type ReciprocityConfigFilm = {
+  id: string;
+  type: ReciprocitySegmentParams['type'];
+  modelParams: Omit<ReciprocitySegmentParams, 'type' | 'note'>;
+};
+
+type ReciprocityConfigCategory = {
+  films: ReciprocityConfigFilm[];
+};
+
+type ReciprocityConfig = {
+  films: ReciprocityConfigCategory[];
+};
+
+type AllFilmGroup = {
+  names: string[];
+  params: {
+    t1: number;
+    p: number;
+    max_mult: number;
+  };
+};
+
+type AllFilmConfig = {
+  films: AllFilmGroup[];
+};
+
+const reciprocityConfigData = reciprocityConfig as ReciprocityConfig;
+const allfilmConfigData = allfilmConfig as AllFilmConfig;
+
+const normalizeName = (value: string) => value.trim().toLowerCase();
+
+const explicitNameToId = new Map<string, string>([
+  ['Kodak Portra 160', 'kodak_portra160'],
+  ['Kodak Portra 400', 'kodak_portra400'],
+  ['Kodak Portra 800', 'kodak_portra800'],
+  ['Fuji Pro 160C', 'fuji_pro160c'],
+  ['Fuji Pro 160NS', 'fuji_pro160ns'],
+  ['Fuji Pro 400H', 'fuji_pro400h'],
+  ['Kodak Vision3 50D', 'kodak_50d'],
+  ['Kodak Vision3 250D', 'kodak_250d'],
+  ['Kodak Vision3 500T', 'kodak_500t'],
+  ['Cinestill 800T', 'cinestill_800t'],
+  ['Kodak Ektar 100', 'kodak_ektar100'],
+  ['Kodak Gold 200', 'kodak_gold'],
+  ['Fuji Superia 100', 'fuji_superia'],
+  ['Fuji Superia 200', 'fuji_superia200'],
+  ['Fuji Superia 400', 'fuji_superia'],
+  ['Fuji Superia 1600', 'fuji_superia1600'],
+  ['Fuji C200', 'fuji_c200'],
+  ['Fuji X-TRA 400', 'fuji_xtra400'],
+  ['Fuji Nexia 400', 'fuji_nexia400'],
+  ['Lomo CN 800', 'lomo_cn'],
+  ['Kodak T-Max 100', 'kodak_tmax100'],
+  ['Kodak T-Max 400', 'kodak_tmax400'],
+  ['Kodak T-Max 3200', 'kodak_tmax3200'],
+  ['Ilford Delta 100', 'ilford_delta100'],
+  ['Ilford Delta 400', 'ilford_delta400'],
+  ['Ilford Delta 3200', 'ilford_delta3200'],
+  ['Fuji Acros', 'fuji_acros'],
+  ['Fuji Acros II', 'fuji_acros'],
+  ['Kodak Tri-X 320', 'kodak_trix320'],
+  ['Kodak Tri-X 400', 'kodak_trix'],
+  ['Ilford HP5', 'ilford_hp5'],
+  ['Ilford SFX 200', 'ilford_sfx'],
+  ['Kentmere 100', 'ilford_kentmere100'],
+  ['Kentmere 400', 'ilford_kentmere400'],
+  ['Fomapan 100', 'foma100'],
+  ['Fomapan 200', 'foma200'],
+  ['Fomapan 400', 'foma400'],
+  ['Shanghai GP3', 'shanghai_gp3'],
+  ['Ilford FP4', 'ilford_fp4'],
+  ['Ilford XP2', 'ilford_xp2'],
+  ['Fuji Neopan', 'fuji_acros'],
+  ['Lomo Potsdam 100', 'lomo_potsdam100'],
+  ['Ilford Pan F 50', 'ilford_panf'],
+  ['Kodak Ektachrome E100', 'kodak_e100'],
+  ['Fuji Provia 100F', 'fuji_provia100f'],
+  ['Fujichrome Provia 100F', 'fuji_provia100f'],
+  ['Fujichrome Provia 400X', 'fuji_provia400x'],
+  ['Fujichrome Astia 100F', 'fuji_astia100f'],
+  ['Fujichrome Velvia 100', 'fuji_velvia100'],
+  ['Fujichrome Velvia 100F', 'fuji_velvia100f'],
+  ['Fujichrome Velvia 50', 'fuji_velvia50'],
+  ['Fujichrome Sensia 200', 'fuji_sensia200'],
+  ['Fujichrome 64T', 'fuji_64t'],
+  ['Fujichrome T64', 'fuji_t64'],
+  ['Holga 400', 'holga400'],
+].map(([name, id]) => [normalizeName(name), id]));
+
+const { nameToId, idToType } = (() => {
+  const nameMap = new Map<string, string>();
+  const typeMap = new Map<string, ReciprocitySegmentParams['type']>();
+  reciprocityConfigData.films.forEach(category => {
+    category.films.forEach(film => {
+      if (film?.id) {
+        typeMap.set(film.id, film.type);
+      }
+      if (film?.name && film?.id) {
+        nameMap.set(normalizeName(film.name), film.id);
+      }
+    });
+  });
+  explicitNameToId.forEach((id, name) => {
+    nameMap.set(name, id);
+  });
+  return { nameToId: nameMap, idToType: typeMap };
+})();
+
+const reciprocityParamsById = (() => {
+  const map = new Map<string, ReciprocitySegmentParams>();
+
+  allfilmConfigData.films.forEach(group => {
+    const { t1, p, max_mult } = group.params;
+    group.names.forEach(name => {
+      const id = nameToId.get(normalizeName(name));
+      if (!id) return;
+      const type = idToType.get(id) ?? 'c41';
+      map.set(id, {
+        type,
+        T1: t1,
+        p,
+        maxMultiplier: max_mult,
+      });
+    });
+  });
+
+  return map;
+})();
+
+const getReciprocityParams = (
+  id: string,
+  fallback: ReciprocitySegmentParams
+): ReciprocitySegmentParams => reciprocityParamsById.get(id) ?? fallback;
 
 const BASE_SECONDS = [1, 2, 4, 8, 15, 30, 60, 120, 240, 480, 900, 1800, 3600];
 
+/**
+ * 倒易律失效补偿模型 (2026.01_calibrated_v1)
+ * 公式: t_adj = t_base * pow(max(1, t_base / t1), p) | limit by max_mult
+ * 
+ * M(t) = min(pow(max(1, t / T1), p), maxMultiplier)
+ * t_corrected = t * M(t)
+ * 
+ * 参数说明:
+ * - T1 (t1): 基准时间，T1秒内倍率为1（无失效）
+ * - p: 幂函数指数，控制失效增长速率
+ * - maxMultiplier (max_mult): 最大补偿倍率上限
+ */
+const createSegmentedCurve = (params: ReciprocitySegmentParams) => {
+  const { T1, p, maxMultiplier } = params;
+
+  return BASE_SECONDS.map(t => {
+    const ratio = Math.max(1, t / Math.max(T1, 1));
+    const multiplier = Math.min(Math.pow(ratio, p), maxMultiplier);
+    const correctedSeconds = Math.round(t * multiplier);
+
+    return {
+      baseSeconds: t,
+      correctedSeconds,
+    };
+  });
+};
+
+/**
+ * 创建带参数的倒易律配置
+ */
+const createReciprocityProfile = (
+  id: string,
+  nameKey: string,
+  descriptionKey: string,
+  hintKey: string,
+  params: ReciprocitySegmentParams
+): ReciprocityProfile => {
+  const resolvedParams = getReciprocityParams(id, params);
+  return {
+    id,
+    nameKey,
+    descriptionKey,
+    hintKey,
+    curve: createSegmentedCurve(resolvedParams),
+    segmentParams: resolvedParams,
+  };
+};
+
+/**
+ * 简化的幂函数曲线（向后兼容）
+ */
 const createPowerCurve = (p: number) => {
   return BASE_SECONDS.map(t => ({
     baseSeconds: t,
@@ -96,233 +310,205 @@ export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
     curve: [],
   },
   // --- Foma (Fomapan) ---
-  {
-    id: 'foma100',
-    nameKey: 'calculator.exposureLab.reciprocity.foma100',
-    descriptionKey: 'calculator.exposureLab.reciprocity.foma100Description',
-    hintKey: 'calculator.exposureLab.reciprocity.foma100Hint',
-    curve: [
-      { baseSeconds: 1, correctedSeconds: 1 },
-      { baseSeconds: 2, correctedSeconds: 3 },
-      { baseSeconds: 4, correctedSeconds: 9 },
-      { baseSeconds: 8, correctedSeconds: 28 },
-      { baseSeconds: 15, correctedSeconds: 65 },
-      { baseSeconds: 30, correctedSeconds: 150 },
-      { baseSeconds: 60, correctedSeconds: 360 },
-    ],
-  },
-  {
-    id: 'foma200',
-    nameKey: 'calculator.exposureLab.reciprocity.foma200',
-    descriptionKey: 'calculator.exposureLab.reciprocity.foma200Description',
-    hintKey: 'calculator.exposureLab.reciprocity.foma200Hint',
-    curve: [
-      { baseSeconds: 1, correctedSeconds: 1 },
-      { baseSeconds: 2, correctedSeconds: 3 },
-      { baseSeconds: 4, correctedSeconds: 8 },
-      { baseSeconds: 8, correctedSeconds: 22 },
-      { baseSeconds: 15, correctedSeconds: 50 },
-      { baseSeconds: 30, correctedSeconds: 110 },
-      { baseSeconds: 60, correctedSeconds: 250 },
-    ],
-  },
-  {
-    id: 'foma400',
-    nameKey: 'calculator.exposureLab.reciprocity.foma400',
-    descriptionKey: 'calculator.exposureLab.reciprocity.foma400Description',
-    hintKey: 'calculator.exposureLab.reciprocity.foma400Hint',
-    curve: [
-      { baseSeconds: 1, correctedSeconds: 1 },
-      { baseSeconds: 2, correctedSeconds: 3 },
-      { baseSeconds: 4, correctedSeconds: 9 },
-      { baseSeconds: 8, correctedSeconds: 28 },
-      { baseSeconds: 15, correctedSeconds: 65 },
-      { baseSeconds: 30, correctedSeconds: 150 },
-      { baseSeconds: 60, correctedSeconds: 360 },
-    ],
-  },
+  createReciprocityProfile('foma100', 
+    'calculator.exposureLab.reciprocity.foma100',
+    'calculator.exposureLab.reciprocity.foma100Description',
+    'calculator.exposureLab.reciprocity.foma100Hint',
+    { type: 'bw-classic', T1: 1, T2: 800, p: 0.42, logK: 20, maxMultiplier: 8 }),
+  createReciprocityProfile('foma200',
+    'calculator.exposureLab.reciprocity.foma200',
+    'calculator.exposureLab.reciprocity.foma200Description',
+    'calculator.exposureLab.reciprocity.foma200Hint',
+    { type: 'bw-classic', T1: 1, T2: 800, p: 0.38, logK: 18, maxMultiplier: 7 }),
+  createReciprocityProfile('foma400',
+    'calculator.exposureLab.reciprocity.foma400',
+    'calculator.exposureLab.reciprocity.foma400Description',
+    'calculator.exposureLab.reciprocity.foma400Hint',
+    { type: 'bw-classic', T1: 1, T2: 800, p: 0.42, logK: 20, maxMultiplier: 8 }),
   // --- Kodak Motion Picture (Vision3) ---
-  {
-    id: 'kodak_50d',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_50d',
-    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_50dDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.kodak_50dHint',
-    curve: createPowerCurve(1.3),
-  },
-  {
-    id: 'kodak_250d',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_250d',
-    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_250dDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.kodak_250dHint',
-    curve: createPowerCurve(1.3),
-  },
-  {
-    id: 'kodak_500t',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_500t',
-    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_500tDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.kodak_500tHint',
-    curve: createPowerCurve(1.3),
-  },
+  createReciprocityProfile('kodak_50d',
+    'calculator.exposureLab.reciprocity.kodak_50d',
+    'calculator.exposureLab.reciprocity.kodak_50dDescription',
+    'calculator.exposureLab.reciprocity.kodak_50dHint',
+    { type: 'c41', T1: 30, T2: 300, p: 0.56, logK: 14, maxMultiplier: 4 }),
+  createReciprocityProfile('kodak_250d',
+    'calculator.exposureLab.reciprocity.kodak_250d',
+    'calculator.exposureLab.reciprocity.kodak_250dDescription',
+    'calculator.exposureLab.reciprocity.kodak_250dHint',
+    { type: 'c41', T1: 30, T2: 300, p: 0.56, logK: 15, maxMultiplier: 4 }),
+  createReciprocityProfile('kodak_500t',
+    'calculator.exposureLab.reciprocity.kodak_500t',
+    'calculator.exposureLab.reciprocity.kodak_500tDescription',
+    'calculator.exposureLab.reciprocity.kodak_500tHint',
+    { type: 'c41', T1: 30, T2: 300, p: 0.56, logK: 16, maxMultiplier: 4 }),
   // --- Color Negative (C-41) ---
-  {
-    id: 'kodak_portra',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_portra',
-    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_portraDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.kodak_portraHint',
-    curve: createPowerCurve(1.35),
-  },
-  {
-    id: 'kodak_gold',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_gold',
-    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_goldDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.kodak_goldHint',
-    curve: createPowerCurve(1.4),
-  },
-  {
-    id: 'fuji_superia',
-    nameKey: 'calculator.exposureLab.reciprocity.fuji_superia',
-    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_superiaDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.fuji_superiaHint',
-    curve: createPowerCurve(1.3),
-  },
-  {
-    id: 'cinestill_800t',
-    nameKey: 'calculator.exposureLab.reciprocity.cinestill_800t',
-    descriptionKey: 'calculator.exposureLab.reciprocity.cinestill_800tDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.cinestill_800tHint',
-    curve: createPowerCurve(1.3),
-  },
-  {
-    id: 'lomo_cn',
-    nameKey: 'calculator.exposureLab.reciprocity.lomo_cn',
-    descriptionKey: 'calculator.exposureLab.reciprocity.lomo_cnDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.lomo_cnHint',
-    curve: createPowerCurve(1.45),
-  },
+  createReciprocityProfile('kodak_portra160',
+    'calculator.exposureLab.reciprocity.kodak_portra160',
+    'calculator.exposureLab.reciprocity.kodak_portra160Description',
+    'calculator.exposureLab.reciprocity.kodak_portra160Hint',
+    { type: 'c41', T1: 30, T2: 300, p: 0.56, logK: 17, maxMultiplier: 4 }),
+  createReciprocityProfile('kodak_portra400',
+    'calculator.exposureLab.reciprocity.kodak_portra400',
+    'calculator.exposureLab.reciprocity.kodak_portra400Description',
+    'calculator.exposureLab.reciprocity.kodak_portra400Hint',
+    { type: 'c41', T1: 20, T2: 105, p: 1.33, logK: 15, maxMultiplier: 24 }),
+  createReciprocityProfile('kodak_portra800',
+    'calculator.exposureLab.reciprocity.kodak_portra800',
+    'calculator.exposureLab.reciprocity.kodak_portra800Description',
+    'calculator.exposureLab.reciprocity.kodak_portra800Hint',
+    { type: 'c41', T1: 30, T2: 300, p: 0.56, logK: 18, maxMultiplier: 4 }),
+  createReciprocityProfile('kodak_ektar100',
+    'calculator.exposureLab.reciprocity.kodak_ektar100',
+    'calculator.exposureLab.reciprocity.kodak_ektar100Description',
+    'calculator.exposureLab.reciprocity.kodak_ektar100Hint',
+    { type: 'c41', T1: 30, T2: 240, p: 0.63, logK: 21, maxMultiplier: 4 }),
+  createReciprocityProfile('kodak_gold',
+    'calculator.exposureLab.reciprocity.kodak_gold',
+    'calculator.exposureLab.reciprocity.kodak_goldDescription',
+    'calculator.exposureLab.reciprocity.kodak_goldHint',
+    { type: 'c41', T1: 20, T2: 240, p: 0.6, logK: 22, maxMultiplier: 5 }),
+  createReciprocityProfile('fuji_superia',
+    'calculator.exposureLab.reciprocity.fuji_superia',
+    'calculator.exposureLab.reciprocity.fuji_superiaDescription',
+    'calculator.exposureLab.reciprocity.fuji_superiaHint',
+    { type: 'c41', T1: 25, T2: 240, p: 0.57, logK: 17, maxMultiplier: 4 }),
+  createReciprocityProfile('fuji_superia200',
+    'calculator.exposureLab.reciprocity.fuji_superia200',
+    'calculator.exposureLab.reciprocity.fuji_superia200Description',
+    'calculator.exposureLab.reciprocity.fuji_superia200Hint',
+    { type: 'c41', T1: 25, T2: 240, p: 0.57, logK: 17, maxMultiplier: 4 }),
+  createReciprocityProfile('fuji_superia1600',
+    'calculator.exposureLab.reciprocity.fuji_superia1600',
+    'calculator.exposureLab.reciprocity.fuji_superia1600Description',
+    'calculator.exposureLab.reciprocity.fuji_superia1600Hint',
+    { type: 'c41', T1: 20, T2: 240, p: 0.6, logK: 21, maxMultiplier: 5 }),
+  createReciprocityProfile('fuji_c200',
+    'calculator.exposureLab.reciprocity.fuji_c200',
+    'calculator.exposureLab.reciprocity.fuji_c200Description',
+    'calculator.exposureLab.reciprocity.fuji_c200Hint',
+    { type: 'c41', T1: 25, T2: 240, p: 0.57, logK: 17, maxMultiplier: 4 }),
+  createReciprocityProfile('fuji_color100',
+    'calculator.exposureLab.reciprocity.fuji_color100',
+    'calculator.exposureLab.reciprocity.fuji_color100Description',
+    'calculator.exposureLab.reciprocity.fuji_color100Hint',
+    { type: 'c41', T1: 25, T2: 240, p: 0.57, logK: 17, maxMultiplier: 4 }),
+  createReciprocityProfile('fuji_pro160c',
+    'calculator.exposureLab.reciprocity.fuji_pro160c',
+    'calculator.exposureLab.reciprocity.fuji_pro160cDescription',
+    'calculator.exposureLab.reciprocity.fuji_pro160cHint',
+    { type: 'c41', T1: 25, T2: 240, p: 0.57, logK: 17, maxMultiplier: 4 }),
+  createReciprocityProfile('fuji_pro160ns',
+    'calculator.exposureLab.reciprocity.fuji_pro160ns',
+    'calculator.exposureLab.reciprocity.fuji_pro160nsDescription',
+    'calculator.exposureLab.reciprocity.fuji_pro160nsHint',
+    { type: 'c41', T1: 25, T2: 240, p: 0.57, logK: 17, maxMultiplier: 4 }),
+  createReciprocityProfile('fuji_xtra400',
+    'calculator.exposureLab.reciprocity.fuji_xtra400',
+    'calculator.exposureLab.reciprocity.fuji_xtra400Description',
+    'calculator.exposureLab.reciprocity.fuji_xtra400Hint',
+    { type: 'c41', T1: 25, T2: 240, p: 0.57, logK: 18, maxMultiplier: 4 }),
+  createReciprocityProfile('fuji_nexia400',
+    'calculator.exposureLab.reciprocity.fuji_nexia400',
+    'calculator.exposureLab.reciprocity.fuji_nexia400Description',
+    'calculator.exposureLab.reciprocity.fuji_nexia400Hint',
+    { type: 'c41', T1: 25, T2: 240, p: 0.57, logK: 18, maxMultiplier: 4 }),
+  createReciprocityProfile('fuji_64t',
+    'calculator.exposureLab.reciprocity.fuji_64t',
+    'calculator.exposureLab.reciprocity.fuji_64tDescription',
+    'calculator.exposureLab.reciprocity.fuji_64tHint',
+    { type: 'c41', T1: 20, T2: 180, p: 0.44, logK: 11, maxMultiplier: 3 }),
+  createReciprocityProfile('cinestill_800t',
+    'calculator.exposureLab.reciprocity.cinestill_800t',
+    'calculator.exposureLab.reciprocity.cinestill_800tDescription',
+    'calculator.exposureLab.reciprocity.cinestill_800tHint',
+    { type: 'c41', T1: 30, T2: 300, p: 0.56, logK: 15, maxMultiplier: 4 }),
+  createReciprocityProfile('lomo_cn',
+    'calculator.exposureLab.reciprocity.lomo_cn',
+    'calculator.exposureLab.reciprocity.lomo_cnDescription',
+    'calculator.exposureLab.reciprocity.lomo_cnHint',
+    { type: 'c41', T1: 15, T2: 200, p: 0.65, logK: 27, maxMultiplier: 6 }),
+  createReciprocityProfile('holga400',
+    'calculator.exposureLab.reciprocity.holga400',
+    'calculator.exposureLab.reciprocity.holga400Description',
+    'calculator.exposureLab.reciprocity.holga400Hint',
+    { type: 'c41', T1: 20, T2: 240, p: 0.6, logK: 22, maxMultiplier: 5 }),
   // --- Black & White ---
-  {
-    id: 'kodak_trix',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_trix',
-    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_trixDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.kodak_trixHint',
-    curve: createPowerCurve(1.54),
-  },
-  {
-    id: 'kodak_tmax100',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_tmax100',
-    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_tmax100Description',
-    hintKey: 'calculator.exposureLab.reciprocity.kodak_tmax100Hint',
-    curve: createPowerCurve(1.15),
-  },
-  {
-    id: 'kodak_tmax400',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_tmax400',
-    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_tmax400Description',
-    hintKey: 'calculator.exposureLab.reciprocity.kodak_tmax400Hint',
-    curve: createPowerCurve(1.3),
-  },
-  {
-    id: 'ilford_hp5',
-    nameKey: 'calculator.exposureLab.reciprocity.ilford_hp5',
-    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_hp5Description',
-    hintKey: 'calculator.exposureLab.reciprocity.ilford_hp5Hint',
-    curve: createPowerCurve(1.31),
-  },
-  {
-    id: 'ilford_fp4',
-    nameKey: 'calculator.exposureLab.reciprocity.ilford_fp4',
-    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_fp4Description',
-    hintKey: 'calculator.exposureLab.reciprocity.ilford_fp4Hint',
-    curve: createPowerCurve(1.26),
-  },
-  {
-    id: 'ilford_delta100',
-    nameKey: 'calculator.exposureLab.reciprocity.ilford_delta100',
-    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_delta100Description',
-    hintKey: 'calculator.exposureLab.reciprocity.ilford_delta100Hint',
-    curve: createPowerCurve(1.26),
-  },
-  {
-    id: 'ilford_delta400',
-    nameKey: 'calculator.exposureLab.reciprocity.ilford_delta400',
-    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_delta400Description',
-    hintKey: 'calculator.exposureLab.reciprocity.ilford_delta400Hint',
-    curve: createPowerCurve(1.41),
-  },
-  {
-    id: 'ilford_delta3200',
-    nameKey: 'calculator.exposureLab.reciprocity.ilford_delta3200',
-    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_delta3200Description',
-    hintKey: 'calculator.exposureLab.reciprocity.ilford_delta3200Hint',
-    curve: createPowerCurve(1.33),
-  },
-  {
-    id: 'ilford_panf',
-    nameKey: 'calculator.exposureLab.reciprocity.ilford_panf',
-    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_panfDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.ilford_panfHint',
-    curve: createPowerCurve(1.33),
-  },
-  {
-    id: 'ilford_xp2',
-    nameKey: 'calculator.exposureLab.reciprocity.ilford_xp2',
-    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_xp2Description',
-    hintKey: 'calculator.exposureLab.reciprocity.ilford_xp2Hint',
-    curve: createPowerCurve(1.31),
-  },
-  {
-    id: 'ilford_sfx',
-    nameKey: 'calculator.exposureLab.reciprocity.ilford_sfx',
-    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_sfxDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.ilford_sfxHint',
-    curve: createPowerCurve(1.43),
-  },
-  {
-    id: 'fuji_acros',
-    nameKey: 'calculator.exposureLab.reciprocity.fuji_acros',
-    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_acrosDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.fuji_acrosHint',
-    curve: [
-      { baseSeconds: 1, correctedSeconds: 1 },
-      { baseSeconds: 120, correctedSeconds: 120 },
-      { baseSeconds: 240, correctedSeconds: 340 }, // +0.5 stop approx
-      { baseSeconds: 480, correctedSeconds: 680 },
-      { baseSeconds: 900, correctedSeconds: 1270 },
-    ],
-  },
+  createReciprocityProfile('kodak_trix320',
+    'calculator.exposureLab.reciprocity.kodak_trix320',
+    'calculator.exposureLab.reciprocity.kodak_trix320Description',
+    'calculator.exposureLab.reciprocity.kodak_trix320Hint',
+    { type: 'bw-classic', T1: 10, T2: 120, p: 0.79, logK: 37, maxMultiplier: 8 }),
+  createReciprocityProfile('kodak_trix',
+    'calculator.exposureLab.reciprocity.kodak_trix',
+    'calculator.exposureLab.reciprocity.kodak_trixDescription',
+    'calculator.exposureLab.reciprocity.kodak_trixHint',
+    { type: 'bw-classic', T1: 10, T2: 120, p: 0.79, logK: 37, maxMultiplier: 8 }),
+  createReciprocityProfile('kodak_tmax100',
+    'calculator.exposureLab.reciprocity.kodak_tmax100',
+    'calculator.exposureLab.reciprocity.kodak_tmax100Description',
+    'calculator.exposureLab.reciprocity.kodak_tmax100Hint',
+    { type: 'bw-modern', T1: 60, T2: 600, p: 0.44, logK: 10, maxMultiplier: 3 }),
+  createReciprocityProfile('kodak_tmax400',
+    'calculator.exposureLab.reciprocity.kodak_tmax400',
+    'calculator.exposureLab.reciprocity.kodak_tmax400Description',
+    'calculator.exposureLab.reciprocity.kodak_tmax400Hint',
+    { type: 'bw-modern', T1: 45, T2: 600, p: 0.51, logK: 12, maxMultiplier: 4 }),
+  createReciprocityProfile('kodak_tmax3200',
+    'calculator.exposureLab.reciprocity.kodak_tmax3200',
+    'calculator.exposureLab.reciprocity.kodak_tmax3200Description',
+    'calculator.exposureLab.reciprocity.kodak_tmax3200Hint',
+    { type: 'bw-modern', T1: 120, T2: 240, p: 5.0, logK: 50, maxMultiplier: 1.42 }),
   // --- Slide (E-6) ---
-  {
-    id: 'kodak_e100',
-    nameKey: 'calculator.exposureLab.reciprocity.kodak_e100',
-    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_e100Description',
-    hintKey: 'calculator.exposureLab.reciprocity.kodak_e100Hint',
-    curve: createPowerCurve(1.1),
-  },
-  {
-    id: 'fuji_velvia50',
-    nameKey: 'calculator.exposureLab.reciprocity.fuji_velvia50',
-    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_velvia50Description',
-    hintKey: 'calculator.exposureLab.reciprocity.fuji_velvia50Hint',
-    curve: [
-      { baseSeconds: 1, correctedSeconds: 1 },
-      { baseSeconds: 4, correctedSeconds: 5 },
-      { baseSeconds: 8, correctedSeconds: 12 },
-      { baseSeconds: 16, correctedSeconds: 32 },
-      { baseSeconds: 32, correctedSeconds: 80 },
-      { baseSeconds: 60, correctedSeconds: 180 },
-    ],
-  },
-  {
-    id: 'fuji_provia100f',
-    nameKey: 'calculator.exposureLab.reciprocity.fuji_provia100f',
-    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_provia100fDescription',
-    hintKey: 'calculator.exposureLab.reciprocity.fuji_provia100fHint',
-    curve: [
-      { baseSeconds: 1, correctedSeconds: 1 },
-      { baseSeconds: 128, correctedSeconds: 128 },
-      { baseSeconds: 240, correctedSeconds: 300 }, // Slight correction after 128s
-    ],
-  },
+    createReciprocityProfile('kodak_e100',
+      'calculator.exposureLab.reciprocity.kodak_e100',
+      'calculator.exposureLab.reciprocity.kodak_e100Description',
+      'calculator.exposureLab.reciprocity.kodak_e100Hint',
+      { type: 'slide', T1: 4, T2: 90, p: 0.31, logK: 10, maxMultiplier: 3 }),
+    createReciprocityProfile('fuji_astia100f',
+      'calculator.exposureLab.reciprocity.fuji_astia100f',
+      'calculator.exposureLab.reciprocity.fuji_astia100fDescription',
+      'calculator.exposureLab.reciprocity.fuji_astia100fHint',
+      { type: 'slide', T1: 128, T2: 2000, p: 10.3, logK: 50, maxMultiplier: 1.33 }),
+    createReciprocityProfile('fuji_provia400x',
+      'calculator.exposureLab.reciprocity.fuji_provia400x',
+      'calculator.exposureLab.reciprocity.fuji_provia400xDescription',
+      'calculator.exposureLab.reciprocity.fuji_provia400xHint',
+      { type: 'slide', T1: 4, T2: 75, p: 0.45, logK: 10, maxMultiplier: 4 }),
+    createReciprocityProfile('fuji_sensia200',
+      'calculator.exposureLab.reciprocity.fuji_sensia200',
+      'calculator.exposureLab.reciprocity.fuji_sensia200Description',
+      'calculator.exposureLab.reciprocity.fuji_sensia200Hint',
+      { type: 'slide', T1: 4, T2: 80, p: 0.44, logK: 10, maxMultiplier: 4 }),
+    createReciprocityProfile('fuji_t64',
+      'calculator.exposureLab.reciprocity.fuji_t64',
+      'calculator.exposureLab.reciprocity.fuji_t64Description',
+      'calculator.exposureLab.reciprocity.fuji_t64Hint',
+      { type: 'slide', T1: 3, T2: 60, p: 0.44, logK: 11, maxMultiplier: 4 }),
+    createReciprocityProfile('fuji_velvia100',
+      'calculator.exposureLab.reciprocity.fuji_velvia100',
+      'calculator.exposureLab.reciprocity.fuji_velvia100Description',
+      'calculator.exposureLab.reciprocity.fuji_velvia100Hint',
+      { type: 'slide', T1: 8, T2: 90, p: 0.15, logK: 25, maxMultiplier: 3.0 }),
+    createReciprocityProfile('fuji_velvia100f',
+      'calculator.exposureLab.reciprocity.fuji_velvia100f',
+      'calculator.exposureLab.reciprocity.fuji_velvia100fDescription',
+      'calculator.exposureLab.reciprocity.fuji_velvia100fHint',
+      { type: 'slide', T1: 8, T2: 90, p: 0.15, logK: 25, maxMultiplier: 3.0 }),
+    createReciprocityProfile('fuji_velvia50',
+      'calculator.exposureLab.reciprocity.fuji_velvia50',
+      'calculator.exposureLab.reciprocity.fuji_velvia50Description',
+      'calculator.exposureLab.reciprocity.fuji_velvia50Hint',
+      { type: 'slide', T1: 4, T2: 60, p: 0.26, logK: 25, maxMultiplier: 4.0 }),
+    createReciprocityProfile('fuji_pro400h',
+      'calculator.exposureLab.reciprocity.fuji_pro400h',
+      'calculator.exposureLab.reciprocity.fuji_pro400hDescription',
+      'calculator.exposureLab.reciprocity.fuji_pro400hHint',
+      { type: 'c41', T1: 20, T2: 240, p: 0.6, logK: 19, maxMultiplier: 5 }),
+    createReciprocityProfile('fuji_provia100f',
+      'calculator.exposureLab.reciprocity.fuji_provia100f',
+      'calculator.exposureLab.reciprocity.fuji_provia100fDescription',
+      'calculator.exposureLab.reciprocity.fuji_provia100fHint',
+      { type: 'slide', T1: 128, T2: 2000, p: 10.3, logK: 50, maxMultiplier: 1.33 }),
 ];
 
 // 相机传感器类型
@@ -386,4 +572,50 @@ export const EV_SCENES: EVScene[] = [
   { ev: -4, descriptionKey: 'calculator.ev.scenes.evMinus4', icon: '🌑', params: { aperture: 2.8, shutter: 120, iso: 100 } },
   { ev: -5, descriptionKey: 'calculator.ev.scenes.evMinus5', icon: '🌑', params: { aperture: 2.8, shutter: 240, iso: 100 } },
   { ev: -6, descriptionKey: 'calculator.ev.scenes.evMinus6', icon: '🌑', params: { aperture: 2.8, shutter: 480, iso: 100 } },
+];
+
+export const PRESET_SHUTTERS = [
+  { value: 1/64000, label: '1/64000s' },
+  { value: 1/32000, label: '1/32000s' },
+  { value: 1/16000, label: '1/16000s' },
+  { value: 1/8000, label: '1/8000s' },
+  { value: 1/4000, label: '1/4000s' },
+  { value: 1/2000, label: '1/2000s' },
+  { value: 1/1000, label: '1/1000s' },
+  { value: 1/500, label: '1/500s' },
+  { value: 1/250, label: '1/250s' },
+  { value: 1/125, label: '1/125s' },
+  { value: 1/60, label: '1/60s' },
+  { value: 1/30, label: '1/30s' },
+  { value: 1/15, label: '1/15s' },
+  { value: 1/8, label: '1/8s' },
+  { value: 1/4, label: '1/4s' },
+  { value: 1/2, label: '1/2s' },
+  { value: 1, label: '1s' },
+  { value: 2, label: '2s' },
+  { value: 4, label: '4s' },
+  { value: 8, label: '8s' },
+  { value: 15, label: '15s' },
+  { value: 30, label: '30s' },
+  { value: 60, label: '1m' },
+  { value: 120, label: '2m' },
+  { value: 240, label: '4m' },
+  { value: 480, label: '8m' },
+  { value: 900, label: '15m' },
+  { value: 1800, label: '30m' },
+  { value: 3600, label: '1h' },
+  { value: 7200, label: '2h' },
+  { value: 14400, label: '4h' },
+  { value: 28800, label: '8h' },
+  { value: 43200, label: '12h' },
+  { value: 86400, label: '24h' },
+  { value: 172800, label: '2d 0h' },
+];
+
+export const PRESET_APERTURES = [
+  0.5, 0.7, 0.95, 1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 2.8, 3.2, 3.5, 4.0, 4.5, 5.0, 5.6, 6.3, 7.1, 8.0, 9.0, 10, 11, 13, 14, 16, 18, 20, 22, 25, 29, 32, 36, 40, 45, 51, 57, 64, 72, 81, 90, 101, 114, 128, 144, 161, 180, 203, 228, 256
+];
+
+export const PRESET_ISOS = [
+  1, 3, 6, 12, 25, 50, 64, 80, 100, 125, 160, 200, 250, 320, 400, 500, 640, 800, 1000, 1250, 1600, 2000, 2500, 3200, 4000, 5000, 6400, 8000, 10000, 12800, 16000, 20000, 25600, 51200, 102400, 204800, 409600, 509600
 ];
