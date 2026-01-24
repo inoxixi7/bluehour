@@ -19,7 +19,7 @@ export type RootStackParamList = {
   Home: undefined;
   SunTimes: undefined;
   ExposureCalc: undefined;
-  ReciprocityCalc: undefined;
+  ReciprocityCalc: { initialShutter?: number } | undefined;
   Settings: undefined;
   LanguageSelection: undefined;
   ThemeSelection: undefined;

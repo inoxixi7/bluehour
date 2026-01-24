@@ -383,6 +383,7 @@ export default {
       lock: 'ロック',
       unlock: 'ロック解除',
       resultNd: 'ND適用後のシャッター',
+      toReciprocity: '相反則を計算',
       reciprocitySection: '相反則不軌補正',
       reciprocity: {
         filmProfile: 'フィルムプロファイル',

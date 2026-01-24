@@ -384,6 +384,7 @@ export default {
       lock: 'Sperren',
       unlock: 'Entsperren',
       resultNd: 'Verschluss nach ND',
+      toReciprocity: 'Reziprozität berechnen',
       reciprocitySection: 'Film-Schwarzschild-Effekt-Profile',
       reciprocity: {
         filmProfile: 'Filmprofil',

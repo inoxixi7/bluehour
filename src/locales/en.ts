@@ -374,6 +374,7 @@ export default {
       lock: 'Lock',
       unlock: 'Unlock',
       resultNd: 'Shutter w/ ND',
+      toReciprocity: 'Calculate Reciprocity',
       reciprocitySection: 'Film reciprocity profiles',
       reciprocity: {
         filmProfile: 'Film Profile',

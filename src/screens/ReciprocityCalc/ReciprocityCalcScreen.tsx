@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Platform, Modal, TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -40,14 +40,17 @@ const LONG_EXPOSURE_TIMES = [
   { value: 3600, label: '1h' },
 ];
 
+type ReciprocityCalcRouteProp = RouteProp<{ params: { initialShutter?: number } }, 'params'>;
+
 const ReciprocityCalcScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
+  const route = useRoute<ReciprocityCalcRouteProp>();
   const { activePreset } = useUserPresets();
 
   const [helpModalVisible, setHelpModalVisible] = useState(false);
-  const [baseShutter, setBaseShutter] = useState(1);
+  const [baseShutter, setBaseShutter] = useState(route.params?.initialShutter || 1);
   const [profileId, setProfileId] = useState('digital');
 
   // 计时器状态

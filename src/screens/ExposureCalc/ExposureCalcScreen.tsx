@@ -447,6 +447,19 @@ const ExposureCalcScreen: React.FC = () => {
         </Card>
       )}
 
+      {/* Reciprocity Button */}
+      <Touchable
+        onPress={() => navigation.navigate('ReciprocityCalc', { 
+          initialShutter: ndStops > 0 ? ndAdjustedShutter : shutter 
+        })}
+        style={[styles.reciprocityButton, { backgroundColor: colors.primary }]}
+      >
+        <Ionicons name="arrow-forward-circle-outline" size={20} color="#fff" />
+        <Text style={styles.reciprocityButtonText}>
+          {t('calculator.exposureLab.toReciprocity')}
+        </Text>
+      </Touchable>
+
       {/* Help Modal */}
       <Modal
         animationType="slide"
@@ -676,6 +689,21 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: '700',
     marginVertical: Layout.spacing.sm,
+  },
+  reciprocityButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: Layout.spacing.xs,
+    paddingVertical: Layout.spacing.md,
+    paddingHorizontal: Layout.spacing.lg,
+    borderRadius: Layout.borderRadius.lg,
+    marginBottom: Layout.spacing.md,
+  },
+  reciprocityButtonText: {
+    color: '#fff',
+    fontSize: Layout.fontSize.md,
+    fontWeight: '600',
   },
   modalOverlay: {
     flex: 1,

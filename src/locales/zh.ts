@@ -375,6 +375,7 @@ export default {
       lock: '锁定',
       unlock: '解锁',
       resultNd: '加 ND 后快门',
+      toReciprocity: '计算倒易律',
       reciprocitySection: '胶片倒易律',
       reciprocity: {
         filmProfile: '胶片型号',
