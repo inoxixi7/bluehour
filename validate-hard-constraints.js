@@ -31,24 +31,43 @@ function extractFilmParams() {
   const content = fs.readFileSync(filePath, 'utf8');
   
   const films = [];
-  const regex = /id:\s*'([^']+)'[\s\S]*?createSegmentedCurve\(\{\s*type:\s*'([^']+)',\s*T1:\s*(\d+),\s*T2:\s*(\d+),\s*p:\s*([\d.]+),\s*logK:\s*(\d+),\s*maxMultiplier:\s*(\d+)\s*\}\)/g;
-  
+
+  // IMPORTANT:
+  // 旧版正则会把“没有 type / 多行参数”的 film 的 id，与后续别的 film 的 createSegmentedCurve(type:...) 误匹配。
+  // 这里改为：以每个 film 对象块为单位，严格从本对象的 curve:createSegmentedCurve({...}) 提取参数。
+  const filmBlockRegex = /\{\s*id:\s*'([^']+)'[\s\S]*?\bcurve:\s*createSegmentedCurve\(\{([\s\S]*?)\}\)\s*,?[\s\S]*?\}/g;
+
   let match;
-  while ((match = regex.exec(content)) !== null) {
-    const [, id, type, T1, T2, p, logK, maxMultiplier] = match;
-    
-    // 提取名称
-    const nameRegex = new RegExp(`id:\\s*'${id}'[\\s\\S]*?nameKey:\\s*'([^']+)'`);
-    const nameMatch = content.match(nameRegex);
-    
+  while ((match = filmBlockRegex.exec(content)) !== null) {
+    const [, id, paramsBlock] = match;
+
+    const getNumber = (key) => {
+      const m = new RegExp(`\\b${key}\\s*:\\s*([\\d.]+)`).exec(paramsBlock);
+      return m ? parseFloat(m[1]) : null;
+    };
+
+    const typeMatch = /\btype\s*:\s*'([^']+)'/.exec(paramsBlock);
+    const type = typeMatch ? typeMatch[1] : 'unknown';
+
+    const T1 = getNumber('T1');
+    const T2 = getNumber('T2');
+    const p = getNumber('p');
+    const logK = getNumber('logK');
+    const maxMultiplier = getNumber('maxMultiplier');
+
+    // 如果缺关键参数，跳过（例如 digital 的 curve: []）
+    if ([T1, T2, p, logK, maxMultiplier].some(v => v === null)) {
+      continue;
+    }
+
     films.push({
       id,
       type,
-      T1: parseInt(T1),
-      T2: parseInt(T2),
+      T1: Math.round(T1),
+      T2: Math.round(T2),
       p: parseFloat(p),
-      logK: parseInt(logK),
-      maxMultiplier: parseInt(maxMultiplier),
+      logK: Math.round(logK),
+      maxMultiplier: parseFloat(maxMultiplier),
     });
   }
   

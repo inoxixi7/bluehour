@@ -428,6 +428,7 @@ export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
     'calculator.exposureLab.reciprocity.holga400Hint',
     { type: 'c41', T1: 20, T2: 240, p: 0.6, logK: 22, maxMultiplier: 5 }),
   // --- Black & White ---
+<<<<<<< HEAD
   createReciprocityProfile('kodak_trix320',
     'calculator.exposureLab.reciprocity.kodak_trix320',
     'calculator.exposureLab.reciprocity.kodak_trix320Description',
@@ -518,13 +519,143 @@ export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
     'calculator.exposureLab.reciprocity.fuji_acrosDescription',
     'calculator.exposureLab.reciprocity.fuji_acrosHint',
     {
+=======
+  {
+    id: 'kodak_trix320',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_trix320',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_trix320Description',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_trix320Hint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 10, T2: 120, p: 0.79, logK: 37, maxMultiplier: 8 }),
+  },
+  {
+    id: 'kodak_trix',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_trix',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_trixDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_trixHint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 10, T2: 120, p: 0.79, logK: 37, maxMultiplier: 8 }),
+  },
+  {
+    id: 'kodak_tmax100',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_tmax100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_tmax100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_tmax100Hint',
+    curve: createSegmentedCurve({ type: 'bw-modern', T1: 60, T2: 600, p: 0.44, logK: 10, maxMultiplier: 3 }),
+  },
+  {
+    id: 'kodak_tmax400',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_tmax400',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_tmax400Description',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_tmax400Hint',
+    curve: createSegmentedCurve({ type: 'bw-modern', T1: 45, T2: 600, p: 0.51, logK: 12, maxMultiplier: 4 }),
+  },
+  {
+    id: 'kodak_tmax3200',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_tmax3200',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_tmax3200Description',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_tmax3200Hint',
+    curve: createSegmentedCurve({ type: 'bw-modern', T1: 45, T2: 600, p: 0.51, logK: 13, maxMultiplier: 4 }),
+  },
+  {
+    id: 'ilford_hp5',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_hp5',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_hp5Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_hp5Hint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 12, T2: 180, p: 0.72, logK: 34, maxMultiplier: 8 }),
+  },
+  {
+    id: 'ilford_fp4',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_fp4',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_fp4Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_fp4Hint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 10, T2: 120, p: 0.68, logK: 28, maxMultiplier: 6 }),
+  },
+  {
+    id: 'ilford_delta100',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_delta100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_delta100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_delta100Hint',
+    curve: createSegmentedCurve({ type: 'bw-modern', T1: 60, T2: 600, p: 0.44, logK: 10, maxMultiplier: 3 }),
+  },
+  {
+    id: 'ilford_delta400',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_delta400',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_delta400Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_delta400Hint',
+    curve: createSegmentedCurve({ type: 'bw-modern', T1: 45, T2: 600, p: 0.51, logK: 13, maxMultiplier: 4 }),
+  },
+  {
+    id: 'ilford_delta3200',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_delta3200',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_delta3200Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_delta3200Hint',
+    curve: createSegmentedCurve({ type: 'bw-modern', T1: 45, T2: 600, p: 0.51, logK: 13, maxMultiplier: 4 }),
+  },
+  {
+    id: 'ilford_panf',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_panf',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_panfDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_panfHint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 6, T2: 60, p: 1.02, logK: 48, maxMultiplier: 10 }),
+  },
+  {
+    id: 'ilford_xp2',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_xp2',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_xp2Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_xp2Hint',
+    curve: createSegmentedCurve({ type: 'c41', T1: 25, T2: 240, p: 0.57, logK: 19, maxMultiplier: 4 }),
+  },
+  {
+    id: 'ilford_sfx',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_sfx',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_sfxDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_sfxHint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 12, T2: 150, p: 0.78, logK: 38, maxMultiplier: 8 }),
+  },
+  {
+    id: 'ilford_kentmere100',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_kentmere100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_kentmere100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_kentmere100Hint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 10, T2: 120, p: 0.68, logK: 28, maxMultiplier: 6 }),
+  },
+  {
+    id: 'ilford_kentmere400',
+    nameKey: 'calculator.exposureLab.reciprocity.ilford_kentmere400',
+    descriptionKey: 'calculator.exposureLab.reciprocity.ilford_kentmere400Description',
+    hintKey: 'calculator.exposureLab.reciprocity.ilford_kentmere400Hint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 12, T2: 180, p: 0.72, logK: 33, maxMultiplier: 8 }),
+  },
+  {
+    id: 'shanghai_gp3',
+    nameKey: 'calculator.exposureLab.reciprocity.shanghai_gp3',
+    descriptionKey: 'calculator.exposureLab.reciprocity.shanghai_gp3Description',
+    hintKey: 'calculator.exposureLab.reciprocity.shanghai_gp3Hint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 12, T2: 150, p: 0.78, logK: 35, maxMultiplier: 8 }),
+  },
+  {
+    id: 'lomo_potsdam100',
+    nameKey: 'calculator.exposureLab.reciprocity.lomo_potsdam100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.lomo_potsdam100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.lomo_potsdam100Hint',
+    curve: createSegmentedCurve({ type: 'bw-classic', T1: 10, T2: 120, p: 0.79, logK: 37, maxMultiplier: 8 }),
+  },
+  {
+    id: 'fuji_acros',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_acros',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_acrosDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_acrosHint',
+    curve: createSegmentedCurve({
+      // 旧曲线（880487f）特征：120s 前无补偿；240s 起约 +0.5 stop（≈1.42x）并基本保持
+      // 用高 p 延后增长，在 240s 处触顶到 ≈1.42x，之后保持温和上限，避免长曝夸张外推
+>>>>>>> efc59aa (？)
       T1: 120,
-      T2: 600,
-      p: 0.35,
-      logK: 25,
-      maxMultiplier: 4,
+      T2: 240,
+      p: 5.0,
+      logK: 50,
+      maxMultiplier: 1.42,
     }),
   // --- Slide (E-6) ---
+<<<<<<< HEAD
   createReciprocityProfile('kodak_e100',
     'calculator.exposureLab.reciprocity.kodak_e100',
     'calculator.exposureLab.reciprocity.kodak_e100Description',
@@ -535,12 +666,30 @@ export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
     'calculator.exposureLab.reciprocity.fuji_astia100fDescription',
     'calculator.exposureLab.reciprocity.fuji_astia100fHint',
     {
+=======
+  {
+    id: 'kodak_e100',
+    nameKey: 'calculator.exposureLab.reciprocity.kodak_e100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.kodak_e100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.kodak_e100Hint',
+    curve: createSegmentedCurve({ type: 'slide', T1: 4, T2: 90, p: 0.31, logK: 10, maxMultiplier: 3 }),
+  },
+  {
+    id: 'fuji_astia100f',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_astia100f',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_astia100fDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_astia100fHint',
+    curve: createSegmentedCurve({
+      type: 'slide',
+      // 目标（与旧点一致）：240s → ~300s；并避免 30min 直接飙到 3x
+>>>>>>> efc59aa (？)
       T1: 128,
-      T2: 500,
-      p: 0.25,
-      logK: 20,
-      maxMultiplier: 3,
+      T2: 2000,
+      p: 10.3,
+      logK: 50,
+      maxMultiplier: 1.33,
     }),
+<<<<<<< HEAD
   createReciprocityProfile('fuji_provia400x',
     'calculator.exposureLab.reciprocity.fuji_provia400x',
     'calculator.exposureLab.reciprocity.fuji_provia400xDescription',
@@ -599,11 +748,93 @@ export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
     'calculator.exposureLab.reciprocity.fuji_provia100fDescription',
     'calculator.exposureLab.reciprocity.fuji_provia100fHint',
     {
+=======
+  },
+  {
+    id: 'fuji_provia400x',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_provia400x',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_provia400xDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_provia400xHint',
+    curve: createSegmentedCurve({ type: 'slide', T1: 4, T2: 75, p: 0.45, logK: 10, maxMultiplier: 4 }),
+  },
+  {
+    id: 'fuji_sensia200',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_sensia200',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_sensia200Description',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_sensia200Hint',
+    curve: createSegmentedCurve({ type: 'slide', T1: 4, T2: 80, p: 0.44, logK: 10, maxMultiplier: 4 }),
+  },
+  {
+    id: 'fuji_t64',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_t64',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_t64Description',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_t64Hint',
+    curve: createSegmentedCurve({ type: 'slide', T1: 3, T2: 60, p: 0.44, logK: 11, maxMultiplier: 4 }),
+  },
+  {
+    id: 'fuji_velvia100',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_velvia100',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_velvia100Description',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_velvia100Hint',
+    curve: createSegmentedCurve({
+      // 旧曲线（880487f）在 60s 时约 2.33x（60→140）；避免把 30min 直接拉到 6x
+      // 以 8s 作为“开始显著失效”的拐点，p 取较小使增长温和，maxMultiplier 略高于 60s 的 2.33x
+      T1: 8,
+      T2: 90,
+      p: 0.15,
+      logK: 25,
+      maxMultiplier: 3.0,
+    }),
+  },
+  {
+    id: 'fuji_velvia100f',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_velvia100f',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_velvia100fDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_velvia100fHint',
+    curve: createSegmentedCurve({
+      // 与 Velvia 100 采用同一组拟合（旧曲线相同）
+      T1: 8,
+      T2: 90,
+      p: 0.15,
+      logK: 25,
+      maxMultiplier: 3.0,
+    }),
+  },
+  {
+    id: 'fuji_velvia50',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_velvia50',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_velvia50Description',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_velvia50Hint',
+    curve: createSegmentedCurve({
+      // 旧曲线（880487f）在 60s 时约 3x（60→180）；用 T1=4 + 低 p 近似 4–60s 的缓慢上升
+      T1: 4,
+      T2: 60,
+      p: 0.26,
+      logK: 25,
+      maxMultiplier: 4.0,
+    }),
+  },
+  {
+    id: 'fuji_pro400h',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_pro400h',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_pro400hDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_pro400hHint',
+    curve: createSegmentedCurve({ type: 'c41', T1: 20, T2: 240, p: 0.6, logK: 19, maxMultiplier: 5 }),
+  },
+  {
+    id: 'fuji_provia100f',
+    nameKey: 'calculator.exposureLab.reciprocity.fuji_provia100f',
+    descriptionKey: 'calculator.exposureLab.reciprocity.fuji_provia100fDescription',
+    hintKey: 'calculator.exposureLab.reciprocity.fuji_provia100fHint',
+    curve: createSegmentedCurve({
+      type: 'slide',
+      // 目标（与旧点一致）：240s → ~300s；30min 基准时落在 ~35–40min 区间
+>>>>>>> efc59aa (？)
       T1: 128,
-      T2: 500,
-      p: 0.25,
-      logK: 20,
-      maxMultiplier: 3,
+      T2: 2000,
+      p: 10.3,
+      logK: 50,
+      maxMultiplier: 1.33,
     }),
 ];
 
