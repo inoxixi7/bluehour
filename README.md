@@ -1,164 +1,173 @@
-# 📱 Blue Hour - Landscape & Astrophotography Planning App
+# 📱 Blue Hour - 风光与星野摄影规划助手
 
-A comprehensive photography planning tool designed for landscape and outdoor photographers. This React Native app provides a rich set of features including blue hour calculations, sunrise/sunset times, exposure calculations, and film reciprocity calculations for analog photography.
-
-## ✨ Key Features
-
-### 📍 Blue Hour Planning
-- Search and calculate precise blue hour times for any location
-- Display sunrise/sunset times along with blue hour start/end times
-- Save your favorite photography locations for quick access
-- Support for current location or manual location search
-- **What is Blue Hour?** The brief period before sunrise and after sunset when the sky takes on a deep blue color. The "magic hour" for landscape and architectural photography.
-
-### 📸 Exposure Calculator
-- Exposure triangle calculations: Aperture, Shutter Speed, ISO
-- **EV Lock Feature**: Lock base EV, change one parameter and others auto-adjust
-- **ND Filter Calculation**: Supports automatic shutter speed adjustment when using ND filters
-- Direct jump to Reciprocity Calculator from calculation results
-
-### 🎞️ Reciprocity Calculator (Film Compensation)
-- **Reciprocity Failure Correction**: Automatically compensates for film sensitivity loss during long exposures
-- Support for 11 major film types: Portra 400, Ektar 100, Provia 100F, Velvia 50, etc.
-- **Built-in Timer Function**: Countdown with corrected shutter speed, supports background operation and notifications
-- Detailed explanation of each film's parameters and characteristics
-
-### 🎨 User Preset Management
-- Save custom photography presets (aperture, ISO, ND combinations)
-- Quick application and management of presets
-- Personalized settings for your shooting style
-
-### 🌍 Multi-language Support
-- Simplified Chinese (default)
-- English
-- Japanese
-- German
-
-### 🎭 Dark/Light Theme
-- Follows system theme
-- Toggle between light/dark mode with one tap
+**[English](README_en.md) | [日本語](README_ja.md) | [Deutsch](README_de.md)**
 
 ---
 
-## 📖 Photography Terms Explained
+一款为风光摄影和户外摄影爱好者设计的综合摄影规划工具。这个 React Native 应用提供了丰富的功能，包括蓝调时刻计算、日出日落时间、曝光计算、以及为胶片摄影准备的互易率失效计算。
 
-### What is Blue Hour?
+## ✨ 核心功能
 
-**Definition**: Blue hour is the brief period before sunrise and after sunset when the sun dips below the horizon, causing scattered light to paint the sky in deep, vibrant blues.
+### 📍 蓝调时刻规划
+- 搜索并计算任意位置的精确蓝调时刻时间
+- 显示日出/日落时间以及蓝调时刻的开始/结束时间
+- 保存您最喜欢的摄影地点，快速访问
+- 支持当前定位或手动搜索地点
+- **什么是蓝调时刻？** 日出前和日落后的短暂时段，此时天空呈现深邃的蓝色调。风光和建筑摄影的"黄金时刻"。
 
-**Characteristics**:
-- Soft, even lighting without excessive contrast
-- Sky displays deep blue tones with low color temperature
-- Good balance between ambient and artificial lighting
-- Typically occurs about 30 minutes before sunrise and after sunset
+### 📸 曝光计算器
+- 曝光三角计算：光圈、快门速度、ISO
+- **EV锁定功能**：锁定基础EV值，改变一个参数，其他参数自动调整
+- **ND滤镜计算**：支持使用ND滤镜时的快门速度自动调整
+- 从计算结果直接跳转到互易率计算器
 
-**Best Subjects**:
-- Urban landscapes: Good balance between night scenes and sky
-- Architectural photography: Soft light highlights building contours
-- Astrophotography: Combine foreground when sky isn't completely dark yet
-- Coastal landscapes: Calm and serene light atmosphere
+### 🎞️ 互易率计算器（胶片补偿）
+- **互易率失效修正**：自动补偿长时间曝光时胶片感光度的损失
+- 支持11种主流胶片类型：Portra 400、Ektar 100、Provia 100F、Velvia 50等
+- **内置计时器功能**：使用修正后的快门速度倒计时，支持后台运行和通知
+- 详细说明每种胶片的参数和特性
+
+### 🌤️ 天气信息与EV推荐
+- 实时天气显示（温度、风速、天气状况）
+- 根据天气条件智能推荐EV值
+- 夜间自动隐藏天气EV推荐（不适用）
+
+### 🎨 用户预设管理
+- 保存自定义摄影预设（光圈、ISO、ND组合）
+- 快速应用和管理预设
+- 为您的拍摄风格量身定制
+
+### 🌍 多语言支持
+- 简体中文（默认）
+- 英语
+- 日语
+- 德语
+
+### 🎭 深色/浅色主题
+- 跟随系统主题
+- 一键切换浅色/深色模式
 
 ---
 
-### What is the Reciprocity Law?
+## 📖 摄影术语解释
 
-**Definition**: The reciprocity law states that Exposure = Illuminance × Time. Theoretically, if you halve the illuminance and double the time, the exposure remains the same.
+### 什么是蓝调时刻？
 
-**Formula**:
+**定义**：蓝调时刻是日出前和日落后的短暂时段，此时太阳低于地平线，散射光使天空呈现深邃、鲜艳的蓝色。
+
+**特点**：
+- 柔和、均匀的光线，没有过强的对比度
+- 天空呈现深蓝色调，色温较低
+- 环境光与人工光源平衡良好
+- 通常发生在日出前和日落后约30分钟
+
+**最佳拍摄主题**：
+- 城市风光：夜景与天空的良好平衡
+- 建筑摄影：柔和光线突出建筑轮廓
+- 星野摄影：在天空还未完全黑暗时结合前景
+- 海岸风光：平静而宁静的光线氛围
+
+---
+
+### 什么是互易率定律？
+
+**定义**：互易率定律表明：曝光量 = 照度 × 时间。理论上，如果将照度减半并将时间加倍，曝光量保持不变。
+
+**公式**：
 ```
 E = I × t
 ```
-- E: Exposure
-- I: Illuminance
-- t: Time
+- E：曝光量
+- I：照度
+- t：时间
 
-**Example**:
-- Aperture F/8, Shutter speed 1/125s, ISO 100
-- Change aperture to F/11 (reduces light by 1 stop)
-- Change shutter speed to 1/60s (doubles time)
-- Final exposure remains the same
+**示例**：
+- 光圈 F/8，快门速度 1/125s，ISO 100
+- 将光圈改为 F/11（减少1档光线）
+- 将快门速度改为 1/60s（时间加倍）
+- 最终曝光量保持不变
 
-This is the fundamental principle when adjusting the **exposure triangle** (aperture, shutter speed, ISO).
-
----
-
-### What is Reciprocity Failure?
-
-**Definition**: In film photography, when exposure time exceeds a certain threshold (typically more than 1 second), the **reciprocity law breaks down**, and the actual exposure becomes less than the theoretical value.
-
-**Cause**:
-- Chemical properties of film emulsion
-- Light-sensitive particle reaction efficiency decreases during long exposures
-- Different film types have varying degrees of failure
-
-**Impact**:
-- **Underexposure**: Shooting normally by the meter will make the film too dark
-- **Color Shift**: Color films may experience color temperature changes or saturation loss
-- **Contrast Change**: Shadow detail may be lost
-
-**Solution**:
-This app's **Reciprocity Calculator** automatically calculates the correction factor based on each film type and provides you with the actual required shutter speed.
-
-**Example**:
-- Using Kodak Portra 400 film
-- Metered shutter speed: 30 seconds
-- Considering reciprocity failure, you actually need to expose for **52 seconds**
-- This app calculates it automatically and also provides a timer function
+这是调整**曝光三角**（光圈、快门速度、ISO）时的基本原理。
 
 ---
 
-## 📥 Download and Usage
+### 什么是互易率失效？
 
-### Installation Methods
+**定义**：在胶片摄影中，当曝光时间超过一定阈值（通常超过1秒）时，**互易率定律失效**，实际曝光量会小于理论值。
 
-1. **Android**: Download and install the APK file (coming soon)
-2. **iOS**: Download from App Store (coming soon)
-3. **Developer Mode**: Clone the project and run `npm install && npm start`
+**原因**：
+- 胶片乳剂的化学特性
+- 长时间曝光时感光颗粒的反应效率降低
+- 不同胶片类型的失效程度不同
 
-### Usage Tips
+**影响**：
+- **曝光不足**：按测光表正常拍摄会使胶片过暗
+- **色彩偏移**：彩色胶片可能出现色温变化或饱和度损失
+- **对比度变化**：阴影细节可能丢失
 
-**For Landscape Photographers**:
-1. Search for blue hour times at your photo location in advance and plan your arrival time
-2. Use the exposure calculator to quickly calculate aperture and shutter speed based on on-site light conditions
-3. Save frequently used settings (e.g., F/11 + ISO 100 for landscapes) as presets
+**解决方案**：
+本应用的**互易率计算器**会根据每种胶片类型自动计算修正系数，为您提供实际需要的快门速度。
 
-**For Film Photographers**:
-1. Always use the reciprocity calculator for long exposures (especially night scenes and astrophotography)
-2. Select your film type (e.g., Portra 400 or Provia 100F)
-3. Input the shutter speed measured by your meter and get the corrected time
-4. Use the built-in timer to accurately control exposure time
-
----
-
-## 🛠️ Tech Stack
-
-- **React Native** + **Expo** - Cross-platform mobile development
-- **TypeScript** - Type safety
-- **React Navigation** - Navigation management
-- **i18next** - Internationalization support
-- **AsyncStorage** - Local data persistence
+**示例**：
+- 使用 Kodak Portra 400 胶片
+- 测光快门速度：30秒
+- 考虑互易率失效，实际需要曝光 **52秒**
+- 本应用自动计算并提供计时器功能
 
 ---
 
-## 📚 Developer Information
+## 📥 下载与使用
 
-For project architecture, API specifications, and development guides, see:
-- [Development Notes](docs/DEVELOPMENT_NOTES.md)
-- [Internationalization Explanation](docs/I18N.md)
-- [Reciprocity Data](docs/RECIPROCITY_DATA.md)
+### 安装方式
+
+1. **Android**：下载并安装APK文件
+2. **iOS**：从App Store下载（即将推出）
+3. **开发者模式**：克隆项目并运行 `npm install && npm start`
+
+### 使用技巧
+
+**风光摄影师**：
+1. 提前搜索拍摄地的蓝调时刻时间，规划到达时间
+2. 使用曝光计算器根据现场光线条件快速计算光圈和快门速度
+3. 将常用设置（如 F/11 + ISO 100 风光摄影）保存为预设
+
+**胶片摄影师**：
+1. 长时间曝光时始终使用互易率计算器（特别是夜景和星野摄影）
+2. 选择您的胶片类型（如 Portra 400 或 Provia 100F）
+3. 输入测光表测量的快门速度，获取修正后的时间
+4. 使用内置计时器精确控制曝光时间
 
 ---
 
-## 📄 License
+## 🛠️ 技术栈
 
-MIT License - See [LICENSE](LICENSE) file for details.
-
----
-
-## 📧 Contact
-
-If you have any questions or suggestions, please submit an Issue on GitHub.
+- **React Native** + **Expo** - 跨平台移动开发
+- **TypeScript** - 类型安全
+- **React Navigation** - 导航管理
+- **i18next** - 国际化支持
+- **AsyncStorage** - 本地数据持久化
 
 ---
 
-**Capture the beautiful moments of landscapes and starry skies! 🌄✨**
+## 📚 开发者信息
+
+项目架构、API规范和开发指南，请参阅：
+- [开发笔记](docs/DEVELOPMENT_NOTES.md)
+- [国际化说明](docs/I18N.md)
+- [互易率数据](docs/RECIPROCITY_DATA.md)
+
+---
+
+## 📄 许可证
+
+MIT License - 详见 [LICENSE](LICENSE) 文件
+
+---
+
+## 📧 联系方式
+
+如有任何问题或建议，请在GitHub上提交Issue。
+
+---
+
+**捕捉风光与星空的美丽瞬间！ 🌄✨**
