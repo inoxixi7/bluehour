@@ -120,16 +120,17 @@ const HomeScreen: React.FC = () => {
   }, [getCurrentLocation]);
 
   const sunTimes = getSunTimesForDate(new Date());
-
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
   const now = new Date();
+  
   const phaseState = useMemo(
     () => (sunTimes ? getCurrentPhaseState(timeline, now) : null),
-    [sunTimes, timeline, now]
+    [sunTimes, timeline]
   );
+  
   const nextBlueHour = useMemo(
     () => (sunTimes ? getNextBlueHourWindow(sunTimes, now) : null),
-    [sunTimes, now]
+    [sunTimes]
   );
 
   const isLoading = locationLoading || (sunTimesLoading && !sunTimes);
@@ -349,19 +350,31 @@ const HomeScreen: React.FC = () => {
                         {weather.temperature}°
                       </Text>
                     </View>
-                    {phaseState?.current.id === 'night' ? (
-                      <View style={[styles.weatherEVBadgeCompact, { backgroundColor: theme.colors.textTertiary + '30' }]}>
-                        <Text style={[styles.weatherEVTextCompact, { color: theme.colors.textSecondary }]}>
-                          {t('weather.notApplicable')}
-                        </Text>
-                      </View>
-                    ) : (
-                      <View style={[styles.weatherEVBadgeCompact, { backgroundColor: theme.colors.primary + '20' }]}>
-                        <Text style={[styles.weatherEVTextCompact, { color: theme.colors.primary }]}>
-                          EV {weather.recommendedEV}
-                        </Text>
-                      </View>
-                    )}
+                    {(() => {
+                      // 判断当地时间是否在日出到日落之间
+                      if (!sunTimes) return false;
+                      
+                      const nowUTC = new Date();
+                      const sunrise = sunTimes.sunrise;
+                      const sunset = sunTimes.sunset;
+                      
+                      // 判断是否是夜晚（日落后或日出前）
+                      const isNight = nowUTC < sunrise || nowUTC > sunset;
+                      
+                      return isNight ? (
+                        <View style={[styles.weatherEVBadgeCompact, { backgroundColor: theme.colors.textTertiary + '30' }]}>
+                          <Text style={[styles.weatherEVTextCompact, { color: theme.colors.textSecondary }]}>
+                            {t('weather.notApplicable')}
+                          </Text>
+                        </View>
+                      ) : (
+                        <View style={[styles.weatherEVBadgeCompact, { backgroundColor: theme.colors.primary + '20' }]}>
+                          <Text style={[styles.weatherEVTextCompact, { color: theme.colors.primary }]}>
+                            EV {weather.recommendedEV}
+                          </Text>
+                        </View>
+                      );
+                    })()}
                   </View>
                 )}
               </View>
@@ -403,7 +416,7 @@ const HomeScreen: React.FC = () => {
         </Touchable>
 
         <View>
-          <Touchable onPress={() => navigation.navigate('SunTimes')} activeOpacity={0.9}>
+          <Touchable onPress={() => navigation.navigate('ExposureCalc')} activeOpacity={0.9}>
             <Card style={[styles.labCard, { backgroundColor: theme.colors.card, marginBottom: Layout.spacing.md }]}>
               <View style={styles.labHeader}>
                 <Ionicons
