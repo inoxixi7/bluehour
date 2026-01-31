@@ -36,12 +36,13 @@ const ExposureCalcScreen: React.FC = () => {
   const [shutter, setShutter] = useState(1 / 4);
   const [iso, setISO] = useState(100);
 
-  // 双锁定模式
+  // 独立锁定状态：每个参数可以独立锁定
+  // 胶片模式下 ISO 锁定，用户可选择锁定光圈或快门
   const [lockedParams, setLockedParams] = useState<Set<'aperture' | 'shutter' | 'iso'>>(
-    new Set(['aperture', 'iso'])
+    new Set(['iso'])  // 默认只锁定 ISO（胶片模式友好）
   );
 
-  // EV锁定
+  // EV锁定（场景亮度锁定）
   const [targetEV, setTargetEV] = useState<number | null>(null);
   const [evLocked, setEvLocked] = useState(false);
   const [selectedSceneIndex, setSelectedSceneIndex] = useState<number | null>(null);
@@ -91,42 +92,22 @@ const ExposureCalcScreen: React.FC = () => {
 
   const handleParamChange = (param: 'aperture' | 'shutter' | 'iso', value: number) => {
     const allParams: ('aperture' | 'shutter' | 'iso')[] = ['aperture', 'shutter', 'iso'];
-    let currentLockedParams = lockedParams;
-    const unlockedParams = allParams.filter(p => !currentLockedParams.has(p));
+    const otherParams = allParams.filter(p => p !== param);
+    const lockedOthers = otherParams.filter(p => lockedParams.has(p));
+    const unlockedOthers = otherParams.filter(p => !lockedParams.has(p));
 
-    if (unlockedParams.length === 0) {
-      return;
-    }
-
-    // EV锁定模式
+    // 情况1：EV锁定模式
     if (evLocked && targetEV !== null) {
-      const otherParams = allParams.filter(p => p !== param);
-      // 优先选择 ISO 作为固定的参数（如果它在其他参数中且已被锁定）
-      let lockedOther = otherParams.find(p => p === 'iso' && currentLockedParams.has(p));
-
-      if (!lockedOther) {
-        lockedOther = otherParams.find(p => currentLockedParams.has(p)) || otherParams[0];
-      }
-
-      const result = calculateEquivalentExposureWithEV(targetEV, param, value, lockedOther, {
-        aperture,
-        shutter,
-        iso,
-      });
-
-      if (result) {
-        setAperture(result.aperture);
-        setShutter(result.shutter);
-        setISO(result.iso);
-      }
-    } else {
-      // 普通模式
-      const otherParams = allParams.filter(p => p !== param);
-      const allOthersLocked = otherParams.every(p => currentLockedParams.has(p));
-
-      // 如果其他两个都被锁定（意味着用户正在调整唯一未锁定的参数）
-      // 直接更新，允许 EV 变化
-      if (allOthersLocked || !otherParams.find(p => currentLockedParams.has(p))) {
+      // 需要找一个可调整的参数来维持目标EV
+      // 优先调整未锁定的参数
+      let adjustParam: 'aperture' | 'shutter' | 'iso' | null = null;
+      
+      if (unlockedOthers.length > 0) {
+        // 有未锁定的其他参数，优先调整快门（最常见的调整项）
+        adjustParam = unlockedOthers.includes('shutter') ? 'shutter' : unlockedOthers[0];
+      } else if (lockedOthers.length > 0) {
+        // 所有其他参数都锁定了，无法维持EV，提示用户
+        // 但仍然允许调整，EV会变化
         const newValues = { aperture, shutter, iso };
         newValues[param] = value;
         setAperture(newValues.aperture);
@@ -135,15 +116,62 @@ const ExposureCalcScreen: React.FC = () => {
         return;
       }
 
-      const lockedOther = otherParams.find(p => currentLockedParams.has(p))!;
+      if (adjustParam) {
+        // 找一个作为「保持不变」的参考参数（被锁定的优先）
+        const keepParam = lockedOthers[0] || (unlockedOthers.find(p => p !== adjustParam) ?? adjustParam);
+        
+        const result = calculateEquivalentExposureWithEV(targetEV, param, value, keepParam, {
+          aperture,
+          shutter,
+          iso,
+        });
 
+        if (result) {
+          setAperture(result.aperture);
+          setShutter(result.shutter);
+          setISO(result.iso);
+        }
+      }
+      return;
+    }
+
+    // 情况2：普通模式（无EV锁定）
+    // 如果其他两个都锁定，直接改变当前参数，EV会变化
+    if (lockedOthers.length === 2) {
+      const newValues = { aperture, shutter, iso };
+      newValues[param] = value;
+      setAperture(newValues.aperture);
+      setShutter(newValues.shutter);
+      setISO(newValues.iso);
+      return;
+    }
+
+    // 如果有1个锁定的其他参数，调整未锁定的那个来保持EV
+    if (lockedOthers.length === 1 && unlockedOthers.length === 1) {
       const result = calculateEquivalentExposure(
         { aperture, shutter, iso },
         param,
         value,
-        lockedOther
+        lockedOthers[0]
       );
+      setAperture(result.aperture);
+      setShutter(result.shutter);
+      setISO(result.iso);
+      return;
+    }
 
+    // 如果没有其他参数被锁定，优先调整快门来保持EV
+    if (lockedOthers.length === 0) {
+      const adjustParam = unlockedOthers.includes('shutter') ? 'shutter' : unlockedOthers[0];
+      const keepParam = unlockedOthers.find(p => p !== adjustParam)!;
+      
+      // 保持 keepParam 不变，调整 adjustParam
+      const result = calculateEquivalentExposure(
+        { aperture, shutter, iso },
+        param,
+        value,
+        keepParam
+      );
       setAperture(result.aperture);
       setShutter(result.shutter);
       setISO(result.iso);
@@ -205,28 +233,34 @@ const ExposureCalcScreen: React.FC = () => {
           setISO(result.iso);
         }
       } else if (lockedList.length === 1) {
-        // 只有一个参数被锁定，需要调整另外两个
-        // 这种情况下，我们优先调整快门，保持其他参数相对稳定
+        // 只有一个参数被锁定（典型：胶片模式下ISO锁定）
+        // 优先调整快门来达到目标EV
         const lockedParam = lockedList[0];
         const freeParams = allParams.filter(p => !lockedParams.has(p));
         
-        // 优先调整快门
-        let adjustParam: 'aperture' | 'shutter' | 'iso';
-        let keepParam: 'aperture' | 'shutter' | 'iso';
-        
-        if (freeParams.includes('shutter')) {
-          adjustParam = 'shutter';
-          keepParam = freeParams.find(p => p !== 'shutter')!;
-        } else {
-          adjustParam = freeParams[0];
-          keepParam = freeParams[1];
-        }
+        // keepParam保持当前值，adjustParam会被计算
+        const keepParam = freeParams.includes('aperture') ? 'aperture' : freeParams[0];
         
         const result = calculateEquivalentExposureWithEV(
           scene.ev,
           keepParam,
           keepParam === 'aperture' ? aperture : keepParam === 'shutter' ? shutter : iso,
           lockedParam,
+          { aperture, shutter, iso }
+        );
+        
+        if (result) {
+          setAperture(result.aperture);
+          setShutter(result.shutter);
+          setISO(result.iso);
+        }
+      } else {
+        // 没有参数锁定，保持光圈和ISO不变，调整快门
+        const result = calculateEquivalentExposureWithEV(
+          scene.ev,
+          'aperture',  // 保持光圈不变
+          aperture,
+          'iso',       // ISO作为参考（但也会保持不变，因为调整的是快门）
           { aperture, shutter, iso }
         );
         
@@ -245,59 +279,55 @@ const ExposureCalcScreen: React.FC = () => {
     items: { label: string; value: number }[]
   ) => {
     const isLocked = lockedParams.has(param);
-    // 判断是否显示 "会自动调整"
-    // 如果该参数未锁定，且我们处于EV锁定模式，或者虽然不是EV锁定但另外两个都锁定了(所以它是唯一的自由变量)
-    // 那么它就是"会自动调整"的。
     const allParams = ['aperture', 'shutter', 'iso'] as const;
     const otherParams = allParams.filter(p => p !== param);
-    const othersLocked = otherParams.every(p => lockedParams.has(p));
-
-    // 如果它是未锁定的，并且 (EV锁定开启 OR 其他两个都锁定)，那它就是那个被计算出来的结果
-    // 注意：如果 EV锁定关闭 且 其他两个没全锁（比如只有1个锁），那调整它会导致 EV 变化，它其实是 Input。
-    const isAuto = !isLocked && (evLocked || othersLocked);
+    const lockedOthers = otherParams.filter(p => lockedParams.has(p));
+    const unlockedOthers = otherParams.filter(p => !lockedParams.has(p));
+    
+    // 判断是否显示 "会自动调整"
+    // 情况1: 其他两个参数都锁定 -> 此参数是唯一自由变量，会根据EV自动计算
+    // 情况2: EV锁定 + 此参数未锁定 + 有1个其他参数锁定 -> 调整另一个时此参数会自动补偿
+    //        但如果是快门且光圈未锁，我们优先调快门，所以快门是auto
+    let isAuto = false;
+    if (!isLocked) {
+      if (lockedOthers.length === 2) {
+        // 其他两个都锁定，此参数必然是自动计算的
+        isAuto = true;
+      } else if (evLocked && lockedOthers.length === 1) {
+        // EV锁定+1个参数锁定：未锁定的参数中，优先调整快门
+        // 所以如果此参数是快门，它是auto；否则不是
+        if (param === 'shutter') {
+          isAuto = true;
+        } else if (!unlockedOthers.includes('shutter')) {
+          // 快门被锁了，那就调整此参数
+          isAuto = true;
+        }
+      }
+    }
 
     const toggleLock = () => {
       setLockedParams(prev => {
         const next = new Set(prev);
         if (next.has(param)) {
-          // 尝试解锁
-          // 必须得保留至少一个解锁的参数? 不，双锁定模式下，必须有且仅有2个锁定的。
-          // 如果我们解锁这个，剩下就是1个锁定的。
+          // 解锁该参数
           next.delete(param);
-
-          // 为了维持双锁定（2个锁），我们需要锁定那个之前未锁定的参数。
-          const currentUnlocked = allParams.find(p => !prev.has(p));
-          if (currentUnlocked) {
-            next.add(currentUnlocked);
+          
+          // 检查：如果EV锁定且所有参数都解锁了，至少保留一个锁
+          // 否则无法确定曝光组合
+          if (evLocked && next.size === 0) {
+            // 保持至少一个锁定（优先保持ISO锁定）
+            next.add('iso');
           }
         } else {
-          // 尝试锁定
-          // 我们需要解锁另一个，以保持总数是2。
-          // 优先解锁谁？
-          // 假设我们不想动 ISO (如果是胶卷)。
-          // 解锁除了 ISO 和 本参数 之外的那个。
-          // 比如 Locked=[A, I], User clicks S (lock).
-          // Param=S. Next=[A, I, S].
-          // Remove A? then [I, S].
-          // Remove I? then [A, S].
-          // 如果 activePreset 是胶卷，优先保留 ISO 锁。
-
-          next.add(param);
-          // 找出其他的锁定参数
-          const others = Array.from(prev).filter(p => p !== param);
-          // others 应该有2个。
-          // 我们要删掉一个。
-          let toRemove = others[0];
-
-          // 智能选择要移除的锁：
-          // 默认移除第一个非ISO的参数
-          const nonISO = others.find(p => p !== 'iso');
-          if (nonISO) {
-            toRemove = nonISO;
-          } else {
-            toRemove = others[0];
+          // 锁定该参数
+          // 检查：如果已经锁定了2个参数，再锁定第三个会导致系统过约束
+          // 此时需要解锁一个其他参数
+          if (next.size >= 2) {
+            // 优先解锁非ISO的参数
+            const toUnlock = Array.from(next).find(p => p !== 'iso') || Array.from(next)[0];
+            next.delete(toUnlock);
           }
-          next.delete(toRemove as any);
+          next.add(param);
         }
         return next;
       });
