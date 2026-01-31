@@ -109,30 +109,30 @@ const lightColors: ThemeColors = {
 };
 
 const darkColors: ThemeColors = {
-  background: '#0F172A',
-  backgroundSecondary: '#1E293B',
-  backgroundTertiary: '#334155',
+  background: '#222222',
+  backgroundSecondary: '#2A2A2A',
+  backgroundTertiary: '#333333',
   
-  card: '#1E293B',
-  cardBorder: '#334155',
+  card: '#2A2A2A',
+  cardBorder: '#3A3A3A',
   
-  text: '#F1F5F9',
-  textSecondary: '#CBD5E1',
-  textTertiary: '#94A3B8',
+  text: '#AB3334',
+  textSecondary: '#C65858',
+  textTertiary: '#8B4545',
   
-  primary: '#60A5FA',
-  accent: '#FBBF24',
+  primary: '#7A92A8',
+  accent: '#C9934A',
   
-  success: '#34D399',
-  warning: '#FBBF24',
-  error: '#F87171',
-  information: '#60A5FA',
+  success: '#6B9A7A',
+  warning: '#C9934A',
+  error: '#B85858',
+  information: '#7A92A8',
   
-  sunrise: '#FF8C42',
-  sunset: '#FFA06B',
-  goldenHour: '#FFC857',
-  blueHour: '#5BA3F5',
-  twilight: '#8B9FE8',
+  sunrise: '#D4826B',
+  sunset: '#D49A7A',
+  goldenHour: '#C9934A',
+  blueHour: '#6B8CA8',
+  twilight: '#7A8AAA',
   
   border: '#334155',
   divider: '#475569',
