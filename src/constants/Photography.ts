@@ -1,4 +1,3 @@
-import reciprocityConfig from '../../film-reciprocity-config-enhanced.json';
 import allfilmConfig from '../../docs/allfilm.json';
 
 // 光圈值（F值）列表
@@ -106,20 +105,6 @@ export interface ReciprocitySegmentParams {
   note?: string;
 }
 
-type ReciprocityConfigFilm = {
-  id: string;
-  type: ReciprocitySegmentParams['type'];
-  modelParams: Omit<ReciprocitySegmentParams, 'type' | 'note'>;
-};
-
-type ReciprocityConfigCategory = {
-  films: ReciprocityConfigFilm[];
-};
-
-type ReciprocityConfig = {
-  films: ReciprocityConfigCategory[];
-};
-
 type AllFilmGroup = {
   names: string[];
   params: {
@@ -133,7 +118,6 @@ type AllFilmConfig = {
   films: AllFilmGroup[];
 };
 
-const reciprocityConfigData = reciprocityConfig as ReciprocityConfig;
 const allfilmConfigData = allfilmConfig as AllFilmConfig;
 
 const normalizeName = (value: string) => value.trim().toLowerCase();
@@ -199,16 +183,6 @@ const explicitNameToId = new Map<string, string>([
 const { nameToId, idToType } = (() => {
   const nameMap = new Map<string, string>();
   const typeMap = new Map<string, ReciprocitySegmentParams['type']>();
-  reciprocityConfigData.films.forEach(category => {
-    category.films.forEach(film => {
-      if (film?.id) {
-        typeMap.set(film.id, film.type);
-      }
-      if (film?.name && film?.id) {
-        nameMap.set(normalizeName(film.name), film.id);
-      }
-    });
-  });
   explicitNameToId.forEach((id, name) => {
     nameMap.set(name, id);
   });
