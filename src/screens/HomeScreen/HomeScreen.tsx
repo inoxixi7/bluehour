@@ -33,6 +33,7 @@ import {
   isNotificationsEnabled,
   cancelAllNotifications
 } from '../../services/notificationService';
+import { getCurrentWeather, getWeatherIcon, getWeatherI18nKey, WeatherData } from '../../api/weatherService';
 
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -46,12 +47,37 @@ const HomeScreen: React.FC = () => {
     sunTimesLoading,
     locationError,
     getCurrentLocation,
+    location,
   } = useLocationData();
 
   const [refreshing, setRefreshing] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
-
   const [refreshCount, setRefreshCount] = useState(0);
+  
+  // Weather state
+  const [weather, setWeather] = useState<WeatherData | null>(null);
+  const [weatherLoading, setWeatherLoading] = useState(false);
+  const [weatherError, setWeatherError] = useState<string | null>(null);
+
+  // Fetch weather when location is available
+  useEffect(() => {
+    if (location && location.latitude && location.longitude) {
+      const fetchWeather = async () => {
+        try {
+          setWeatherLoading(true);
+          setWeatherError(null);
+          const data = await getCurrentWeather(location.latitude, location.longitude);
+          setWeather(data);
+        } catch (error) {
+          console.error('Failed to fetch weather:', error);
+          setWeatherError('Failed to load weather');
+        } finally {
+          setWeatherLoading(false);
+        }
+      };
+      fetchWeather();
+    }
+  }, [location]);
 
   // 当日出日落时间变化时，安排通知
   useEffect(() => {
@@ -85,6 +111,7 @@ const HomeScreen: React.FC = () => {
     try {
       await getCurrentLocation();
       setRefreshCount(prev => prev + 1); // 增加刷新计数，触发建议更新
+      // Weather will be refreshed automatically via useEffect when location updates
     } catch (error) {
       console.error('Failed to refresh location:', error);
     } finally {
@@ -273,29 +300,73 @@ const HomeScreen: React.FC = () => {
           </Touchable>
         </View>
 
+        {/* Main Hero Card with Phase + Weather */}
         <Touchable onPress={() => navigation.navigate('SunTimes')} activeOpacity={0.9}>
           <Card style={[styles.heroCard, { backgroundColor: theme.colors.card }]}>
-            <View style={styles.heroRow}>
-              <Text style={styles.heroEmoji}>{phaseState?.current.icon || '🌌'}</Text>
-              <View style={{ flex: 1 }}>
-                <Text style={[styles.heroPhase, { color: theme.colors.text }]}>
-                  {phaseState ? t(phaseState.current.labelKey) : t('home.hero.waitingPhase')}
-                </Text>
-                {nextBlueHour && (
-                  <Text style={[styles.heroCountdown, { color: theme.colors.textSecondary }]}>
-                    {t('sunTimes.currentPhase.distanceTo', {
-                      phase: nextBlueHour.isNextDay
-                        ? t('sunTimes.currentPhase.tomorrows') + t(nextBlueHour.labelKey)
-                        : t(nextBlueHour.labelKey),
-                      time: formatTimeCountdown(
-                        Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)),
-                        t
-                      ),
-                    })}
-                  </Text>
+            <View style={styles.heroMainRow}>
+              {/* Left: Phase Info */}
+              <View style={styles.heroLeft}>
+                <View style={styles.heroRow}>
+                  <Text style={styles.heroEmoji}>{phaseState?.current.icon || '🌌'}</Text>
+                  <View style={{ flex: 1 }}>
+                    <Text style={[styles.heroPhase, { color: theme.colors.text }]}>
+                      {phaseState ? t(phaseState.current.labelKey) : t('home.hero.waitingPhase')}
+                    </Text>
+                    {nextBlueHour && (
+                      <Text style={[styles.heroCountdown, { color: theme.colors.textSecondary }]}>
+                        {t('sunTimes.currentPhase.distanceTo', {
+                          phase: nextBlueHour.isNextDay
+                            ? t('sunTimes.currentPhase.tomorrows') + t(nextBlueHour.labelKey)
+                            : t(nextBlueHour.labelKey),
+                          time: formatTimeCountdown(
+                            Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)),
+                            t
+                          ),
+                        })}
+                      </Text>
+                    )}
+                  </View>
+                </View>
+              </View>
+              
+              {/* Right: Weather Info */}
+              <View style={styles.heroRight}>
+                {weatherLoading ? (
+                  <View style={styles.weatherCompact}>
+                    <Text style={[styles.weatherLoadingText, { color: theme.colors.textSecondary }]}>
+                      {t('weather.loading')}
+                    </Text>
+                  </View>
+                ) : weatherError || !weather ? (
+                  <View style={styles.weatherCompact}>
+                    <Ionicons name="cloud-offline-outline" size={24} color={theme.colors.textSecondary} />
+                  </View>
+                ) : (
+                  <View style={styles.weatherCompact}>
+                    <View style={styles.weatherTempRow}>
+                      <Text style={styles.weatherEmojiCompact}>{getWeatherIcon(weather.weatherCode)}</Text>
+                      <Text style={[styles.weatherTempCompact, { color: theme.colors.text }]}>
+                        {weather.temperature}°
+                      </Text>
+                    </View>
+                    {phaseState?.current.id === 'night' ? (
+                      <View style={[styles.weatherEVBadgeCompact, { backgroundColor: theme.colors.textTertiary + '30' }]}>
+                        <Text style={[styles.weatherEVTextCompact, { color: theme.colors.textSecondary }]}>
+                          {t('weather.notApplicable')}
+                        </Text>
+                      </View>
+                    ) : (
+                      <View style={[styles.weatherEVBadgeCompact, { backgroundColor: theme.colors.primary + '20' }]}>
+                        <Text style={[styles.weatherEVTextCompact, { color: theme.colors.primary }]}>
+                          EV {weather.recommendedEV}
+                        </Text>
+                      </View>
+                    )}
+                  </View>
                 )}
               </View>
             </View>
+            
             {locationError && (
               <Text style={[styles.errorText, { color: theme.colors.error }]}>{locationError}</Text>
             )}
@@ -331,9 +402,9 @@ const HomeScreen: React.FC = () => {
           </Card>
         </Touchable>
 
-        <View style={{ gap: Layout.spacing.md, marginBottom: Layout.spacing.md }}>
-          <Touchable onPress={() => navigation.navigate('ExposureCalc')} activeOpacity={0.9}>
-            <Card style={[styles.labCard, { backgroundColor: theme.colors.card, marginBottom: 0 }]}>
+        <View>
+          <Touchable onPress={() => navigation.navigate('SunTimes')} activeOpacity={0.9}>
+            <Card style={[styles.labCard, { backgroundColor: theme.colors.card, marginBottom: Layout.spacing.md }]}>
               <View style={styles.labHeader}>
                 <Ionicons
                   name="sunny-outline"
@@ -545,6 +616,19 @@ const styles = StyleSheet.create({
     padding: Layout.spacing.md,
     marginBottom: Layout.spacing.md,
   },
+  heroMainRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: Layout.spacing.md,
+  },
+  heroLeft: {
+    flex: 1,
+  },
+  heroRight: {
+    width: 80,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
   heroRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -562,6 +646,35 @@ const styles = StyleSheet.create({
     marginTop: Layout.spacing.xs,
     fontSize: Layout.fontSize.sm,
     lineHeight: 20,
+  },
+  weatherCompact: {
+    alignItems: 'center',
+    gap: Layout.spacing.sm,
+  },
+  weatherTempRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  weatherEmojiCompact: {
+    fontSize: 32,
+  },
+  weatherTempCompact: {
+    fontSize: Layout.fontSize.xl,
+    fontWeight: '700',
+  },
+  weatherLoadingText: {
+    fontSize: Layout.fontSize.xs,
+    textAlign: 'center',
+  },
+  weatherEVBadgeCompact: {
+    paddingHorizontal: Layout.spacing.sm,
+    paddingVertical: 6,
+    borderRadius: Layout.borderRadius.sm,
+  },
+  weatherEVTextCompact: {
+    fontSize: Layout.fontSize.sm,
+    fontWeight: '700',
   },
   errorText: {
     marginTop: Layout.spacing.sm,

@@ -50,13 +50,13 @@ export const UserPresetsManager: React.FC = () => {
 
       setModalVisible(false);
     } catch (error) {
-      Alert.alert(t('common.error'), '保存预设失败');
+      Alert.alert(t('common.error'), t('settings.userPresets.saveFailed'));
     }
   };
 
   // 删除预设
   const handleDelete = (preset: UserPreset) => {
-    Alert.alert(t('common.delete'), `确定要删除预设"${preset.name}"吗？`, [
+    Alert.alert(t('common.delete'), t('settings.userPresets.deleteConfirm', { name: preset.name }), [
       { text: t('common.cancel'), style: 'cancel' },
       {
         text: t('common.delete'),

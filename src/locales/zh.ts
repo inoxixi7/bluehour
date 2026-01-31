@@ -42,6 +42,36 @@ export default {
     },
   },
 
+  weather: {
+    clearSky: '晴空',
+    mainlyClear: '基本晴朗',
+    partlyCloudy: '部分多云',
+    overcast: '阴天',
+    foggy: '有雾',
+    lightDrizzle: '小雨',
+    moderateDrizzle: '中雨',
+    denseDrizzle: '大雨',
+    slightRain: '小雨',
+    moderateRain: '中雨',
+    heavyRain: '大雨',
+    slightSnow: '小雪',
+    moderateSnow: '中雪',
+    heavySnow: '大雪',
+    slightRainShowers: '阵雨',
+    moderateRainShowers: '中阵雨',
+    violentRainShowers: '强阵雨',
+    thunderstorm: '雷暴',
+    thunderstormHail: '雷暴冰雹',
+    thunderstormHeavyHail: '强雷暴冰雹',
+    unknown: '未知',
+    temperature: '温度',
+    windSpeed: '风速',
+    recommendedEV: '推荐 EV',
+    loading: '加载天气中...',
+    error: '无法获取天气',
+    notApplicable: '不适用',
+  },
+
   locationSearch: {
     placeholder: '搜索地点',
     noResults: '未找到匹配的地点',
@@ -709,6 +739,26 @@ export default {
       currentPreset: '当前预设',
       noActivePreset: '未选择预设',
       manage: '管理预设',
+      
+      // Stepper steps
+      step1Title: '基本信息',
+      step1Description: '请输入预设名称、相机和镜头信息',
+      step2Title: '支持的光圈',
+      step2Description: '选择您的设备支持的光圈值（可多选）',
+      step3Title: '支持的快门',
+      step3Description: '选择您的设备支持的快门速度（可多选）',
+      step4Title: '支持的 ISO',
+      step4Description: '选择您的设备支持的 ISO 值（可多选）',
+      
+      // Actions
+      previousStep: '上一步',
+      nextStep: '下一步',
+      selectedCount: '已选择 {{count}} 项',
+      
+      // Validation messages
+      nameRequired: '请输入预设名称',
+      saveFailed: '保存预设失败',
+      deleteConfirm: '确定要删除预设"{{name}}"吗？',
     },
   },
   reciprocityHelp: {

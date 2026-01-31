@@ -42,6 +42,36 @@ export default {
     },
   },
 
+  weather: {
+    clearSky: 'Clear sky',
+    mainlyClear: 'Mainly clear',
+    partlyCloudy: 'Partly cloudy',
+    overcast: 'Overcast',
+    foggy: 'Foggy',
+    lightDrizzle: 'Light drizzle',
+    moderateDrizzle: 'Moderate drizzle',
+    denseDrizzle: 'Dense drizzle',
+    slightRain: 'Slight rain',
+    moderateRain: 'Moderate rain',
+    heavyRain: 'Heavy rain',
+    slightSnow: 'Slight snow',
+    moderateSnow: 'Moderate snow',
+    heavySnow: 'Heavy snow',
+    slightRainShowers: 'Light showers',
+    moderateRainShowers: 'Moderate showers',
+    violentRainShowers: 'Heavy showers',
+    thunderstorm: 'Thunderstorm',
+    thunderstormHail: 'Thunderstorm with hail',
+    thunderstormHeavyHail: 'Severe thunderstorm',
+    unknown: 'Unknown',
+    temperature: 'Temperature',
+    windSpeed: 'Wind Speed',
+    recommendedEV: 'Recommended EV',
+    loading: 'Loading weather...',
+    error: 'Weather unavailable',
+    notApplicable: 'N/A',
+  },
+
   locationSearch: {
     placeholder: 'Search location',
     noResults: 'No matching locations found',
@@ -709,6 +739,26 @@ export default {
       currentPreset: 'Active Preset',
       noActivePreset: 'No Preset Active',
       manage: 'Manage',
+      
+      // Stepper steps
+      step1Title: 'Basic Information',
+      step1Description: 'Enter preset name, camera, and lens information',
+      step2Title: 'Supported Apertures',
+      step2Description: 'Select aperture values your gear supports (multiple selection)',
+      step3Title: 'Supported Shutters',
+      step3Description: 'Select shutter speeds your gear supports (multiple selection)',
+      step4Title: 'Supported ISO',
+      step4Description: 'Select ISO values your gear supports (multiple selection)',
+      
+      // Actions
+      previousStep: 'Previous',
+      nextStep: 'Next',
+      selectedCount: '{{count}} selected',
+      
+      // Validation messages
+      nameRequired: 'Please enter preset name',
+      saveFailed: 'Failed to save preset',
+      deleteConfirm: 'Are you sure you want to delete preset "{{name}}"?',
     },
   },
   reciprocityHelp: {

@@ -58,7 +58,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
   const handleNext = () => {
     // 验证第一步
     if (currentStep === 1 && !presetName.trim()) {
-      Alert.alert(t('common.error'), '请输入预设名称');
+      Alert.alert(t('common.error'), t('settings.userPresets.nameRequired'));
       return;
     }
     
@@ -75,7 +75,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
 
   const handleSave = async () => {
     if (!presetName.trim()) {
-      Alert.alert(t('common.error'), '请输入预设名称');
+      Alert.alert(t('common.error'), t('settings.userPresets.nameRequired'));
       return;
     }
 
@@ -92,7 +92,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
 
       await onSave(presetData);
     } catch (error) {
-      Alert.alert(t('common.error'), '保存预设失败');
+      Alert.alert(t('common.error'), t('settings.userPresets.saveFailed'));
     }
   };
 
@@ -139,9 +139,11 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
 
   const renderStep1 = () => (
     <View style={styles.stepContent}>
-      <Text style={[styles.stepTitle, { color: theme.colors.text }]}>基本信息</Text>
+      <Text style={[styles.stepTitle, { color: theme.colors.text }]}>
+        {t('settings.userPresets.step1Title')}
+      </Text>
       <Text style={[styles.stepDescription, { color: theme.colors.textSecondary }]}>
-        请输入预设名称、相机和镜头信息
+        {t('settings.userPresets.step1Description')}
       </Text>
 
       {/* 预设名称 */}
@@ -199,9 +201,11 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
 
   const renderStep2 = () => (
     <View style={styles.stepContent}>
-      <Text style={[styles.stepTitle, { color: theme.colors.text }]}>支持的光圈</Text>
+      <Text style={[styles.stepTitle, { color: theme.colors.text }]}>
+        {t('settings.userPresets.step2Title')}
+      </Text>
       <Text style={[styles.stepDescription, { color: theme.colors.textSecondary }]}>
-        选择您的设备支持的光圈值（可多选）
+        {t('settings.userPresets.step2Description')}
       </Text>
 
       <View style={styles.checkboxGrid}>
@@ -249,16 +253,18 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
       </View>
       
       <Text style={[styles.selectionCount, { color: theme.colors.textSecondary }]}>
-        已选择 {selectedApertures.length} 项
+        {t('settings.userPresets.selectedCount', { count: selectedApertures.length })}
       </Text>
     </View>
   );
 
   const renderStep3 = () => (
     <View style={styles.stepContent}>
-      <Text style={[styles.stepTitle, { color: theme.colors.text }]}>支持的快门</Text>
+      <Text style={[styles.stepTitle, { color: theme.colors.text }]}>
+        {t('settings.userPresets.step3Title')}
+      </Text>
       <Text style={[styles.stepDescription, { color: theme.colors.textSecondary }]}>
-        选择您的设备支持的快门速度（可多选）
+        {t('settings.userPresets.step3Description')}
       </Text>
 
       <View style={styles.checkboxGrid}>
@@ -306,16 +312,18 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
       </View>
       
       <Text style={[styles.selectionCount, { color: theme.colors.textSecondary }]}>
-        已选择 {selectedShutters.length} 项
+        {t('settings.userPresets.selectedCount', { count: selectedShutters.length })}
       </Text>
     </View>
   );
 
   const renderStep4 = () => (
     <View style={styles.stepContent}>
-      <Text style={[styles.stepTitle, { color: theme.colors.text }]}>支持的 ISO</Text>
+      <Text style={[styles.stepTitle, { color: theme.colors.text }]}>
+        {t('settings.userPresets.step4Title')}
+      </Text>
       <Text style={[styles.stepDescription, { color: theme.colors.textSecondary }]}>
-        选择您的设备支持的 ISO 值（可多选）
+        {t('settings.userPresets.step4Description')}
       </Text>
 
       <View style={styles.checkboxGrid}>
@@ -361,7 +369,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
       </View>
       
       <Text style={[styles.selectionCount, { color: theme.colors.textSecondary }]}>
-        已选择 {selectedISOs.length} 项
+        {t('settings.userPresets.selectedCount', { count: selectedISOs.length })}
       </Text>
     </View>
   );
@@ -401,7 +409,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
       <View style={styles.footer}>
         {currentStep > 1 && (
           <AppButton
-            title="上一步"
+            title={t('settings.userPresets.previousStep')}
             onPress={handlePrevious}
             variant="secondary"
             style={styles.footerButton}
@@ -409,7 +417,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
         )}
         {currentStep < 4 ? (
           <AppButton
-            title="下一步"
+            title={t('settings.userPresets.nextStep')}
             onPress={handleNext}
             variant="primary"
             style={currentStep === 1 ? styles.footerButtonFull : styles.footerButton}
