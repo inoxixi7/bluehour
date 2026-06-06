@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { View, Text, ScrollView, StyleSheet, Dimensions, NativeScrollEvent, NativeSyntheticEvent, Platform } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, NativeScrollEvent, NativeSyntheticEvent, Platform } from 'react-native';
 import { Layout } from '../../constants/Layout';
 import { Touchable } from './Touchable';
 
@@ -27,7 +27,7 @@ export const HorizontalScrollPicker: React.FC<HorizontalScrollPickerProps> = ({
   disabled = false,
   textColor,
   accentColor,
-  disabledColor,
+  disabledColor: _disabledColor,
 }) => {
   const scrollViewRef = useRef<ScrollView>(null);
   const selectedIndex = options.findIndex(opt => opt.value === selectedValue);

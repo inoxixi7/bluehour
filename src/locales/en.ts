@@ -8,7 +8,6 @@ export default {
     fetchingPhaseInfo: 'Fetching current phase information',
     error: 'Error',
     retry: 'Retry',
-    cancel: 'Cancel',
     confirm: 'Confirm',
     save: 'Save',
     delete: 'Delete',
@@ -599,7 +598,6 @@ export default {
       },
       resultTitle: 'Long exposure result',
       resultBase: 'Metered shutter',
-      resultNd: 'After ND filter',
       resultReciprocity: 'After reciprocity',
       timerTitle: 'Bulb timer',
       startTimer: 'Start timer',
@@ -614,7 +612,6 @@ export default {
       willAdjust: 'Will auto-adjust',
       preset: 'Camera Preset',
       noPreset: 'No Preset',
-      noScene: 'No Scene',
     },
   },
 

@@ -1,5 +1,13 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Modal,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -7,7 +15,6 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useUserPresets } from '../../hooks/useUserPresets';
 import { Layout } from '../../constants/Layout';
 import { Card } from '../../components/common/Card';
-import { HorizontalScrollPicker } from '../../components/common/HorizontalScrollPicker';
 import { Touchable } from '../../components/common/Touchable';
 import { Dropdown } from '../../components/common/Dropdown';
 import {
@@ -16,37 +23,141 @@ import {
   ISO_VALUES,
   ND_FILTERS,
   EV_SCENES,
+  RECIPROCITY_PROFILES,
 } from '../../constants/Photography';
 import {
-  calculateEquivalentExposure,
   calculateEquivalentExposureWithEV,
   calculateEV,
   calculateNDShutter,
+  applyReciprocityCorrection,
 } from '../../utils/photographyCalculations';
 import { formatEV, formatShutterSpeed } from '../../utils/formatters';
+
+type ExposureParam = 'aperture' | 'shutter' | 'iso';
+
+const SCALE_ITEM_WIDTH = 74;
+const SCALE_SIDE_PADDING = SCALE_ITEM_WIDTH * 2;
+
+interface ScaleOption {
+  label: string;
+  value: number;
+}
+
+interface ExposureScaleRowProps {
+  label: string;
+  value: number;
+  options: ScaleOption[];
+  onValueChange: (value: number) => void;
+  textColor: string;
+  mutedColor: string;
+  accentColor: string;
+  compact?: boolean;
+}
+
+const ExposureScaleRow: React.FC<ExposureScaleRowProps> = ({
+  label,
+  value,
+  options,
+  onValueChange,
+  textColor,
+  mutedColor,
+  accentColor,
+  compact = false,
+}) => {
+  const scrollViewRef = useRef<ScrollView>(null);
+  const selectedIndex = Math.max(0, options.findIndex(option => option.value === value));
+  const selectedOption = options[selectedIndex];
+
+  useEffect(() => {
+    scrollViewRef.current?.scrollTo({
+      x: selectedIndex * SCALE_ITEM_WIDTH,
+      animated: false,
+    });
+  }, [selectedIndex]);
+
+  const commitNearestValue = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const index = Math.round(event.nativeEvent.contentOffset.x / SCALE_ITEM_WIDTH);
+    const option = options[Math.max(0, Math.min(options.length - 1, index))];
+    if (option && option.value !== value) {
+      onValueChange(option.value);
+    }
+  };
+
+  return (
+    <View style={[styles.scaleRow, compact && styles.scaleRowCompact]}>
+      <View style={styles.scaleHeader}>
+        <Text style={[styles.scaleLabel, { color: mutedColor }]}>{label}</Text>
+        <Text style={[styles.scaleValue, { color: textColor }]}>{selectedOption?.label}</Text>
+      </View>
+
+      <ScrollView
+        ref={scrollViewRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        snapToInterval={SCALE_ITEM_WIDTH}
+        decelerationRate="fast"
+        onMomentumScrollEnd={commitNearestValue}
+        onScrollEndDrag={commitNearestValue}
+        contentContainerStyle={styles.scaleScrollContent}
+      >
+        <View style={{ width: SCALE_SIDE_PADDING }} />
+        {options.map((option, index) => {
+          const isSelected = option.value === value;
+          const isMajor = index % 2 === 0 || isSelected;
+          return (
+            <Touchable
+              key={`${option.value}-${index}`}
+              style={styles.scaleItem}
+              activeOpacity={0.8}
+              onPress={() => onValueChange(option.value)}
+            >
+              <View
+                style={[
+                  styles.scaleTick,
+                  isMajor && styles.scaleTickMajor,
+                  { backgroundColor: isSelected ? accentColor : mutedColor },
+                ]}
+              />
+              <Text
+                style={[
+                  styles.scaleItemText,
+                  {
+                    color: isSelected ? accentColor : textColor,
+                    opacity: isSelected ? 1 : 0.48,
+                    fontWeight: isSelected ? '700' : '500',
+                  },
+                ]}
+                numberOfLines={1}
+              >
+                {option.label}
+              </Text>
+            </Touchable>
+          );
+        })}
+        <View style={{ width: SCALE_SIDE_PADDING }} />
+      </ScrollView>
+    </View>
+  );
+};
 
 const ExposureCalcScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
-  const { presets, activePreset, setActivePreset } = useUserPresets();
+  const { activePreset } = useUserPresets();
 
   const [helpModalVisible, setHelpModalVisible] = useState(false);
   const [aperture, setAperture] = useState(8);
   const [shutter, setShutter] = useState(1 / 4);
   const [iso, setISO] = useState(100);
 
-  // 双锁定模式
-  const [lockedParams, setLockedParams] = useState<Set<'aperture' | 'shutter' | 'iso'>>(
-    new Set(['aperture', 'iso'])
-  );
-
   // EV锁定
-  const [targetEV, setTargetEV] = useState<number | null>(null);
-  const [evLocked, setEvLocked] = useState(false);
+  const [targetEV, setTargetEV] = useState<number | null>(() => calculateEV(8, 1 / 4, 100));
+  const [evLocked, setEvLocked] = useState(true);
   const [selectedSceneIndex, setSelectedSceneIndex] = useState<number | null>(null);
 
   const [ndStops, setNdStops] = useState(0);
+  const [profileId, setProfileId] = useState('digital');
 
   const sceneCards = EV_SCENES;
   
@@ -69,8 +180,35 @@ const ExposureCalcScreen: React.FC = () => {
     [t]
   );
 
+  const filmOptions = useMemo(
+    () =>
+      RECIPROCITY_PROFILES.map((profile, idx) => ({
+        label: t(profile.nameKey),
+        value: idx,
+        isDigital: profile.id === 'digital',
+      }))
+        .sort((a, b) => {
+          if (a.isDigital) return -1;
+          if (b.isDigital) return 1;
+          return a.label.localeCompare(b.label);
+        })
+        .map(({ label, value }) => ({ label, value })),
+    [t]
+  );
+
   const currentEV = useMemo(() => calculateEV(aperture, shutter, iso), [aperture, shutter, iso]);
   const ndAdjustedShutter = useMemo(() => calculateNDShutter(shutter, ndStops), [shutter, ndStops]);
+  const reciprocityProfile = RECIPROCITY_PROFILES.find(profile => profile.id === profileId);
+  const reciprocityCorrected = useMemo(
+    () =>
+      applyReciprocityCorrection(
+        ndAdjustedShutter,
+        reciprocityProfile?.curve,
+        reciprocityProfile?.segmentParams
+      ),
+    [ndAdjustedShutter, reciprocityProfile]
+  );
+  const selectedFilmIndex = RECIPROCITY_PROFILES.findIndex(profile => profile.id === profileId);
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -89,70 +227,50 @@ const ExposureCalcScreen: React.FC = () => {
     // 用户可以通过预设中定义的默认值来初始化参数
   }, [activePreset]);
 
-  const handleParamChange = (param: 'aperture' | 'shutter' | 'iso', value: number) => {
-    const allParams: ('aperture' | 'shutter' | 'iso')[] = ['aperture', 'shutter', 'iso'];
-    let currentLockedParams = lockedParams;
-    const unlockedParams = allParams.filter(p => !currentLockedParams.has(p));
+  const syncShutterForEV = (nextAperture: number, nextIso = iso, ev = targetEV ?? currentEV) => {
+    const result = calculateEquivalentExposureWithEV(ev, 'aperture', nextAperture, 'iso', {
+      aperture,
+      shutter,
+      iso: nextIso,
+    });
+    return result?.shutter ?? shutter;
+  };
 
-    if (unlockedParams.length === 0) {
+  const syncApertureForEV = (nextShutter: number, nextIso = iso, ev = targetEV ?? currentEV) => {
+    const result = calculateEquivalentExposureWithEV(ev, 'shutter', nextShutter, 'iso', {
+      aperture,
+      shutter,
+      iso: nextIso,
+    });
+    return result?.aperture ?? aperture;
+  };
+
+  const handleParamChange = (param: ExposureParam, value: number) => {
+    if (!evLocked) {
+      if (param === 'aperture') setAperture(value);
+      if (param === 'shutter') setShutter(value);
+      if (param === 'iso') setISO(value);
       return;
     }
 
-    // EV锁定模式
-    if (evLocked && targetEV !== null) {
-      const otherParams = allParams.filter(p => p !== param);
-      // 优先选择 ISO 作为固定的参数（如果它在其他参数中且已被锁定）
-      let lockedOther = otherParams.find(p => p === 'iso' && currentLockedParams.has(p));
-
-      if (!lockedOther) {
-        lockedOther = otherParams.find(p => currentLockedParams.has(p)) || otherParams[0];
-      }
-
-      const result = calculateEquivalentExposureWithEV(targetEV, param, value, lockedOther, {
-        aperture,
-        shutter,
-        iso,
-      });
-
-      if (result) {
-        setAperture(result.aperture);
-        setShutter(result.shutter);
-        setISO(result.iso);
-      }
-    } else {
-      // 普通模式
-      const otherParams = allParams.filter(p => p !== param);
-      const allOthersLocked = otherParams.every(p => currentLockedParams.has(p));
-
-      // 如果其他两个都被锁定（意味着用户正在调整唯一未锁定的参数）
-      // 直接更新，允许 EV 变化
-      if (allOthersLocked || !otherParams.find(p => currentLockedParams.has(p))) {
-        const newValues = { aperture, shutter, iso };
-        newValues[param] = value;
-        setAperture(newValues.aperture);
-        setShutter(newValues.shutter);
-        setISO(newValues.iso);
-        return;
-      }
-
-      const lockedOther = otherParams.find(p => currentLockedParams.has(p))!;
-
-      const result = calculateEquivalentExposure(
-        { aperture, shutter, iso },
-        param,
-        value,
-        lockedOther
-      );
-
-      setAperture(result.aperture);
-      setShutter(result.shutter);
-      setISO(result.iso);
+    if (param === 'aperture') {
+      setAperture(value);
+      setShutter(syncShutterForEV(value));
+      return;
     }
+
+    if (param === 'shutter') {
+      setShutter(value);
+      setAperture(syncApertureForEV(value));
+      return;
+    }
+
+    setISO(value);
+    setShutter(syncShutterForEV(aperture, value));
   };
 
   // 处理ND滤镜改变
   const handleNdChange = (stops: number) => {
-    const oldNdStops = ndStops;
     setNdStops(stops);
     
     // ND滤镜只影响显示的最终快门速度，不应该改变EV或其他参数
@@ -181,172 +299,24 @@ const ExposureCalcScreen: React.FC = () => {
       setSelectedSceneIndex(sceneIndex);
       setTargetEV(scene.ev);
       setEvLocked(true);
-
-      // 根据当前锁定的参数，计算其他参数以达到目标EV
-      const allParams = ['aperture', 'shutter', 'iso'] as const;
-      const lockedList = allParams.filter(p => lockedParams.has(p));
-
-      if (lockedList.length >= 2) {
-        // 如果有两个参数被锁定，计算第三个参数
-        const freeParam = allParams.find(p => !lockedParams.has(p))!;
-        
-        // 使用第一个锁定参数作为changedParam（值不变），第二个作为lockedParam
-        const result = calculateEquivalentExposureWithEV(
-          scene.ev,
-          lockedList[0],
-          lockedList[0] === 'aperture' ? aperture : lockedList[0] === 'shutter' ? shutter : iso,
-          lockedList[1],
-          { aperture, shutter, iso }
-        );
-        
-        if (result) {
-          setAperture(result.aperture);
-          setShutter(result.shutter);
-          setISO(result.iso);
-        }
-      } else if (lockedList.length === 1) {
-        // 只有一个参数被锁定，需要调整另外两个
-        // 这种情况下，我们优先调整快门，保持其他参数相对稳定
-        const lockedParam = lockedList[0];
-        const freeParams = allParams.filter(p => !lockedParams.has(p));
-        
-        // 优先调整快门
-        let adjustParam: 'aperture' | 'shutter' | 'iso';
-        let keepParam: 'aperture' | 'shutter' | 'iso';
-        
-        if (freeParams.includes('shutter')) {
-          adjustParam = 'shutter';
-          keepParam = freeParams.find(p => p !== 'shutter')!;
-        } else {
-          adjustParam = freeParams[0];
-          keepParam = freeParams[1];
-        }
-        
-        const result = calculateEquivalentExposureWithEV(
-          scene.ev,
-          keepParam,
-          keepParam === 'aperture' ? aperture : keepParam === 'shutter' ? shutter : iso,
-          lockedParam,
-          { aperture, shutter, iso }
-        );
-        
-        if (result) {
-          setAperture(result.aperture);
-          setShutter(result.shutter);
-          setISO(result.iso);
-        }
-      }
+      setShutter(syncShutterForEV(aperture, iso, scene.ev));
     }
   };
 
-  const renderParamPicker = (
-    param: 'aperture' | 'shutter' | 'iso',
-    value: number,
-    items: { label: string; value: number }[]
-  ) => {
-    const isLocked = lockedParams.has(param);
-    // 判断是否显示 "会自动调整"
-    // 如果该参数未锁定，且我们处于EV锁定模式，或者虽然不是EV锁定但另外两个都锁定了(所以它是唯一的自由变量)
-    // 那么它就是"会自动调整"的。
-    const allParams = ['aperture', 'shutter', 'iso'] as const;
-    const otherParams = allParams.filter(p => p !== param);
-    const othersLocked = otherParams.every(p => lockedParams.has(p));
-
-    // 如果它是未锁定的，并且 (EV锁定开启 OR 其他两个都锁定)，那它就是那个被计算出来的结果
-    // 注意：如果 EV锁定关闭 且 其他两个没全锁（比如只有1个锁），那调整它会导致 EV 变化，它其实是 Input。
-    const isAuto = !isLocked && (evLocked || othersLocked);
-
-    const toggleLock = () => {
-      setLockedParams(prev => {
-        const next = new Set(prev);
-        if (next.has(param)) {
-          // 尝试解锁
-          // 必须得保留至少一个解锁的参数? 不，双锁定模式下，必须有且仅有2个锁定的。
-          // 如果我们解锁这个，剩下就是1个锁定的。
-          next.delete(param);
-
-          // 为了维持双锁定（2个锁），我们需要锁定那个之前未锁定的参数。
-          const currentUnlocked = allParams.find(p => !prev.has(p));
-          if (currentUnlocked) {
-            next.add(currentUnlocked);
-          }
-        } else {
-          // 尝试锁定
-          // 我们需要解锁另一个，以保持总数是2。
-          // 优先解锁谁？
-          // 假设我们不想动 ISO (如果是胶卷)。
-          // 解锁除了 ISO 和 本参数 之外的那个。
-          // 比如 Locked=[A, I], User clicks S (lock).
-          // Param=S. Next=[A, I, S].
-          // Remove A? then [I, S].
-          // Remove I? then [A, S].
-          // 如果 activePreset 是胶卷，优先保留 ISO 锁。
-
-          next.add(param);
-          // 找出其他的锁定参数
-          const others = Array.from(prev).filter(p => p !== param);
-          // others 应该有2个。
-          // 我们要删掉一个。
-          let toRemove = others[0];
-
-          // 智能选择要移除的锁：
-          // 默认移除第一个非ISO的参数
-          const nonISO = others.find(p => p !== 'iso');
-          if (nonISO) {
-            toRemove = nonISO;
-          } else {
-            toRemove = others[0];
-          }
-          next.delete(toRemove as any);
-        }
-        return next;
-      });
-    };
-
-    return (
-      <View style={styles.paramBlock}>
-        <View style={styles.paramLabelRow}>
-          <Text style={[styles.paramLabel, { color: theme.colors.textSecondary }]}>
-            {t(`calculator.exposureLab.${param}`)}
-          </Text>
-          <Touchable
-            onPress={toggleLock}
-            style={[styles.lockButton, isLocked && styles.lockButtonActive]}
-          >
-            <Ionicons
-              name={isLocked ? 'lock-closed' : 'lock-open-outline'}
-              size={16}
-              color={isLocked ? theme.colors.primary : theme.colors.textSecondary}
-            />
-          </Touchable>
-        </View>
-
-        <View style={styles.pickerContainer}>
-          {isAuto && (
-            <View style={styles.autoBadge}>
-              <Ionicons name="stats-chart" size={12} color={theme.colors.textSecondary} />
-              <Text style={[styles.autoText, { color: theme.colors.textSecondary }]}>
-                {t('calculator.exposureLab.willAdjust')}
-              </Text>
-            </View>
-          )}
-          <HorizontalScrollPicker
-            label=""
-            options={items}
-            selectedValue={value}
-            onValueChange={val => handleParamChange(param, val)}
-            textColor={
-              isAuto ? theme.colors.accent : isLocked ? theme.colors.primary : theme.colors.text
-            }
-            accentColor={theme.colors.primary}
-            disabledColor={theme.colors.textSecondary}
-          />
-        </View>
-      </View>
-    );
+  const handleFilmChange = (index: number) => {
+    const profile = RECIPROCITY_PROFILES[index];
+    if (profile) {
+      setProfileId(profile.id);
+    }
   };
 
   const colors = theme.colors;
+  const apertureOptions = APERTURE_VALUES.map(v => ({ value: v, label: `f/${v}` }));
+  const shutterOptions = SHUTTER_SPEEDS.map(item => ({
+    value: item.value,
+    label: item.label.replace('min', 'm'),
+  }));
+  const isoOptions = ISO_VALUES.map(v => ({ value: v, label: `${v}` }));
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
@@ -385,7 +355,7 @@ const ExposureCalcScreen: React.FC = () => {
       </View>
 
       {/* EV Display */}
-      <Card style={[styles.evBadge, { backgroundColor: colors.card }]}>
+      <View style={styles.evBadge}>
         <View>
           <Text style={[styles.evBadgeLabel, { color: colors.textSecondary }]}>EV</Text>
           <Text style={[styles.evBadgeValue, { color: colors.text }]}>{formatEV(currentEV)}</Text>
@@ -416,36 +386,102 @@ const ExposureCalcScreen: React.FC = () => {
             </Text>
           </Touchable>
         )}
-      </Card>
+      </View>
 
       {/* Parameters */}
-      <View style={styles.sectionCardContent}>
-        {renderParamPicker(
-          'aperture',
-          aperture,
-          APERTURE_VALUES.map(v => ({ value: v, label: `f/${v}` }))
-        )}
-        {renderParamPicker('shutter', shutter, SHUTTER_SPEEDS)}
-        {renderParamPicker(
-          'iso',
-          iso,
-          ISO_VALUES.map(v => ({ value: v, label: `ISO ${v}` }))
-        )}
+      <View style={styles.scaleDeck}>
+        <View
+          style={[styles.centerGuide, { backgroundColor: colors.primary }]}
+          pointerEvents="none"
+        />
+        <View
+          style={[styles.centerGuideDot, { backgroundColor: colors.primary }]}
+          pointerEvents="none"
+        />
+        <View style={styles.scaleCouplingHeader}>
+          <Text style={[styles.scaleDeckTitle, { color: colors.text }]}>
+            {evLocked ? t('calculator.exposureLab.lock') : t('calculator.exposureLab.unlock')} EV
+          </Text>
+          <Text style={[styles.scaleDeckMeta, { color: colors.textSecondary }]}>
+            {evLocked ? formatEV(targetEV ?? currentEV) : formatEV(currentEV)}
+          </Text>
+        </View>
+        <ExposureScaleRow
+          label={t('calculator.exposureLab.aperture')}
+          value={aperture}
+          options={apertureOptions}
+          onValueChange={val => handleParamChange('aperture', val)}
+          textColor={colors.text}
+          mutedColor={colors.textSecondary}
+          accentColor={colors.primary}
+        />
+        <ExposureScaleRow
+          label={t('calculator.exposureLab.shutter')}
+          value={shutter}
+          options={shutterOptions}
+          onValueChange={val => handleParamChange('shutter', val)}
+          textColor={colors.text}
+          mutedColor={colors.textSecondary}
+          accentColor={colors.primary}
+        />
+      </View>
+
+      <View style={styles.isoScale}>
+        <ExposureScaleRow
+          label={t('calculator.exposureLab.iso')}
+          value={iso}
+          options={isoOptions}
+          onValueChange={val => handleParamChange('iso', val)}
+          textColor={colors.text}
+          mutedColor={colors.textSecondary}
+          accentColor={colors.accent}
+          compact
+        />
+      </View>
+
+      <View style={styles.reciprocityControl}>
+        <Text style={[styles.controlLabel, { color: colors.textSecondary }]}>
+          {t('calculator.exposureLab.reciprocity.filmProfile')}
+        </Text>
+        <Dropdown
+          options={filmOptions}
+          selectedValue={selectedFilmIndex}
+          onValueChange={handleFilmChange}
+          placeholder={t('reciprocity.selectFilm')}
+          textColor={colors.text}
+          backgroundColor={colors.card}
+          borderColor={colors.border}
+          accentColor={theme.colors.primary}
+        />
       </View>
 
       {/* Result */}
-      {ndStops > 0 && (
-        <Card style={[styles.resultCard, { backgroundColor: colors.card }]}>
-          <View style={styles.resultHeader}>
+      <Card style={[styles.resultCard, { backgroundColor: colors.card }]}>
+        <View style={styles.exposureResultGrid}>
+          <View style={styles.exposureResultItem}>
+            <Text style={[styles.resultLabel, { color: colors.textSecondary }]}>
+              {t('calculator.exposureLab.resultBase')}
+            </Text>
+            <Text style={[styles.resultValueSmall, { color: colors.text }]}>
+              {formatShutterSpeed(shutter)}
+            </Text>
+          </View>
+          <View style={styles.exposureResultItem}>
             <Text style={[styles.resultLabel, { color: colors.textSecondary }]}>
               {t('calculator.exposureLab.resultNd')}
             </Text>
+            <Text style={[styles.resultValueSmall, { color: colors.text }]}>
+              {formatShutterSpeed(ndAdjustedShutter)}
+            </Text>
           </View>
-          <Text style={[styles.finalValue, { color: colors.text }]}>
-            {formatShutterSpeed(ndAdjustedShutter)}
-          </Text>
-        </Card>
-      )}
+        </View>
+        <Text style={[styles.resultLabel, { color: colors.textSecondary }]}>
+          {t('calculator.exposureLab.resultReciprocity')}
+        </Text>
+        <Text style={[styles.finalValue, { color: colors.accent }]}>
+          {formatShutterSpeed(reciprocityCorrected)}
+        </Text>
+      </Card>
 
       {/* Reciprocity Button */}
       <Touchable
@@ -558,9 +594,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingVertical: Layout.spacing.sm,
-    paddingHorizontal: Layout.spacing.md,
-    borderRadius: Layout.borderRadius.md,
     marginBottom: Layout.spacing.md,
   },
   evBadgeLabel: {
@@ -595,6 +628,104 @@ const styles = StyleSheet.create({
   sectionCardContent: {
     marginBottom: Layout.spacing.md,
   },
+  scaleDeck: {
+    position: 'relative',
+    marginBottom: Layout.spacing.md,
+    paddingVertical: Layout.spacing.md,
+    overflow: 'hidden',
+  },
+  scaleCouplingHeader: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    marginBottom: Layout.spacing.xs,
+    paddingHorizontal: Layout.spacing.xs,
+  },
+  scaleDeckTitle: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '700',
+    letterSpacing: 0,
+  },
+  scaleDeckMeta: {
+    fontSize: Layout.fontSize.sm,
+    fontWeight: '600',
+    fontVariant: ['tabular-nums'],
+  },
+  centerGuide: {
+    position: 'absolute',
+    top: 46,
+    bottom: 28,
+    left: '50%',
+    width: 2,
+    marginLeft: -1,
+    opacity: 0.86,
+    zIndex: 5,
+  },
+  centerGuideDot: {
+    position: 'absolute',
+    left: '50%',
+    top: 136,
+    width: 10,
+    height: 10,
+    marginLeft: -5,
+    borderRadius: 5,
+    zIndex: 6,
+  },
+  scaleRow: {
+    height: 96,
+    marginBottom: Layout.spacing.xs,
+  },
+  scaleRowCompact: {
+    height: 82,
+  },
+  scaleHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'baseline',
+    paddingHorizontal: Layout.spacing.xs,
+    marginBottom: 2,
+  },
+  scaleLabel: {
+    fontSize: Layout.fontSize.xs,
+    fontWeight: '700',
+    textTransform: 'uppercase',
+    letterSpacing: 0.5,
+  },
+  scaleValue: {
+    fontSize: Layout.fontSize.lg,
+    fontWeight: '700',
+    fontVariant: ['tabular-nums'],
+  },
+  scaleScrollContent: {
+    alignItems: 'flex-start',
+    paddingTop: 4,
+  },
+  scaleItem: {
+    width: SCALE_ITEM_WIDTH,
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    minHeight: 62,
+  },
+  scaleTick: {
+    width: 2,
+    height: 18,
+    borderRadius: 1,
+    marginBottom: 8,
+    opacity: 0.55,
+  },
+  scaleTickMajor: {
+    height: 30,
+    opacity: 0.9,
+  },
+  scaleItemText: {
+    fontSize: Layout.fontSize.sm,
+    fontVariant: ['tabular-nums'],
+    letterSpacing: 0,
+  },
+  isoScale: {
+    marginBottom: Layout.spacing.md,
+    overflow: 'hidden',
+  },
   paramBlock: {
     marginBottom: Layout.spacing.sm,
   },
@@ -618,6 +749,15 @@ const styles = StyleSheet.create({
   },
   lockButtonActive: {
     backgroundColor: 'rgba(0,0,0,0.05)',
+  },
+  coupledBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: Layout.borderRadius.sm,
+    backgroundColor: 'rgba(128,128,128,0.1)',
   },
   pickerContainer: {
     height: 80,
@@ -669,11 +809,25 @@ const styles = StyleSheet.create({
     fontSize: Layout.fontSize.xs,
     marginTop: 2,
   },
+  reciprocityControl: {
+    marginBottom: Layout.spacing.md,
+    zIndex: 10,
+  },
   resultCard: {
     marginBottom: Layout.spacing.md,
     padding: Layout.spacing.lg,
     alignItems: 'center',
     borderRadius: Layout.borderRadius.lg,
+  },
+  exposureResultGrid: {
+    flexDirection: 'row',
+    width: '100%',
+    gap: Layout.spacing.md,
+    marginBottom: Layout.spacing.md,
+  },
+  exposureResultItem: {
+    flex: 1,
+    alignItems: 'center',
   },
   resultHeader: {
     width: '100%',
@@ -689,6 +843,11 @@ const styles = StyleSheet.create({
     fontSize: 48,
     fontWeight: '700',
     marginVertical: Layout.spacing.sm,
+  },
+  resultValueSmall: {
+    fontSize: Layout.fontSize.lg,
+    fontWeight: '600',
+    marginTop: Layout.spacing.xs,
   },
   reciprocityButton: {
     flexDirection: 'row',

@@ -176,7 +176,7 @@ export const UserPresetsManager: React.FC = () => {
   );
 };
 
-const createStyles = (colors: any) =>
+const createStyles = (_colors: any) =>
   StyleSheet.create({
     container: {
       flex: 1,

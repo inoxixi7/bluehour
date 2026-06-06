@@ -34,7 +34,6 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
   const [results, setResults] = useState<GeocodingResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
-  const [selectedLocation, setSelectedLocation] = useState<string>('');
 
   // 防抖搜索
   useEffect(() => {
@@ -68,7 +67,6 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
   };
 
   const handleSelectLocation = (result: GeocodingResult) => {
-    setSelectedLocation(result.displayName);
     setSearchQuery('');
     setShowResults(false);
     setResults([]);
@@ -187,7 +185,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
   );
 };
 
-const createStyles = (colors: any) =>
+const createStyles = (_colors: any) =>
   StyleSheet.create({
     container: {
       width: '100%',

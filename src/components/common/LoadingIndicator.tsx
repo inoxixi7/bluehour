@@ -11,7 +11,6 @@ interface LoadingIndicatorProps {
 
 export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
   message,
-  size = 'large',
 }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();

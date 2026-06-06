@@ -2,8 +2,6 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
-import { Card } from '../../components/common/Card';
 import { useTheme, ThemeMode } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { Touchable } from '../../components/common/Touchable';
@@ -11,7 +9,6 @@ import { Touchable } from '../../components/common/Touchable';
 const ThemeSelectionScreen: React.FC = () => {
   const { theme, themeMode, setThemeMode } = useTheme();
   const { t } = useTranslation();
-  const navigation = useNavigation();
 
   const handleThemeChange = (mode: ThemeMode) => {
     setThemeMode(mode);

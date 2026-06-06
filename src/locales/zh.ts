@@ -8,7 +8,6 @@ export default {
     fetchingPhaseInfo: '正在获取当前时段信息',
     error: '错误',
     retry: '重试',
-    cancel: '取消',
     confirm: '确认',
     save: '保存',
     delete: '删除',
@@ -600,7 +599,6 @@ export default {
       },
       resultTitle: '长曝光结果',
       resultBase: '原始快门',
-      resultNd: '加 ND 后',
       resultReciprocity: '倒易律校正后',
       timerTitle: 'B 门计时器',
       startTimer: '开始计时',
@@ -615,7 +613,6 @@ export default {
       willAdjust: '会自动调整',
       preset: '相机预设',
       noPreset: '无预设',
-      noScene: '无场景',
     },
   },
 

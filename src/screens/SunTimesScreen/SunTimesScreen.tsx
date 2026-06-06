@@ -11,10 +11,8 @@ import { useTranslation } from 'react-i18next';
 import { createStyles } from './styles';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Card } from '../../components/common/Card';
-import { LoadingIndicator } from '../../components/common/LoadingIndicator';
 import { Touchable } from '../../components/common/Touchable';
-import { formatTime, formatDate } from '../../utils/formatters';
-import { getTimezoneDisplayName } from '../../utils/timezone';
+import { formatTime } from '../../utils/formatters';
 import LocationSearch from '../../components/LocationSearch';
 import { formatLocationName } from '../../utils/locationHelpers';
 import { useLocationData } from '../../contexts/LocationDataContext';
@@ -46,8 +44,6 @@ const SunTimesScreen: React.FC = () => {
     locationName, 
     timezoneInfo, 
     getSunTimesForDate,
-    locationLoading, 
-    sunTimesLoading,
     locationError,
     sunTimesError,
     getCurrentLocation, 
@@ -93,23 +89,6 @@ const SunTimesScreen: React.FC = () => {
   // Handle location selection
   const handleLocationSelect = async (latitude: number, longitude: number, name: string) => {
     await updateLocationData(latitude, longitude, name);
-  };
-
-  // Date Navigation
-  const handlePrevDay = () => {
-    const newDate = new Date(selectedDate);
-    newDate.setDate(selectedDate.getDate() - 1);
-    setSelectedDate(newDate);
-  };
-
-  const handleNextDay = () => {
-    const newDate = new Date(selectedDate);
-    newDate.setDate(selectedDate.getDate() + 1);
-    setSelectedDate(newDate);
-  };
-
-  const handleToday = () => {
-    setSelectedDate(new Date());
   };
 
   // Render helper

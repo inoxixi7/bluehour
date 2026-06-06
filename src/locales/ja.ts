@@ -8,7 +8,6 @@ export default {
     fetchingPhaseInfo: '現在の時間帯情報を取得中',
     error: 'エラー',
     retry: '再試行',
-    cancel: 'キャンセル',
     confirm: '確認',
     save: '保存',
     delete: '削除',

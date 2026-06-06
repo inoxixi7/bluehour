@@ -108,6 +108,7 @@ export interface ReciprocitySegmentParams {
 
 type ReciprocityConfigFilm = {
   id: string;
+  name: string;
   type: ReciprocitySegmentParams['type'];
   modelParams: Omit<ReciprocitySegmentParams, 'type' | 'note'>;
 };
@@ -291,16 +292,6 @@ const createReciprocityProfile = (
   };
 };
 
-/**
- * 简化的幂函数曲线（向后兼容）
- */
-const createPowerCurve = (p: number) => {
-  return BASE_SECONDS.map(t => ({
-    baseSeconds: t,
-    correctedSeconds: Math.round(Math.pow(t, p))
-  }));
-};
-
 export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
   {
     id: 'digital',
@@ -457,8 +448,15 @@ export const RECIPROCITY_PROFILES: ReciprocityProfile[] = [
     'calculator.exposureLab.reciprocity.kodak_tmax3200',
     'calculator.exposureLab.reciprocity.kodak_tmax3200Description',
     'calculator.exposureLab.reciprocity.kodak_tmax3200Hint',
-    { type: 'bw-modern', T1: 120, T2: 240, p: 5.0, logK: 50, maxMultiplier: 1.42 }),
-  // --- Slide (E-6) ---
+      {
+        type: 'bw-modern',
+        T1: 120,
+        T2: 240,
+        p: 5.0,
+        logK: 50,
+        maxMultiplier: 1.42,
+      }),
+    // --- Slide (E-6) ---
     createReciprocityProfile('kodak_e100',
       'calculator.exposureLab.reciprocity.kodak_e100',
       'calculator.exposureLab.reciprocity.kodak_e100Description',

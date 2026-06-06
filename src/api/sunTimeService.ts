@@ -1,6 +1,6 @@
 // sunrise-sunset.org API 服务封装
 
-import { SunTimesResponse, SunTimesRequest, ProcessedSunTimes } from '../types/api';
+import { SunTimesResponse, ProcessedSunTimes } from '../types/api';
 import { fetchWithRetry, fetchWithCache, generateCacheKey, isNetworkError } from '../utils/apiHelpers';
 import { calculateGoldenAndBlueHours } from '../utils/sunPosition';
 

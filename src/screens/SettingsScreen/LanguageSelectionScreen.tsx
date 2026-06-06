@@ -2,8 +2,6 @@ import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { useNavigation } from '@react-navigation/native';
-import { Card } from '../../components/common/Card';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { changeLanguage, SUPPORTED_LANGUAGES, LANGUAGE_NAMES, SupportedLanguage } from '../../locales/i18n';
@@ -12,7 +10,6 @@ import { Touchable } from '../../components/common/Touchable';
 const LanguageSelectionScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t, i18n } = useTranslation();
-  const navigation = useNavigation();
 
   const handleLanguageChange = async (language: SupportedLanguage) => {
     await changeLanguage(language);

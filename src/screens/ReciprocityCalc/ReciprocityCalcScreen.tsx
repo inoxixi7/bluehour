@@ -38,6 +38,8 @@ const LONG_EXPOSURE_TIMES = [
   { value: 1800, label: '30m' },
   { value: 2700, label: '45m' },
   { value: 3600, label: '1h' },
+  { value: 5400, label: '1.5h' },
+  { value: 7200, label: '2h' },
 ];
 
 type ReciprocityCalcRouteProp = RouteProp<{ params: { initialShutter?: number } }, 'params'>;
@@ -91,32 +93,42 @@ const ReciprocityCalcScreen: React.FC = () => {
     [t]
   );
 
-  // 快门选项：优先使用activePreset的快门速度，否则使用LONG_EXPOSURE_TIMES
-  const shutterOptions = useMemo(() => {
-    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
-      // 从预设中获取快门速度，并转换为秒值
-      const presetShutters = activePreset.shutterSpeeds
-        .map(value => {
-          const shutterItem = SHUTTER_SPEEDS.find(s => s.value === value);
-          return shutterItem ? { value: shutterItem.value, label: shutterItem.label } : null;
-        })
-        .filter((item): item is { value: number; label: string } => item !== null)
-        // 只保留 >= 1秒的快门速度用于长曝光（包括秒、分钟、小时）
-        .filter(item => item.value >= 1);
+  const availableShutters = useMemo(() => {
+    const labelByValue = new Map<number, string>();
+    SHUTTER_SPEEDS.forEach(item => labelByValue.set(item.value, item.label));
+    LONG_EXPOSURE_TIMES.forEach(item => labelByValue.set(item.value, item.label));
 
-      if (presetShutters.length > 0) {
-        return presetShutters.map((item, idx) => ({
-          label: item.label,
-          value: idx,
+    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
+      const presetValues = activePreset.shutterSpeeds
+        .filter(value => value >= 1)
+        .map(value => ({
+          value,
+          label: labelByValue.get(value) ?? `${value}s`,
         }));
+
+      const extraLongValues = [2700, 3600, 5400, 7200]
+        .map(value => ({
+          value,
+          label: labelByValue.get(value) ?? `${value}s`,
+        }));
+
+      const merged = [...presetValues, ...extraLongValues]
+        .filter(item => !Number.isNaN(item.value))
+        .filter((item, index, arr) => arr.findIndex(i => i.value === item.value) === index)
+        .sort((a, b) => a.value - b.value);
+
+      if (merged.length > 0) {
+        return merged;
       }
     }
-    // 备用：使用LONG_EXPOSURE_TIMES
-    return LONG_EXPOSURE_TIMES.map((item, idx) => ({
-      label: item.label,
-      value: idx,
-    }));
+
+    return LONG_EXPOSURE_TIMES;
   }, [activePreset]);
+
+  const shutterOptions = useMemo(
+    () => availableShutters.map((item, idx) => ({ label: item.label, value: idx })),
+    [availableShutters]
+  );
 
   const reciprocityCorrected = useMemo(
     () => applyReciprocityCorrection(baseShutter, reciprocityProfile?.curve, reciprocityProfile?.segmentParams),
@@ -181,37 +193,19 @@ const ReciprocityCalcScreen: React.FC = () => {
   };
 
   const handleShutterChange = (index: number) => {
-    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
-      // 从预设快门速度获取
-      const presetShutters = activePreset.shutterSpeeds
-        .map(value => SHUTTER_SPEEDS.find(s => s.value === value))
-        .filter((item): item is { value: number; label: string } => item !== undefined && item !== null && item.value >= 1);
-      
-      const time = presetShutters[index];
-      if (time) {
-        setBaseShutter(time.value);
-      }
-    } else {
-      // 使用LONG_EXPOSURE_TIMES
-      const time = LONG_EXPOSURE_TIMES[index];
-      if (time) {
-        setBaseShutter(time.value);
-      }
+    const time = availableShutters[index];
+    if (time) {
+      setBaseShutter(time.value);
     }
   };
 
   const selectedFilmIndex = RECIPROCITY_PROFILES.findIndex(p => p.id === profileId);
   
   // 计算选中的快门索引
-  const selectedShutterIndex = useMemo(() => {
-    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
-      const presetShutters = activePreset.shutterSpeeds
-        .map(value => SHUTTER_SPEEDS.find(s => s.value === value))
-        .filter((item): item is { value: number; label: string } => item !== undefined && item !== null && item.value >= 1);
-      return presetShutters.findIndex(t => t.value === baseShutter);
-    }
-    return LONG_EXPOSURE_TIMES.findIndex(t => t.value === baseShutter);
-  }, [activePreset, baseShutter]);
+  const selectedShutterIndex = useMemo(
+    () => availableShutters.findIndex(t => t.value === baseShutter),
+    [availableShutters, baseShutter]
+  );
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>

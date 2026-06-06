@@ -52,6 +52,7 @@ const HomeScreen: React.FC = () => {
   const [showIntro, setShowIntro] = useState(false);
 
   const [refreshCount, setRefreshCount] = useState(0);
+  const sunTimes = getSunTimesForDate(new Date());
 
   // 当日出日落时间变化时，安排通知
   useEffect(() => {
@@ -91,8 +92,6 @@ const HomeScreen: React.FC = () => {
       setRefreshing(false);
     }
   }, [getCurrentLocation]);
-
-  const sunTimes = getSunTimesForDate(new Date());
 
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
   const now = new Date();
