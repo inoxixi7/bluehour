@@ -1,4 +1,3 @@
-import reciprocityConfig from '../../film-reciprocity-config-enhanced.json';
 import allfilmConfig from '../../docs/allfilm.json';
 
 // 光圈值（F值）列表
@@ -106,22 +105,8 @@ export interface ReciprocitySegmentParams {
   note?: string;
 }
 
-type ReciprocityConfigFilm = {
-  id: string;
-  name: string;
-  type: ReciprocitySegmentParams['type'];
-  modelParams: Omit<ReciprocitySegmentParams, 'type' | 'note'>;
-};
-
-type ReciprocityConfigCategory = {
-  films: ReciprocityConfigFilm[];
-};
-
-type ReciprocityConfig = {
-  films: ReciprocityConfigCategory[];
-};
-
 type AllFilmGroup = {
+  id: string;
   names: string[];
   params: {
     t1: number;
@@ -134,7 +119,6 @@ type AllFilmConfig = {
   films: AllFilmGroup[];
 };
 
-const reciprocityConfigData = reciprocityConfig as ReciprocityConfig;
 const allfilmConfigData = allfilmConfig as AllFilmConfig;
 
 const normalizeName = (value: string) => value.trim().toLowerCase();
@@ -197,23 +181,33 @@ const explicitNameToId = new Map<string, string>([
   ['Holga 400', 'holga400'],
 ].map(([name, id]) => [normalizeName(name), id]));
 
-const { nameToId, idToType } = (() => {
+const getTypeForAllFilmGroup = (id: string): ReciprocitySegmentParams['type'] => {
+  if (id.includes('slide')) return 'slide';
+  if (id.includes('bw') || id.includes('fomapan') || id.includes('ilford')) {
+    return id.includes('modern') ? 'bw-modern' : 'bw-classic';
+  }
+  return 'c41';
+};
+
+const { nameToId, groupTypeById } = (() => {
   const nameMap = new Map<string, string>();
   const typeMap = new Map<string, ReciprocitySegmentParams['type']>();
-  reciprocityConfigData.films.forEach(category => {
-    category.films.forEach(film => {
-      if (film?.id) {
-        typeMap.set(film.id, film.type);
-      }
-      if (film?.name && film?.id) {
-        nameMap.set(normalizeName(film.name), film.id);
-      }
+
+  allfilmConfigData.films.forEach(group => {
+    const groupType = getTypeForAllFilmGroup(group.id);
+    group.names.forEach(name => {
+      const id = explicitNameToId.get(normalizeName(name));
+      if (!id) return;
+      nameMap.set(normalizeName(name), id);
+      typeMap.set(id, groupType);
     });
   });
+
   explicitNameToId.forEach((id, name) => {
     nameMap.set(name, id);
   });
-  return { nameToId: nameMap, idToType: typeMap };
+
+  return { nameToId: nameMap, groupTypeById: typeMap };
 })();
 
 const reciprocityParamsById = (() => {
@@ -224,7 +218,7 @@ const reciprocityParamsById = (() => {
     group.names.forEach(name => {
       const id = nameToId.get(normalizeName(name));
       if (!id) return;
-      const type = idToType.get(id) ?? 'c41';
+      const type = groupTypeById.get(id) ?? 'c41';
       map.set(id, {
         type,
         T1: t1,

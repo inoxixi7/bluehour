@@ -19,7 +19,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.bluehour",
+      "bundleIdentifier": "com.inoxixi7.bluehour",
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "此应用需要访问您的位置以提供日出日落时间信息。"
       }
@@ -29,12 +29,10 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#1a1a2e"
       },
-      "package": "com.yourcompany.bluehour",
+      "package": "com.inoxixi7.bluehour",
       "permissions": [
         "ACCESS_FINE_LOCATION",
-        "ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_COARSE_LOCATION",
-        "android.permission.ACCESS_FINE_LOCATION"
+        "ACCESS_COARSE_LOCATION"
       ],
       "blockedPermissions": [
         "android.permission.DETECT_SCREEN_CAPTURE"
