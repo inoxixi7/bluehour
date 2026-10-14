@@ -621,6 +621,8 @@ export default {
     extrapolatedWarning:
       'Beyond the published data for this film ({{max}}). The result is extrapolated, so bracket your exposures.',
     resetTimer: 'Reset',
+    timerNotificationTitle: '⏱️ Exposure complete',
+    timerNotificationBody: 'Close the shutter now.',
   },
 
   settings: {
@@ -636,6 +638,8 @@ export default {
       permissionTitle: 'Notification Permission Required',
       permissionMessage:
         'Please allow notification permission in system settings to receive photo reminders',
+      goldenHourTitle: 'Golden hour starting soon',
+      goldenHourBody: 'Golden hour starts in 30 minutes ({{time}}). Get your gear ready.',
     },
     appearance: 'Appearance',
     appearanceDescription: 'Choose your preferred theme mode',

@@ -611,6 +611,8 @@ export default {
     extrapolatedWarning:
       'このフィルムの公開データ範囲（{{max}}）を超えています。結果は外挿値のため、ブラケット撮影をおすすめします。',
     resetTimer: 'リセット',
+    timerNotificationTitle: '⏱️ 露光完了',
+    timerNotificationBody: 'シャッターを閉じてください。',
   },
 
   settings: {
@@ -625,6 +627,8 @@ export default {
       enableDescription: 'ゴールデンアワーの30分前に通知',
       permissionTitle: '通知権限が必要です',
       permissionMessage: '撮影リマインダーを受信するには、システム設定で通知権限を許可してください',
+      goldenHourTitle: 'まもなくゴールデンアワー',
+      goldenHourBody: '30分後にゴールデンアワーが始まります（{{time}}）。機材を準備してください。',
     },
     appearance: '外観',
     appearanceDescription: 'お好みのテーマモードを選択',

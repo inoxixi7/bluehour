@@ -2,6 +2,7 @@ import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import i18n from '../locales/i18n';
 import { debugLog } from '../utils/logger';
 
 const NOTIFICATION_ENABLED_KEY = '@notifications_enabled';
@@ -40,7 +41,7 @@ export async function requestNotificationPermissions(): Promise<boolean> {
   // Android 需要创建通知频道
   if (Platform.OS === 'android') {
     await Notifications.setNotificationChannelAsync('golden-hour', {
-      name: '拍摄提醒',
+      name: i18n.t('settings.notifications.title'),
       importance: Notifications.AndroidImportance.HIGH,
       vibrationPattern: [0, 250, 250, 250],
       lightColor: '#FF9500',
@@ -70,23 +71,29 @@ export async function setNotificationsEnabled(enabled: boolean): Promise<void> {
   try {
     await AsyncStorage.setItem(NOTIFICATION_ENABLED_KEY, enabled.toString());
     if (!enabled) {
-      await cancelAllNotifications();
+      await cancelGoldenHourNotifications();
     }
   } catch (error) {
     console.error('保存通知设置失败:', error);
   }
 }
 
+const GOLDEN_HOUR_IDS = {
+  sunrise: 'golden-hour-sunrise',
+  sunset: 'golden-hour-sunset',
+} as const;
+const EXPOSURE_TIMER_ID = 'exposure-timer';
+
 /**
- * 安排黄金时刻提醒
- * @param goldenHourStart 黄金时刻开始时间（Date对象）
+ * 安排黄金时刻提醒（提前 30 分钟）
+ * @param goldenHourStart 黄金时刻开始时间
  * @param type 'sunrise' | 'sunset'
- * @param language 当前语言
+ * @param timezone 拍摄地点的 IANA 时区，通知里的时间按该时区显示
  */
 export async function scheduleGoldenHourNotification(
   goldenHourStart: Date,
   type: 'sunrise' | 'sunset',
-  language: string = 'zh'
+  timezone?: string
 ): Promise<string | null> {
   try {
     const enabled = await isNotificationsEnabled();
@@ -94,33 +101,19 @@ export async function scheduleGoldenHourNotification(
       return null;
     }
 
-    // 提前30分钟提醒
     const notificationTime = new Date(goldenHourStart.getTime() - 30 * 60 * 1000);
-
-    // 检查通知时间是否已经过去
     if (notificationTime <= new Date()) {
       debugLog('通知时间已过，不安排通知');
       return null;
     }
 
-    const titles = {
-      zh: type === 'sunrise' ? '🌅 黄金时刻即将开始' : '🌇 黄金时刻即将开始',
-      en: type === 'sunrise' ? '🌅 Golden Hour Starting Soon' : '🌇 Golden Hour Starting Soon',
-      ja: type === 'sunrise' ? '🌅 ゴールデンアワー開始' : '🌇 ゴールデンアワー開始',
-      de: type === 'sunrise' ? '🌅 Goldene Stunde beginnt' : '🌇 Goldene Stunde beginnt',
-    };
-
-    const bodies = {
-      zh: `30分钟后进入黄金时刻\n${formatTime(goldenHourStart)}\n准备器材，前往拍摄地点`,
-      en: `Golden hour starts in 30 minutes\n${formatTime(goldenHourStart)}\nPrepare your gear`,
-      ja: `30分後にゴールデンアワーが始まります\n${formatTime(goldenHourStart)}\n機材を準備してください`,
-      de: `Goldene Stunde in 30 Minuten\n${formatTime(goldenHourStart)}\nBereiten Sie Ihre Ausrüstung vor`,
-    };
-
     const notificationId = await Notifications.scheduleNotificationAsync({
+      identifier: GOLDEN_HOUR_IDS[type],
       content: {
-        title: titles[language as keyof typeof titles] || titles.zh,
-        body: bodies[language as keyof typeof bodies] || bodies.zh,
+        title: `${type === 'sunrise' ? '🌅' : '🌇'} ${i18n.t('settings.notifications.goldenHourTitle')}`,
+        body: i18n.t('settings.notifications.goldenHourBody', {
+          time: formatTime(goldenHourStart, timezone),
+        }),
         sound: true,
         priority: Notifications.AndroidNotificationPriority.HIGH,
         ...(Platform.OS === 'android' && { channelId: 'golden-hour' }),
@@ -135,6 +128,62 @@ export async function scheduleGoldenHourNotification(
   } catch (error) {
     console.error('安排通知失败:', error);
     return null;
+  }
+}
+
+/**
+ * 取消黄金时刻提醒（不影响曝光计时器等其他通知）
+ */
+export async function cancelGoldenHourNotifications(): Promise<void> {
+  try {
+    await Promise.all(
+      Object.values(GOLDEN_HOUR_IDS).map(id => Notifications.cancelScheduledNotificationAsync(id))
+    );
+  } catch (error) {
+    console.error('取消黄金时刻提醒失败:', error);
+  }
+}
+
+/**
+ * 安排曝光计时结束提醒（应用在后台或锁屏时也能收到）
+ * 不受「黄金时刻提醒」开关影响，但需要系统通知权限
+ * @param endTime 曝光结束时间
+ */
+export async function scheduleExposureTimerNotification(endTime: Date): Promise<void> {
+  try {
+    if (Platform.OS === 'web' || endTime <= new Date()) {
+      return;
+    }
+    const { status } = await Notifications.getPermissionsAsync();
+    if (status !== 'granted') {
+      return;
+    }
+
+    await Notifications.scheduleNotificationAsync({
+      identifier: EXPOSURE_TIMER_ID,
+      content: {
+        title: i18n.t('reciprocity.timerNotificationTitle'),
+        body: i18n.t('reciprocity.timerNotificationBody'),
+        sound: true,
+        priority: Notifications.AndroidNotificationPriority.MAX,
+        ...(Platform.OS === 'android' && { channelId: 'golden-hour' }),
+      },
+      trigger: { date: endTime },
+    });
+  } catch (error) {
+    console.error('安排曝光计时提醒失败:', error);
+  }
+}
+
+/**
+ * 取消曝光计时结束提醒
+ */
+export async function cancelExposureTimerNotification(): Promise<void> {
+  try {
+    if (Platform.OS === 'web') return;
+    await Notifications.cancelScheduledNotificationAsync(EXPOSURE_TIMER_ID);
+  } catch (error) {
+    console.error('取消曝光计时提醒失败:', error);
   }
 }
 
@@ -163,9 +212,22 @@ export async function getScheduledNotifications(): Promise<Notifications.Notific
 }
 
 /**
- * 格式化时间
+ * 格式化时间（HH:MM）
+ * @param timezone 指定时区；不传时使用设备本地时区
  */
-function formatTime(date: Date): string {
+function formatTime(date: Date, timezone?: string): string {
+  if (timezone) {
+    try {
+      return new Intl.DateTimeFormat('en-GB', {
+        timeZone: timezone,
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+      }).format(date);
+    } catch (error) {
+      console.warn('Invalid timezone, using device time:', timezone, error);
+    }
+  }
   const hours = date.getHours().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
   return `${hours}:${minutes}`;

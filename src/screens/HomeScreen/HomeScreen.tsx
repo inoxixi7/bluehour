@@ -30,7 +30,7 @@ import { Touchable } from '../../components/common/Touchable';
 import {
   scheduleGoldenHourNotification,
   isNotificationsEnabled,
-  cancelAllNotifications,
+  cancelGoldenHourNotifications,
 } from '../../services/notificationService';
 import { getCurrentWeather, getWeatherIcon, WeatherData } from '../../api/weatherService';
 
@@ -106,21 +106,21 @@ const HomeScreen: React.FC = () => {
       const enabled = await isNotificationsEnabled();
       if (!enabled || !sunTimes) return;
 
-      // 取消旧的通知
-      await cancelAllNotifications();
+      // 取消旧的黄金时刻提醒（不影响曝光计时器提醒）
+      await cancelGoldenHourNotifications();
 
       if (sunTimes.morningGoldenHourStart) {
         await scheduleGoldenHourNotification(
           sunTimes.morningGoldenHourStart,
           'sunrise',
-          i18n.language
+          timezoneInfo.timezone || undefined
         );
       }
       if (sunTimes.eveningGoldenHourStart) {
         await scheduleGoldenHourNotification(
           sunTimes.eveningGoldenHourStart,
           'sunset',
-          i18n.language
+          timezoneInfo.timezone || undefined
         );
       }
     };
@@ -128,7 +128,7 @@ const HomeScreen: React.FC = () => {
     scheduleNotifications().catch(error =>
       console.error('Failed to schedule notifications:', error)
     );
-  }, [sunTimes, i18n.language]);
+  }, [sunTimes, i18n.language, timezoneInfo.timezone]);
 
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
   const phaseState = useMemo(

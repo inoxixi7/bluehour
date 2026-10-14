@@ -639,6 +639,8 @@ export default {
     extrapolatedWarning:
       'Außerhalb der veröffentlichten Filmdaten ({{max}}). Das Ergebnis ist extrapoliert, Belichtungsreihe empfohlen.',
     resetTimer: 'Zurücksetzen',
+    timerNotificationTitle: '⏱️ Belichtung abgeschlossen',
+    timerNotificationBody: 'Jetzt den Verschluss schließen.',
   },
 
   settings: {
@@ -654,6 +656,9 @@ export default {
       permissionTitle: 'Benachrichtigungsberechtigung erforderlich',
       permissionMessage:
         'Bitte erlauben Sie die Benachrichtigungsberechtigung in den Systemeinstellungen, um Fotoerinnerungen zu erhalten',
+      goldenHourTitle: 'Goldene Stunde beginnt bald',
+      goldenHourBody:
+        'Die goldene Stunde beginnt in 30 Minuten ({{time}}). Bereiten Sie Ihre Ausrüstung vor.',
     },
     appearance: 'Erscheinungsbild',
     appearanceDescription: 'Wählen Sie Ihren bevorzugten Designmodus',

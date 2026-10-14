@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Platform, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Platform, Modal, Vibration } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -15,6 +15,11 @@ import { ReciprocitySource } from '../../constants/FilmReciprocity';
 import { useUserPresets } from '../../hooks/useUserPresets';
 import { calculateReciprocity } from '../../utils/photographyCalculations';
 import { formatExtraStops, formatShutterSpeed } from '../../utils/formatters';
+import {
+  cancelExposureTimerNotification,
+  requestNotificationPermissions,
+  scheduleExposureTimerNotification,
+} from '../../services/notificationService';
 
 const LONG_EXPOSURE_TIMES = [
   1, 2, 4, 8, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 300, 480, 600, 900, 1200, 1800, 2700, 3600,
@@ -123,6 +128,7 @@ const ReciprocityCalcScreen: React.FC = () => {
       setRemainingSeconds(left);
       if (left === 0) {
         setTimerState('done');
+        Vibration.vibrate([0, 500, 200, 500]);
       }
     };
 
@@ -133,14 +139,26 @@ const ReciprocityCalcScreen: React.FC = () => {
 
   const resetTimer = useCallback(() => {
     endTimeRef.current = null;
+    cancelExposureTimerNotification();
     setTimerState('idle');
     setRemainingSeconds(roundedTarget);
   }, [roundedTarget]);
 
   const toggleTimer = () => {
     if (timerState === 'idle' && roundedTarget > 0) {
-      endTimeRef.current = Date.now() + roundedTarget * 1000;
+      const endTime = Date.now() + roundedTarget * 1000;
+      endTimeRef.current = endTime;
       setTimerState('running');
+      // 应用切到后台或锁屏时，用系统通知提醒曝光结束
+      if (Platform.OS !== 'web') {
+        requestNotificationPermissions()
+          .then(granted => {
+            if (granted) {
+              return scheduleExposureTimerNotification(new Date(endTime));
+            }
+          })
+          .catch(error => console.error('Failed to schedule timer notification:', error));
+      }
     } else {
       // 运行中 → 停止并重置；完成 → 重置
       resetTimer();

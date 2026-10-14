@@ -615,6 +615,8 @@ export default {
     sourceEstimate: '估算值（无官方数据）',
     extrapolatedWarning: '已超出该胶片公开数据的范围（{{max}}），结果为外推值，建议包围曝光。',
     resetTimer: '重置',
+    timerNotificationTitle: '⏱️ 曝光完成',
+    timerNotificationBody: '现在关闭快门。',
   },
 
   settings: {
@@ -649,6 +651,8 @@ export default {
       enableDescription: '在黄金时刻开始前30分钟提醒您',
       permissionTitle: '需要通知权限',
       permissionMessage: '请在系统设置中允许通知权限，以便接收拍摄提醒',
+      goldenHourTitle: '黄金时刻即将开始',
+      goldenHourBody: '30 分钟后进入黄金时刻（{{time}}），准备器材，前往拍摄地点。',
     },
     featureList: {
       blueHour: {
