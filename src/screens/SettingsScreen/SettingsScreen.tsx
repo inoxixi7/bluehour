@@ -4,7 +4,6 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
 import { Card } from '../../components/common/Card';
-import { AppButton } from '../../components/common/AppButton';
 import { Touchable } from '../../components/common/Touchable';
 import { useTheme, ThemeMode } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';

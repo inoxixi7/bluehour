@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Platform, Modal, TouchableOpacity } from 'react-native';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { View, Text, StyleSheet, ScrollView, Platform, Modal } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -11,36 +11,30 @@ import { Card } from '../../components/common/Card';
 import { AppButton } from '../../components/common/AppButton';
 import { Dropdown } from '../../components/common/Dropdown';
 import { RECIPROCITY_PROFILES, SHUTTER_SPEEDS } from '../../constants/Photography';
+import { ReciprocitySource } from '../../constants/FilmReciprocity';
 import { useUserPresets } from '../../hooks/useUserPresets';
-import { applyReciprocityCorrection } from '../../utils/photographyCalculations';
-import { formatShutterSpeed } from '../../utils/formatters';
+import { calculateReciprocity } from '../../utils/photographyCalculations';
+import { formatExtraStops, formatShutterSpeed } from '../../utils/formatters';
 
 const LONG_EXPOSURE_TIMES = [
-  { value: 1, label: '1s' },
-  { value: 2, label: '2s' },
-  { value: 4, label: '4s' },
-  { value: 8, label: '8s' },
-  { value: 10, label: '10s' },
-  { value: 15, label: '15s' },
-  { value: 20, label: '20s' },
-  { value: 30, label: '30s' },
-  { value: 45, label: '45s' },
-  { value: 60, label: '1m' },
-  { value: 90, label: '1m 30s' },
-  { value: 120, label: '2m' },
-  { value: 180, label: '3m' },
-  { value: 240, label: '4m' },
-  { value: 300, label: '5m' },
-  { value: 480, label: '8m' },
-  { value: 600, label: '10m' },
-  { value: 900, label: '15m' },
-  { value: 1200, label: '20m' },
-  { value: 1800, label: '30m' },
-  { value: 2700, label: '45m' },
-  { value: 3600, label: '1h' },
+  1, 2, 4, 8, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 300, 480, 600, 900, 1200, 1800, 2700, 3600,
 ];
 
+const SOURCE_LABEL_KEYS: Record<ReciprocitySource, string> = {
+  manufacturer: 'reciprocity.sourceManufacturer',
+  community: 'reciprocity.sourceCommunity',
+  estimate: 'reciprocity.sourceEstimate',
+};
+
 type ReciprocityCalcRouteProp = RouteProp<{ params: { initialShutter?: number } }, 'params'>;
+
+const formatCountdown = (seconds: number) => {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60);
+  const s = seconds % 60;
+  const mmss = `${m.toString().padStart(h > 0 ? 2 : 1, '0')}:${s.toString().padStart(2, '0')}`;
+  return h > 0 ? `${h}:${mmss}` : mmss;
+};
 
 const ReciprocityCalcScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -53,12 +47,13 @@ const ReciprocityCalcScreen: React.FC = () => {
   const [baseShutter, setBaseShutter] = useState(route.params?.initialShutter || 1);
   const [profileId, setProfileId] = useState('digital');
 
-  // 计时器状态
+  // 计时器状态：以结束时间戳计时，避免 setInterval 漂移和应用切到后台时停表
   const [timerState, setTimerState] = useState<'idle' | 'running' | 'done'>('idle');
   const [remainingSeconds, setRemainingSeconds] = useState(0);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const endTimeRef = useRef<number | null>(null);
 
-  const reciprocityProfile = RECIPROCITY_PROFILES.find(profile => profile.id === profileId);
+  const reciprocityProfile =
+    RECIPROCITY_PROFILES.find(profile => profile.id === profileId) ?? RECIPROCITY_PROFILES[0];
 
   React.useLayoutEffect(() => {
     navigation.setOptions({
@@ -71,64 +66,48 @@ const ReciprocityCalcScreen: React.FC = () => {
     });
   }, [navigation, theme.colors.primary, t]);
 
-  // 胶片选项
-  const filmOptions = useMemo(
-    () => {
-      const options = RECIPROCITY_PROFILES.map((profile, idx) => ({
-        label: t(profile.nameKey),
-        value: idx,
-        isDigital: profile.id === 'digital',
-      }));
-
-      return options
-        .sort((a, b) => {
-          if (a.isDigital) return -1;
-          if (b.isDigital) return 1;
-          return a.label.localeCompare(b.label);
-        })
-        .map(({ label, value }) => ({ label, value }));
-    },
-    [t]
-  );
-
-  // 快门选项：优先使用activePreset的快门速度，否则使用LONG_EXPOSURE_TIMES
-  const shutterOptions = useMemo(() => {
-    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
-      // 从预设中获取快门速度，并转换为秒值
-      const presetShutters = activePreset.shutterSpeeds
-        .map(value => {
-          const shutterItem = SHUTTER_SPEEDS.find(s => s.value === value);
-          return shutterItem ? { value: shutterItem.value, label: shutterItem.label } : null;
-        })
-        .filter((item): item is { value: number; label: string } => item !== null)
-        // 只保留 >= 1秒的快门速度用于长曝光（包括秒、分钟、小时）
-        .filter(item => item.value >= 1);
-
-      if (presetShutters.length > 0) {
-        return presetShutters.map((item, idx) => ({
-          label: item.label,
-          value: idx,
-        }));
-      }
-    }
-    // 备用：使用LONG_EXPOSURE_TIMES
-    return LONG_EXPOSURE_TIMES.map((item, idx) => ({
-      label: item.label,
+  // 胶片选项（数码置顶，其余按名称排序）
+  const filmOptions = useMemo(() => {
+    const options = RECIPROCITY_PROFILES.map((profile, idx) => ({
+      label: t(profile.nameKey, { defaultValue: profile.name }),
       value: idx,
+      isDigital: profile.type === 'digital',
     }));
-  }, [activePreset]);
 
-  const reciprocityCorrected = useMemo(
-    () => applyReciprocityCorrection(baseShutter, reciprocityProfile?.curve, reciprocityProfile?.segmentParams),
+    return options
+      .sort((a, b) => {
+        if (a.isDigital) return -1;
+        if (b.isDigital) return 1;
+        return a.label.localeCompare(b.label);
+      })
+      .map(({ label, value }) => ({ label, value }));
+  }, [t]);
+
+  // 快门选项（值即秒数）：优先使用 activePreset 中 ≥1s 的快门，否则使用 LONG_EXPOSURE_TIMES
+  const shutterOptions = useMemo(() => {
+    const presetSeconds = (activePreset?.shutterSpeeds ?? []).filter(
+      value => value >= 1 && SHUTTER_SPEEDS.some(s => s.value === value)
+    );
+    const values = presetSeconds.length > 0 ? [...presetSeconds] : [...LONG_EXPOSURE_TIMES];
+
+    // 从曝光计算器带入的快门（如 ND 换算后的 256s）不在列表中时也要能显示
+    if (!values.includes(baseShutter)) {
+      values.push(baseShutter);
+    }
+
+    return values.sort((a, b) => a - b).map(value => ({ label: formatShutterSpeed(value), value }));
+  }, [activePreset, baseShutter]);
+
+  const result = useMemo(
+    () => calculateReciprocity(baseShutter, reciprocityProfile),
     [baseShutter, reciprocityProfile]
   );
+  const reciprocityCorrected = result.correctedSeconds;
 
-  // 向上取整作为计时器目标
-  const roundedTarget = Math.max(0, Math.round(reciprocityCorrected));
+  // 计时器目标（向上取整，宁可略多曝光也不欠曝）
+  const roundedTarget = Math.max(0, Math.ceil(reciprocityCorrected - 0.05));
 
-  // 监听 Active Preset 变化
-
-  // 重置计时器当目标改变时
+  // 空闲时同步计时器显示
   useEffect(() => {
     if (timerState === 'idle') {
       setRemainingSeconds(roundedTarget);
@@ -137,38 +116,35 @@ const ReciprocityCalcScreen: React.FC = () => {
 
   // 计时器逻辑
   useEffect(() => {
-    if (timerState !== 'running') return;
+    if (timerState !== 'running' || endTimeRef.current === null) return;
 
-    timerRef.current = setInterval(() => {
-      setRemainingSeconds(prev => {
-        if (prev <= 1) {
-          clearInterval(timerRef.current!);
-          setTimerState('done');
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-
-    return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+    const tick = () => {
+      const left = Math.max(0, Math.ceil((endTimeRef.current! - Date.now()) / 1000));
+      setRemainingSeconds(left);
+      if (left === 0) {
+        setTimerState('done');
+      }
     };
+
+    tick();
+    const interval = setInterval(tick, 250);
+    return () => clearInterval(interval);
   }, [timerState]);
 
-  const toggleTimer = () => {
-    if (timerState === 'running') {
-      setTimerState('idle');
-      if (timerRef.current) clearInterval(timerRef.current);
-      setRemainingSeconds(roundedTarget); // 重置
-    } else {
-      setTimerState('running');
-    }
-  };
+  const resetTimer = useCallback(() => {
+    endTimeRef.current = null;
+    setTimerState('idle');
+    setRemainingSeconds(roundedTarget);
+  }, [roundedTarget]);
 
-  const formatCountdown = (seconds: number) => {
-    const min = Math.floor(seconds / 60);
-    const sec = seconds % 60;
-    return `${min}:${sec.toString().padStart(2, '0')}`;
+  const toggleTimer = () => {
+    if (timerState === 'idle' && roundedTarget > 0) {
+      endTimeRef.current = Date.now() + roundedTarget * 1000;
+      setTimerState('running');
+    } else {
+      // 运行中 → 停止并重置；完成 → 重置
+      resetTimer();
+    }
   };
 
   const colors = theme.colors;
@@ -180,46 +156,14 @@ const ReciprocityCalcScreen: React.FC = () => {
     }
   };
 
-  const handleShutterChange = (index: number) => {
-    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
-      // 从预设快门速度获取
-      const presetShutters = activePreset.shutterSpeeds
-        .map(value => SHUTTER_SPEEDS.find(s => s.value === value))
-        .filter((item): item is { value: number; label: string } => item !== undefined && item !== null && item.value >= 1);
-      
-      const time = presetShutters[index];
-      if (time) {
-        setBaseShutter(time.value);
-      }
-    } else {
-      // 使用LONG_EXPOSURE_TIMES
-      const time = LONG_EXPOSURE_TIMES[index];
-      if (time) {
-        setBaseShutter(time.value);
-      }
-    }
-  };
-
   const selectedFilmIndex = RECIPROCITY_PROFILES.findIndex(p => p.id === profileId);
-  
-  // 计算选中的快门索引
-  const selectedShutterIndex = useMemo(() => {
-    if (activePreset && activePreset.shutterSpeeds && activePreset.shutterSpeeds.length > 0) {
-      const presetShutters = activePreset.shutterSpeeds
-        .map(value => SHUTTER_SPEEDS.find(s => s.value === value))
-        .filter((item): item is { value: number; label: string } => item !== undefined && item !== null && item.value >= 1);
-      return presetShutters.findIndex(t => t.value === baseShutter);
-    }
-    return LONG_EXPOSURE_TIMES.findIndex(t => t.value === baseShutter);
-  }, [activePreset, baseShutter]);
+  const isDigital = reciprocityProfile.type === 'digital';
 
   return (
     <ScrollView style={[styles.container, { backgroundColor: colors.background }]}>
       <Card style={[styles.card, styles.firstCard, { backgroundColor: colors.card }]}>
         <View style={styles.header}>
-          <Text style={[styles.title, { color: colors.text }]}>
-            {t('reciprocity.filmProfile')}
-          </Text>
+          <Text style={[styles.title, { color: colors.text }]}>{t('reciprocity.filmProfile')}</Text>
         </View>
 
         <Dropdown
@@ -233,9 +177,13 @@ const ReciprocityCalcScreen: React.FC = () => {
           accentColor={theme.colors.primary}
         />
 
-        {reciprocityProfile && reciprocityProfile.descriptionKey && (
-          <Text style={[styles.description, { color: colors.textSecondary }]}>
-            {t(reciprocityProfile.descriptionKey)}
+        <Text style={[styles.description, { color: colors.textSecondary }]}>
+          {t(reciprocityProfile.descriptionKey)}
+        </Text>
+
+        {!isDigital && (
+          <Text style={[styles.sourceText, { color: colors.textSecondary }]}>
+            {t('reciprocity.dataSource')}: {t(SOURCE_LABEL_KEYS[reciprocityProfile.source])}
           </Text>
         )}
       </Card>
@@ -249,9 +197,9 @@ const ReciprocityCalcScreen: React.FC = () => {
 
         <Dropdown
           options={shutterOptions}
-          selectedValue={selectedShutterIndex}
-          onValueChange={handleShutterChange}
-          placeholder="1s"
+          selectedValue={baseShutter}
+          onValueChange={setBaseShutter}
+          placeholder={formatShutterSpeed(baseShutter)}
           textColor={colors.text}
           backgroundColor={colors.card}
           borderColor={colors.border}
@@ -282,6 +230,23 @@ const ReciprocityCalcScreen: React.FC = () => {
             </Text>
           </View>
         </View>
+
+        {!isDigital && (
+          <Text style={[styles.extraStops, { color: colors.textSecondary }]}>
+            {t('reciprocity.extraStops')}: {formatExtraStops(result.extraStops)}
+          </Text>
+        )}
+
+        {result.isExtrapolated && reciprocityProfile.maxReliableSeconds !== undefined && (
+          <View style={[styles.warningBox, { borderColor: colors.warning }]}>
+            <Ionicons name="warning-outline" size={16} color={colors.warning} />
+            <Text style={[styles.warningText, { color: colors.text }]}>
+              {t('reciprocity.extrapolatedWarning', {
+                max: formatShutterSpeed(reciprocityProfile.maxReliableSeconds),
+              })}
+            </Text>
+          </View>
+        )}
       </Card>
 
       {/* Timer */}
@@ -298,12 +263,18 @@ const ReciprocityCalcScreen: React.FC = () => {
           {formatCountdown(remainingSeconds)}
         </Text>
 
+        {timerState === 'done' && (
+          <Text style={[styles.timerDoneText, { color: colors.success }]}>
+            {t('reciprocity.timerDone')}
+          </Text>
+        )}
+
         <AppButton
           title={
             timerState === 'running'
               ? t('reciprocity.stopTimer')
               : timerState === 'done'
-                ? t('reciprocity.timerDone')
+                ? t('reciprocity.resetTimer')
                 : t('reciprocity.startTimer')
           }
           onPress={toggleTimer}
@@ -338,33 +309,39 @@ const ReciprocityCalcScreen: React.FC = () => {
                 <Text style={[styles.helpSectionTitle, { color: colors.primary }]}>
                   {t('reciprocityHelp.section1.title')}
                 </Text>
-                {(t('reciprocityHelp.section1.content', { returnObjects: true }) as string[]).map((item: string, idx: number) => (
-                  <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
-                    • {item}
-                  </Text>
-                ))}
+                {(t('reciprocityHelp.section1.content', { returnObjects: true }) as string[]).map(
+                  (item: string, idx: number) => (
+                    <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
+                      • {item}
+                    </Text>
+                  )
+                )}
               </View>
 
               <View style={styles.helpSection}>
                 <Text style={[styles.helpSectionTitle, { color: colors.primary }]}>
                   {t('reciprocityHelp.section2.title')}
                 </Text>
-                {(t('reciprocityHelp.section2.content', { returnObjects: true }) as string[]).map((item: string, idx: number) => (
-                  <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
-                    • {item}
-                  </Text>
-                ))}
+                {(t('reciprocityHelp.section2.content', { returnObjects: true }) as string[]).map(
+                  (item: string, idx: number) => (
+                    <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
+                      • {item}
+                    </Text>
+                  )
+                )}
               </View>
 
               <View style={styles.helpSection}>
                 <Text style={[styles.helpSectionTitle, { color: colors.primary }]}>
                   {t('reciprocityHelp.section3.title')}
                 </Text>
-                {(t('reciprocityHelp.section3.content', { returnObjects: true }) as string[]).map((item: string, idx: number) => (
-                  <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
-                    • {item}
-                  </Text>
-                ))}
+                {(t('reciprocityHelp.section3.content', { returnObjects: true }) as string[]).map(
+                  (item: string, idx: number) => (
+                    <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
+                      • {item}
+                    </Text>
+                  )
+                )}
               </View>
             </ScrollView>
           </View>
@@ -402,6 +379,34 @@ const styles = StyleSheet.create({
   description: {
     fontSize: Layout.fontSize.sm,
     lineHeight: 20,
+    marginTop: Layout.spacing.sm,
+  },
+  sourceText: {
+    fontSize: Layout.fontSize.xs,
+    marginTop: Layout.spacing.xs,
+  },
+  extraStops: {
+    fontSize: Layout.fontSize.sm,
+    textAlign: 'center',
+    marginTop: Layout.spacing.md,
+  },
+  warningBox: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: Layout.spacing.xs,
+    borderWidth: 1,
+    borderRadius: Layout.borderRadius.md,
+    padding: Layout.spacing.sm,
+    marginTop: Layout.spacing.md,
+  },
+  warningText: {
+    flex: 1,
+    fontSize: Layout.fontSize.sm,
+    lineHeight: 20,
+  },
+  timerDoneText: {
+    fontSize: Layout.fontSize.base,
+    fontWeight: '600',
     marginTop: Layout.spacing.sm,
   },
   sectionHeader: {

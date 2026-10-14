@@ -19,7 +19,7 @@ Ein umfassendes Fotografieplanungswerkzeug für Landschafts- und Outdoor-Fotogra
 
 ### 🎞️ Reziprozitätsrechner (Filmkompensation)
 - **Reziprozitätsfehler-Korrektur**: Automatische Korrektur des Sensitivitätsverlusts bei Langzeitbelichtungen
-- Unterstützt 11 gängige Filmtypen: Portra 400, Ektar 100, Provia 100F, Velvia 50, etc.
+- Unterstützt über 50 Filme (Ilford, Kodak, Fuji, Foma usw.): Portra 400, Ektar 100, Provia 100F, Velvia 50, etc.
 - **Eingebaute Timer-Funktion**: Countdown mit korrigierter Verschlusszeit, unterstützt Hintergrundausführung und Benachrichtigungen
 - Detaillierte Erklärung der Parameter und Eigenschaften jedes Films
 
@@ -100,9 +100,9 @@ Dies ist das Grundprinzip beim Anpassen des **Belichtungsdreiecks** (Blende, Ver
 Der **Reziprozitätsrechner** dieser App berechnet automatisch den Korrekturfaktor basierend auf jedem Filmtyp und gibt Ihnen die tatsächlich benötigte Verschlusszeit.
 
 **Beispiel**:
-- Verwendung von Kodak Portra 400 Film
-- Vom Belichtungsmesser gemessene Verschlusszeit: 30 Sekunden
-- Unter Berücksichtigung des Reziprozitätsfehlers müssen Sie tatsächlich **52 Sekunden** belichten
+- Verwendung von Kodak Tri-X 400 Film
+- Vom Belichtungsmesser gemessene Verschlusszeit: 10 Sekunden
+- Unter Berücksichtigung des Reziprozitätsfehlers müssen Sie tatsächlich **50 Sekunden** belichten (Kodak-Datenblatt)
 - Diese App berechnet es automatisch und bietet auch eine Timer-Funktion
 
 ---

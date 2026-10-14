@@ -1,13 +1,16 @@
 // 摄影计算核心逻辑
 
-import { ReciprocityCurvePoint, ReciprocitySegmentParams } from '../constants/Photography';
+import { APERTURE_VALUES, ISO_VALUES, SHUTTER_SPEEDS } from '../constants/Photography';
+import { FilmReciprocityData, ReciprocityModel } from '../constants/FilmReciprocity';
 
 /**
- * 计算曝光值 (EV)
- * EV = log2(aperture^2 / shutter) + log2(ISO / 100)
+ * 计算曝光值 (EV，以 ISO 100 为基准的场景亮度)
+ * EV = log2(N² / t) − log2(ISO / 100)
+ *
+ * 同一场景下 ISO 提高一档、快门缩短一档，EV 保持不变。
  */
 export const calculateEV = (aperture: number, shutter: number, iso: number): number => {
-  const ev = Math.log2((aperture * aperture) / shutter) + Math.log2(iso / 100);
+  const ev = Math.log2((aperture * aperture) / shutter) - Math.log2(iso / 100);
   return Math.round(ev * 10) / 10; // 保留一位小数
 };
 
@@ -123,13 +126,10 @@ export const calculateEquivalentExposureWithEV = (
   const paramsArray: Array<'aperture' | 'shutter' | 'iso'> = ['aperture', 'shutter', 'iso'];
   const adjustParam = paramsArray.find(p => p !== changedParam && p !== lockedParam)!;
 
-  // 根据目标 EV 公式: EV = log2(aperture^2 / shutter) + log2(iso / 100)
-  // 求解未知参数
-  
   let aperture: number = currentValues.aperture;
   let shutter: number = currentValues.shutter;
   let iso: number = currentValues.iso;
-  
+
   // 设置改变的参数
   if (changedParam === 'aperture') {
     aperture = newValue;
@@ -138,54 +138,40 @@ export const calculateEquivalentExposureWithEV = (
   } else if (changedParam === 'iso') {
     iso = newValue;
   }
-  
+
   // 锁定的参数保持不变(已经从 currentValues 设置了)
 
-  // 计算未知参数
+  // EV = log2(N² / t) − log2(ISO / 100)  =>  log2(N² / t) = EV + log2(ISO / 100)
+  // 超出标准值范围半档以上视为无法达到目标 EV
+  const exceedsRange = (values: readonly number[], raw: number, stopScale = 1) =>
+    stopScale * Math.log2(values[0] / raw) > 0.5 ||
+    stopScale * Math.log2(raw / values[values.length - 1]) > 0.5;
+
   if (adjustParam === 'aperture') {
-    // EV = log2(aperture^2 / shutter) + log2(iso / 100)
-    // EV - log2(iso / 100) = log2(aperture^2 / shutter)
-    // aperture^2 / shutter = 2^(EV - log2(iso / 100))
-    // aperture^2 = shutter * 2^(EV - log2(iso / 100))
-    const evAdjusted = targetEV - Math.log2(iso / 100);
-    const apertureSq = shutter * Math.pow(2, evAdjusted);
-    aperture = Math.sqrt(apertureSq);
-    aperture = findClosestAperture(aperture);
-    
-    // 验证光圈是否在有效范围内
-    if (aperture < 1.0 || aperture > 32) {
+    const raw = Math.sqrt(shutter * Math.pow(2, targetEV + Math.log2(iso / 100)));
+    // 光圈每档对应 F 值 √2 倍，因此档数 = 2·log2
+    if (exceedsRange(APERTURE_VALUES, raw, 2)) {
       return null;
     }
+    aperture = findClosestAperture(raw);
   } else if (adjustParam === 'shutter') {
-    // EV = log2(aperture^2 / shutter) + log2(iso / 100)
-    // EV - log2(iso / 100) = log2(aperture^2 / shutter)
-    // aperture^2 / shutter = 2^(EV - log2(iso / 100))
-    // shutter = aperture^2 / 2^(EV - log2(iso / 100))
-    const evAdjusted = targetEV - Math.log2(iso / 100);
-    shutter = (aperture * aperture) / Math.pow(2, evAdjusted);
-    shutter = findClosestShutter(shutter);
-    
-    // 验证快门是否在有效范围内
-    if (shutter < 1 / 8000 || shutter > 1800) {
+    const raw = (aperture * aperture) / Math.pow(2, targetEV + Math.log2(iso / 100));
+    if (exceedsRange(STANDARD_SHUTTERS, raw)) {
       return null;
     }
-  } else if (adjustParam === 'iso') {
-    // EV = log2(aperture^2 / shutter) + log2(iso / 100)
-    // log2(iso / 100) = EV - log2(aperture^2 / shutter)
-    // iso = 100 * 2^(EV - log2(aperture^2 / shutter))
-    iso = 100 * Math.pow(2, targetEV - Math.log2(aperture! * aperture! / shutter!));
-    iso = findClosestISO(iso);
-    
-    // 验证 ISO 是否在有效范围内
-    if (iso < 50 || iso > 25600) {
+    shutter = findClosestShutter(raw);
+  } else {
+    const raw = 100 * Math.pow(2, Math.log2((aperture * aperture) / shutter) - targetEV);
+    if (exceedsRange(ISO_VALUES, raw)) {
       return null;
     }
+    iso = findClosestISO(raw);
   }
 
   return {
-    aperture: aperture!,
-    shutter: shutter!,
-    iso: iso!,
+    aperture,
+    shutter,
+    iso,
     ev: targetEV,
   };
 };
@@ -201,77 +187,84 @@ export const calculateNDShutter = (baseShutter: number, ndStops: number): number
 };
 
 /**
- * 计算倒易律校正倍率 (2026.01_calibrated_v1)
- * 公式: M(t) = min(pow(max(1, t / T1), p), maxMultiplier)
- * @param t 基础曝光时间（秒）
- * @param params 倒易律模型参数 {T1: 基准时间, p: 幂函数指数, maxMultiplier: 最大倍率}
- * @returns 校正倍率 M(t)
+ * 倒易律校正结果
  */
-export const calculateSegmentedMultiplier = (
-  t: number,
-  params: ReciprocitySegmentParams
+export interface ReciprocityResult {
+  /** 校正后的曝光时间（秒） */
+  correctedSeconds: number;
+  /** 额外补偿的档数 log2(Tc / Tm) */
+  extraStops: number;
+  /** 测光时间超出了胶片数据的可靠范围（结果为外推值） */
+  isExtrapolated: boolean;
+}
+
+/**
+ * 根据倒易律模型计算校正后的曝光时间
+ *
+ * - power: Tm ≤ T0 时 Tc = Tm；否则 Tc = T0 · (Tm / T0)^P
+ * - table: 在 log-log 坐标下对厂商数据点做分段线性插值，
+ *          超出最后一个点时沿最后一段斜率外推
+ *
+ * @param meteredSeconds 测光（已含 ND）曝光时间（秒）
+ * @param model 胶片的倒易律模型
+ */
+export const applyReciprocityCorrection = (
+  meteredSeconds: number,
+  model: ReciprocityModel
 ): number => {
-  const { T1, p, maxMultiplier } = params;
-  const ratio = Math.max(1, t / Math.max(T1, 1));
-  return Math.min(Math.pow(ratio, p), maxMultiplier);
+  if (!(meteredSeconds > 0) || !Number.isFinite(meteredSeconds)) {
+    return meteredSeconds;
+  }
+
+  switch (model.kind) {
+    case 'none':
+      return meteredSeconds;
+
+    case 'power': {
+      const { exponent, threshold } = model;
+      if (meteredSeconds <= threshold) {
+        return meteredSeconds;
+      }
+      return threshold * Math.pow(meteredSeconds / threshold, exponent);
+    }
+
+    case 'table': {
+      const points = model.points;
+      if (points.length === 0 || meteredSeconds <= points[0][0]) {
+        return meteredSeconds;
+      }
+      if (points.length === 1) {
+        return meteredSeconds;
+      }
+
+      const logT = Math.log(meteredSeconds);
+      // 找到所在区间；超出末端时使用最后一段外推
+      let i = 0;
+      while (i < points.length - 2 && meteredSeconds > points[i + 1][0]) {
+        i++;
+      }
+      const [x0, y0] = points[i];
+      const [x1, y1] = points[i + 1];
+      const slope = (Math.log(y1) - Math.log(y0)) / (Math.log(x1) - Math.log(x0));
+      return Math.exp(Math.log(y0) + slope * (logT - Math.log(x0)));
+    }
+  }
 };
 
 /**
- * 根据倒易律曲线或参数计算校正后的曝光时间
- * @param baseSeconds ND 修正后的基础曝光时间
- * @param curve 选定胶片的倒易律曲线(可选)
- * @param segmentParams 分段模型参数(可选,优先使用)
+ * 计算胶片的倒易律校正结果（含补偿档数与可靠性标记）
  */
-export const applyReciprocityCorrection = (
-  baseSeconds: number,
-  curve?: ReciprocityCurvePoint[],
-  segmentParams?: ReciprocitySegmentParams
-): number => {
-  if (baseSeconds <= 0) {
-    return baseSeconds;
-  }
+export const calculateReciprocity = (
+  meteredSeconds: number,
+  film: Pick<FilmReciprocityData, 'model' | 'maxReliableSeconds'>
+): ReciprocityResult => {
+  const correctedSeconds = applyReciprocityCorrection(meteredSeconds, film.model);
+  const extraStops =
+    meteredSeconds > 0 && correctedSeconds > 0 ? Math.log2(correctedSeconds / meteredSeconds) : 0;
+  const isExtrapolated =
+    film.maxReliableSeconds !== undefined && meteredSeconds > film.maxReliableSeconds;
 
-  // 优先使用 segmentParams 进行精确计算
-  if (segmentParams) {
-    const M = calculateSegmentedMultiplier(baseSeconds, segmentParams);
-    return Math.round(baseSeconds * M);
-  }
-
-  // 回退到曲线插值方法
-  if (!curve || curve.length === 0) {
-    return baseSeconds;
-  }
-  const sorted = [...curve].sort((a, b) => a.baseSeconds - b.baseSeconds);
-
-  if (baseSeconds <= sorted[0].baseSeconds) {
-    return sorted[0].correctedSeconds;
-  }
-
-  for (let i = 0; i < sorted.length - 1; i++) {
-    const current = sorted[i];
-    const next = sorted[i + 1];
-
-    if (baseSeconds === current.baseSeconds) {
-      return current.correctedSeconds;
-    }
-
-    if (baseSeconds < next.baseSeconds) {
-      const ratio =
-        (baseSeconds - current.baseSeconds) /
-        (next.baseSeconds - current.baseSeconds);
-      return current.correctedSeconds + ratio * (next.correctedSeconds - current.correctedSeconds);
-    }
-  }
-
-  const last = sorted[sorted.length - 1];
-  const prev = sorted[sorted.length - 2] || last;
-  const gradient =
-    prev === last
-      ? last.correctedSeconds / Math.max(last.baseSeconds, 1)
-      : (last.correctedSeconds - prev.correctedSeconds) /
-        (last.baseSeconds - prev.baseSeconds);
-
-  return last.correctedSeconds + gradient * (baseSeconds - last.baseSeconds);
+  return { correctedSeconds, extraStops, isExtrapolated };
 };
 
 /**
@@ -294,27 +287,26 @@ export const calculateDepthOfField = (
   const hyperFocal = (focalLength * focalLength) / (aperture * coc) + focalLength;
 
   // 景深近点 (mm)
-  const nearLimit = (distanceMM * (hyperFocal - focalLength)) /
-    (hyperFocal + distanceMM - 2 * focalLength);
+  const nearLimit =
+    (distanceMM * (hyperFocal - focalLength)) / (hyperFocal + distanceMM - 2 * focalLength);
 
   // 景深远点 (mm)
   let farLimit: number;
   if (distanceMM < hyperFocal - focalLength) {
-    farLimit = (distanceMM * (hyperFocal - focalLength)) /
-      (hyperFocal - distanceMM);
+    farLimit = (distanceMM * (hyperFocal - focalLength)) / (hyperFocal - distanceMM);
   } else {
     farLimit = Infinity;
   }
 
   // 总景深
-  const totalDoF = farLimit === Infinity ? Infinity : (farLimit - nearLimit);
+  const totalDoF = farLimit === Infinity ? Infinity : farLimit - nearLimit;
 
   // 对焦点前后的景深
   const inFrontOfSubject = distanceMM - nearLimit;
-  const behindSubject = farLimit === Infinity ? Infinity : (farLimit - distanceMM);
+  const behindSubject = farLimit === Infinity ? Infinity : farLimit - distanceMM;
 
   return {
-    nearLimit: nearLimit / 1000,           // 转换为米
+    nearLimit: nearLimit / 1000, // 转换为米
     farLimit: farLimit === Infinity ? Infinity : farLimit / 1000,
     totalDoF: totalDoF === Infinity ? Infinity : totalDoF / 1000,
     hyperFocalDistance: hyperFocal / 1000,
@@ -339,40 +331,18 @@ export const calculateHyperFocalDistance = (
   return hyperFocal / 1000; // 转换为米
 };
 
-// 辅助函数：找到最接近的光圈值
-const APERTURE_VALUES = [
-  1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 2.8,
-  3.2, 3.5, 4.0, 4.5, 5.0, 5.6, 6.3, 7.1, 8.0, 9.0,
-  10, 11, 13, 14, 16, 18, 20, 22, 25, 29, 32
-];
+/**
+ * 在对数空间中寻找最接近的标准值（按「档」的距离而不是线性差值）
+ */
+const findClosestInLogSpace = (values: readonly number[], target: number): number =>
+  values.reduce((prev, curr) =>
+    Math.abs(Math.log(curr / target)) < Math.abs(Math.log(prev / target)) ? curr : prev
+  );
 
-const findClosestAperture = (value: number): number => {
-  return APERTURE_VALUES.reduce((prev, curr) => {
-    return Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev;
-  });
-};
+const STANDARD_SHUTTERS = SHUTTER_SPEEDS.map(s => s.value);
 
-// 辅助函数：找到最接近的快门速度
-const STANDARD_SHUTTERS = [
-  1 / 8000, 1 / 4000, 1 / 2000, 1 / 1000, 1 / 500, 1 / 250, 1 / 125, 1 / 60,
-  1 / 30, 1 / 15, 1 / 8, 1 / 4, 1 / 2, 1, 2, 4, 8, 15, 30, 60, 120, 240, 480, 900, 1800
-];
-
-const findClosestShutter = (value: number): number => {
-  return STANDARD_SHUTTERS.reduce((prev, curr) => {
-    return Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev;
-  });
-};
-
-// 辅助函数：找到最接近的 ISO 值
-const ISO_VALUES = [
-  50, 64, 80, 100, 125, 160, 200, 250, 320, 400,
-  500, 640, 800, 1000, 1250, 1600, 2000, 2500, 3200,
-  4000, 5000, 6400, 8000, 10000, 12800, 16000, 20000, 25600
-];
-
-const findClosestISO = (value: number): number => {
-  return ISO_VALUES.reduce((prev, curr) => {
-    return Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev;
-  });
-};
+const findClosestAperture = (value: number): number =>
+  findClosestInLogSpace(APERTURE_VALUES, value);
+const findClosestShutter = (value: number): number =>
+  findClosestInLogSpace(STANDARD_SHUTTERS, value);
+const findClosestISO = (value: number): number => findClosestInLogSpace(ISO_VALUES, value);
