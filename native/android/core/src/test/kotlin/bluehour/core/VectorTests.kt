@@ -3,6 +3,7 @@ package bluehour.core
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
+import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.jsonObject
 import java.time.LocalDate
 import kotlin.math.abs
@@ -236,5 +237,54 @@ class PhotographyDataTest {
         assertEquals(1.0 / 8000, data.shutterValues.first())
         assertEquals(12, data.ndFilters.size)
         assertTrue(data.evScenes.isNotEmpty())
+    }
+}
+
+class LightPhaseVectorsTest {
+    private val cases = TestVectors.cases("light-phases.json")
+
+    private fun hours(case: JsonObject) = case.o("goldenAndBlueHours").let {
+        SunPosition.GoldenAndBlueHours(
+            it.l("morningBlueHourStart"), it.l("morningBlueHourEnd"),
+            it.l("morningGoldenHourStart"), it.l("morningGoldenHourEnd"),
+            it.l("eveningGoldenHourStart"), it.l("eveningGoldenHourEnd"),
+            it.l("eveningBlueHourStart"), it.l("eveningBlueHourEnd"),
+        )
+    }
+
+    private fun id(name: String) = LightPhaseId.entries.first { it.name.equals(name, ignoreCase = true) }
+
+    @Test
+    fun timeline() = verifyAll("timeline", cases) { case ->
+        val actual = LightPhases.timeline(hours(case))
+        val expected = case.arr("timeline").map {
+            val o = it.jsonObject
+            LightPhaseSegment(id(o.s("id")), o.l("start"), o.l("end"))
+        }
+        if (actual == expected) null else "期望 $expected，实际 $actual"
+    }
+
+    @Test
+    fun `当前阶段与下一个蓝调时刻`() = verifyAll(
+        "states",
+        cases.flatMap { case -> case.arr("states").map { case to it.jsonObject } },
+    ) { (case, state) ->
+        val h = hours(case)
+        val now = state.l("nowMs")
+        val actual = LightPhases.currentState(LightPhases.timeline(h), now)!!
+        val blue = LightPhases.nextBlueHour(h, now)
+        val expectedBlue = state.o("nextBlueHour")
+        when {
+            actual.current.id != id(state.s("current")) -> "current 期望 ${state.s("current")}，实际 ${actual.current.id}"
+            actual.next.id != id(state.s("next")) -> "next 期望 ${state.s("next")}，实际 ${actual.next.id}"
+            actual.minutesUntilTransition != state.l("minutesUntilTransition") ->
+                "minutes 期望 ${state.l("minutesUntilTransition")}，实际 ${actual.minutesUntilTransition}"
+            !close(actual.progress, state.d("progress")) -> "progress 期望 ${state.d("progress")}，实际 ${actual.progress}"
+            blue != BlueHourWindow(
+                BlueHourWindowId.entries.first { it.name.equals(expectedBlue.s("id"), ignoreCase = true) },
+                expectedBlue.l("start"), expectedBlue.l("end"), expectedBlue.b("isNextDay"),
+            ) -> "nextBlueHour 期望 $expectedBlue，实际 $blue"
+            else -> null
+        }
     }
 }

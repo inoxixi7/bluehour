@@ -22,6 +22,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import bluehour.app.R
+import bluehour.app.ui.light.LightScreen
 import bluehour.app.ui.reciprocity.ReciprocityScreen
 
 private enum class Tab(@StringRes val label: Int, @DrawableRes val icon: Int) {
@@ -32,7 +33,7 @@ private enum class Tab(@StringRes val label: Int, @DrawableRes val icon: Int) {
 
 @Composable
 fun BlueHourApp() {
-    var selected by rememberSaveable { mutableStateOf(Tab.Reciprocity) }
+    var selected by rememberSaveable { mutableStateOf(Tab.Light) }
 
     Scaffold(
         bottomBar = {
@@ -50,8 +51,9 @@ fun BlueHourApp() {
     ) { innerPadding ->
         val modifier = Modifier.padding(innerPadding)
         when (selected) {
+            Tab.Light -> LightScreen(modifier)
             Tab.Reciprocity -> ReciprocityScreen(modifier)
-            Tab.Light, Tab.Exposure -> ComingSoon(modifier)
+            Tab.Exposure -> ComingSoon(modifier)
         }
     }
 }

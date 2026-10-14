@@ -1,0 +1,4253 @@
+{
+  "description": "lightPhases.ts：goldenAndBlueHours 为输入（UTC 毫秒），timeline = buildLightTimeline，states 为不同时刻的 getCurrentPhaseState 与 getNextBlueHourWindow",
+  "cases": [
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "date": "2026-03-20",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1773951622826,
+        "morningBlueHourEnd": 1773952210793,
+        "morningGoldenHourStart": 1773952210793,
+        "morningGoldenHourEnd": 1773955167108,
+        "eveningGoldenHourStart": 1773994741088,
+        "eveningGoldenHourEnd": 1773997697729,
+        "eveningBlueHourStart": 1773997697729,
+        "eveningBlueHourEnd": 1773998291176
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1773951622826,
+          "end": 1773952210793
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1773952210793,
+          "end": 1773955167108
+        },
+        {
+          "id": "daylight",
+          "start": 1773955167108,
+          "end": 1773994741088
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1773994741088,
+          "end": 1773997697729
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1773997697729,
+          "end": 1773998291176
+        },
+        {
+          "id": "night",
+          "start": 1773998291176,
+          "end": 1774038022826
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1774038022826,
+          "end": 1774038610793
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1773940822826,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1630,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1773951622826,
+            "end": 1773952210793,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773951622826,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 10,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773951916809,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 5,
+          "progress": 0.4999991496121381,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773952150793,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.8979534565715422,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773952210793,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 49,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773953688950,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 25,
+          "progress": 0.4999998308705263,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773955107108,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9797044631576811,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773955167108,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 660,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773974954098,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 330,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773994681088,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9984838522685866,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773994741088,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 49,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773996219408,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 25,
+          "progress": 0.49999983088917455,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773997637729,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9797067009488132,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1773997697729,
+            "end": 1773998291176,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773997697729,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 10,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1773997994452,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 5,
+          "progress": 0.4999991574647778,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1773998231176,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.8988957733378043,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1773998291176,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 662,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774018157001,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 331,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774037962826,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9984898689080368,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774038022826,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 10,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774038316809,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 5,
+          "progress": 0.4999991496121381,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774038550793,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.8979534565715422,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774038670793,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774038022826,
+            "end": 1774038610793,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "date": "2026-06-21",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1781981741342,
+        "morningBlueHourEnd": 1781982453812,
+        "morningGoldenHourStart": 1781982453812,
+        "morningGoldenHourEnd": 1781985823477,
+        "eveningGoldenHourStart": 1782033758530,
+        "eveningGoldenHourEnd": 1782037126499,
+        "eveningBlueHourStart": 1782037126499,
+        "eveningBlueHourEnd": 1782037835748
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1781981741342,
+          "end": 1781982453812
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1781982453812,
+          "end": 1781985823477
+        },
+        {
+          "id": "daylight",
+          "start": 1781985823477,
+          "end": 1782033758530
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1782033758530,
+          "end": 1782037126499
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1782037126499,
+          "end": 1782037835748
+        },
+        {
+          "id": "night",
+          "start": 1782037835748,
+          "end": 1782068141342
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1782068141342,
+          "end": 1782068853812
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1781970941342,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1632,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1781981741342,
+            "end": 1781982453812,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781981741342,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 12,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781982097577,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 6,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781982393812,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9157859278285402,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781982453812,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 56,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781984138644,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 28,
+          "progress": 0.49999985161729726,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781985763477,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9821940756722107,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781985823477,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 799,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782009791003,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 399,
+          "progress": 0.4999999895692198,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782033698530,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9987483063803017,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782033758530,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 56,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782035442514,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 28,
+          "progress": 0.49999985154257653,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782037066499,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9821851091859812,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782037126499,
+            "end": 1782037835748,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782037126499,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 12,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782037481123,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 6,
+          "progress": 0.4999992950289673,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782037775748,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9154034760711682,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782037835748,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 505,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782052988545,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 253,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782068081342,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9980201674977893,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782068141342,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 12,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782068497577,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 6,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782068793812,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9157859278285402,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782068913812,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782068141342,
+            "end": 1782068853812,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "date": "2026-09-23",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790107456639,
+        "morningBlueHourEnd": 1790108048867,
+        "morningGoldenHourStart": 1790108048867,
+        "morningGoldenHourEnd": 1790111003634,
+        "eveningGoldenHourStart": 1790150633788,
+        "eveningGoldenHourEnd": 1790153586913,
+        "eveningBlueHourStart": 1790153586913,
+        "eveningBlueHourEnd": 1790154180360
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1790107456639,
+          "end": 1790108048867
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1790108048867,
+          "end": 1790111003634
+        },
+        {
+          "id": "daylight",
+          "start": 1790111003634,
+          "end": 1790150633788
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1790150633788,
+          "end": 1790153586913
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1790153586913,
+          "end": 1790154180360
+        },
+        {
+          "id": "night",
+          "start": 1790154180360,
+          "end": 1790193856639
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1790193856639,
+          "end": 1790194448867
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1790096656639,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1630,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1790107456639,
+            "end": 1790108048867,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790107456639,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 10,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790107752753,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 5,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790107988867,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.8986876675874832,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790108048867,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 49,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790109526250,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 25,
+          "progress": 0.4999998307819195,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790110943634,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9796938303426294,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790111003634,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 661,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790130818711,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 330,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790150573788,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9984860013413018,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790150633788,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 49,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790152110350,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 25,
+          "progress": 0.4999998306878307,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790153526913,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9796825396825397,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790153586913,
+            "end": 1790154180360,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790153586913,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 10,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790153883636,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 5,
+          "progress": 0.4999991574647778,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790154120360,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.8988957733378043,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790154180360,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 661,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790174018499,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 331,
+          "progress": 0.49999998739801177,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790193796639,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9984877614153282,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790193856639,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 10,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790194152753,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 5,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790194388867,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.8986876675874832,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790194508867,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790193856639,
+            "end": 1790194448867,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "date": "2026-12-21",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797801514226,
+        "morningBlueHourEnd": 1797802166710,
+        "morningGoldenHourStart": 1797802166710,
+        "morningGoldenHourEnd": 1797805593318,
+        "eveningGoldenHourStart": 1797835921647,
+        "eveningGoldenHourEnd": 1797839345866,
+        "eveningBlueHourStart": 1797839345866,
+        "eveningBlueHourEnd": 1797840000005
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1797801514226,
+          "end": 1797802166710
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1797802166710,
+          "end": 1797805593318
+        },
+        {
+          "id": "daylight",
+          "start": 1797805593318,
+          "end": 1797835921647
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1797835921647,
+          "end": 1797839345866
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1797839345866,
+          "end": 1797840000005
+        },
+        {
+          "id": "night",
+          "start": 1797840000005,
+          "end": 1797887914226
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1797887914226,
+          "end": 1797888566710
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1797790714226,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1631,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1797801514226,
+            "end": 1797802166710,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797801514226,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 11,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797801840468,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 5,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797802106710,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9080437221449108,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797802166710,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 57,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797803880014,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 29,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797805533318,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9824899725909705,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797805593318,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 505,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797820757482,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 253,
+          "progress": 0.4999999835137636,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797835861647,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9980216516379785,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797835921647,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 57,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797837633756,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 29,
+          "progress": 0.49999985398130203,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797839285866,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9824777562416422,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797839345866,
+            "end": 1797840000005,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797839345866,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 11,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797839672935,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 5,
+          "progress": 0.4999992356364626,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797839940005,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9082763755104037,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797840000005,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 799,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797863957115,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 399,
+          "progress": 0.4999999895646848,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797887854226,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9987477621727379,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797887914226,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 11,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797888240468,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 5,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797888506710,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9080437221449108,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797888626710,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797887914226,
+            "end": 1797888566710,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "date": "2026-03-20",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1773982715655,
+        "morningBlueHourEnd": 1773983420977,
+        "morningGoldenHourStart": 1773983420977,
+        "morningGoldenHourEnd": 1773986968734,
+        "eveningGoldenHourStart": 1774025869951,
+        "eveningGoldenHourEnd": 1774029427764,
+        "eveningBlueHourStart": 1774029427764,
+        "eveningBlueHourEnd": 1774030139678
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1773982715655,
+          "end": 1773983420977
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1773983420977,
+          "end": 1773986968734
+        },
+        {
+          "id": "daylight",
+          "start": 1773986968734,
+          "end": 1774025869951
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1774025869951,
+          "end": 1774029427764
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1774029427764,
+          "end": 1774030139678
+        },
+        {
+          "id": "night",
+          "start": 1774030139678,
+          "end": 1774069115655
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1774069115655,
+          "end": 1774069820977
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1773971915655,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1632,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1773982715655,
+            "end": 1773983420977,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773982715655,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 12,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773983068316,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 6,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773983360977,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9149324705595459,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773983420977,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 59,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773985194855,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 30,
+          "progress": 0.499999859065883,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773986908734,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9830879059642472,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773986968734,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 648,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774006419342,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 324,
+          "progress": 0.49999998714693167,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774025809951,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9984576318010823,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774025869951,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 59,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774027648857,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 30,
+          "progress": 0.49999985946422704,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774029367764,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9831357072448721,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774029427764,
+            "end": 1774030139678,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774029427764,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 12,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774029783721,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 6,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774030079678,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9157201572100001,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774030139678,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 650,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774049627666,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 325,
+          "progress": 0.4999999871715852,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774069055655,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9984605902245889,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774069115655,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 12,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774069468316,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 6,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774069760977,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9149324705595459,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774069880977,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774069115655,
+            "end": 1774069820977,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "date": "2026-06-21",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1782010121109,
+        "morningBlueHourEnd": 1782011088619,
+        "morningGoldenHourStart": 1782011088619,
+        "morningGoldenHourEnd": 1782015422687,
+        "eveningGoldenHourStart": 1782067095327,
+        "eveningGoldenHourEnd": 1782071426577,
+        "eveningBlueHourStart": 1782071426577,
+        "eveningBlueHourEnd": 1782072403893
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1782010121109,
+          "end": 1782011088619
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1782011088619,
+          "end": 1782015422687
+        },
+        {
+          "id": "daylight",
+          "start": 1782015422687,
+          "end": 1782067095327
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1782067095327,
+          "end": 1782071426577
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1782071426577,
+          "end": 1782072403893
+        },
+        {
+          "id": "night",
+          "start": 1782072403893,
+          "end": 1782096521109
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1782096521109,
+          "end": 1782097488619
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1781999321109,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1636,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1782010121109,
+            "end": 1782011088619,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782010121109,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 16,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782010604864,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 8,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782011028619,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.937985137104526,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782011088619,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 72,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782013255653,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 36,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782015362687,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9861561932115509,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782015422687,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 861,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782041259007,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 431,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782067035327,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9988388439220446,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782067095327,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 72,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782069260952,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 36,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782071366577,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9861471861471861,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782071426577,
+            "end": 1782072403893,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782071426577,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 16,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782071915235,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 8,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782072343893,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9386073695713567,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782072403893,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 402,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782084462501,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 201,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782096461109,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9975121506561951,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782096521109,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 16,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782097004864,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 8,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782097428619,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.937985137104526,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782097548619,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782096521109,
+            "end": 1782097488619,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "date": "2026-09-23",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790138585687,
+        "morningBlueHourEnd": 1790139300938,
+        "morningGoldenHourStart": 1790139300938,
+        "morningGoldenHourEnd": 1790142854523,
+        "eveningGoldenHourStart": 1790181687249,
+        "eveningGoldenHourEnd": 1790185230999,
+        "eveningBlueHourStart": 1790185230999,
+        "eveningBlueHourEnd": 1790185943737
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1790138585687,
+          "end": 1790139300938
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1790139300938,
+          "end": 1790142854523
+        },
+        {
+          "id": "daylight",
+          "start": 1790142854523,
+          "end": 1790181687249
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1790181687249,
+          "end": 1790185230999
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1790185230999,
+          "end": 1790185943737
+        },
+        {
+          "id": "night",
+          "start": 1790185943737,
+          "end": 1790224985687
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1790224985687,
+          "end": 1790225700938
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1790127785687,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1632,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1790138585687,
+            "end": 1790139300938,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790138585687,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 12,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790138943312,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 6,
+          "progress": 0.49999930094470335,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790139240938,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9161133643993508,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790139300938,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 59,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790141077730,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 30,
+          "progress": 0.4999998592970198,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790142794523,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9831156423724211,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790142854523,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 647,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790162270886,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 324,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790181627249,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9984549114579285,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790181687249,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 59,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790183459124,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 30,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790185170999,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9830687830687831,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790185230999,
+            "end": 1790185943737,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790185230999,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 12,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790185587368,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 6,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790185883737,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9158175935617295,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790185943737,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 651,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790205464712,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 325,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790224925687,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9984631915157927,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790224985687,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 12,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790225343312,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 6,
+          "progress": 0.49999930094470335,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790225640938,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9161133643993508,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790225760938,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790224985687,
+            "end": 1790225700938,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "date": "2026-12-21",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797834856265,
+        "morningBlueHourEnd": 1797835678797,
+        "morningGoldenHourStart": 1797835678797,
+        "morningGoldenHourEnd": 1797840163563,
+        "eveningGoldenHourStart": 1797864303140,
+        "eveningGoldenHourEnd": 1797868796108,
+        "eveningBlueHourStart": 1797868796108,
+        "eveningBlueHourEnd": 1797869608313
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1797834856265,
+          "end": 1797835678797
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1797835678797,
+          "end": 1797840163563
+        },
+        {
+          "id": "daylight",
+          "start": 1797840163563,
+          "end": 1797864303140
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1797864303140,
+          "end": 1797868796108
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1797868796108,
+          "end": 1797869608313
+        },
+        {
+          "id": "night",
+          "start": 1797869608313,
+          "end": 1797921256265
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1797921256265,
+          "end": 1797922078797
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1797824056265,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1634,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1797834856265,
+            "end": 1797835678797,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797834856265,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 14,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797835267531,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 7,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797835618797,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9270545097333599,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797835678797,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 75,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797837921180,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 37,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797840103563,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9866213755634073,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797840163563,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 402,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797852233351,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 201,
+          "progress": 0.4999999792871267,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797864243140,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9975144552035854,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797864303140,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 75,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797866549624,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 37,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797868736108,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9866457985011244,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797868796108,
+            "end": 1797869608313,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797868796108,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 14,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797869202210,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 7,
+          "progress": 0.4999993843918715,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797869548313,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9261270245812325,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797869608313,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 861,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797895432289,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 430,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797921196265,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9988382888831681,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797921256265,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 14,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797921667531,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 7,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797922018797,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9270545097333599,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797922138797,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797921256265,
+            "end": 1797922078797,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "date": "2026-03-20",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1773978228749,
+        "morningBlueHourEnd": 1773979642030,
+        "morningGoldenHourStart": 1773979642030,
+        "morningGoldenHourEnd": 1773986590402,
+        "eveningGoldenHourStart": 1774021312733,
+        "eveningGoldenHourEnd": 1774028301795,
+        "eveningBlueHourStart": 1774028301795,
+        "eveningBlueHourEnd": 1774029725348
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1773978228749,
+          "end": 1773979642030
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1773979642030,
+          "end": 1773986590402
+        },
+        {
+          "id": "daylight",
+          "start": 1773986590402,
+          "end": 1774021312733
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1774021312733,
+          "end": 1774028301795
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1774028301795,
+          "end": 1774029725348
+        },
+        {
+          "id": "night",
+          "start": 1774029725348,
+          "end": 1774064628749
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1774064628749,
+          "end": 1774066042030
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1773967428749,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1644,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1773978228749,
+            "end": 1773979642030,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773978228749,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 24,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773978935389,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 12,
+          "progress": 0.499999646213315,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773979582030,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9575455977968995,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773979642030,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 116,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773983116216,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 58,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773986530402,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9913648837454299,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1773986590402,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 579,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774003951567,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 289,
+          "progress": 0.4999999856000451,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774021252733,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9982720054134614,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774021312733,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 116,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774024807264,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 58,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774028241795,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9914151569981781,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1774028301795,
+            "end": 1774029725348,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1774028301795,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 24,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774029013571,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 12,
+          "progress": 0.4999996487661506,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774029665348,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9578519380732575,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774029725348,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 582,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774047177048,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 291,
+          "progress": 0.4999999856747484,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774064568749,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9982809698115092,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774064628749,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 24,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774065335389,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 12,
+          "progress": 0.499999646213315,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774065982030,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9575455977968995,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1774066102030,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1774064628749,
+            "end": 1774066042030,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "date": "2026-06-21",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1781988359439,
+        "morningBlueHourEnd": 1781988359878,
+        "morningGoldenHourStart": 1781988359878,
+        "morningGoldenHourEnd": 1782002758560,
+        "eveningGoldenHourStart": 1782074759439,
+        "eveningGoldenHourEnd": 1782089158560,
+        "eveningBlueHourStart": 1782089158560,
+        "eveningBlueHourEnd": 1782089158890
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1781988359439,
+          "end": 1781988359878
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1781988359878,
+          "end": 1782002758560
+        },
+        {
+          "id": "daylight",
+          "start": 1782002758560,
+          "end": 1782074759439
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1782074759439,
+          "end": 1782089158560
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1782089158560,
+          "end": 1782089158890
+        },
+        {
+          "id": "night",
+          "start": 1782089158890,
+          "end": 1782074759439
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1782074759439,
+          "end": 1782074759878
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1781977559439,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1620,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1781988359439,
+            "end": 1781988359878,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781988359439,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 0,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781988359658,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 0,
+          "progress": 0.4988610478359909,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781988299878,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1441,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1781988359439,
+            "end": 1781988359878,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781988359878,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 240,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1781995559219,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 120,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782002698560,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9958329519326838,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782002758560,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1200,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782038758999,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 600,
+          "progress": 0.49999999305564036,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782074699439,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9991666768401536,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782074759439,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782081958999,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 120,
+          "progress": 0.49999996527565815,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782089098560,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9958330789775293,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782089158560,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 0,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782074759439,
+            "end": 1782074759878,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782089158725,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 0,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782074759439,
+            "end": 1782074759878,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782089098890,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9958559970431529,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782089158890,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1782074759439,
+            "end": 1782074759878,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1782081959164,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 120,
+          "progress": 0.5000114243084699,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782074699439,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9991666768401536,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782074759439,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782074759658,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 0.4988610478359909,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782074699878,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9991727739879398,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1782074819878,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 239,
+          "progress": 0.0041974089946184906,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1782089158560,
+            "end": 1782089158890,
+            "isNextDay": false
+          }
+        }
+      ]
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "date": "2026-09-23",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790134037718,
+        "morningBlueHourEnd": 1790135465254,
+        "morningGoldenHourStart": 1790135465254,
+        "morningGoldenHourEnd": 1790142460614,
+        "eveningGoldenHourStart": 1790177026780,
+        "eveningGoldenHourEnd": 1790183987718,
+        "eveningBlueHourStart": 1790183987718,
+        "eveningBlueHourEnd": 1790185395725
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1790134037718,
+          "end": 1790135465254
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1790135465254,
+          "end": 1790142460614
+        },
+        {
+          "id": "daylight",
+          "start": 1790142460614,
+          "end": 1790177026780
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1790177026780,
+          "end": 1790183987718
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1790183987718,
+          "end": 1790185395725
+        },
+        {
+          "id": "night",
+          "start": 1790185395725,
+          "end": 1790220437718
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1790220437718,
+          "end": 1790221865254
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1790123237718,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1644,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1790134037718,
+            "end": 1790135465254,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790134037718,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 24,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790134751486,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 12,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790135405254,
+          "current": "morningBlueHour",
+          "next": "morningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9579695363199247,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790135465254,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 117,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790138962934,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 58,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790142400614,
+          "current": "morningGoldenHour",
+          "next": "daylight",
+          "minutesUntilTransition": 1,
+          "progress": 0.9914228860273095,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790142460614,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 576,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790159743697,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 288,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790176966780,
+          "current": "daylight",
+          "next": "eveningGoldenHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9982641985807741,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790177026780,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 116,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790180507249,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 58,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790183927718,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.991380471999607,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1790183987718,
+            "end": 1790185395725,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1790183987718,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 23,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790184691721,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 12,
+          "progress": 0.4999996448881291,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790185335725,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9573865754928775,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790185395725,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 584,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790202916721,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 292,
+          "progress": 0.4999999857314052,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790220377718,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9982877686209229,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790220437718,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 24,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790221151486,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 12,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790221805254,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9579695363199247,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1790221925254,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1790220437718,
+            "end": 1790221865254,
+            "isNextDay": true
+          }
+        }
+      ]
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "date": "2026-12-21",
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797842533439,
+        "morningBlueHourEnd": 1797845373977,
+        "morningGoldenHourStart": 1797845373977,
+        "morningGoldenHourEnd": 1797856932647,
+        "eveningGoldenHourStart": 1797842533439,
+        "eveningGoldenHourEnd": 1797854120500,
+        "eveningBlueHourStart": 1797854120500,
+        "eveningBlueHourEnd": 1797856932656
+      },
+      "timeline": [
+        {
+          "id": "morningBlueHour",
+          "start": 1797842533439,
+          "end": 1797845373977
+        },
+        {
+          "id": "morningGoldenHour",
+          "start": 1797845373977,
+          "end": 1797856932647
+        },
+        {
+          "id": "daylight",
+          "start": 1797856932647,
+          "end": 1797842533439
+        },
+        {
+          "id": "eveningGoldenHour",
+          "start": 1797842533439,
+          "end": 1797854120500
+        },
+        {
+          "id": "eveningBlueHour",
+          "start": 1797854120500,
+          "end": 1797856932656
+        },
+        {
+          "id": "night",
+          "start": 1797856932656,
+          "end": 1797928933439
+        },
+        {
+          "id": "nextMorningBlueHour",
+          "start": 1797928933439,
+          "end": 1797931773977
+        }
+      ],
+      "states": [
+        {
+          "nowMs": 1797831733439,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1667,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1797842533439,
+            "end": 1797845373977,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797842533439,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 193,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797854120500,
+            "end": 1797856932656,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797843953708,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 169,
+          "progress": 0.12257370527349429,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797854120500,
+            "end": 1797856932656,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797845313977,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 147,
+          "progress": 0.23996922084038394,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797854120500,
+            "end": 1797856932656,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797845373977,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 146,
+          "progress": 0.24514741054698858,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797854120500,
+            "end": 1797856932656,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797851153312,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 49,
+          "progress": 0.7439222940139868,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797854120500,
+            "end": 1797856932656,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797856872647,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9786608566523336,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797856932647,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 0,
+          "progress": 0.9999967996085566,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797849733043,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 73,
+          "progress": 0.6213485887404925,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797854120500,
+            "end": 1797856932656,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797842473439,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1488,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "morning",
+            "start": 1797842533439,
+            "end": 1797845373977,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797842533439,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 193,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797854120500,
+            "end": 1797856932656,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797848326969,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 97,
+          "progress": 0.49999995684841914,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797854120500,
+            "end": 1797856932656,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797854060500,
+          "current": "eveningGoldenHour",
+          "next": "eveningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9948218102933953,
+          "nextBlueHour": {
+            "id": "evening",
+            "start": 1797854120500,
+            "end": 1797856932656,
+            "isNextDay": false
+          }
+        },
+        {
+          "nowMs": 1797854120500,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 47,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797855526578,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 23,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797856872656,
+          "current": "eveningBlueHour",
+          "next": "night",
+          "minutesUntilTransition": 1,
+          "progress": 0.9786640570437771,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797856932656,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1200,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797892933047,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 600,
+          "progress": 0.4999999930556311,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797928873439,
+          "current": "night",
+          "next": "nextMorningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9991666757290681,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797928933439,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 47,
+          "progress": 0,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797930353708,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 24,
+          "progress": 0.5,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797931713977,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 1,
+          "progress": 0.9788772408607102,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        },
+        {
+          "nowMs": 1797931833977,
+          "current": "nextMorningBlueHour",
+          "next": "morningBlueHour",
+          "minutesUntilTransition": 0,
+          "progress": 1,
+          "nextBlueHour": {
+            "id": "tomorrow",
+            "start": 1797928933439,
+            "end": 1797931773977,
+            "isNextDay": true
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -40,6 +40,12 @@ import {
   calculateSunTimesLocally,
   getSolarElevation,
 } from '../utils/sunPosition';
+import {
+  buildLightTimeline,
+  getCurrentPhaseState,
+  getNextBlueHourWindow,
+} from '../utils/lightPhases';
+import { ProcessedSunTimes } from '../types/api';
 
 /** 数据格式版本，结构变化时递增 */
 export const SHARED_DATA_VERSION = 1;
@@ -390,6 +396,73 @@ const buildFormatterVectors = () => ({
   ].map(seconds => ({ seconds, result: formatShutterSpeed(seconds) })),
 });
 
+const MINUTE_MS = 60 * 1000;
+
+const buildLightPhaseVectors = () => {
+  const cases = LOCATIONS.filter(({ name }) =>
+    ['Tokyo', 'Zurich', 'Tromso'].includes(name)
+  ).flatMap(({ name, lat, lng }) =>
+    DATES.map(date => {
+      const local = calculateSunTimesLocally(lat, lng, date);
+      // buildLightTimeline 等只用到黄金 / 蓝调时刻字段
+      const hours = calculateGoldenAndBlueHours(local.sunrise, local.sunset, lat, lng);
+      const sunTimes = hours as unknown as ProcessedSunTimes;
+      const timeline = buildLightTimeline(sunTimes);
+
+      // 每个阶段的开始、中点、结束前 1 分钟，以及第一个阶段之前、最后一个阶段之后
+      const first = timeline[0].start.getTime();
+      const last = timeline[timeline.length - 1].end.getTime();
+      const nows = [
+        first - 3 * 60 * MINUTE_MS,
+        ...timeline.flatMap(({ start, end }) => [
+          start.getTime(),
+          (start.getTime() + end.getTime()) / 2,
+          end.getTime() - MINUTE_MS,
+        ]),
+        last + MINUTE_MS,
+      ].map(Math.floor);
+
+      return {
+        location: name,
+        lat,
+        lng,
+        date,
+        goldenAndBlueHours: mapDates(hours),
+        timeline: timeline.map(({ id, start, end }) => ({
+          id,
+          start: toEpochMs(start),
+          end: toEpochMs(end),
+        })),
+        states: nows.map(nowMs => {
+          const now = new Date(nowMs);
+          const state = getCurrentPhaseState(timeline, now);
+          const blue = getNextBlueHourWindow(sunTimes, now);
+          return {
+            nowMs,
+            current: state?.current.id ?? null,
+            next: state?.next.id ?? null,
+            minutesUntilTransition: state?.minutesUntilTransition ?? null,
+            progress: state?.progress ?? null,
+            nextBlueHour: blue && {
+              id: blue.id,
+              start: toEpochMs(blue.start),
+              end: toEpochMs(blue.end),
+              isNextDay: blue.isNextDay,
+            },
+          };
+        }),
+      };
+    })
+  );
+
+  return {
+    description:
+      'lightPhases.ts：goldenAndBlueHours 为输入（UTC 毫秒），timeline = buildLightTimeline，' +
+      'states 为不同时刻的 getCurrentPhaseState 与 getNextBlueHourWindow',
+    cases,
+  };
+};
+
 /** 输出文件：相对 shared/ 的路径 → 内容 */
 export const buildSharedFiles = (): Record<string, unknown> => ({
   'data/films.json': buildFilms(),
@@ -398,6 +471,7 @@ export const buildSharedFiles = (): Record<string, unknown> => ({
   'test-vectors/exposure.json': buildExposureVectors(),
   'test-vectors/exposure-locks.json': buildExposureLockVectors(),
   'test-vectors/sun.json': buildSunVectors(),
+  'test-vectors/light-phases.json': buildLightPhaseVectors(),
   'test-vectors/optics.json': buildOpticsVectors(),
   'test-vectors/formatters.json': buildFormatterVectors(),
 });

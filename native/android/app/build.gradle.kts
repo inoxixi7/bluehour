@@ -44,4 +44,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
 
     implementation("androidx.activity:activity-compose:1.13.0")
+    implementation("androidx.core:core:1.18.0")
 }
