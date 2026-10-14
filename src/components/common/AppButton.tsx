@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  StyleSheet,
-  ViewStyle,
-  TextStyle,
-  ActivityIndicator,
-} from 'react-native';
+import { Text, StyleSheet, ViewStyle, TextStyle, ActivityIndicator } from 'react-native';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { Touchable } from './Touchable';
@@ -32,7 +26,7 @@ export const AppButton: React.FC<AppButtonProps> = ({
   textStyle,
 }) => {
   const { theme } = useTheme();
-  
+
   const getButtonStyle = (): ViewStyle => {
     const baseStyle: ViewStyle = {
       ...styles.button,
@@ -67,7 +61,7 @@ export const AppButton: React.FC<AppButtonProps> = ({
     if (variant === 'outline') {
       return { ...baseStyle, color: theme.colors.primary };
     }
-    
+
     if (variant === 'secondary') {
       return { ...baseStyle, color: theme.colors.buttonSecondaryText };
     }
@@ -77,17 +71,15 @@ export const AppButton: React.FC<AppButtonProps> = ({
 
   return (
     <Touchable
-      style={[
-        getButtonStyle(),
-        disabled && styles.disabled,
-        style,
-      ]}
+      style={[getButtonStyle(), disabled && styles.disabled, style]}
       onPress={onPress}
       disabled={disabled || loading}
       activeOpacity={0.7}
     >
       {loading ? (
-        <ActivityIndicator color={variant === 'outline' ? theme.colors.primary : theme.colors.buttonPrimaryText} />
+        <ActivityIndicator
+          color={variant === 'outline' ? theme.colors.primary : theme.colors.buttonPrimaryText}
+        />
       ) : (
         <Text style={[getTextStyle(), textStyle]}>{title}</Text>
       )}

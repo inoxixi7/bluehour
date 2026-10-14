@@ -3,6 +3,7 @@
 ## 当前状态
 
 ✅ **已完成**:
+
 - 项目结构搭建
 - 所有核心文件创建
 - TypeScript 配置
@@ -19,11 +20,13 @@
 ## 首次运行步骤
 
 ### 1. 安装依赖
+
 ```bash
 npm install
 ```
 
 这将安装所有必需的包，包括：
+
 - React Native & Expo
 - React Navigation
 - TypeScript
@@ -33,22 +36,26 @@ npm install
 ### 2. 资源文件
 
 项目已包含所需的图片资源：
+
 - `assets/images/` - 蓝调时刻相关图片
 - `assets/fonts/` - 自定义字体（如需要）
 - 应用图标和启动屏已配置在 `app.json` 中
 
 ### 3. 启动开发服务器
+
 ```bash
 npm start
 ```
 
 ### 4. 在设备上测试
+
 - 扫描二维码（Expo Go 应用）
 - 或按 `i` (iOS) / `a` (Android)
 
 ## TypeScript 编译错误
 
 当前显示的 TypeScript 错误（找不到模块）是**正常的**，因为：
+
 1. 依赖还未安装
 2. 运行 `npm install` 后会自动解决
 
@@ -57,31 +64,39 @@ npm start
 ## 已知限制和待解决问题
 
 ### 1. Picker 组件
+
 使用了 `@react-native-picker/picker`，需要在安装依赖时确保包含。
 
 如果遇到问题，可以运行：
+
 ```bash
 npx expo install @react-native-picker/picker
 ```
 
 ### 2. 位置权限
+
 在 iOS 和 Android 上需要用户授予位置权限。首次运行时会请求权限。
 
 **iOS 模拟器测试位置**:
+
 - Features → Location → Custom Location
 - 输入纬度和经度
 
 **Android 模拟器测试位置**:
+
 - Extended Controls (⋯) → Location
 - 输入坐标
 
 ### 3. API 请求
+
 sunrise-sunset.org API 是免费的，但有速率限制。如果遇到错误，可能需要等待几分钟。
 
 ### 4. Babel Module Resolver
+
 `babel.config.js` 中配置了 `@` 别名指向 `src` 目录。
 
 如果遇到别名解析问题：
+
 ```bash
 npm start -- --clear
 ```
@@ -89,12 +104,14 @@ npm start -- --clear
 ## 推荐的开发顺序
 
 ### 阶段 1: 基础运行 ✅
+
 1. ✅ 项目结构已创建
 2. ✅ 依赖已安装
 3. ✅ 资源文件已准备
 4. ✅ 应用可正常运行
 
 ### 阶段 2: 核心功能 ✅
+
 1. ✅ 曝光计算器（光圈/快门/ISO/ND滤镜）
 2. ✅ 倒易律计算器（胶片补偿）
 3. ✅ 日出日落时间计算
@@ -102,12 +119,14 @@ npm start -- --clear
 5. ✅ 用户预设系统
 
 ### 阶段 3: 用户体验 ✅
+
 1. ✅ 多语言支持
 2. ✅ 主题切换
 3. ✅ 位置搜索
 4. ✅ 时区支持
 
 ### 阶段 4: 优化改进（进行中）
+
 1. 性能优化
 2. UI/UX 改进
 3. 错误处理完善
@@ -116,6 +135,7 @@ npm start -- --clear
 ## 调试技巧
 
 ### 查看日志
+
 ```bash
 # 在开发服务器运行时按
 j  # 打开 Chrome DevTools
@@ -123,11 +143,13 @@ r  # 重新加载应用
 ```
 
 ### 清除缓存
+
 ```bash
 npm start -- --clear
 ```
 
 ### 重置 Metro bundler
+
 ```bash
 rm -rf node_modules
 npm install
@@ -135,6 +157,7 @@ npm start -- --clear
 ```
 
 ### 检查端口占用
+
 ```bash
 # 如果 19000 端口被占用
 lsof -ti:19000 | xargs kill
@@ -143,12 +166,15 @@ lsof -ti:19000 | xargs kill
 ## 性能注意事项
 
 ### 1. 图片优化
+
 - 使用合适尺寸的图片
 - 考虑使用 WebP 格式
 - 启用图片缓存
 
 ### 2. 列表渲染
+
 如果未来添加列表功能，使用 `FlatList` 而非 `ScrollView`：
+
 ```typescript
 <FlatList
   data={items}
@@ -158,7 +184,9 @@ lsof -ti:19000 | xargs kill
 ```
 
 ### 3. 状态管理
+
 当应用复杂度增加时，考虑使用：
+
 - Context API（轻量级状态）
 - Redux Toolkit（复杂状态）
 - Zustand（简单高效）
@@ -166,16 +194,19 @@ lsof -ti:19000 | xargs kill
 ## 代码质量工具（可选）
 
 ### ESLint
+
 ```bash
 npm install --save-dev eslint @typescript-eslint/parser @typescript-eslint/eslint-plugin
 ```
 
 ### Prettier
+
 ```bash
 npm install --save-dev prettier eslint-config-prettier
 ```
 
 ### Husky (Git hooks)
+
 ```bash
 npm install --save-dev husky lint-staged
 ```
@@ -196,12 +227,14 @@ npm install --save-dev husky lint-staged
 ## 常见错误及解决方案
 
 ### "Unable to resolve module"
+
 ```bash
 npm install
 npm start -- --clear
 ```
 
 ### "Metro bundler is not running"
+
 ```bash
 # 完全重启
 rm -rf node_modules
@@ -210,9 +243,11 @@ npm start
 ```
 
 ### "Expo Go version mismatch"
+
 更新 Expo Go 应用到最新版本
 
 ### "Location permission denied"
+
 检查 `app.json` 中的权限配置
 
 ## 获取帮助

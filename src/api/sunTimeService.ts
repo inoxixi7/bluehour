@@ -1,7 +1,12 @@
 // sunrise-sunset.org API 服务封装
 
 import { SunTimesResponse, ProcessedSunTimes } from '../types/api';
-import { fetchWithRetry, fetchWithCache, generateCacheKey, isNetworkError } from '../utils/apiHelpers';
+import {
+  fetchWithRetry,
+  fetchWithCache,
+  generateCacheKey,
+  isNetworkError,
+} from '../utils/apiHelpers';
 import { calculateGoldenAndBlueHours } from '../utils/sunPosition';
 import { debugLog } from '../utils/logger';
 
@@ -32,7 +37,7 @@ const fetchSunTimesRaw = async (
   }
 
   const url = `${BASE_URL}?${params.toString()}`;
-  
+
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -55,7 +60,11 @@ const fetchSunTimesRaw = async (
  * @param lng 经度（用于精确计算太阳高度角）
  * @returns 处理后的太阳时间数据
  */
-export const processSunTimes = (response: SunTimesResponse, lat: number, lng: number): ProcessedSunTimes => {
+export const processSunTimes = (
+  response: SunTimesResponse,
+  lat: number,
+  lng: number
+): ProcessedSunTimes => {
   const { results } = response;
 
   // 直接解析 ISO 8601 时间字符串为 Date 对象，不做任何转换
@@ -146,7 +155,7 @@ export const getSunTimes = async (
       CACHE_TTL,
       forceRefresh
     );
-    
+
     return processSunTimes(response, lat, lng);
   } catch (error) {
     // 如果是网络错误，尝试从过期缓存中读取

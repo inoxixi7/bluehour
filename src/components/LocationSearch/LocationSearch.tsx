@@ -37,20 +37,20 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 
   const performSearch = useCallback(
     async (query: string) => {
-    try {
-      setLoading(true);
-      // 传递当前语言代码
-      const currentLanguage = (i18n.language || 'en').split('-')[0]; // 'zh-CN' -> 'zh'
-      const searchResults = await searchLocation(query, 8, currentLanguage);
-      setResults(searchResults);
-      setShowResults(true);
-    } catch (error) {
-      console.error('Search error:', error);
-      setResults([]);
-    } finally {
-      setLoading(false);
-    }
-  },
+      try {
+        setLoading(true);
+        // 传递当前语言代码
+        const currentLanguage = (i18n.language || 'en').split('-')[0]; // 'zh-CN' -> 'zh'
+        const searchResults = await searchLocation(query, 8, currentLanguage);
+        setResults(searchResults);
+        setShowResults(true);
+      } catch (error) {
+        console.error('Search error:', error);
+        setResults([]);
+      } finally {
+        setLoading(false);
+      }
+    },
     [i18n.language]
   );
 
@@ -89,16 +89,27 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 
     return (
       <Touchable
-        style={[styles.resultItem, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}
+        style={[
+          styles.resultItem,
+          { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+        ]}
         onPress={() => handleSelectLocation(item)}
         activeOpacity={0.7}
       >
-        <Ionicons name={getIconName(item.type) as any} size={24} color={theme.colors.accent} style={{ marginRight: 12 }} />
+        <Ionicons
+          name={getIconName(item.type) as any}
+          size={24}
+          color={theme.colors.accent}
+          style={{ marginRight: 12 }}
+        />
         <View style={styles.resultTextContainer}>
           <Text style={[styles.resultName, { color: theme.colors.text }]} numberOfLines={1}>
             {item.name}
           </Text>
-          <Text style={[styles.resultAddress, { color: theme.colors.textSecondary }]} numberOfLines={2}>
+          <Text
+            style={[styles.resultAddress, { color: theme.colors.textSecondary }]}
+            numberOfLines={2}
+          >
             {item.displayName}
           </Text>
         </View>
@@ -112,10 +123,15 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
     <View style={styles.container}>
       {/* 当前位置显示 */}
       {currentLocationName && !searchQuery && (
-        <View style={[styles.currentLocationBar, { backgroundColor: theme.colors.backgroundSecondary }]}>
+        <View
+          style={[styles.currentLocationBar, { backgroundColor: theme.colors.backgroundSecondary }]}
+        >
           <View style={styles.currentLocationContent}>
             <Ionicons name="location" size={16} color={theme.colors.primary} />
-            <Text style={[styles.currentLocationText, { color: theme.colors.text }]} numberOfLines={1}>
+            <Text
+              style={[styles.currentLocationText, { color: theme.colors.text }]}
+              numberOfLines={1}
+            >
               {currentLocationName}
             </Text>
           </View>
@@ -128,8 +144,18 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
       )}
 
       <View style={styles.searchRow}>
-        <View style={[styles.searchInputContainer, { backgroundColor: theme.colors.background, borderColor: theme.colors.border }]}>
-          <Ionicons name="search" size={20} color={theme.colors.textTertiary} style={{ marginRight: 8 }} />
+        <View
+          style={[
+            styles.searchInputContainer,
+            { backgroundColor: theme.colors.background, borderColor: theme.colors.border },
+          ]}
+        >
+          <Ionicons
+            name="search"
+            size={20}
+            color={theme.colors.textTertiary}
+            style={{ marginRight: 8 }}
+          />
           <TextInput
             style={[styles.searchInput, { color: theme.colors.text }]}
             placeholder={placeholder || t('locationSearch.placeholder')}
@@ -150,7 +176,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
       </View>
 
       {showResults && (
-        <Touchable 
+        <Touchable
           style={styles.backdrop}
           activeOpacity={1}
           hoverOpacity={1}
@@ -165,7 +191,12 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
       )}
 
       {showResults && results.length > 0 && (
-        <View style={[styles.resultsContainer, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
+        <View
+          style={[
+            styles.resultsContainer,
+            { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+          ]}
+        >
           <FlatList
             data={results}
             renderItem={renderResultItem}
@@ -178,7 +209,12 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
       )}
 
       {showResults && results.length === 0 && !loading && searchQuery.length >= 2 && (
-        <View style={[styles.noResultsContainer, { backgroundColor: theme.colors.card, borderColor: theme.colors.border }]}>
+        <View
+          style={[
+            styles.noResultsContainer,
+            { backgroundColor: theme.colors.card, borderColor: theme.colors.border },
+          ]}
+        >
           <Text style={[styles.noResultsText, { color: theme.colors.textSecondary }]}>
             {t('locationSearch.noResults')}
           </Text>

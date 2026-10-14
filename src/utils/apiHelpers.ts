@@ -22,12 +22,12 @@ export const fetchWithRetry = async <T>(
       return await fetchFn();
     } catch (error) {
       const isLastAttempt = i === maxRetries - 1;
-      
+
       if (isLastAttempt) {
         console.error(`❌ API 请求失败，已重试 ${maxRetries} 次:`, error);
         throw error;
       }
-      
+
       const waitTime = delay * (i + 1); // 递增延迟
       console.warn(`⚠️ API 请求失败，${waitTime}ms 后重试 (${i + 1}/${maxRetries})...`);
       await new Promise(resolve => setTimeout(resolve, waitTime));
@@ -61,7 +61,7 @@ export const fetchWithCache = async <T>(
       if (cached) {
         const { data, timestamp }: CacheData<T> = JSON.parse(cached);
         const age = Date.now() - timestamp;
-        
+
         if (age < ttl) {
           debugLog(`📦 使用缓存数据: ${cacheKey} (${Math.round(age / 1000)}s 前)`);
           return data;
@@ -77,7 +77,7 @@ export const fetchWithCache = async <T>(
   // 获取新数据
   debugLog(`🌐 获取新数据: ${cacheKey}`);
   const data = await fetchFn();
-  
+
   // 保存到缓存
   try {
     const cacheData: CacheData<T> = {

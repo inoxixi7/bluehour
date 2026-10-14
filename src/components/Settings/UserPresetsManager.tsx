@@ -56,14 +56,18 @@ export const UserPresetsManager: React.FC = () => {
 
   // 删除预设
   const handleDelete = (preset: UserPreset) => {
-    Alert.alert(t('common.delete'), t('settings.userPresets.deleteConfirm', { name: preset.name }), [
-      { text: t('common.cancel'), style: 'cancel' },
-      {
-        text: t('common.delete'),
-        style: 'destructive',
-        onPress: () => deletePreset(preset.id),
-      },
-    ]);
+    Alert.alert(
+      t('common.delete'),
+      t('settings.userPresets.deleteConfirm', { name: preset.name }),
+      [
+        { text: t('common.cancel'), style: 'cancel' },
+        {
+          text: t('common.delete'),
+          style: 'destructive',
+          onPress: () => deletePreset(preset.id),
+        },
+      ]
+    );
   };
 
   // 激活/取消激活预设

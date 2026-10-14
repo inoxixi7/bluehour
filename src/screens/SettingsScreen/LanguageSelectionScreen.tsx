@@ -4,7 +4,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
-import { changeLanguage, SUPPORTED_LANGUAGES, LANGUAGE_NAMES, SupportedLanguage } from '../../locales/i18n';
+import {
+  changeLanguage,
+  SUPPORTED_LANGUAGES,
+  LANGUAGE_NAMES,
+  SupportedLanguage,
+} from '../../locales/i18n';
 import { Touchable } from '../../components/common/Touchable';
 
 const LanguageSelectionScreen: React.FC = () => {
@@ -23,29 +28,29 @@ const LanguageSelectionScreen: React.FC = () => {
         key={language}
         style={[
           styles.option,
-          { 
+          {
             backgroundColor: theme.colors.card,
             borderColor: theme.colors.border,
           },
-          isSelected && { 
+          isSelected && {
             backgroundColor: theme.colors.primary + '20',
             borderColor: theme.colors.primary,
             borderWidth: 2,
-          }
+          },
         ]}
         onPress={() => handleLanguageChange(language)}
         activeOpacity={0.7}
       >
-        <Text style={[
-          styles.optionLabel,
-          { color: theme.colors.text },
-          isSelected && { color: theme.colors.primary, fontWeight: '600' }
-        ]}>
+        <Text
+          style={[
+            styles.optionLabel,
+            { color: theme.colors.text },
+            isSelected && { color: theme.colors.primary, fontWeight: '600' },
+          ]}
+        >
           {LANGUAGE_NAMES[language]}
         </Text>
-        {isSelected && (
-          <Ionicons name="checkmark" size={24} color={theme.colors.primary} />
-        )}
+        {isSelected && <Ionicons name="checkmark" size={24} color={theme.colors.primary} />}
       </Touchable>
     );
   };
@@ -57,7 +62,7 @@ const LanguageSelectionScreen: React.FC = () => {
           <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
             {t('settings.selectLanguageDesc')}
           </Text>
-          
+
           <View style={styles.optionsContainer}>
             {SUPPORTED_LANGUAGES.map(lang => renderLanguageOption(lang))}
           </View>

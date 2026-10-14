@@ -40,7 +40,7 @@ export default {
       day: '.',
     },
   },
-  
+
   weather: {
     clearSky: 'Klarer Himmel',
     mainlyClear: 'Überwiegend klar',
@@ -70,19 +70,19 @@ export default {
     error: 'Wetter nicht verfügbar',
     notApplicable: 'N/V',
   },
-  
+
   locationSearch: {
     placeholder: 'Ort suchen',
     noResults: 'Keine passenden Orte gefunden',
   },
-  
+
   navigation: {
     home: 'Startseite',
     sunTimes: 'Blaue Stunde',
     calculator: 'Rechner',
     settings: 'Einstellungen',
   },
-  
+
   home: {
     title: 'BlueHour',
     subtitle: 'Licht & Zeit Begleiter',
@@ -95,11 +95,14 @@ export default {
     },
     cta: {
       defaultTitle: 'Kreative Optionen erkunden',
-      defaultDescription: 'Das Licht ändert sich ständig. Probieren Sie verschiedene Belichtungskombinationen aus.',
+      defaultDescription:
+        'Das Licht ändert sich ständig. Probieren Sie verschiedene Belichtungskombinationen aus.',
       dayTitle: 'Kompositionen suchen',
-      dayDescription: 'Hartes Licht eignet sich perfekt zum Erkunden. Planen Sie Ihren Standort für heute Abend.',
+      dayDescription:
+        'Hartes Licht eignet sich perfekt zum Erkunden. Planen Sie Ihren Standort für heute Abend.',
       blueTitle: 'Stadtlichter ausbalancieren',
-      blueDescription: 'Himmel und künstliche Lichter sind gleich hell. Achten Sie auf die Lichter.',
+      blueDescription:
+        'Himmel und künstliche Lichter sind gleich hell. Achten Sie auf die Lichter.',
       nightTitle: 'Light Painting ausprobieren',
       nightDescription: 'Nutzen Sie die Dunkelheit für kreatives Light Painting oder Sternspuren.',
     },
@@ -108,33 +111,42 @@ export default {
       currentLight: 'Was bei diesem Licht tun',
       default: {
         title1: 'Kreative Optionen erkunden',
-        desc1: 'Das Licht ändert sich ständig. Probieren Sie verschiedene Belichtungskombinationen aus.',
+        desc1:
+          'Das Licht ändert sich ständig. Probieren Sie verschiedene Belichtungskombinationen aus.',
         title2: 'Ausrüstung vorbereiten',
-        desc2: 'Überprüfen Sie den Akkustand, leeren Sie Ihre Speicherkarten und stellen Sie sicher, dass alles bereit ist.',
+        desc2:
+          'Überprüfen Sie den Akkustand, leeren Sie Ihre Speicherkarten und stellen Sie sicher, dass alles bereit ist.',
       },
       day: {
         title1: 'Nach Kompositionen suchen',
-        desc1: 'Hartes Licht eignet sich perfekt zum Finden von Winkeln. Planen Sie Ihren Spot für heute Abend.',
+        desc1:
+          'Hartes Licht eignet sich perfekt zum Finden von Winkeln. Planen Sie Ihren Spot für heute Abend.',
         title2: 'Verschiedene Winkel testen',
-        desc2: 'Nutzen Sie das reichliche Tageslicht, um die besten Aufnahmewinkel und Vordergrundelemente zu finden.',
+        desc2:
+          'Nutzen Sie das reichliche Tageslicht, um die besten Aufnahmewinkel und Vordergrundelemente zu finden.',
         title3: 'Lichtänderungen beobachten',
-        desc3: 'Achten Sie auf Schattenrichtung und -intensität, um abendliche Lichteffekte vorherzusagen.',
+        desc3:
+          'Achten Sie auf Schattenrichtung und -intensität, um abendliche Lichteffekte vorherzusagen.',
       },
       blue: {
         title1: 'Stadtlichter ausgleichen',
-        desc1: 'Himmel und künstliche Lichter haben gleiche Helligkeit. Achten Sie auf Ihre Highlights.',
+        desc1:
+          'Himmel und künstliche Lichter haben gleiche Helligkeit. Achten Sie auf Ihre Highlights.',
         title2: 'Städtische Nachtaufnahmen machen',
         desc2: 'Dies ist die goldene Zeit für Stadt-Skylines mit satten Blautönen im Himmel.',
         title3: 'Belichtungsreihen verwenden',
-        desc3: 'Erstellen Sie Belichtungsreihen für Himmel und Boden separat für bessere Nachbearbeitung.',
+        desc3:
+          'Erstellen Sie Belichtungsreihen für Himmel und Boden separat für bessere Nachbearbeitung.',
       },
       night: {
         title1: 'Light Painting ausprobieren',
         desc1: 'Nutzen Sie die Dunkelheit für kreatives Light Painting oder Sternspuren.',
         title2: 'Milchstraße fotografieren',
-        desc2: 'Entfernen Sie sich von Lichtverschmutzung, verwenden Sie Weitwinkelobjektive und hohe ISO für Sterne.',
+        desc2:
+          'Entfernen Sie sich von Lichtverschmutzung, verwenden Sie Weitwinkelobjektive und hohe ISO für Sterne.',
         title3: 'Verkehrsspuren aufnehmen',
-        desc3: 'Verwenden Sie Bulb-Modus oder Langzeitbelichtungen, um Verkehrslichtspuren für dynamische Effekte aufzunehmen.',
+        desc3:
+          'Verwenden Sie Bulb-Modus oder Langzeitbelichtungen, um Verkehrslichtspuren für dynamische Effekte aufzunehmen.',
       },
     },
     timeline: {
@@ -143,11 +155,13 @@ export default {
     features: {
       sunTimeline: {
         title: 'Blaue Stunde Planer',
-        description: 'Überblick über goldene Stunde, blaue Stunde und Dämmerung für Ihren Standort.',
+        description:
+          'Überblick über goldene Stunde, blaue Stunde und Dämmerung für Ihren Standort.',
       },
       exposureLab: {
         title: 'Exposure Lab',
-        description: 'Ein Arbeitsablauf für EV-Abstimmung, ND-Berechnung, Schwarzschild-Effekt und Timer.',
+        description:
+          'Ein Arbeitsablauf für EV-Abstimmung, ND-Berechnung, Schwarzschild-Effekt und Timer.',
       },
       exposureCalc: {
         title: 'Belichtungsrechner',
@@ -165,24 +179,32 @@ export default {
     tips: {
       title: 'Foto-Tipp des Tages',
       items: {
-        tripod: 'Das Licht der blauen Stunde ist schwach; nutzen Sie ein Stativ für scharfe Bilder.',
-        aperture: 'Für Stadtlandschaften nutzen Sie eine kleine Blende (f/8 - f/11) für Blendensterne.',
+        tripod:
+          'Das Licht der blauen Stunde ist schwach; nutzen Sie ein Stativ für scharfe Bilder.',
+        aperture:
+          'Für Stadtlandschaften nutzen Sie eine kleine Blende (f/8 - f/11) für Blendensterne.',
         iso: 'Bleiben Sie bei der Basis-ISO (z.B. ISO 100), um Rauschen zu minimieren.',
         raw: 'Fotografieren Sie in RAW, um Weißabgleich und Schatten später besser bearbeiten zu können.',
-        foreground: 'Suchen Sie bei Weitwinkelaufnahmen einen interessanten Vordergrund für mehr Tiefe.',
-      }
+        foreground:
+          'Suchen Sie bei Weitwinkelaufnahmen einen interessanten Vordergrund für mehr Tiefe.',
+      },
     },
     intro: {
       title: 'Über BlueHour',
-      description: 'BlueHour ist ein speziell für Fotografie-Enthusiasten entwickeltes Tool für die goldene und blaue Stunde. Egal ob Sie gerade erst anfangen oder ein erfahrener Fotograf sind, wir helfen Ihnen, die schönsten Lichtmomente des Tages einzufangen.',
+      description:
+        'BlueHour ist ein speziell für Fotografie-Enthusiasten entwickeltes Tool für die goldene und blaue Stunde. Egal ob Sie gerade erst anfangen oder ein erfahrener Fotograf sind, wir helfen Ihnen, die schönsten Lichtmomente des Tages einzufangen.',
       featuresTitle: 'Hauptfunktionen:',
       feature1Title: 'Goldene & Blaue Stunde Timeline',
-      feature1Desc: 'Zeigt präzise Sonnenaufgang, Sonnenuntergang, goldene Stunde und blaue Stunde für Ihren Standort an. Planen Sie Ihre Aufnahmen im Voraus und verpassen Sie nie den magischen Moment.',
+      feature1Desc:
+        'Zeigt präzise Sonnenaufgang, Sonnenuntergang, goldene Stunde und blaue Stunde für Ihren Standort an. Planen Sie Ihre Aufnahmen im Voraus und verpassen Sie nie den magischen Moment.',
       feature2Title: 'Belichtungsrechner',
-      feature2Desc: 'Smart Calculator hilft Ihnen bei komplexen Belichtungsparametern. Unterstützt äquivalente Belichtungsberechnung, ND-Filter-Berechnung und bietet EV-Referenzwerte für gängige Szenen.',
+      feature2Desc:
+        'Smart Calculator hilft Ihnen bei komplexen Belichtungsparametern. Unterstützt äquivalente Belichtungsberechnung, ND-Filter-Berechnung und bietet EV-Referenzwerte für gängige Szenen.',
       feature3Title: 'Schwarzschild-Rechner',
-      feature3Desc: 'Entwickelt für Filmfotografen. Berechnet automatisch die Schwarzschildeffekt-Korrektur für verschiedene Filmtypen bei Langzeitbelichtungen, mit integriertem Belichtungstimer.',
-      footer: 'Tippen Sie auf die Navigationsleiste, um weitere Funktionen zu erkunden und Ihre Fotoreise zu beginnen!',
+      feature3Desc:
+        'Entwickelt für Filmfotografen. Berechnet automatisch die Schwarzschildeffekt-Korrektur für verschiedene Filmtypen bei Langzeitbelichtungen, mit integriertem Belichtungstimer.',
+      footer:
+        'Tippen Sie auf die Navigationsleiste, um weitere Funktionen zu erkunden und Ihre Fotoreise zu beginnen!',
     },
     sections: {
       sunPlannerAction: 'Komplette Timeline öffnen',
@@ -195,7 +217,7 @@ export default {
       settingsShortcut: 'Einstellungen und Infos öffnen.',
     },
   },
-  
+
   sunTimes: {
     title: 'Sonnenaufgang & Sonnenuntergang',
     guide: {
@@ -228,7 +250,7 @@ export default {
     searchPlaceholder: 'Ort suchen (Mehrsprachig)',
     refreshLocation: 'Aktuellen Standort aktualisieren',
     selectDate: 'Datum auswählen',
-    
+
     // Phasennamen
     phases: {
       astronomicalTwilightBegin: 'Astronomische Dämmerung Beginn',
@@ -255,28 +277,28 @@ export default {
       daylight: 'Tageslicht',
       night: 'Nacht',
     },
-    
+
     // Abschnittsbezeichnungen
     morning: 'Morgen',
     daytime: 'Tag',
     evening: 'Abend',
-    
+
     // Weitere Informationen
     otherInfo: 'Weitere Informationen',
     solarNoonLabel: 'Sonnenmittag',
     dayLengthLabel: 'Tageslänge',
-    
+
     // Fehlermeldungen
     errorTitle: 'Fehler',
     errorMessage: 'Fehler beim Abrufen der Sonnenauf- und -untergangszeiten',
     unknownError: 'Unbekannter Fehler',
-    
+
     // Aktuelle Phasenkarte
     currentPhase: {
       distanceTo: 'Noch {{time}} bis {{phase}}',
       tomorrows: 'Morgen ',
     },
-    
+
     // Zeitformat
     timeFormat: {
       hours: '{{count}} Stunde',
@@ -286,13 +308,13 @@ export default {
       hoursMinutes: '{{hours}} Stunden {{minutes}} Minuten',
     },
   },
-  
+
   calculator: {
     title: 'Fotografie-Rechner',
     evTitle: 'EV-Rechner',
     ndTitle: 'ND-Filter',
     dofTitle: 'Schärfentiefe',
-    
+
     // EV-Rechner
     ev: {
       title: 'EV-Belichtungsrechner',
@@ -332,7 +354,7 @@ export default {
         evMinus6: 'Langzeitbelichtungs-Kunst',
       },
     },
-    
+
     // ND-Filter-Rechner
     nd: {
       title: 'ND-Filter-Rechner',
@@ -351,7 +373,7 @@ export default {
       exposing: 'Belichtung läuft...',
       complete: 'Belichtung abgeschlossen!',
     },
-    
+
     // Schärfentiefe-Rechner
     dof: {
       title: 'Schärfentiefe-Rechner',
@@ -375,14 +397,18 @@ export default {
       nearLimit: 'Nahgrenze',
       farLimit: 'Ferngrenze',
       hyperfocal: 'Hyperfokaldistanz',
-      hyperfocalDesc: 'Bei dieser Distanz fokussieren für Schärfe von der halben Hyperfokaldistanz bis unendlich',
+      hyperfocalDesc:
+        'Bei dieser Distanz fokussieren für Schärfe von der halben Hyperfokaldistanz bis unendlich',
       tips: 'Tipps',
       portraitTip: 'Porträtfotografie',
-      portraitDesc: 'Offene Blende verwenden (z.B. f/1.8) für geringe Schärfentiefe und Hintergrundunschärfe',
+      portraitDesc:
+        'Offene Blende verwenden (z.B. f/1.8) für geringe Schärfentiefe und Hintergrundunschärfe',
       landscapeTip: 'Landschaftsfotografie',
-      landscapeDesc: 'Geschlossene Blende verwenden (z.B. f/11), auf Hyperfokaldistanz fokussieren für Schärfe von Vorder- bis Hintergrund',
+      landscapeDesc:
+        'Geschlossene Blende verwenden (z.B. f/11), auf Hyperfokaldistanz fokussieren für Schärfe von Vorder- bis Hintergrund',
       streetTip: 'Streetfotografie',
-      streetDesc: 'Mittlere Blende verwenden (z.B. f/5.6) für Balance zwischen Schärfentiefe und Verschlusszeit',
+      streetDesc:
+        'Mittlere Blende verwenden (z.B. f/5.6) für Balance zwischen Schärfentiefe und Verschlusszeit',
     },
 
     exposureCalc: {
@@ -398,7 +424,8 @@ export default {
       title: 'Belichtungsrechner',
       subtitle: 'Langzeitbelichtungs-Workflow für ND-Filter, Schwarzschild-Effekt und Bulb-Timer.',
       currentEv: 'Gemessener EV',
-      evHelper: 'Sperren Sie einen Parameter und passen Sie die anderen an, um die gleiche Belichtung beizubehalten.',
+      evHelper:
+        'Sperren Sie einen Parameter und passen Sie die anderen an, um die gleiche Belichtung beizubehalten.',
       baseSettings: 'Messeinstellungen',
       sceneShortcuts: 'Szenenvoreinstellungen',
       sceneValues: 'Szenenvoreinstellung',
@@ -419,7 +446,8 @@ export default {
         selectFilm: 'Film auswählen',
         meteredShutter: 'Gemessene Verschlusszeit',
         digital: 'Digital / Keine Korrektur',
-        digitalDescription: 'Verwenden Sie dies beim Fotografieren mit digitalen oder modernen Sensoren.',
+        digitalDescription:
+          'Verwenden Sie dies beim Fotografieren mit digitalen oder modernen Sensoren.',
         foma100: 'Fomapan 100 Classic',
         foma100Description: 'Aggressiver Schwarzschild-Effekt, neu berechnen bei allem über 1s.',
         kodak_portra400: 'Kodak Portra 400',
@@ -591,7 +619,7 @@ export default {
       willAdjust: 'Wird automatisch angepasst',
     },
   },
-  
+
   reciprocity: {
     title: 'Schwarzschild-Effekt Rechner',
     filmProfile: 'Filmprofil',
@@ -608,22 +636,26 @@ export default {
     sourceManufacturer: 'Herstellerdatenblatt',
     sourceCommunity: 'Community-Tests',
     sourceEstimate: 'Schätzung (keine offiziellen Daten)',
-    extrapolatedWarning: 'Außerhalb der veröffentlichten Filmdaten ({{max}}). Das Ergebnis ist extrapoliert, Belichtungsreihe empfohlen.',
+    extrapolatedWarning:
+      'Außerhalb der veröffentlichten Filmdaten ({{max}}). Das Ergebnis ist extrapoliert, Belichtungsreihe empfohlen.',
     resetTimer: 'Zurücksetzen',
   },
-  
+
   settings: {
     title: 'Einstellungen',
     preferences: 'Einstellungen',
     language: 'Sprache',
     theme: 'Design',
-    aboutApp: 'Über die App',    notifications: {
+    aboutApp: 'Über die App',
+    notifications: {
       title: 'Foto-Erinnerungen',
       enableTitle: 'Goldene Stunde Erinnerung',
       enableDescription: '30 Minuten vor der goldenen Stunde erinnern',
       permissionTitle: 'Benachrichtigungsberechtigung erforderlich',
-      permissionMessage: 'Bitte erlauben Sie die Benachrichtigungsberechtigung in den Systemeinstellungen, um Fotoerinnerungen zu erhalten',
-    },    appearance: 'Erscheinungsbild',
+      permissionMessage:
+        'Bitte erlauben Sie die Benachrichtigungsberechtigung in den Systemeinstellungen, um Fotoerinnerungen zu erhalten',
+    },
+    appearance: 'Erscheinungsbild',
     appearanceDescription: 'Wählen Sie Ihren bevorzugten Designmodus',
     themeLight: 'Heller Modus',
     themeDark: 'Dunkler Modus',
@@ -639,10 +671,11 @@ export default {
     aboutDescription: 'App-Informationen und Funktionen',
     appName: 'BlueHour - Fotografie-Assistent',
     version: 'Version',
-    description: 'Eine für Fotografie-Enthusiasten entwickelte Tool-App, die Ihnen hilft, perfekte Aufnahmezeiten zu planen und Belichtungsparameter, ND-Filter und Schärfentiefe einfach zu berechnen.',
+    description:
+      'Eine für Fotografie-Enthusiasten entwickelte Tool-App, die Ihnen hilft, perfekte Aufnahmezeiten zu planen und Belichtungsparameter, ND-Filter und Schärfentiefe einfach zu berechnen.',
     features: 'Funktionen',
     support: 'Support',
-    
+
     featureList: {
       blueHour: {
         title: 'Blaue Stunde Planer',
@@ -661,27 +694,29 @@ export default {
         description: 'Schärfentiefe-Bereich und hyperfokale Distanz berechnen',
       },
     },
-    
+
     languages: {
       zh: '中文',
       en: 'English',
       ja: '日本語',
       de: 'Deutsch',
     },
-    
+
     dataSource: 'Datenquelle',
-    dataSourceText: 'Sonnenaufgangs- und Sonnenuntergangsdaten bereitgestellt von sunrise-sunset.org API',
+    dataSourceText:
+      'Sonnenaufgangs- und Sonnenuntergangsdaten bereitgestellt von sunrise-sunset.org API',
     feedbackSupport: 'Feedback & Support',
     github: 'GitHub',
     contactSupport: 'Support kontaktieren',
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: 'Mit ❤️ für Fotografen gemacht',
-    
+
     userPresets: {
       title: 'Benutzervoreinstellungen',
       createNew: 'Neue Voreinstellung',
       editPreset: 'Voreinstellung bearbeiten',
-      empty: 'Noch keine Voreinstellungen. Erstellen Sie eine, um Ihre Ausrüstung schnell zu konfigurieren.',
+      empty:
+        'Noch keine Voreinstellungen. Erstellen Sie eine, um Ihre Ausrüstung schnell zu konfigurieren.',
       active: 'Aktiv',
       activate: 'Aktivieren',
       deactivate: 'Deaktivieren',
@@ -696,7 +731,7 @@ export default {
       currentPreset: 'Aktive Voreinstellung',
       noActivePreset: 'Keine aktive Voreinstellung',
       manage: 'Verwalten',
-      
+
       // Stepper steps
       step1Title: 'Grundinformationen',
       step1Description: 'Geben Sie Voreinstellungsname, Kamera und Objektiv ein',
@@ -706,12 +741,12 @@ export default {
       step3Description: 'Wählen Sie die Verschlusszeiten Ihrer Ausrüstung (Mehrfachauswahl)',
       step4Title: 'Unterstützte ISO',
       step4Description: 'Wählen Sie die ISO-Werte Ihrer Ausrüstung (Mehrfachauswahl)',
-      
+
       // Actions
       previousStep: 'Zurück',
       nextStep: 'Weiter',
       selectedCount: '{{count}} ausgewählt',
-      
+
       // Validation messages
       nameRequired: 'Bitte geben Sie einen Voreinstellungsnamen ein',
       saveFailed: 'Voreinstellung konnte nicht gespeichert werden',
@@ -720,7 +755,8 @@ export default {
   },
   reciprocityHelp: {
     title: 'Schwarzschild-Effekt Rechner - Anleitung',
-    description: 'Der Schwarzschild-Effekt Rechner ist für die Filmfotografie konzipiert und hilft Ihnen, den Schwarzschild-Effekt bei Langzeitbelichtungen zu kompensieren. Wenn die Belichtungszeiten 1 Sekunde überschreiten, nimmt die Filmempfindlichkeit ab und erfordert verlängerte Belichtungszeiten für korrekte Belichtung.',
+    description:
+      'Der Schwarzschild-Effekt Rechner ist für die Filmfotografie konzipiert und hilft Ihnen, den Schwarzschild-Effekt bei Langzeitbelichtungen zu kompensieren. Wenn die Belichtungszeiten 1 Sekunde überschreiten, nimmt die Filmempfindlichkeit ab und erfordert verlängerte Belichtungszeiten für korrekte Belichtung.',
     section1: {
       title: 'Was ist der Schwarzschild-Effekt?',
       content: [
@@ -752,7 +788,8 @@ export default {
 
   exposureLabHelp: {
     title: 'Belichtungslabor - Funktionsübersicht',
-    description: 'Das Belichtungslabor ist ein leistungsstarkes Fotografie-Berechnungstool, das Belichtungsparameter-Anpassung, Szenen-EV-Referenz, ND-Filter-Berechnung, Schwarzschildeffekt-Korrektur und Belichtungstimer integriert. Es hilft Ihnen, die Belichtung präzise zu steuern, insbesondere bei Langzeitbelichtungen.',
+    description:
+      'Das Belichtungslabor ist ein leistungsstarkes Fotografie-Berechnungstool, das Belichtungsparameter-Anpassung, Szenen-EV-Referenz, ND-Filter-Berechnung, Schwarzschildeffekt-Korrektur und Belichtungstimer integriert. Es hilft Ihnen, die Belichtung präzise zu steuern, insbesondere bei Langzeitbelichtungen.',
     section1: {
       title: '1. Grundlegende Belichtungsparameter',
       content: [

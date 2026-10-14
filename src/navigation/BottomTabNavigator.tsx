@@ -16,7 +16,7 @@ const Tab = createBottomTabNavigator<RootTabParamList>();
 
 const BottomTabNavigator: React.FC = () => {
   const { theme } = useTheme();
-  
+
   return (
     <Tab.Navigator
       screenOptions={{

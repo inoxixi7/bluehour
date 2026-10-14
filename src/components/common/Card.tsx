@@ -10,16 +10,18 @@ interface CardProps {
 
 export const Card: React.FC<CardProps> = ({ children, style }) => {
   const { theme } = useTheme();
-  
+
   return (
-    <View style={[
-      styles.card,
-      {
-        backgroundColor: theme.colors.card,
-        borderColor: theme.colors.cardBorder,
-      },
-      style
-    ]}>
+    <View
+      style={[
+        styles.card,
+        {
+          backgroundColor: theme.colors.card,
+          borderColor: theme.colors.cardBorder,
+        },
+        style,
+      ]}
+    >
       {children}
     </View>
   );

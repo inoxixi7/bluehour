@@ -1,6 +1,6 @@
 /**
  * API 优化效果测试脚本
- * 
+ *
  * 运行方式：
  * npx ts-node scripts/test-api-optimization.ts
  */
@@ -9,14 +9,14 @@ import { getSunTimes } from '../src/api/sunTimeService';
 import { clearCacheByPrefix } from '../src/utils/apiHelpers';
 
 const testLocation = {
-  lat: 35.6895,  // 东京
+  lat: 35.6895, // 东京
   lng: 139.6917,
-  name: '东京'
+  name: '东京',
 };
 
 async function testCachePerformance() {
   console.log('🧪 测试 API 缓存性能\n');
-  
+
   // 清除旧缓存
   await clearCacheByPrefix('suntimes');
   console.log('🗑️ 已清除旧缓存\n');
@@ -43,9 +43,9 @@ async function testCachePerformance() {
     console.log(`✅ 完成！耗时: ${time2}ms`);
     console.log(`   日出: ${data2.sunrise.toLocaleTimeString()}`);
     console.log(`   日落: ${data2.sunset.toLocaleTimeString()}\n`);
-    
+
     // 计算性能提升
-    const speedup = ((time1 - time2) / time1 * 100).toFixed(1);
+    const speedup = (((time1 - time2) / time1) * 100).toFixed(1);
     console.log(`🚀 性能提升: ${speedup}%`);
   } catch (error) {
     console.error('❌ 失败:', error);

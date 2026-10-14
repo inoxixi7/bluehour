@@ -8,17 +8,17 @@ import { Touchable } from '../../components/common/Touchable';
 import { useTheme, ThemeMode } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { LANGUAGE_NAMES } from '../../locales/i18n';
-import { 
-  requestNotificationPermissions, 
-  isNotificationsEnabled, 
-  setNotificationsEnabled 
+import {
+  requestNotificationPermissions,
+  isNotificationsEnabled,
+  setNotificationsEnabled,
 } from '../../services/notificationService';
 
 const SettingsScreen: React.FC = () => {
   const { theme, themeMode } = useTheme();
   const { t, i18n } = useTranslation();
   const navigation = useNavigation<any>();
-  
+
   const [notificationsEnabled, setNotificationsEnabledState] = useState(false);
   const [isLoadingNotifications, setIsLoadingNotifications] = useState(true);
 
@@ -176,7 +176,9 @@ const SettingsScreen: React.FC = () => {
                 onValueChange={handleToggleNotifications}
                 disabled={isLoadingNotifications}
                 trackColor={{ false: theme.colors.border, true: theme.colors.primary + '80' }}
-                thumbColor={notificationsEnabled ? theme.colors.primary : theme.colors.textSecondary}
+                thumbColor={
+                  notificationsEnabled ? theme.colors.primary : theme.colors.textSecondary
+                }
               />
             </View>
           </Card>

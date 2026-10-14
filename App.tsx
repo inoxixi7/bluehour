@@ -44,7 +44,7 @@ function AppContent() {
       </View>
     );
   }
-  
+
   return (
     <View style={[styles.appContainer, { backgroundColor: theme.colors.background }]}>
       <NavigationContainer theme={navigationTheme}>

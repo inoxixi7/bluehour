@@ -96,7 +96,7 @@ export async function scheduleGoldenHourNotification(
 
     // 提前30分钟提醒
     const notificationTime = new Date(goldenHourStart.getTime() - 30 * 60 * 1000);
-    
+
     // 检查通知时间是否已经过去
     if (notificationTime <= new Date()) {
       debugLog('通知时间已过，不安排通知');

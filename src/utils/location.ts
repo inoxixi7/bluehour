@@ -22,7 +22,7 @@ export const getCurrentLocation = async (): Promise<LocationCoords> => {
       }
 
       debugLog('🌐 使用浏览器 Geolocation API');
-      
+
       nav.geolocation.getCurrentPosition(
         (position: any) => {
           debugLog('✅ 浏览器位置获取成功:', position.coords);
@@ -47,7 +47,7 @@ export const getCurrentLocation = async (): Promise<LocationCoords> => {
   // 移动端使用 expo-location
   debugLog('📱 使用 expo-location');
   const { status } = await Location.requestForegroundPermissionsAsync();
-  
+
   if (status !== 'granted') {
     throw new Error('位置权限未授予');
   }

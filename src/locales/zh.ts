@@ -172,18 +172,22 @@ export default {
         iso: '尽量使用原生最低 ISO（如 ISO 100）以减少噪点，保证天空纯净。',
         raw: '建议使用 RAW 格式拍摄，以便后期调整白平衡和找回暗部细节。',
         foreground: '广角拍摄时，寻找有趣的前景（如水坑、栏杆）能增加照片的层次感。',
-      }
+      },
     },
     intro: {
       title: '关于 BlueHour',
-      description: 'BlueHour 是专为摄影爱好者设计的黄金时刻与蓝调时刻工具。无论您是刚开始接触摄影，还是经验丰富的摄影师，我们都能帮助您捕捉一天中最美的光线瞬间。',
+      description:
+        'BlueHour 是专为摄影爱好者设计的黄金时刻与蓝调时刻工具。无论您是刚开始接触摄影，还是经验丰富的摄影师，我们都能帮助您捕捉一天中最美的光线瞬间。',
       featuresTitle: '主要功能：',
       feature1Title: '黄金时刻与蓝调时刻时间表',
-      feature1Desc: '精确显示您所在位置的日出、日落、黄金时刻和蓝调时刻的确切时间。提前规划您的拍摄，确保不错过任何精彩瞬间。',
+      feature1Desc:
+        '精确显示您所在位置的日出、日落、黄金时刻和蓝调时刻的确切时间。提前规划您的拍摄，确保不错过任何精彩瞬间。',
       feature2Title: '曝光计算器',
-      feature2Desc: '智能计算器帮助您处理复杂的曝光参数。支持等效曝光计算、ND滤镜计算，还提供各种常见场景的EV参考值，让曝光设置变得简单明了。',
+      feature2Desc:
+        '智能计算器帮助您处理复杂的曝光参数。支持等效曝光计算、ND滤镜计算，还提供各种常见场景的EV参考值，让曝光设置变得简单明了。',
       feature3Title: '胶片倒易律计算器',
-      feature3Desc: '专为胶片摄影者设计。针对不同胶片型号，自动计算长时间曝光时的倒易律失效补偿，并提供曝光计时器功能。',
+      feature3Desc:
+        '专为胶片摄影者设计。针对不同胶片型号，自动计算长时间曝光时的倒易律失效补偿，并提供曝光计时器功能。',
       footer: '点击底部导航栏探索更多功能，开启您的摄影之旅！',
     },
     sections: {
@@ -410,14 +414,14 @@ export default {
         meteredShutter: '测光快门速度',
         digital: '数码/无需校正',
         digitalDescription: '拍摄数码或现代传感器时选用此项。',
-        
+
         // Foma
         foma100: 'Fomapan 100 Classic',
         foma100Description: '倒易率失效极快，1秒以上即需大幅补偿。',
-        
+
         foma200: 'Fomapan 200 Creative',
         foma200Description: '扁平颗粒技术，失效稍好于100/400。',
-        
+
         foma400: 'Fomapan 400 Action',
         foma400Description: '倒易率失效极快，类似 Foma 100。',
 
@@ -443,53 +447,53 @@ export default {
 
         kodak_gold: 'Kodak Gold/Ultramax',
         kodak_goldDescription: '消费级胶卷，长曝建议稍多补偿。',
-        
+
         fuji_superia: 'Fuji Superia/Pro 400H',
         fuji_superiaDescription: '富士胶卷，长曝可能偏绿/紫。',
-        
+
         cinestill_800t: 'Cinestill 800T/50D',
         cinestill_800tDescription: '基于电影卷，夜景光晕独特。',
-        
+
         lomo_cn: 'Lomography CN 400/800',
         lomo_cnDescription: '颗粒较粗，建议多给曝光。',
-        
+
         // B&W
         kodak_trix: 'Kodak Tri-X 400',
         kodak_trixDescription: '经典黑白，倒易率失效较明显。',
-        
+
         kodak_tmax100: 'Kodak T-Max 100',
         kodak_tmax100Description: '极佳的倒易率表现。',
-        
+
         kodak_tmax400: 'Kodak T-Max 400',
         kodak_tmax400Description: '较好的倒易率表现。',
-        
+
         ilford_hp5: 'Ilford HP5 Plus',
         ilford_hp5Description: '经典黑白卷，标准倒易率。',
-        
+
         ilford_fp4: 'Ilford FP4 Plus',
         ilford_fp4Description: '中低感光度，表现稳定。',
-        
+
         ilford_delta100: 'Ilford Delta 100',
         ilford_delta100Description: '细腻颗粒，表现稳定。',
-        
+
         ilford_delta400: 'Ilford Delta 400',
         ilford_delta400Description: '高速微粒，失效较快。',
-        
+
         ilford_delta3200: 'Ilford Delta 3200',
         ilford_delta3200Description: '超高速卷，需显著补偿。',
-        
+
         ilford_panf: 'Ilford Pan F Plus',
         ilford_panfDescription: '低感光度，画质细腻。',
-        
+
         ilford_xp2: 'Ilford XP2 Super',
         ilford_xp2Description: 'C-41工艺黑白卷。',
-        
+
         ilford_sfx: 'Ilford SFX 200',
         ilford_sfxDescription: '扩展红外感光。',
-        
+
         fuji_acros: 'Fuji Neopan Acros II',
         fuji_acrosDescription: '倒易率王者，120秒内无需补偿。',
-        
+
         // Slide
         kodak_e100: 'Kodak Ektachrome E100',
         kodak_e100Description: '现代反转片，表现优秀。',
@@ -508,10 +512,10 @@ export default {
 
         fuji_t64: 'Fujichrome T64',
         fuji_t64Description: '钨光平衡反转片，长曝需补偿。',
-        
+
         fuji_velvia50: 'Fuji Velvia 50',
         fuji_velvia50Description: '倒易率极差，慎用于长曝。',
-        
+
         fuji_provia100f: 'Fuji Provia 100F',
         fuji_provia100fDescription: '长曝首选反转片。',
 
@@ -635,7 +639,8 @@ export default {
     aboutDescription: '应用信息和功能说明',
     appName: 'BlueHour - 摄影助手',
     version: '版本',
-    description: '专为摄影爱好者设计的工具应用，帮助您规划完美的拍摄时间，轻松计算曝光参数、ND 滤镜和景深。',
+    description:
+      '专为摄影爱好者设计的工具应用，帮助您规划完美的拍摄时间，轻松计算曝光参数、ND 滤镜和景深。',
     features: '功能',
     support: '支持',
     notifications: {
@@ -670,7 +675,7 @@ export default {
     contactSupport: '联系支持',
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: '用 ❤️ 为摄影爱好者打造',
-    
+
     userPresets: {
       title: '用户预设',
       createNew: '创建新预设',
@@ -690,7 +695,7 @@ export default {
       currentPreset: '当前预设',
       noActivePreset: '未选择预设',
       manage: '管理预设',
-      
+
       // Stepper steps
       step1Title: '基本信息',
       step1Description: '请输入预设名称、相机和镜头信息',
@@ -700,12 +705,12 @@ export default {
       step3Description: '选择您的设备支持的快门速度（可多选）',
       step4Title: '支持的 ISO',
       step4Description: '选择您的设备支持的 ISO 值（可多选）',
-      
+
       // Actions
       previousStep: '上一步',
       nextStep: '下一步',
       selectedCount: '已选择 {{count}} 项',
-      
+
       // Validation messages
       nameRequired: '请输入预设名称',
       saveFailed: '保存预设失败',
@@ -714,7 +719,8 @@ export default {
   },
   reciprocityHelp: {
     title: '倒易律计算器 - 功能介绍',
-    description: '倒易律计算器专为胶片摄影设计，帮助您在长时间曝光时补偿倒易律失效效应。当曝光时间超过1秒时，胶片的感光效率会降低，需要延长曝光时间来获得正确的曝光效果。',
+    description:
+      '倒易律计算器专为胶片摄影设计，帮助您在长时间曝光时补偿倒易律失效效应。当曝光时间超过1秒时，胶片的感光效率会降低，需要延长曝光时间来获得正确的曝光效果。',
     section1: {
       title: '什么是倒易律失效？',
       content: [
@@ -746,7 +752,8 @@ export default {
 
   exposureLabHelp: {
     title: '曝光实验室 - 功能介绍',
-    description: '曝光实验室是一个强大的摄影计算工具，集成了曝光参数调整、场景EV参考、ND滤镜计算、倒易律补偿和曝光计时器于一体。帮助您精确控制曝光，尤其适用于长时间曝光摄影。',
+    description:
+      '曝光实验室是一个强大的摄影计算工具，集成了曝光参数调整、场景EV参考、ND滤镜计算、倒易律补偿和曝光计时器于一体。帮助您精确控制曝光，尤其适用于长时间曝光摄影。',
     section1: {
       title: '1. 基础曝光参数',
       content: [

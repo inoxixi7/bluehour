@@ -106,9 +106,9 @@ export const getCurrentWeather = async (
     });
 
     const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-    
+
     debugLog('🌤️ [WeatherService] 获取天气数据:', { latitude, longitude });
-    
+
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -116,7 +116,7 @@ export const getCurrentWeather = async (
     }
 
     const data = await response.json();
-    
+
     const weatherCode = data.current.weather_code;
     const weatherInfo = weatherCodeMap[weatherCode] || { description: 'Unknown', ev: 12 };
 

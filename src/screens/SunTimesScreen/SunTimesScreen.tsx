@@ -1,10 +1,5 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import {
-  View,
-  Text,
-  ScrollView,
-  Alert,
-} from 'react-native';
+import { View, Text, ScrollView, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -23,10 +18,10 @@ const SunTimesScreen: React.FC = () => {
   const { theme } = useTheme();
   const styles = createStyles(theme.colors);
   const navigation = useNavigation();
-  
+
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showGuide, setShowGuide] = useState(false);
-  
+
   // Generate date range (today + next 6 days)
   const dateRange = useMemo(() => {
     const dates = [];
@@ -39,18 +34,18 @@ const SunTimesScreen: React.FC = () => {
   }, []);
 
   // Use shared location data context
-  const { 
-    location, 
-    locationName, 
-    timezoneInfo, 
+  const {
+    location,
+    locationName,
+    timezoneInfo,
     getSunTimesForDate,
     locationError,
     sunTimesError,
-    getCurrentLocation, 
+    getCurrentLocation,
     updateLocationData,
     fetchSunTimes,
   } = useLocationData();
-  
+
   // Get sun times for selected date from cache
   const sunTimes = getSunTimesForDate(selectedDate);
 
@@ -59,10 +54,7 @@ const SunTimesScreen: React.FC = () => {
     navigation.setOptions({
       title: t('sunTimes.title'),
       headerRight: () => (
-        <Touchable 
-          onPress={() => setShowGuide(true)}
-          style={{ marginRight: 16 }}
-        >
+        <Touchable onPress={() => setShowGuide(true)} style={{ marginRight: 16 }}>
           <Ionicons name="information-circle-outline" size={24} color={theme.colors.primary} />
         </Touchable>
       ),
@@ -79,10 +71,10 @@ const SunTimesScreen: React.FC = () => {
   // Effect: Error handling
   useEffect(() => {
     if (locationError) {
-       Alert.alert(t('common.error'), locationError);
+      Alert.alert(t('common.error'), locationError);
     }
     if (sunTimesError) {
-       Alert.alert(t('sunTimes.errorTitle'), sunTimesError);
+      Alert.alert(t('sunTimes.errorTitle'), sunTimesError);
     }
   }, [locationError, sunTimesError, t]);
 
@@ -106,8 +98,7 @@ const SunTimesScreen: React.FC = () => {
 
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-      
-      <LocationSearch 
+      <LocationSearch
         onLocationSelect={handleLocationSelect}
         onRefreshLocation={getCurrentLocation}
         currentLocationName={locationName ? formatLocationName(locationName) : undefined}
@@ -124,29 +115,30 @@ const SunTimesScreen: React.FC = () => {
               onPress={() => setSelectedDate(date)}
               style={[
                 styles.dateItem,
-                { 
+                {
                   backgroundColor: isSelected ? theme.colors.primary : theme.colors.card,
                   borderColor: isToday && !isSelected ? theme.colors.primary : 'transparent',
-                }
+                },
               ]}
               activeOpacity={0.7}
             >
-              <Text style={[
-                styles.dateDay,
-                { color: isSelected ? '#fff' : theme.colors.textSecondary }
-              ]}>
+              <Text
+                style={[
+                  styles.dateDay,
+                  { color: isSelected ? '#fff' : theme.colors.textSecondary },
+                ]}
+              >
                 {date.toLocaleDateString(i18n.language, { weekday: 'short' })}
               </Text>
-              <Text style={[
-                styles.dateNumber,
-                { color: isSelected ? '#fff' : theme.colors.text }
-              ]}>
+              <Text style={[styles.dateNumber, { color: isSelected ? '#fff' : theme.colors.text }]}>
                 {date.getDate()}
               </Text>
-              <Text style={[
-                styles.dateMonth,
-                { color: isSelected ? '#fff' : theme.colors.textSecondary }
-              ]}>
+              <Text
+                style={[
+                  styles.dateMonth,
+                  { color: isSelected ? '#fff' : theme.colors.textSecondary },
+                ]}
+              >
                 {date.toLocaleDateString(i18n.language, { month: 'short' })}
               </Text>
             </Touchable>
@@ -158,49 +150,104 @@ const SunTimesScreen: React.FC = () => {
         <>
           <Card style={styles.timelineCard}>
             <Text style={styles.sectionTitle}>{t('sunTimes.morning')}</Text>
-            {renderTimeItem(t('sunTimes.phases.astronomicalTwilightBegin'), sunTimes.astronomicalTwilightBegin, theme.colors.twilight)}
-            {renderTimeItem(t('sunTimes.phases.nauticalTwilightBegin'), sunTimes.nauticalTwilightBegin, theme.colors.twilight)}
-            {renderTimeItem(t('sunTimes.phases.morningBlueHourStart'), sunTimes.morningBlueHourStart, theme.colors.blueHour)}
-            {renderTimeItem(t('sunTimes.phases.civilTwilightBegin'), sunTimes.civilTwilightBegin, theme.colors.twilight)}
-            {renderTimeItem(t('sunTimes.phases.morningBlueHourEnd'), sunTimes.morningBlueHourEnd, theme.colors.blueHour)}
+            {renderTimeItem(
+              t('sunTimes.phases.astronomicalTwilightBegin'),
+              sunTimes.astronomicalTwilightBegin,
+              theme.colors.twilight
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.nauticalTwilightBegin'),
+              sunTimes.nauticalTwilightBegin,
+              theme.colors.twilight
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.morningBlueHourStart'),
+              sunTimes.morningBlueHourStart,
+              theme.colors.blueHour
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.civilTwilightBegin'),
+              sunTimes.civilTwilightBegin,
+              theme.colors.twilight
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.morningBlueHourEnd'),
+              sunTimes.morningBlueHourEnd,
+              theme.colors.blueHour
+            )}
             {renderTimeItem(t('sunTimes.phases.sunrise'), sunTimes.sunrise, theme.colors.sunrise)}
-            {renderTimeItem(t('sunTimes.phases.morningGoldenHourStart'), sunTimes.morningGoldenHourStart, theme.colors.goldenHour)}
-            {renderTimeItem(t('sunTimes.phases.morningGoldenHourEnd'), sunTimes.morningGoldenHourEnd, theme.colors.goldenHour)}
+            {renderTimeItem(
+              t('sunTimes.phases.morningGoldenHourStart'),
+              sunTimes.morningGoldenHourStart,
+              theme.colors.goldenHour
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.morningGoldenHourEnd'),
+              sunTimes.morningGoldenHourEnd,
+              theme.colors.goldenHour
+            )}
           </Card>
 
           <Card style={styles.timelineCard}>
             <Text style={styles.sectionTitle}>{t('sunTimes.evening')}</Text>
-            {renderTimeItem(t('sunTimes.phases.eveningGoldenHourStart'), sunTimes.eveningGoldenHourStart, theme.colors.goldenHour)}
+            {renderTimeItem(
+              t('sunTimes.phases.eveningGoldenHourStart'),
+              sunTimes.eveningGoldenHourStart,
+              theme.colors.goldenHour
+            )}
             {renderTimeItem(t('sunTimes.phases.sunset'), sunTimes.sunset, theme.colors.sunset)}
-            {renderTimeItem(t('sunTimes.phases.eveningGoldenHourEnd'), sunTimes.eveningGoldenHourEnd, theme.colors.goldenHour)}
-            {renderTimeItem(t('sunTimes.phases.eveningBlueHourStart'), sunTimes.eveningBlueHourStart, theme.colors.blueHour)}
-            {renderTimeItem(t('sunTimes.phases.civilTwilightEnd'), sunTimes.civilTwilightEnd, theme.colors.twilight)}
-            {renderTimeItem(t('sunTimes.phases.eveningBlueHourEnd'), sunTimes.eveningBlueHourEnd, theme.colors.blueHour)}
-            {renderTimeItem(t('sunTimes.phases.nauticalTwilightEnd'), sunTimes.nauticalTwilightEnd, theme.colors.twilight)}
-            {renderTimeItem(t('sunTimes.phases.astronomicalTwilightEnd'), sunTimes.astronomicalTwilightEnd, theme.colors.twilight)}
+            {renderTimeItem(
+              t('sunTimes.phases.eveningGoldenHourEnd'),
+              sunTimes.eveningGoldenHourEnd,
+              theme.colors.goldenHour
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.eveningBlueHourStart'),
+              sunTimes.eveningBlueHourStart,
+              theme.colors.blueHour
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.civilTwilightEnd'),
+              sunTimes.civilTwilightEnd,
+              theme.colors.twilight
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.eveningBlueHourEnd'),
+              sunTimes.eveningBlueHourEnd,
+              theme.colors.blueHour
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.nauticalTwilightEnd'),
+              sunTimes.nauticalTwilightEnd,
+              theme.colors.twilight
+            )}
+            {renderTimeItem(
+              t('sunTimes.phases.astronomicalTwilightEnd'),
+              sunTimes.astronomicalTwilightEnd,
+              theme.colors.twilight
+            )}
           </Card>
 
           <Card style={styles.infoCard}>
             <Text style={styles.sectionTitle}>{t('sunTimes.otherInfo')}</Text>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>{t('sunTimes.solarNoonLabel')}:</Text>
-              <Text style={styles.infoValue}>{formatTime(sunTimes.solarNoon, timezoneInfo.timezone)}</Text>
+              <Text style={styles.infoValue}>
+                {formatTime(sunTimes.solarNoon, timezoneInfo.timezone)}
+              </Text>
             </View>
             <View style={styles.infoRow}>
               <Text style={styles.infoLabel}>{t('sunTimes.dayLengthLabel')}:</Text>
               <Text style={styles.infoValue}>
                 {t('sunTimes.timeFormat.hoursMinutes', {
                   hours: Math.floor(sunTimes.dayLength / 60),
-                  minutes: Math.round(sunTimes.dayLength % 60)
+                  minutes: Math.round(sunTimes.dayLength % 60),
                 })}
               </Text>
             </View>
           </Card>
 
-          <LightPhaseGuideModal 
-            visible={showGuide}
-            onClose={() => setShowGuide(false)}
-          />
+          <LightPhaseGuideModal visible={showGuide} onClose={() => setShowGuide(false)} />
         </>
       )}
     </ScrollView>

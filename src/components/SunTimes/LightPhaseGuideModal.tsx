@@ -11,10 +11,7 @@ interface LightPhaseGuideModalProps {
   onClose: () => void;
 }
 
-export const LightPhaseGuideModal: React.FC<LightPhaseGuideModalProps> = ({
-  visible,
-  onClose,
-}) => {
+export const LightPhaseGuideModal: React.FC<LightPhaseGuideModalProps> = ({ visible, onClose }) => {
   const { theme } = useTheme();
   const { t } = useTranslation();
 
@@ -64,12 +61,7 @@ export const LightPhaseGuideModal: React.FC<LightPhaseGuideModalProps> = ({
   ];
 
   return (
-    <Modal
-      visible={visible}
-      animationType="slide"
-      transparent={true}
-      onRequestClose={onClose}
-    >
+    <Modal visible={visible} animationType="slide" transparent={true} onRequestClose={onClose}>
       <View style={styles.modalOverlay}>
         <View style={[styles.modalContent, { backgroundColor: theme.colors.background }]}>
           {/* Header */}
@@ -84,8 +76,11 @@ export const LightPhaseGuideModal: React.FC<LightPhaseGuideModalProps> = ({
 
           {/* Content */}
           <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
-            {phases.map((phase) => (
-              <View key={phase.key} style={[styles.phaseItem, { borderBottomColor: theme.colors.border }]}>
+            {phases.map(phase => (
+              <View
+                key={phase.key}
+                style={[styles.phaseItem, { borderBottomColor: theme.colors.border }]}
+              >
                 <View style={styles.phaseHeader}>
                   <View style={[styles.iconContainer, { backgroundColor: phase.color + '20' }]}>
                     <Ionicons name={phase.icon as any} size={20} color={phase.color} />
@@ -94,18 +89,14 @@ export const LightPhaseGuideModal: React.FC<LightPhaseGuideModalProps> = ({
                     {t(`sunTimes.guide.${phase.key}.title`)}
                   </Text>
                 </View>
-                
+
                 <Text style={[styles.phaseDesc, { color: theme.colors.textSecondary }]}>
                   {t(`sunTimes.guide.${phase.key}.desc`)}
                 </Text>
 
                 {/* Phase Image */}
                 <View>
-                  <Image
-                    source={phase.image}
-                    style={styles.phaseImage}
-                    resizeMode="cover"
-                  />
+                  <Image source={phase.image} style={styles.phaseImage} resizeMode="cover" />
                   <Text style={[styles.copyrightText, { color: theme.colors.textSecondary }]}>
                     {phase.copyright}
                   </Text>

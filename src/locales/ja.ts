@@ -40,7 +40,7 @@ export default {
       day: '日',
     },
   },
-  
+
   weather: {
     clearSky: '快晴',
     mainlyClear: 'ほぼ晴れ',
@@ -70,19 +70,19 @@ export default {
     error: '天気情報なし',
     notApplicable: '適用不可',
   },
-  
+
   locationSearch: {
     placeholder: '場所を検索',
     noResults: '一致する場所が見つかりません',
   },
-  
+
   navigation: {
     home: 'ホーム',
     sunTimes: 'ブルーアワー',
     calculator: '露出ラボ',
     settings: '設定',
   },
-  
+
   home: {
     title: 'BlueHour',
     subtitle: '光と時間の相棒',
@@ -103,14 +103,16 @@ export default {
       blueDescription: '空と人工光の明るさが等しくなる瞬間です。白飛びに注意してください。',
       nightTitle: 'ライトペインティングに挑戦',
       nightDescription: '暗闇を利用して、創造的なライトペインティングや星の軌跡を撮影しましょう。',
-    },    advice: {
+    },
+    advice: {
       sectionTitle: '撮影アドバイス',
       currentLight: '今の光で何をするか',
       default: {
         title1: 'クリエイティブなオプションを探る',
         desc1: '光は常に変化します。さまざまな露出の組み合わせを試してください。',
         title2: '機材の準備',
-        desc2: 'バッテリーを確認し、メモリーカードを整理し、すべてが準備できていることを確認しましょう。',
+        desc2:
+          'バッテリーを確認し、メモリーカードを整理し、すべてが準備できていることを確認しましょう。',
       },
       day: {
         title1: '構図を探す',
@@ -134,7 +136,8 @@ export default {
         title2: '天の川を撮影',
         desc2: '光害から離れ、明るいレンズと高ISOを使用して星空を撮影しましょう。',
         title3: '車の光跡を記録',
-        desc3: 'Bモードまたは長時間露出を使用して、車の光跡を撮影し、ダイナミックな効果を作りましょう。',
+        desc3:
+          'Bモードまたは長時間露出を使用して、車の光跡を撮影し、ダイナミックな効果を作りましょう。',
       },
     },
     timeline: {
@@ -171,18 +174,22 @@ export default {
         iso: 'ノイズを抑えるため、できるだけ基準感度（ISO 100など）を使用しましょう。',
         raw: 'ホワイトバランスや暗部の調整がしやすいよう、RAW形式での撮影をお勧めします。',
         foreground: '広角レンズでは、面白い前景（水たまりや柵など）を入れると奥行きが出ます。',
-      }
+      },
     },
     intro: {
       title: 'BlueHourについて',
-      description: 'BlueHourは写真愛好家のために特別に設計されたゴールデンアワーとブルーアワーのツールです。初心者でもベテランでも、一日の中で最も美しい光の瞬間を捉えるお手伝いをします。',
+      description:
+        'BlueHourは写真愛好家のために特別に設計されたゴールデンアワーとブルーアワーのツールです。初心者でもベテランでも、一日の中で最も美しい光の瞬間を捉えるお手伝いをします。',
       featuresTitle: '主な機能：',
       feature1Title: 'ゴールデン＆ブルーアワータイムライン',
-      feature1Desc: 'あなたの位置の日の出、日の入り、ゴールデンアワー、ブルーアワーの正確な時刻を表示。撮影を事前に計画し、魔法の瞬間を逃さないように。',
+      feature1Desc:
+        'あなたの位置の日の出、日の入り、ゴールデンアワー、ブルーアワーの正確な時刻を表示。撮影を事前に計画し、魔法の瞬間を逃さないように。',
       feature2Title: '露出計算機',
-      feature2Desc: '複雑な露出パラメータをスマートに処理。等価露出計算、NDフィルター計算、一般的なシーンのEV参考値を提供。',
+      feature2Desc:
+        '複雑な露出パラメータをスマートに処理。等価露出計算、NDフィルター計算、一般的なシーンのEV参考値を提供。',
       feature3Title: '相反則不軌計算機',
-      feature3Desc: 'フィルム写真家のために設計。異なるフィルムストックの長時間露光時の相反則不軌補正を自動計算し、露出タイマー機能も搭載。',
+      feature3Desc:
+        'フィルム写真家のために設計。異なるフィルムストックの長時間露光時の相反則不軌補正を自動計算し、露出タイマー機能も搭載。',
       footer: 'ナビゲーションバーをタップして、もっと多くの機能を探索し、写真の旅を始めましょう！',
     },
     sections: {
@@ -196,7 +203,7 @@ export default {
       settingsShortcut: '設定とアプリ情報を開く。',
     },
   },
-  
+
   sunTimes: {
     title: '日の出・日の入り時刻',
     guide: {
@@ -229,7 +236,7 @@ export default {
     searchPlaceholder: '場所を検索（多言語対応）',
     refreshLocation: '現在地を更新',
     selectDate: '日付を選択',
-    
+
     // 時間帯名
     phases: {
       astronomicalTwilightBegin: '天文薄明開始',
@@ -256,28 +263,28 @@ export default {
       daylight: '日中',
       night: '夜間',
     },
-    
+
     // セクションラベル
     morning: '朝',
     daytime: '日中',
     evening: '夕方',
-    
+
     // その他の情報
     otherInfo: 'その他の情報',
     solarNoonLabel: '太陽正午',
     dayLengthLabel: '日長',
-    
+
     // エラーメッセージ
     errorTitle: 'エラー',
     errorMessage: '日の出・日の入り時刻の取得に失敗しました',
     unknownError: '不明なエラー',
-    
+
     // 現在の時間帯カード
     currentPhase: {
       distanceTo: '{{phase}}まであと {{time}}',
       tomorrows: '明日の',
     },
-    
+
     // 時間フォーマット
     timeFormat: {
       hours: '{{count}} 時間',
@@ -285,13 +292,13 @@ export default {
       hoursMinutes: '{{hours}} 時間 {{minutes}} 分',
     },
   },
-  
+
   calculator: {
     title: '撮影計算機',
     evTitle: 'EV計算機',
     ndTitle: 'NDフィルター',
     dofTitle: '被写界深度',
-    
+
     // EV計算機
     ev: {
       title: 'EV露出計算機',
@@ -331,7 +338,7 @@ export default {
         evMinus6: '長時間露光アート',
       },
     },
-    
+
     // NDフィルター計算機
     nd: {
       title: 'NDフィルター計算機',
@@ -350,7 +357,7 @@ export default {
       exposing: '露出中...',
       complete: '露出完了！',
     },
-    
+
     // 被写界深度計算機
     dof: {
       title: '被写界深度計算機',
@@ -584,7 +591,7 @@ export default {
       noPreset: 'プリセットなし',
     },
   },
-  
+
   reciprocity: {
     title: '相反則不軌計算機',
     filmProfile: 'フィルムプロファイル',
@@ -601,10 +608,11 @@ export default {
     sourceManufacturer: 'メーカー技術資料',
     sourceCommunity: 'コミュニティ実測',
     sourceEstimate: '推定値（公式データなし）',
-    extrapolatedWarning: 'このフィルムの公開データ範囲（{{max}}）を超えています。結果は外挿値のため、ブラケット撮影をおすすめします。',
+    extrapolatedWarning:
+      'このフィルムの公開データ範囲（{{max}}）を超えています。結果は外挿値のため、ブラケット撮影をおすすめします。',
     resetTimer: 'リセット',
   },
-  
+
   settings: {
     title: '設定',
     preferences: '環境設定',
@@ -634,7 +642,8 @@ export default {
     aboutDescription: 'アプリ情報と機能説明',
     appName: 'BlueHour - 写真撮影アシスタント',
     version: 'バージョン',
-    description: '写真愛好家のために設計されたツールアプリ。完璧な撮影時間の計画や、露出パラメータ、NDフィルター、被写界深度の計算を簡単に行えます。',
+    description:
+      '写真愛好家のために設計されたツールアプリ。完璧な撮影時間の計画や、露出パラメータ、NDフィルター、被写界深度の計算を簡単に行えます。',
     features: '機能',
     support: 'サポート',
     featureList: {
@@ -647,14 +656,14 @@ export default {
         description: 'EV・ND・相反則不軌・タイマーをまとめて扱えるワークフロー',
       },
     },
-    
+
     languages: {
       zh: '中文',
       en: 'English',
       ja: '日本語',
       de: 'Deutsch',
     },
-    
+
     dataSource: 'データソース',
     dataSourceText: '日の出・日の入りデータは sunrise-sunset.org API より提供',
     feedbackSupport: 'フィードバックとサポート',
@@ -662,7 +671,7 @@ export default {
     contactSupport: 'サポートに連絡',
     copyright: '© 2025 BlueHour Photography Tools',
     madeWithLove: '写真愛好家のために ❤️ を込めて作成',
-    
+
     userPresets: {
       title: 'ユーザープリセット',
       createNew: '新規プリセット作成',
@@ -682,7 +691,7 @@ export default {
       currentPreset: '現在のプリセット',
       noActivePreset: 'プリセット未選択',
       manage: 'プリセット管理',
-      
+
       // Stepper steps
       step1Title: '基本情報',
       step1Description: 'プリセット名、カメラ、レンズ情報を入力',
@@ -692,12 +701,12 @@ export default {
       step3Description: '機材が対応するシャッター速度を選択（複数選択可）',
       step4Title: '対応 ISO',
       step4Description: '機材が対応する ISO 値を選択（複数選択可）',
-      
+
       // Actions
       previousStep: '前へ',
       nextStep: '次へ',
       selectedCount: '{{count}}件選択中',
-      
+
       // Validation messages
       nameRequired: 'プリセット名を入力してください',
       saveFailed: 'プリセットの保存に失敗しました',
@@ -707,7 +716,8 @@ export default {
 
   reciprocityHelp: {
     title: '相反則不軌計算機 - ガイド',
-    description: '相反則不軌計算機は、フィルム写真の長時間露光における相反則不軌の補正を支援するツールです。露光時間が1秒を超えると、フィルムの感度が低下し、正しい露光を得るために露光時間を延長する必要があります。',
+    description:
+      '相反則不軌計算機は、フィルム写真の長時間露光における相反則不軌の補正を支援するツールです。露光時間が1秒を超えると、フィルムの感度が低下し、正しい露光を得るために露光時間を延長する必要があります。',
     section1: {
       title: '相反則不軌とは？',
       content: [
@@ -739,7 +749,8 @@ export default {
 
   exposureLabHelp: {
     title: '露出ラボ - 機能紹介',
-    description: '露出ラボは、露出パラメータ調整、シーン別EV参考値、NDフィルター計算、相反則不軌補正、露出タイマーを統合した強力な撮影計算ツールです。特に長時間露光撮影において、露出を精密にコントロールするのに役立ちます。',
+    description:
+      '露出ラボは、露出パラメータ調整、シーン別EV参考値、NDフィルター計算、相反則不軌補正、露出タイマーを統合した強力な撮影計算ツールです。特に長時間露光撮影において、露出を精密にコントロールするのに役立ちます。',
     section1: {
       title: '1. 基本露出パラメータ',
       content: [

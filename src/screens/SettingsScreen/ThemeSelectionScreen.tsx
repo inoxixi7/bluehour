@@ -15,64 +15,69 @@ const ThemeSelectionScreen: React.FC = () => {
     // 不自动返回,让用户自行选择
   };
 
-  const themeOptions: { mode: ThemeMode; label: string; iconName: string; description: string }[] = [
-    {
-      mode: 'light',
-      label: t('settings.themeLight'),
-      iconName: 'sunny-outline',
-      description: t('settings.themeLightDesc'),
-    },
-    {
-      mode: 'dark',
-      label: t('settings.themeDark'),
-      iconName: 'moon-outline',
-      description: t('settings.themeDarkDesc'),
-    },
-    {
-      mode: 'auto',
-      label: t('settings.themeAuto'),
-      iconName: 'phone-portrait-outline',
-      description: t('settings.themeAutoDesc'),
-    },
-  ];
+  const themeOptions: { mode: ThemeMode; label: string; iconName: string; description: string }[] =
+    [
+      {
+        mode: 'light',
+        label: t('settings.themeLight'),
+        iconName: 'sunny-outline',
+        description: t('settings.themeLightDesc'),
+      },
+      {
+        mode: 'dark',
+        label: t('settings.themeDark'),
+        iconName: 'moon-outline',
+        description: t('settings.themeDarkDesc'),
+      },
+      {
+        mode: 'auto',
+        label: t('settings.themeAuto'),
+        iconName: 'phone-portrait-outline',
+        description: t('settings.themeAutoDesc'),
+      },
+    ];
 
-  const renderThemeOption = (option: typeof themeOptions[0]) => {
+  const renderThemeOption = (option: (typeof themeOptions)[0]) => {
     const isSelected = themeMode === option.mode;
     return (
       <Touchable
         key={option.mode}
         style={[
           styles.option,
-          { 
+          {
             backgroundColor: theme.colors.card,
             borderColor: theme.colors.border,
           },
-          isSelected && { 
+          isSelected && {
             backgroundColor: theme.colors.primary + '20',
             borderColor: theme.colors.primary,
             borderWidth: 2,
-          }
+          },
         ]}
         onPress={() => handleThemeChange(option.mode)}
         activeOpacity={0.7}
       >
         <View style={styles.optionContent}>
           <View style={styles.optionHeader}>
-            <View style={[
-              styles.icon,
-              isSelected && { transform: [{ scale: 1.1 }] }
-            ]}>
+            <View style={[styles.icon, isSelected && { transform: [{ scale: 1.1 }] }]}>
               <Ionicons name={option.iconName as any} size={28} color={theme.colors.text} />
             </View>
-            <Text style={[
-              styles.optionLabel,
-              { color: theme.colors.text },
-              isSelected && { color: theme.colors.primary, fontWeight: '600' }
-            ]}>
+            <Text
+              style={[
+                styles.optionLabel,
+                { color: theme.colors.text },
+                isSelected && { color: theme.colors.primary, fontWeight: '600' },
+              ]}
+            >
               {option.label}
             </Text>
             {isSelected && (
-              <Ionicons name="checkmark" size={24} color={theme.colors.primary} style={{ marginLeft: 'auto' }} />
+              <Ionicons
+                name="checkmark"
+                size={24}
+                color={theme.colors.primary}
+                style={{ marginLeft: 'auto' }}
+              />
             )}
           </View>
           <Text style={[styles.optionDescription, { color: theme.colors.textSecondary }]}>
@@ -90,7 +95,7 @@ const ThemeSelectionScreen: React.FC = () => {
           <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
             {t('settings.selectThemeDesc')}
           </Text>
-          
+
           <View style={styles.optionsContainer}>
             {themeOptions.map(option => renderThemeOption(option))}
           </View>

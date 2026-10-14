@@ -67,8 +67,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
           onRequestClose={() => setIsOpen(false)}
         >
           <View style={styles.modalOverlay}>
-            <TouchableOpacity 
-              style={styles.modalBackdrop} 
+            <TouchableOpacity
+              style={styles.modalBackdrop}
               onPress={() => setIsOpen(false)}
               activeOpacity={1}
             />
@@ -83,7 +83,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
                     setIsOpen(false);
                   }}
                 >
-                  <Text style={[styles.modalButton, styles.modalButtonDone, { color: accentColor }]}>
+                  <Text
+                    style={[styles.modalButton, styles.modalButtonDone, { color: accentColor }]}
+                  >
                     完成
                   </Text>
                 </TouchableOpacity>
@@ -94,10 +96,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
                 style={styles.iosPicker}
                 itemStyle={{ color: textColor }}
               >
-                {options.map((option) => (
-                  <Picker.Item 
-                    key={option.value} 
-                    label={option.label} 
+                {options.map(option => (
+                  <Picker.Item
+                    key={option.value}
+                    label={option.label}
                     value={option.value}
                     color={textColor}
                   />
@@ -120,7 +122,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
           style={[styles.picker, { color: textColor }]}
           dropdownIconColor={textColor}
         >
-          {options.map((option) => (
+          {options.map(option => (
             <Picker.Item key={option.value} label={option.label} value={option.value} />
           ))}
         </Picker>
@@ -159,15 +161,15 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
       {isOpen && (
         <>
-          <TouchableOpacity 
-            style={styles.backdrop} 
+          <TouchableOpacity
+            style={styles.backdrop}
             onPress={() => setIsOpen(false)}
             activeOpacity={1}
           />
           <View style={[styles.dropdown, { backgroundColor, borderColor: accentColor }]}>
             <FlatList
               data={options}
-              keyExtractor={(item) => item.value.toString()}
+              keyExtractor={item => item.value.toString()}
               renderItem={({ item }) => (
                 <Touchable
                   onPress={() => {
