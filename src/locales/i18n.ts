@@ -7,6 +7,7 @@ import zh from './zh';
 import en from './en';
 import ja from './ja';
 import de from './de';
+import { debugLog } from '../utils/logger';
 
 // 支持的语言列表
 export const SUPPORTED_LANGUAGES = ['zh', 'en', 'ja', 'de'] as const;
@@ -38,13 +39,13 @@ const getDefaultLanguage = (): SupportedLanguage => {
         
         // 检查是否是支持的语言
         if (SUPPORTED_LANGUAGES.includes(languageCode as SupportedLanguage)) {
-          console.log('✅ 检测到系统语言:', languageCode);
+          debugLog('✅ 检测到系统语言:', languageCode);
           return languageCode as SupportedLanguage;
         }
       }
     }
     
-    console.log('⚠️ 系统语言不在支持列表中，使用默认语言: en');
+    debugLog('⚠️ 系统语言不在支持列表中，使用默认语言: en');
     return 'en'; // 默认使用英语
   } catch (error) {
     console.error('❌ 获取系统语言失败:', error);
@@ -74,7 +75,7 @@ export const getSavedLanguage = async (): Promise<SupportedLanguage | null> => {
 export const saveLanguage = async (language: SupportedLanguage): Promise<void> => {
   try {
     await AsyncStorage.setItem(LANGUAGE_STORAGE_KEY, language);
-    console.log('✅ 语言设置已保存:', language);
+    debugLog('✅ 语言设置已保存:', language);
   } catch (error) {
     console.error('❌ 保存语言设置失败:', error);
   }
@@ -90,7 +91,7 @@ export const initI18n = async (): Promise<void> => {
   // 如果没有保存的设置，使用系统语言
   const defaultLanguage = savedLanguage || getDefaultLanguage();
   
-  console.log('🌍 初始化 i18n，使用语言:', defaultLanguage);
+  debugLog('🌍 初始化 i18n，使用语言:', defaultLanguage);
 
   await i18n
     .use(initReactI18next)
@@ -119,7 +120,7 @@ export const changeLanguage = async (language: SupportedLanguage): Promise<void>
   try {
     await i18n.changeLanguage(language);
     await saveLanguage(language);
-    console.log('✅ 语言已切换至:', language);
+    debugLog('✅ 语言已切换至:', language);
   } catch (error) {
     console.error('❌ 切换语言失败:', error);
   }

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Location from 'expo-location';
 import { reverseGeocode, getTimezone } from '../api/geocodingService';
+import { debugLog } from '../utils/logger';
 
 export interface LocationData {
     latitude: number;
@@ -53,23 +54,23 @@ export const useLocation = (autoLoad: boolean = true) => {
             setLoading(true);
             setError(null);
 
-            console.log('🌍 Requesting location permission...');
+            debugLog('🌍 Requesting location permission...');
             const { status } = await Location.requestForegroundPermissionsAsync();
 
             if (status !== 'granted') {
-                console.log('⚠️ Location permission denied');
+                debugLog('⚠️ Location permission denied');
                 setError('Permission to access location was denied');
                 setLoading(false);
                 return;
             }
 
-            console.log('📍 Getting current position...');
+            debugLog('📍 Getting current position...');
             const loc = await Location.getCurrentPositionAsync({});
             const coords = {
                 latitude: loc.coords.latitude,
                 longitude: loc.coords.longitude,
             };
-            console.log('✅ Location obtained:', coords);
+            debugLog('✅ Location obtained:', coords);
 
             await updateLocationData(coords.latitude, coords.longitude);
         } catch (err: any) {

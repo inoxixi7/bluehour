@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../locales/i18n';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLocationData } from '../../contexts/LocationDataContext';
 import { Layout } from '../../constants/Layout';
@@ -37,7 +36,7 @@ import { getCurrentWeather, getWeatherIcon, WeatherData } from '../../api/weathe
 
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigation = useNavigation<any>();
   const {
     locationName,
@@ -92,7 +91,14 @@ const HomeScreen: React.FC = () => {
     }
   }, [getCurrentLocation]);
 
-  const sunTimes = getSunTimesForDate(new Date());
+  // 每 30 秒刷新一次当前时间，让当前光线阶段和倒计时随时间更新
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const interval = setInterval(() => setNow(new Date()), 30 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const sunTimes = getSunTimesForDate(now);
 
   // 当黄金时刻时间变化时，安排通知（服务内部会提前 30 分钟提醒）
   useEffect(() => {
@@ -113,24 +119,23 @@ const HomeScreen: React.FC = () => {
 
     scheduleNotifications().catch(error => console.error('Failed to schedule notifications:', error));
   }, [sunTimes, i18n.language]);
+
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
-  const now = new Date();
-  
   const phaseState = useMemo(
     () => (sunTimes ? getCurrentPhaseState(timeline, now) : null),
-    [sunTimes, timeline]
+    [sunTimes, timeline, now]
   );
-  
+
   const nextBlueHour = useMemo(
     () => (sunTimes ? getNextBlueHourWindow(sunTimes, now) : null),
-    [sunTimes]
+    [sunTimes, now]
   );
 
   const isLoading = locationLoading || (sunTimesLoading && !sunTimes);
 
   const quickActions = useMemo(() => {
     const getRandomAdvice = (
-      adviceList: Array<{ icon: string; title: string; description: string }>
+      adviceList: { icon: string; title: string; description: string }[]
     ) => {
       const index = (refreshCount + Math.floor(Date.now() / 1000 / 3600)) % adviceList.length;
       return adviceList[index];

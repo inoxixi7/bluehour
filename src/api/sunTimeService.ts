@@ -3,6 +3,7 @@
 import { SunTimesResponse, ProcessedSunTimes } from '../types/api';
 import { fetchWithRetry, fetchWithCache, generateCacheKey, isNetworkError } from '../utils/apiHelpers';
 import { calculateGoldenAndBlueHours } from '../utils/sunPosition';
+import { debugLog } from '../utils/logger';
 
 const BASE_URL = 'https://api.sunrise-sunset.org/json';
 const CACHE_PREFIX = 'suntimes';
@@ -158,7 +159,7 @@ export const getSunTimes = async (
           Infinity, // 接受任何过期时间
           false
         );
-        console.log('📦 使用过期缓存数据');
+        debugLog('📦 使用过期缓存数据');
         return processSunTimes(cachedData, lat, lng);
       } catch (cacheError) {
         // 缓存也没有，抛出原始错误

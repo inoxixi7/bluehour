@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   TextInput,
@@ -35,22 +35,8 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
   const [loading, setLoading] = useState(false);
   const [showResults, setShowResults] = useState(false);
 
-  // 防抖搜索
-  useEffect(() => {
-    if (searchQuery.trim().length < 2) {
-      setResults([]);
-      setShowResults(false);
-      return;
-    }
-
-    const timeoutId = setTimeout(async () => {
-      await performSearch(searchQuery);
-    }, 500); // 500ms 防抖
-
-    return () => clearTimeout(timeoutId);
-  }, [searchQuery]);
-
-  const performSearch = async (query: string) => {
+  const performSearch = useCallback(
+    async (query: string) => {
     try {
       setLoading(true);
       // 传递当前语言代码
@@ -64,7 +50,24 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
     } finally {
       setLoading(false);
     }
-  };
+  },
+    [i18n.language]
+  );
+
+  // 防抖搜索
+  useEffect(() => {
+    if (searchQuery.trim().length < 2) {
+      setResults([]);
+      setShowResults(false);
+      return;
+    }
+
+    const timeoutId = setTimeout(async () => {
+      await performSearch(searchQuery);
+    }, 500); // 500ms 防抖
+
+    return () => clearTimeout(timeoutId);
+  }, [searchQuery, performSearch]);
 
   const handleSelectLocation = (result: GeocodingResult) => {
     setSearchQuery('');

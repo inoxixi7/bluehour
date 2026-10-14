@@ -91,20 +91,6 @@ export const useUserPresets = () => {
     [presets, savePresets]
   );
 
-  // 删除预设
-  const deletePreset = useCallback(
-    async (id: string) => {
-      const newPresets = presets.filter((p) => p.id !== id);
-      await savePresets(newPresets);
-
-      // 如果删除的是激活的预设，清除激活状态
-      if (activePresetId === id) {
-        await setActivePreset(undefined);
-      }
-    },
-    [presets, savePresets, activePresetId]
-  );
-
   // 设置激活的预设
   const setActivePreset = useCallback(async (id: string | undefined) => {
     try {
@@ -118,6 +104,20 @@ export const useUserPresets = () => {
       console.error('设置激活预设失败:', error);
     }
   }, []);
+
+  // 删除预设
+  const deletePreset = useCallback(
+    async (id: string) => {
+      const newPresets = presets.filter((p) => p.id !== id);
+      await savePresets(newPresets);
+
+      // 如果删除的是激活的预设，清除激活状态
+      if (activePresetId === id) {
+        await setActivePreset(undefined);
+      }
+    },
+    [presets, savePresets, activePresetId, setActivePreset]
+  );
 
   // 获取激活的预设
   const getActivePreset = useCallback((): UserPreset | undefined => {

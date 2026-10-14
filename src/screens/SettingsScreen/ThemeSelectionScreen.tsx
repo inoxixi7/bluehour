@@ -15,7 +15,7 @@ const ThemeSelectionScreen: React.FC = () => {
     // 不自动返回,让用户自行选择
   };
 
-  const themeOptions: Array<{ mode: ThemeMode; label: string; iconName: string; description: string }> = [
+  const themeOptions: { mode: ThemeMode; label: string; iconName: string; description: string }[] = [
     {
       mode: 'light',
       label: t('settings.themeLight'),

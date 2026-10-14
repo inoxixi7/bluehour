@@ -76,7 +76,7 @@ export const calculateEquivalentExposure = (
   }
 
   // 确定需要调整的参数（除了改变的和锁定的之外的那个）
-  const paramsArray: Array<'aperture' | 'shutter' | 'iso'> = ['aperture', 'shutter', 'iso'];
+  const paramsArray: ('aperture' | 'shutter' | 'iso')[] = ['aperture', 'shutter', 'iso'];
   const adjustParam = paramsArray.find(p => p !== changedParam && p !== lockedParam)!;
 
   // 应用补偿
@@ -123,7 +123,7 @@ export const calculateEquivalentExposureWithEV = (
   currentValues: { aperture: number; shutter: number; iso: number }
 ): EVEquivalentResult | null => {
   // 确定需要调整的参数
-  const paramsArray: Array<'aperture' | 'shutter' | 'iso'> = ['aperture', 'shutter', 'iso'];
+  const paramsArray: ('aperture' | 'shutter' | 'iso')[] = ['aperture', 'shutter', 'iso'];
   const adjustParam = paramsArray.find(p => p !== changedParam && p !== lockedParam)!;
 
   let aperture: number = currentValues.aperture;

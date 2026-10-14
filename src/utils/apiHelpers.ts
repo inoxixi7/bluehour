@@ -4,6 +4,7 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { debugLog } from './logger';
 
 /**
  * 带重试机制的 fetch
@@ -62,10 +63,10 @@ export const fetchWithCache = async <T>(
         const age = Date.now() - timestamp;
         
         if (age < ttl) {
-          console.log(`📦 使用缓存数据: ${cacheKey} (${Math.round(age / 1000)}s 前)`);
+          debugLog(`📦 使用缓存数据: ${cacheKey} (${Math.round(age / 1000)}s 前)`);
           return data;
         } else {
-          console.log(`⏰ 缓存已过期: ${cacheKey} (${Math.round(age / 1000)}s 前)`);
+          debugLog(`⏰ 缓存已过期: ${cacheKey} (${Math.round(age / 1000)}s 前)`);
         }
       }
     } catch (e) {
@@ -74,7 +75,7 @@ export const fetchWithCache = async <T>(
   }
 
   // 获取新数据
-  console.log(`🌐 获取新数据: ${cacheKey}`);
+  debugLog(`🌐 获取新数据: ${cacheKey}`);
   const data = await fetchFn();
   
   // 保存到缓存
@@ -84,7 +85,7 @@ export const fetchWithCache = async <T>(
       timestamp: Date.now(),
     };
     await AsyncStorage.setItem(cacheKey, JSON.stringify(cacheData));
-    console.log(`💾 数据已缓存: ${cacheKey}`);
+    debugLog(`💾 数据已缓存: ${cacheKey}`);
   } catch (e) {
     console.warn('⚠️ 保存缓存失败:', e);
     // 缓存失败不影响返回数据
@@ -99,7 +100,7 @@ export const fetchWithCache = async <T>(
 export const clearCache = async (cacheKey: string): Promise<void> => {
   try {
     await AsyncStorage.removeItem(cacheKey);
-    console.log(`🗑️ 缓存已清除: ${cacheKey}`);
+    debugLog(`🗑️ 缓存已清除: ${cacheKey}`);
   } catch (e) {
     console.warn('⚠️ 清除缓存失败:', e);
   }
@@ -113,7 +114,7 @@ export const clearCacheByPrefix = async (prefix: string): Promise<void> => {
     const keys = await AsyncStorage.getAllKeys();
     const keysToRemove = keys.filter(key => key.startsWith(prefix));
     await AsyncStorage.multiRemove(keysToRemove);
-    console.log(`🗑️ 已清除 ${keysToRemove.length} 个缓存项 (前缀: ${prefix})`);
+    debugLog(`🗑️ 已清除 ${keysToRemove.length} 个缓存项 (前缀: ${prefix})`);
   } catch (e) {
     console.warn('⚠️ 批量清除缓存失败:', e);
   }

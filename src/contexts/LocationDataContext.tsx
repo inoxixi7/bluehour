@@ -7,6 +7,7 @@ import React, {
   useRef,
 } from "react";
 import { Platform } from "react-native";
+import { useTranslation } from "react-i18next";
 import i18n from "../locales/i18n";
 import { LocationData, TimezoneData } from "../hooks/useLocation";
 import { ProcessedSunTimes } from "../types/api";
@@ -14,6 +15,7 @@ import * as Location from "expo-location";
 import { reverseGeocode, getTimezone } from "../api/geocodingService";
 import { getSunTimes } from "../api/sunTimeService";
 import { formatDateKey } from "../utils/timezone";
+import { debugLog } from "../utils/logger";
 
 interface LocationDataContextType {
   // Location data
@@ -87,24 +89,24 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({
         setLocationLoading(true);
         setLocationError(null);
 
-        console.log('📍 [LocationDataContext] 更新位置数据:', { lat, lng, name });
+        debugLog('📍 [LocationDataContext] 更新位置数据:', { lat, lng, name });
         setLocation({ latitude: lat, longitude: lng });
 
         // Get name if not provided
         let finalName = name;
         if (!finalName) {
-          console.log('🌐 [LocationDataContext] 开始反向地理编码...');
+          debugLog('🌐 [LocationDataContext] 开始反向地理编码...');
           // 从 i18n 动态获取当前语言，而不是通过依赖
           const currentLanguage = (i18n.language || "en").split("-")[0];
           finalName = await reverseGeocode(lat, lng, currentLanguage);
-          console.log('✅ [LocationDataContext] 地名获取成功:', finalName);
+          debugLog('✅ [LocationDataContext] 地名获取成功:', finalName);
         }
         setLocationName(finalName || "");
 
         // Get timezone
-        console.log('🕐 [LocationDataContext] 获取时区信息...');
+        debugLog('🕐 [LocationDataContext] 获取时区信息...');
         const tz = await getTimezone(lat, lng);
-        console.log('✅ [LocationDataContext] 时区获取成功:', tz);
+        debugLog('✅ [LocationDataContext] 时区获取成功:', tz);
         setTimezoneInfo({ timezone: tz.timezone, offset: tz.offset });
 
         // Clear cache when location changes
@@ -126,12 +128,12 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({
       setLocationLoading(true);
       setLocationError(null);
 
-      console.log('🎯 [LocationDataContext] 开始获取当前位置...');
-      console.log('📱 [LocationDataContext] 平台:', Platform.OS);
+      debugLog('🎯 [LocationDataContext] 开始获取当前位置...');
+      debugLog('📱 [LocationDataContext] 平台:', Platform.OS);
 
       // Web 环境使用浏览器 Geolocation API
       if (Platform.OS === 'web') {
-        console.log('🌐 [LocationDataContext] 使用浏览器 Geolocation API');
+        debugLog('🌐 [LocationDataContext] 使用浏览器 Geolocation API');
         
         // tsconfig 未包含 DOM 类型，这里手动声明浏览器 Geolocation API
         const geolocation = (
@@ -166,15 +168,15 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({
           );
         });
 
-        console.log('✅ [LocationDataContext] 浏览器坐标获取成功:', position.coords);
+        debugLog('✅ [LocationDataContext] 浏览器坐标获取成功:', position.coords);
         await updateLocationData(position.coords.latitude, position.coords.longitude);
-        console.log('🎉 [LocationDataContext] 位置数据更新完成');
+        debugLog('🎉 [LocationDataContext] 位置数据更新完成');
         return;
       }
 
       // 移动端使用 expo-location
       const { status } = await Location.requestForegroundPermissionsAsync();
-      console.log('🔐 [LocationDataContext] 权限状态:', status);
+      debugLog('🔐 [LocationDataContext] 权限状态:', status);
 
       if (status !== "granted") {
         const errorMsg = "Permission to access location was denied";
@@ -184,14 +186,14 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({
         return;
       }
 
-      console.log('📍 [LocationDataContext] 正在获取坐标...');
+      debugLog('📍 [LocationDataContext] 正在获取坐标...');
       const loc = await Location.getCurrentPositionAsync({
         accuracy: Location.Accuracy.Balanced,
       });
-      console.log('✅ [LocationDataContext] 坐标获取成功:', loc.coords);
+      debugLog('✅ [LocationDataContext] 坐标获取成功:', loc.coords);
 
       await updateLocationData(loc.coords.latitude, loc.coords.longitude);
-      console.log('🎉 [LocationDataContext] 位置数据更新完成');
+      debugLog('🎉 [LocationDataContext] 位置数据更新完成');
     } catch (err: any) {
       const errorMsg = err.message || "Failed to get current location";
       console.error('❌ [LocationDataContext] 获取位置失败:', errorMsg, err);
@@ -214,7 +216,7 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({
 
       // Check cache first
       if (sunTimesCache.has(dateKey)) {
-        console.log("📦 Using cached sun times for", dateKey);
+        debugLog("📦 Using cached sun times for", dateKey);
         return;
       }
 
@@ -222,7 +224,7 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({
         setSunTimesLoading(true);
         setSunTimesError(null);
 
-        console.log("📅 Fetching sun times for date:", dateKey);
+        debugLog("📅 Fetching sun times for date:", dateKey);
 
         const data = await getSunTimes(
           location.latitude,
@@ -263,30 +265,38 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, [location, timezoneInfo.timezone, fetchSunTimes]);
 
-  // 监听语言变化，自动更新位置名称（带防抖优化）
-  useEffect(() => {
-    if (location) {
-      // 使用防抖避免频繁请求
-      const timeoutId = setTimeout(async () => {
-        try {
-          const currentLanguage = (i18n.language || "en").split("-")[0];
-          const name = await reverseGeocode(
-            location.latitude,
-            location.longitude,
-            currentLanguage
-          );
-          setLocationName(name || "");
-        } catch (error) {
-          console.error(
-            "Error updating location name on language change:",
-            error
-          );
-        }
-      }, 500); // 500ms 防抖
+  // 语言切换时，用新语言重新获取地名（带防抖）
+  // 只响应语言变化：位置变化时 updateLocationData 已经处理了地名，
+  // 若这里也监听 location，会把搜索选中的地名覆盖成反向地理编码结果
+  const { i18n: reactI18n } = useTranslation();
+  const language = reactI18n.language;
+  const previousLanguageRef = useRef(language);
+  const locationRef = useRef(location);
+  locationRef.current = location;
 
-      return () => clearTimeout(timeoutId);
-    }
-  }, [i18n.language, location]);
+  useEffect(() => {
+    if (previousLanguageRef.current === language) return;
+    previousLanguageRef.current = language;
+
+    const currentLocation = locationRef.current;
+    if (!currentLocation) return;
+
+    const timeoutId = setTimeout(async () => {
+      try {
+        const currentLanguage = (language || "en").split("-")[0];
+        const name = await reverseGeocode(
+          currentLocation.latitude,
+          currentLocation.longitude,
+          currentLanguage
+        );
+        setLocationName(name || "");
+      } catch (error) {
+        console.error("Error updating location name on language change:", error);
+      }
+    }, 500); // 500ms 防抖
+
+    return () => clearTimeout(timeoutId);
+  }, [language]);
 
   const value: LocationDataContextType = {
     location,

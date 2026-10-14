@@ -2,6 +2,7 @@ import * as Notifications from 'expo-notifications';
 import * as Device from 'expo-device';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { debugLog } from '../utils/logger';
 
 const NOTIFICATION_ENABLED_KEY = '@notifications_enabled';
 
@@ -19,7 +20,7 @@ Notifications.setNotificationHandler({
  */
 export async function requestNotificationPermissions(): Promise<boolean> {
   if (!Device.isDevice) {
-    console.log('通知功能仅在真机上可用');
+    debugLog('通知功能仅在真机上可用');
     return false;
   }
 
@@ -32,7 +33,7 @@ export async function requestNotificationPermissions(): Promise<boolean> {
   }
 
   if (finalStatus !== 'granted') {
-    console.log('通知权限未授予');
+    debugLog('通知权限未授予');
     return false;
   }
 
@@ -98,7 +99,7 @@ export async function scheduleGoldenHourNotification(
     
     // 检查通知时间是否已经过去
     if (notificationTime <= new Date()) {
-      console.log('通知时间已过，不安排通知');
+      debugLog('通知时间已过，不安排通知');
       return null;
     }
 
@@ -129,7 +130,7 @@ export async function scheduleGoldenHourNotification(
       },
     });
 
-    console.log(`✅ 已安排${type === 'sunrise' ? '日出' : '日落'}黄金时刻提醒: ${notificationId}`);
+    debugLog(`✅ 已安排${type === 'sunrise' ? '日出' : '日落'}黄金时刻提醒: ${notificationId}`);
     return notificationId;
   } catch (error) {
     console.error('安排通知失败:', error);
@@ -143,7 +144,7 @@ export async function scheduleGoldenHourNotification(
 export async function cancelAllNotifications(): Promise<void> {
   try {
     await Notifications.cancelAllScheduledNotificationsAsync();
-    console.log('✅ 已取消所有通知');
+    debugLog('✅ 已取消所有通知');
   } catch (error) {
     console.error('取消通知失败:', error);
   }
