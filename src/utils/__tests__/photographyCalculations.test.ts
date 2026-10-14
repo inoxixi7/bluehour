@@ -85,7 +85,9 @@ describe('reciprocity correction', () => {
   it('needs no compensation for Acros II up to 120s', () => {
     const acros = profile('fuji_acros');
     expect(applyReciprocityCorrection(120, acros.model)).toBe(120);
-    expect(calculateReciprocity(240, acros).extraStops).toBeCloseTo(0.5, 6);
+    // 官方数据：120–1000s 一律 +1/2 档
+    expect(calculateReciprocity(130, acros).extraStops).toBeCloseTo(0.5, 6);
+    expect(calculateReciprocity(1000, acros).extraStops).toBeCloseTo(0.5, 6);
   });
 
   it('is not capped for very long exposures', () => {

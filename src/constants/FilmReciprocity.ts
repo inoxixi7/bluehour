@@ -83,10 +83,10 @@ const FUJI_CONSUMER_NEG = table([2, 2], stops(4, 1 / 3), stops(16, 2 / 3), stops
 // Fuji 专业彩负 (Pro 400H / 160NS / 160C)
 const FUJI_PRO_NEG = table([4, 4], stops(16, 1 / 3), stops(64, 2 / 3));
 
-// Fuji Provia 100F / Astia 100F: 128s 内无需补偿，4min +1/3 档，8min +1/2 档
+// Fuji Provia 100F / Astia 100F: 约 2 分钟（128s）内无需补偿；之后的补偿量为社区经验值
 const FUJI_MODERN_SLIDE = table([128, 128], stops(240, 1 / 3), stops(480, 1 / 2));
 
-// Fuji Velvia 100 / 100F: 1min 内无需补偿，4min +1/3 档，8min +1/2 档
+// Fuji Velvia 100 / 100F: 1 分钟内无需补偿；之后的补偿量为社区经验值
 const FUJI_VELVIA100 = table([60, 60], stops(240, 1 / 3), stops(480, 1 / 2));
 
 // Fuji 早期/民用反转片
@@ -217,7 +217,8 @@ export const FILM_RECIPROCITY_DATA: FilmReciprocityData[] = [
     maxReliableSeconds: 100,
   },
   {
-    // T-Max 400: 1s +1/3档, 10s→15s, 100s→300s
+    // T-Max 400（Kodak F-32 旧版数据）: 1s +1/3档, 10s→15s, 100s→300s
+    // 现行 TMY-2 的倒易律特性更好，这组数据偏保守（宁可多曝光）
     id: 'kodak_tmax400',
     name: 'Kodak T-Max 400',
     iso: 400,
@@ -238,12 +239,12 @@ export const FILM_RECIPROCITY_DATA: FilmReciprocityData[] = [
 
   // ---- Fuji 黑白 ----
   {
-    // Acros II: 120s 内无需补偿；120–1000s +1/2 档
+    // Acros II 官方数据：120s 内无需补偿；120–1000s 一律 +1/2 档
     id: 'fuji_acros',
     name: 'Fuji Neopan Acros II 100',
     iso: 100,
     type: 'bw',
-    model: table([120, 120], stops(240, 1 / 2), stops(1000, 1 / 2)),
+    model: table([120, 120], stops(121, 1 / 2), stops(1000, 1 / 2)),
     source: 'manufacturer',
     maxReliableSeconds: 1000,
   },
@@ -501,8 +502,8 @@ export const FILM_RECIPROCITY_DATA: FilmReciprocityData[] = [
     iso: 100,
     type: 'slide',
     model: FUJI_MODERN_SLIDE,
-    source: 'manufacturer',
-    maxReliableSeconds: 480,
+    source: 'community',
+    maxReliableSeconds: 128,
   },
   {
     id: 'fuji_astia100f',
@@ -510,8 +511,8 @@ export const FILM_RECIPROCITY_DATA: FilmReciprocityData[] = [
     iso: 100,
     type: 'slide',
     model: FUJI_MODERN_SLIDE,
-    source: 'manufacturer',
-    maxReliableSeconds: 480,
+    source: 'community',
+    maxReliableSeconds: 128,
   },
   {
     id: 'fuji_provia400x',
@@ -520,7 +521,7 @@ export const FILM_RECIPROCITY_DATA: FilmReciprocityData[] = [
     type: 'slide',
     model: FUJI_MODERN_SLIDE,
     source: 'estimate',
-    maxReliableSeconds: 480,
+    maxReliableSeconds: 128,
   },
   {
     id: 'fuji_velvia100',
@@ -528,8 +529,8 @@ export const FILM_RECIPROCITY_DATA: FilmReciprocityData[] = [
     iso: 100,
     type: 'slide',
     model: FUJI_VELVIA100,
-    source: 'manufacturer',
-    maxReliableSeconds: 480,
+    source: 'community',
+    maxReliableSeconds: 60,
   },
   {
     id: 'fuji_velvia100f',
@@ -537,11 +538,11 @@ export const FILM_RECIPROCITY_DATA: FilmReciprocityData[] = [
     iso: 100,
     type: 'slide',
     model: FUJI_VELVIA100,
-    source: 'manufacturer',
-    maxReliableSeconds: 480,
+    source: 'community',
+    maxReliableSeconds: 60,
   },
   {
-    // Velvia 50: 4s +1/3, 8s +1/2, 16s +2/3, 32s +1 档；64s 以上官方不推荐
+    // Velvia 50: 4s +1/3, 8s +1/2, 16s +2/3, 32s +1 档；超过 32s 官方不推荐
     id: 'fuji_velvia50',
     name: 'Fujichrome Velvia 50',
     iso: 50,
