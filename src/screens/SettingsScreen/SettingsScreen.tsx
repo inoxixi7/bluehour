@@ -3,6 +3,7 @@ import { View, Text, ScrollView, StyleSheet, Linking, Switch, Alert } from 'reac
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useNavigation } from '@react-navigation/native';
+import { RootStackNavigationProp } from '../../navigation/types';
 import { Card } from '../../components/common/Card';
 import { Touchable } from '../../components/common/Touchable';
 import { useTheme, ThemeMode } from '../../contexts/ThemeContext';
@@ -17,7 +18,7 @@ import {
 const SettingsScreen: React.FC = () => {
   const { theme, themeMode } = useTheme();
   const { t, i18n } = useTranslation();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<RootStackNavigationProp>();
 
   const [notificationsEnabled, setNotificationsEnabledState] = useState(false);
   const [isLoadingNotifications, setIsLoadingNotifications] = useState(true);

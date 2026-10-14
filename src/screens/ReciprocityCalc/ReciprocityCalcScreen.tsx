@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Platform, Modal, Vibration } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import { RootStackNavigationProp } from '../../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -45,7 +46,7 @@ const formatCountdown = (seconds: number) => {
 const ReciprocityCalcScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<RootStackNavigationProp>();
   const route = useRoute<ReciprocityCalcRouteProp>();
   const { activePreset } = useUserPresets();
 

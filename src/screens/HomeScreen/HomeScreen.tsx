@@ -16,6 +16,7 @@ import { useTheme } from '../../contexts/ThemeContext';
 import { useLocationData } from '../../contexts/LocationDataContext';
 import { Layout } from '../../constants/Layout';
 import { useNavigation } from '@react-navigation/native';
+import { RootStackNavigationProp } from '../../navigation/types';
 import {
   buildLightTimeline,
   getCurrentPhaseState,
@@ -37,7 +38,7 @@ import { getCurrentWeather, getWeatherIcon, WeatherData } from '../../api/weathe
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t, i18n } = useTranslation();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<RootStackNavigationProp>();
   const {
     locationName,
     timezoneInfo,

@@ -2,6 +2,16 @@
 
 import { debugLog } from '../utils/logger';
 
+/** Nominatim 搜索接口返回的单条结果（只列出用到的字段） */
+interface NominatimSearchResult {
+  name?: string;
+  display_name: string;
+  lat: string;
+  lon: string;
+  type?: string;
+  importance?: number;
+}
+
 export interface GeocodingResult {
   name: string;
   displayName: string;
@@ -62,10 +72,10 @@ export const searchLocation = async (
       throw new Error(`Geocoding request failed: ${response.status}`);
     }
 
-    const data = await response.json();
+    const data: NominatimSearchResult[] = await response.json();
 
     // 转换为我们的格式
-    const results: GeocodingResult[] = data.map((item: any) => ({
+    const results: GeocodingResult[] = data.map(item => ({
       name: item.name || item.display_name.split(',')[0],
       displayName: item.display_name,
       latitude: parseFloat(item.lat),

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { Ionicons } from '@expo/vector-icons';
+import { IoniconName } from '../../types/icons';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
 import { searchLocation, GeocodingResult } from '../../api/geocodingService';
@@ -79,7 +80,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
 
   const renderResultItem = ({ item }: { item: GeocodingResult }) => {
     // 根据类型显示不同的图标
-    const getIconName = (type: string): string => {
+    const getIconName = (type: string): IoniconName => {
       if (type.includes('city') || type.includes('town')) return 'business-outline';
       if (type.includes('village')) return 'home-outline';
       if (type.includes('country')) return 'globe-outline';
@@ -97,7 +98,7 @@ const LocationSearch: React.FC<LocationSearchProps> = ({
         activeOpacity={0.7}
       >
         <Ionicons
-          name={getIconName(item.type) as any}
+          name={getIconName(item.type)}
           size={24}
           color={theme.colors.accent}
           style={{ marginRight: 12 }}

@@ -4,6 +4,7 @@ import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { Layout } from '../../constants/Layout';
+import { webStyle } from '../../utils/webStyles';
 import { Touchable } from './Touchable';
 
 interface DropdownOption {
@@ -280,7 +281,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Layout.spacing.md,
     borderRadius: Layout.borderRadius.md,
     borderWidth: 1.5,
-    ...(Platform.OS === 'web' && { cursor: 'pointer' as any }),
+    ...(Platform.OS === 'web' && webStyle({ cursor: 'pointer' })),
   },
   selectorText: {
     fontSize: Layout.fontSize.base,
@@ -293,7 +294,7 @@ const styles = StyleSheet.create({
     marginLeft: Layout.spacing.xs,
   },
   backdrop: {
-    position: 'fixed' as any,
+    ...webStyle({ position: 'fixed' }),
     top: 0,
     left: 0,
     right: 0,
@@ -327,7 +328,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: Layout.spacing.md,
     paddingVertical: Layout.spacing.sm,
     minHeight: 44,
-    ...(Platform.OS === 'web' && { cursor: 'pointer' as any }),
+    ...(Platform.OS === 'web' && webStyle({ cursor: 'pointer' })),
   },
   optionText: {
     fontSize: Layout.fontSize.base,

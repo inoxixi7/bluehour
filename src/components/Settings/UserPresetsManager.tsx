@@ -9,7 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useUserPresets } from '../../contexts/UserPresetsContext';
-import { UserPreset } from '../../types/userPreset';
+import { UserPreset, UserPresetInput } from '../../types/userPreset';
 import { Card } from '../common/Card';
 import { AppButton } from '../common/AppButton';
 import { Touchable } from '../common/Touchable';
@@ -40,12 +40,12 @@ export const UserPresetsManager: React.FC = () => {
   };
 
   // 保存预设
-  const handleSave = async (presetData: Partial<UserPreset>) => {
+  const handleSave = async (presetData: UserPresetInput) => {
     try {
       if (editingPreset) {
         await updatePreset(editingPreset.id, presetData);
       } else {
-        await createPreset(presetData as any);
+        await createPreset(presetData);
       }
 
       setModalVisible(false);

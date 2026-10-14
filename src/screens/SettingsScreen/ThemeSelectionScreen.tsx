@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { IoniconName } from '../../types/icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme, ThemeMode } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
@@ -15,27 +16,31 @@ const ThemeSelectionScreen: React.FC = () => {
     // 不自动返回,让用户自行选择
   };
 
-  const themeOptions: { mode: ThemeMode; label: string; iconName: string; description: string }[] =
-    [
-      {
-        mode: 'light',
-        label: t('settings.themeLight'),
-        iconName: 'sunny-outline',
-        description: t('settings.themeLightDesc'),
-      },
-      {
-        mode: 'dark',
-        label: t('settings.themeDark'),
-        iconName: 'moon-outline',
-        description: t('settings.themeDarkDesc'),
-      },
-      {
-        mode: 'auto',
-        label: t('settings.themeAuto'),
-        iconName: 'phone-portrait-outline',
-        description: t('settings.themeAutoDesc'),
-      },
-    ];
+  const themeOptions: {
+    mode: ThemeMode;
+    label: string;
+    iconName: IoniconName;
+    description: string;
+  }[] = [
+    {
+      mode: 'light',
+      label: t('settings.themeLight'),
+      iconName: 'sunny-outline',
+      description: t('settings.themeLightDesc'),
+    },
+    {
+      mode: 'dark',
+      label: t('settings.themeDark'),
+      iconName: 'moon-outline',
+      description: t('settings.themeDarkDesc'),
+    },
+    {
+      mode: 'auto',
+      label: t('settings.themeAuto'),
+      iconName: 'phone-portrait-outline',
+      description: t('settings.themeAutoDesc'),
+    },
+  ];
 
   const renderThemeOption = (option: (typeof themeOptions)[0]) => {
     const isSelected = themeMode === option.mode;
@@ -60,7 +65,7 @@ const ThemeSelectionScreen: React.FC = () => {
         <View style={styles.optionContent}>
           <View style={styles.optionHeader}>
             <View style={[styles.icon, isSelected && { transform: [{ scale: 1.1 }] }]}>
-              <Ionicons name={option.iconName as any} size={28} color={theme.colors.text} />
+              <Ionicons name={option.iconName} size={28} color={theme.colors.text} />
             </View>
             <Text
               style={[

@@ -1,10 +1,9 @@
+import type { TFunction } from 'i18next';
+
 /**
  * 辅助函数 - 格式化时间倒计时
  */
-export const formatTimeCountdown = (
-  minutes: number,
-  t: (key: string, options?: any) => string
-): string => {
+export const formatTimeCountdown = (minutes: number, t: TFunction): string => {
   if (minutes < 60) {
     return t('sunTimes.timeFormat.minutes', { count: minutes });
   }

@@ -10,8 +10,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import { useTheme } from '../../contexts/ThemeContext';
-import { UserPreset } from '../../types/userPreset';
+import { useTheme, ThemeColors } from '../../contexts/ThemeContext';
+import { UserPreset, UserPresetInput } from '../../types/userPreset';
 import { PRESET_APERTURES, PRESET_SHUTTERS, PRESET_ISOS } from '../../constants/Photography';
 import { AppButton } from '../common/AppButton';
 import { Touchable } from '../common/Touchable';
@@ -19,7 +19,7 @@ import { Layout } from '../../constants/Layout';
 
 interface CreatePresetStepperProps {
   initialData?: UserPreset | null;
-  onSave: (presetData: Partial<UserPreset>) => Promise<void>;
+  onSave: (presetData: UserPresetInput) => Promise<void>;
   onCancel: () => void;
 }
 
@@ -80,14 +80,13 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
     }
 
     try {
-      const presetData: Partial<UserPreset> = {
+      const presetData: UserPresetInput = {
         name: presetName.trim(),
         camera: camera.trim() || undefined,
         lens: lens.trim() || undefined,
         apertures: selectedApertures,
         shutterSpeeds: selectedShutters,
         isos: selectedISOs,
-        updatedAt: new Date(),
       };
 
       await onSave(presetData);
@@ -417,7 +416,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
   );
 };
 
-const createStyles = (colors: any) =>
+const createStyles = (colors: ThemeColors) =>
   StyleSheet.create({
     container: {
       flex: 1,

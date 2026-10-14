@@ -2,12 +2,13 @@ import React, { createContext, useContext, useState, useCallback, useEffect, use
 import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import i18n from '../locales/i18n';
-import { LocationData, TimezoneData } from '../hooks/useLocation';
+import { LocationData, TimezoneData } from '../types';
 import { ProcessedSunTimes } from '../types/api';
 import * as Location from 'expo-location';
 import { reverseGeocode, getTimezone } from '../api/geocodingService';
 import { getSunTimes } from '../api/sunTimeService';
 import { formatDateKey } from '../utils/timezone';
+import { getErrorMessage } from '../utils/apiHelpers';
 import { debugLog } from '../utils/logger';
 
 interface LocationDataContextType {
@@ -94,8 +95,8 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         // Clear cache when location changes
         setSunTimesCache(new Map());
-      } catch (err: any) {
-        const errorMsg = err.message || 'Failed to update location data';
+      } catch (err) {
+        const errorMsg = getErrorMessage(err, 'Failed to update location data');
         console.error('❌ [LocationDataContext] 更新位置数据失败:', errorMsg, err);
         setLocationError(errorMsg);
       } finally {
@@ -215,8 +216,8 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
           newCache.set(dateKey, data);
           return newCache;
         });
-      } catch (err: any) {
-        setSunTimesError(err.message || 'Failed to fetch sun times');
+      } catch (err) {
+        setSunTimesError(getErrorMessage(err, 'Failed to fetch sun times'));
         console.error('Error fetching sun times:', err);
       } finally {
         setSunTimesLoading(false);

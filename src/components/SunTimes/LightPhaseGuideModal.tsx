@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Modal, ScrollView, Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { IoniconName } from '../../types/icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
@@ -15,7 +16,13 @@ export const LightPhaseGuideModal: React.FC<LightPhaseGuideModalProps> = ({ visi
   const { theme } = useTheme();
   const { t } = useTranslation();
 
-  const phases = [
+  const phases: {
+    key: string;
+    color: string;
+    icon: IoniconName;
+    image: number;
+    copyright: string;
+  }[] = [
     {
       key: 'astronomicalTwilight',
       color: theme.colors.twilight,
@@ -83,7 +90,7 @@ export const LightPhaseGuideModal: React.FC<LightPhaseGuideModalProps> = ({ visi
               >
                 <View style={styles.phaseHeader}>
                   <View style={[styles.iconContainer, { backgroundColor: phase.color + '20' }]}>
-                    <Ionicons name={phase.icon as any} size={20} color={phase.color} />
+                    <Ionicons name={phase.icon} size={20} color={phase.color} />
                   </View>
                   <Text style={[styles.phaseTitle, { color: theme.colors.text }]}>
                     {t(`sunTimes.guide.${phase.key}.title`)}
