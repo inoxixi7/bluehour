@@ -8,7 +8,6 @@ export default {
     fetchingPhaseInfo: '現在の時間帯情報を取得中',
     error: 'エラー',
     retry: '再試行',
-    cancel: 'キャンセル',
     confirm: '確認',
     save: '保存',
     delete: '削除',
@@ -421,204 +420,151 @@ export default {
         meteredShutter: '測光シャッター速度',
         digital: 'デジタル / 補正不要',
         digitalDescription: 'デジタル撮影や相反則不軌の少ないセンサー向け。',
-        digitalHint: '露光時間は変化しません。',
         foma100: 'Fomapan 100 Classic',
         foma100Description: '1 秒以上で急激に補正が必要になる古典的フィルム。',
-        foma100Hint: '必ずレリーズを使い、長時間露光に備えてください。',
         kodak_e100: 'Kodak Ektachrome E100',
         kodak_e100Description: '現代的なリバーサルフィルム、安定した性能。',
-        kodak_e100Hint: 'E100 はこれを選択。',
         fuji_astia100f: 'Fujichrome Astia 100F',
         fuji_astia100fDescription: '柔らかな発色、適度な補正が必要。',
-        fuji_astia100fHint: 'Astia 100F はこれを選択。',
         fuji_provia400x: 'Fujichrome Provia 400X',
         fuji_provia400xDescription: '高感度リバーサル、長秒露光で補正が必要。',
-        fuji_provia400xHint: 'Provia 400X はこれを選択。',
         fuji_sensia200: 'Fujichrome Sensia 200',
         fuji_sensia200Description: 'コンシューマー向け、相反則不軌が目立つ。',
-        fuji_sensia200Hint: 'Sensia 200 はこれを選択。',
         fuji_64t: 'Fujichrome 64T',
         fuji_64tDescription: 'タングステンバランス、長秒露光で補正。',
-        fuji_64tHint: '64T はこれを選択。',
         fuji_t64: 'Fujichrome T64',
         fuji_t64Description: 'タングステンバランス、長秒露光で補正。',
-        fuji_t64Hint: 'T64 はこれを選択。',
         kodak_portra160: 'Kodak Portra 160',
         kodak_portra160Description: 'ニュートラルな色調、補正は穏やか。',
-        kodak_portra160Hint: 'Portra 160 はこれを選択。',
         kodak_portra400: 'Kodak Portra 400',
         kodak_portra400Description: 'ラチチュードが広く長秒露光に強い。',
-        kodak_portra400Hint: 'Portra 400 はこれを選択。',
         kodak_portra800: 'Kodak Portra 800',
         kodak_portra800Description: '高感度、適度な補正が必要。',
-        kodak_portra800Hint: 'Portra 800 はこれを選択。',
         ilford_delta100: 'Ilford Delta 100',
         ilford_delta100Description: '中程度の補正カーブ、繊細なモノクロ作品に。',
-        ilford_delta100Hint: '30 秒を超えたら補正量を丁寧に記録しましょう。',
 
         foma200: 'Fomapan 200 Creative',
         foma200Description: 'Fomapan 200 用の相反則不軌プロファイル。',
-        foma200Hint: 'Fomapan 200 を使用する場合に選択。',
 
         foma400: 'Fomapan 400 Action',
         foma400Description: 'Fomapan 400 用の相反則不軌プロファイル。',
-        foma400Hint: 'Fomapan 400 を使用する場合に選択。',
 
         kodak_50d: 'Kodak Vision3 50D (5203)',
         kodak_50dDescription: 'Kodak Vision3 50D 用の相反則不軌プロファイル。',
-        kodak_50dHint: 'Kodak Vision3 50D を使用する場合に選択。',
 
         kodak_250d: 'Kodak Vision3 250D (5207)',
         kodak_250dDescription: 'Kodak Vision3 250D 用の相反則不軌プロファイル。',
-        kodak_250dHint: 'Kodak Vision3 250D を使用する場合に選択。',
 
         kodak_500t: 'Kodak Vision3 500T (5219)',
         kodak_500tDescription: 'Kodak Vision3 500T 用の相反則不軌プロファイル。',
-        kodak_500tHint: 'Kodak Vision3 500T を使用する場合に選択。',
 
         kodak_ektar100: 'Kodak Ektar 100',
         kodak_ektar100Description: 'Kodak Ektar 100 用の相反則不軌プロファイル。',
-        kodak_ektar100Hint: 'Kodak Ektar 100 を使用する場合に選択。',
 
         kodak_gold: 'Kodak Gold 200',
         kodak_goldDescription: 'Kodak Gold 200 用の相反則不軌プロファイル。',
-        kodak_goldHint: 'Kodak Gold 200 を使用する場合に選択。',
 
         fuji_superia: 'Fuji Superia 100',
         fuji_superiaDescription: 'Fuji Superia 100 用の相反則不軌プロファイル。',
-        fuji_superiaHint: 'Fuji Superia 100 を使用する場合に選択。',
 
         fuji_superia200: 'Fuji Superia 200',
         fuji_superia200Description: 'Fuji Superia 200 用の相反則不軌プロファイル。',
-        fuji_superia200Hint: 'Fuji Superia 200 を使用する場合に選択。',
 
         fuji_superia1600: 'Fuji Superia 1600',
         fuji_superia1600Description: 'Fuji Superia 1600 用の相反則不軌プロファイル。',
-        fuji_superia1600Hint: 'Fuji Superia 1600 を使用する場合に選択。',
 
         fuji_c200: 'Fuji C200',
         fuji_c200Description: 'Fuji C200 用の相反則不軌プロファイル。',
-        fuji_c200Hint: 'Fuji C200 を使用する場合に選択。',
 
         fuji_color100: 'Fuji Color 100',
         fuji_color100Description: 'Fuji Color 100 用の相反則不軌プロファイル。',
-        fuji_color100Hint: 'Fuji Color 100 を使用する場合に選択。',
 
         fuji_pro160c: 'Fuji Pro 160C',
         fuji_pro160cDescription: 'Fuji Pro 160C 用の相反則不軌プロファイル。',
-        fuji_pro160cHint: 'Fuji Pro 160C を使用する場合に選択。',
 
         fuji_pro160ns: 'Fuji Pro 160NS',
         fuji_pro160nsDescription: 'Fuji Pro 160NS 用の相反則不軌プロファイル。',
-        fuji_pro160nsHint: 'Fuji Pro 160NS を使用する場合に選択。',
 
         fuji_xtra400: 'Fuji X-TRA 400',
         fuji_xtra400Description: 'Fuji X-TRA 400 用の相反則不軌プロファイル。',
-        fuji_xtra400Hint: 'Fuji X-TRA 400 を使用する場合に選択。',
 
         fuji_nexia400: 'Fuji Nexia 400',
         fuji_nexia400Description: 'Fuji Nexia 400 用の相反則不軌プロファイル。',
-        fuji_nexia400Hint: 'Fuji Nexia 400 を使用する場合に選択。',
 
         cinestill_800t: 'Cinestill 800T',
         cinestill_800tDescription: 'Cinestill 800T 用の相反則不軌プロファイル。',
-        cinestill_800tHint: 'Cinestill 800T を使用する場合に選択。',
 
         lomo_cn: 'Lomography CN 400/800',
         lomo_cnDescription: 'Lomography CN 400/800 用の相反則不軌プロファイル。',
-        lomo_cnHint: 'Lomography CN 400/800 を使用する場合に選択。',
 
         holga400: 'Holga 400',
         holga400Description: 'Holga 400 用の相反則不軌プロファイル。',
-        holga400Hint: 'Holga 400 を使用する場合に選択。',
 
         kodak_trix320: 'Kodak Tri-X 320',
         kodak_trix320Description: 'Kodak Tri-X 320 用の相反則不軌プロファイル。',
-        kodak_trix320Hint: 'Kodak Tri-X 320 を使用する場合に選択。',
 
         kodak_trix: 'Kodak Tri-X 400',
         kodak_trixDescription: 'Kodak Tri-X 400 用の相反則不軌プロファイル。',
-        kodak_trixHint: 'Kodak Tri-X 400 を使用する場合に選択。',
 
         kodak_tmax100: 'Kodak T-Max 100',
         kodak_tmax100Description: 'Kodak T-Max 100 用の相反則不軌プロファイル。',
-        kodak_tmax100Hint: 'Kodak T-Max 100 を使用する場合に選択。',
 
         kodak_tmax400: 'Kodak T-Max 400',
         kodak_tmax400Description: 'Kodak T-Max 400 用の相反則不軌プロファイル。',
-        kodak_tmax400Hint: 'Kodak T-Max 400 を使用する場合に選択。',
 
         kodak_tmax3200: 'Kodak T-Max 3200',
         kodak_tmax3200Description: 'Kodak T-Max 3200 用の相反則不軌プロファイル。',
-        kodak_tmax3200Hint: 'Kodak T-Max 3200 を使用する場合に選択。',
 
         ilford_hp5: 'Ilford HP5 Plus',
         ilford_hp5Description: 'Ilford HP5 Plus 用の相反則不軌プロファイル。',
-        ilford_hp5Hint: 'Ilford HP5 Plus を使用する場合に選択。',
 
         ilford_fp4: 'Ilford FP4 Plus',
         ilford_fp4Description: 'Ilford FP4 Plus 用の相反則不軌プロファイル。',
-        ilford_fp4Hint: 'Ilford FP4 Plus を使用する場合に選択。',
 
         ilford_delta400: 'Ilford Delta 400',
         ilford_delta400Description: 'Ilford Delta 400 用の相反則不軌プロファイル。',
-        ilford_delta400Hint: 'Ilford Delta 400 を使用する場合に選択。',
 
         ilford_delta3200: 'Ilford Delta 3200',
         ilford_delta3200Description: 'Ilford Delta 3200 用の相反則不軌プロファイル。',
-        ilford_delta3200Hint: 'Ilford Delta 3200 を使用する場合に選択。',
 
         ilford_panf: 'Ilford Pan F Plus',
         ilford_panfDescription: 'Ilford Pan F Plus 用の相反則不軌プロファイル。',
-        ilford_panfHint: 'Ilford Pan F Plus を使用する場合に選択。',
 
         ilford_xp2: 'Ilford XP2 Super',
         ilford_xp2Description: 'Ilford XP2 Super 用の相反則不軌プロファイル。',
-        ilford_xp2Hint: 'Ilford XP2 Super を使用する場合に選択。',
 
         ilford_sfx: 'Ilford SFX 200',
         ilford_sfxDescription: 'Ilford SFX 200 用の相反則不軌プロファイル。',
-        ilford_sfxHint: 'Ilford SFX 200 を使用する場合に選択。',
 
         ilford_kentmere100: 'Kentmere 100',
         ilford_kentmere100Description: 'Kentmere 100 用の相反則不軌プロファイル。',
-        ilford_kentmere100Hint: 'Kentmere 100 を使用する場合に選択。',
 
         ilford_kentmere400: 'Kentmere 400',
         ilford_kentmere400Description: 'Kentmere 400 用の相反則不軌プロファイル。',
-        ilford_kentmere400Hint: 'Kentmere 400 を使用する場合に選択。',
 
         shanghai_gp3: 'Shanghai GP3',
         shanghai_gp3Description: 'Shanghai GP3 用の相反則不軌プロファイル。',
-        shanghai_gp3Hint: 'Shanghai GP3 を使用する場合に選択。',
 
         lomo_potsdam100: 'Lomo Potsdam 100',
         lomo_potsdam100Description: 'Lomo Potsdam 100 用の相反則不軌プロファイル。',
-        lomo_potsdam100Hint: 'Lomo Potsdam 100 を使用する場合に選択。',
 
         fuji_acros: 'Fuji Neopan Acros II',
         fuji_acrosDescription: 'Fuji Neopan Acros II 用の相反則不軌プロファイル。',
-        fuji_acrosHint: 'Fuji Neopan Acros II を使用する場合に選択。',
 
         fuji_velvia100: 'Fujichrome Velvia 100',
         fuji_velvia100Description: 'Fujichrome Velvia 100 用の相反則不軌プロファイル。',
-        fuji_velvia100Hint: 'Fujichrome Velvia 100 を使用する場合に選択。',
 
         fuji_velvia100f: 'Fujichrome Velvia 100F',
         fuji_velvia100fDescription: 'Fujichrome Velvia 100F 用の相反則不軌プロファイル。',
-        fuji_velvia100fHint: 'Fujichrome Velvia 100F を使用する場合に選択。',
 
         fuji_velvia50: 'Fuji Velvia 50',
         fuji_velvia50Description: 'Fuji Velvia 50 用の相反則不軌プロファイル。',
-        fuji_velvia50Hint: 'Fuji Velvia 50 を使用する場合に選択。',
 
         fuji_pro400h: 'Fuji Pro 400H',
         fuji_pro400hDescription: 'Fuji Pro 400H 用の相反則不軌プロファイル。',
-        fuji_pro400hHint: 'Fuji Pro 400H を使用する場合に選択。',
 
         fuji_provia100f: 'Fuji Provia 100F',
         fuji_provia100fDescription: 'Fuji Provia 100F 用の相反則不軌プロファイル。',
-        fuji_provia100fHint: 'Fuji Provia 100F を使用する場合に選択。',
       },
       resultTitle: '長時間露光の結果',
       resultBase: '元のシャッター',
@@ -650,6 +596,13 @@ export default {
     startTimer: 'タイマー開始',
     stopTimer: 'タイマー停止',
     timerDone: '完了',
+    extraStops: '追加露出',
+    dataSource: 'データ出典',
+    sourceManufacturer: 'メーカー技術資料',
+    sourceCommunity: 'コミュニティ実測',
+    sourceEstimate: '推定値（公式データなし）',
+    extrapolatedWarning: 'このフィルムの公開データ範囲（{{max}}）を超えています。結果は外挿値のため、ブラケット撮影をおすすめします。',
+    resetTimer: 'リセット',
   },
   
   settings: {

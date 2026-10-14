@@ -5,7 +5,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { UserPreset, UserPresetList, FilmStock } from '../types/userPreset';
+import { UserPreset } from '../types/userPreset';
 
 const PRESETS_STORAGE_KEY = '@user_presets';
 const ACTIVE_PRESET_KEY = '@active_preset_id';

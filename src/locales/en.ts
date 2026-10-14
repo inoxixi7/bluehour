@@ -8,7 +8,6 @@ export default {
     fetchingPhaseInfo: 'Fetching current phase information',
     error: 'Error',
     retry: 'Retry',
-    cancel: 'Cancel',
     confirm: 'Confirm',
     save: 'Save',
     delete: 'Delete',
@@ -397,13 +396,11 @@ export default {
       ndSection: 'ND filter (optional)',
       ndHint: 'Add ND when you want slow shutter effects under bright light.',
       ndNone: 'No ND filter',
-      noScene: 'No Scene',
       aperture: 'Aperture',
       shutter: 'Shutter',
       iso: 'ISO',
       lock: 'Lock',
       unlock: 'Unlock',
-      resultNd: 'Shutter w/ ND',
       toReciprocity: 'Calculate Reciprocity',
       reciprocitySection: 'Film reciprocity profiles',
       reciprocity: {
@@ -412,220 +409,167 @@ export default {
         meteredShutter: 'Metered Shutter Speed',
         digital: 'Digital / No correction',
         digitalDescription: 'Use this when shooting digital or modern sensors.',
-        digitalHint: 'Exposure time stays the same.',
         
         // Foma
         foma100: 'Fomapan 100 Classic',
         foma100Description: 'Severe reciprocity failure, compensate above 1s.',
-        foma100Hint: '1s becomes 3s, 10s becomes 80s!',
         
         foma200: 'Fomapan 200 Creative',
         foma200Description: 'Flat grain tech, slightly better than 100/400.',
-        foma200Hint: '1s becomes 3s, 10s becomes 60s.',
         
         foma400: 'Fomapan 400 Action',
         foma400Description: 'Severe reciprocity failure, similar to Foma 100.',
-        foma400Hint: '1s becomes 3s, 10s becomes 80s!',
 
         // Kodak Motion Picture
         kodak_50d: 'Kodak Vision3 50D (5203)',
         kodak_50dDescription: 'Daylight balanced, extremely fine grain.',
-        kodak_50dHint: 'Same as Cinestill 50D, 10s needs ~13s.',
 
         kodak_250d: 'Kodak Vision3 250D (5207)',
         kodak_250dDescription: 'Daylight balanced, versatile speed.',
-        kodak_250dHint: 'High latitude, 10s needs ~13s.',
 
         kodak_500t: 'Kodak Vision3 500T (5219)',
         kodak_500tDescription: 'Tungsten balanced, king of night scenes.',
-        kodak_500tHint: 'Same as Cinestill 800T, 10s needs ~13s.',
 
         // Color Negative
         kodak_portra160: 'Kodak Portra 160',
         kodak_portra160Description: 'Neutral tones, gentle reciprocity correction.',
-        kodak_portra160Hint: 'Use this profile for Portra 160.',
 
         kodak_portra400: 'Kodak Portra 400',
         kodak_portra400Description: 'High latitude, stable color in long exposures.',
-        kodak_portra400Hint: 'Use this profile for Portra 400.',
 
         kodak_portra800: 'Kodak Portra 800',
         kodak_portra800Description: 'Fast speed, moderate correction needed.',
-        kodak_portra800Hint: 'Use this profile for Portra 800.',
 
         kodak_gold: 'Kodak Gold/Ultramax',
         kodak_goldDescription: 'Consumer film, suggest slightly more compensation.',
-        kodak_goldHint: 'Watch for color shifts in long exposures.',
         
         fuji_superia: 'Fuji Superia/Pro 400H',
         fuji_superiaDescription: 'Fuji films, potential green/magenta shift.',
-        fuji_superiaHint: '4s +1/3 stop, 16s +2/3 stop.',
         
         cinestill_800t: 'Cinestill 800T/50D',
         cinestill_800tDescription: 'Based on cinema film, unique halation.',
-        cinestill_800tHint: 'Noticeable reciprocity failure.',
         
         lomo_cn: 'Lomography CN 400/800',
         lomo_cnDescription: 'Coarser grain, give generous exposure.',
-        lomo_cnHint: 'Similar to older Kodak emulsions.',
         
         // B&W
         kodak_trix: 'Kodak Tri-X 400',
         kodak_trixDescription: 'Classic B&W, significant reciprocity failure.',
-        kodak_trixHint: '10s metered needs ~50s exposure.',
         
         kodak_tmax100: 'Kodak T-Max 100',
         kodak_tmax100Description: 'Excellent reciprocity characteristics.',
-        kodak_tmax100Hint: 'Close to Acros, 10s needs only 12s.',
         
         kodak_tmax400: 'Kodak T-Max 400',
         kodak_tmax400Description: 'Good reciprocity characteristics.',
-        kodak_tmax400Hint: '10s metered needs ~18s exposure.',
         
         ilford_hp5: 'Ilford HP5 Plus',
         ilford_hp5Description: 'Classic B&W, standard reciprocity.',
-        ilford_hp5Hint: '10s metered needs ~20s exposure.',
         
         ilford_fp4: 'Ilford FP4 Plus',
         ilford_fp4Description: 'Medium speed, stable performance.',
-        ilford_fp4Hint: '10s metered needs ~18s exposure.',
         
         ilford_delta100: 'Ilford Delta 100',
         ilford_delta100Description: 'Fine grain, stable performance.',
-        ilford_delta100Hint: '10s metered needs ~18s exposure.',
         
         ilford_delta400: 'Ilford Delta 400',
         ilford_delta400Description: 'High speed fine grain, faster failure.',
-        ilford_delta400Hint: '10s metered needs ~25s exposure.',
         
         ilford_delta3200: 'Ilford Delta 3200',
         ilford_delta3200Description: 'Ultra high speed, needs significant compensation.',
-        ilford_delta3200Hint: '10s metered needs ~21s exposure.',
         
         ilford_panf: 'Ilford Pan F Plus',
         ilford_panfDescription: 'Low speed, fine detail.',
-        ilford_panfHint: '10s metered needs ~21s exposure.',
         
         ilford_xp2: 'Ilford XP2 Super',
         ilford_xp2Description: 'C-41 process B&W film.',
-        ilford_xp2Hint: '10s metered needs ~20s exposure.',
         
         ilford_sfx: 'Ilford SFX 200',
         ilford_sfxDescription: 'Extended red sensitivity.',
-        ilford_sfxHint: '10s metered needs ~27s exposure.',
         
         fuji_acros: 'Fuji Neopan Acros II',
         fuji_acrosDescription: 'Reciprocity King, no compensation under 120s.',
-        fuji_acrosHint: 'Best choice for B&W long exposure.',
         
         // Slide
         kodak_e100: 'Kodak Ektachrome E100',
         kodak_e100Description: 'Modern slide film, excellent performance.',
-        kodak_e100Hint: '10s +1/3 stop.',
 
         fuji_astia100f: 'Fujichrome Astia 100F',
         fuji_astia100fDescription: 'Soft tones, moderate reciprocity compensation.',
-        fuji_astia100fHint: 'Use for Astia 100F.',
 
         fuji_provia400x: 'Fujichrome Provia 400X',
         fuji_provia400xDescription: 'High-speed slide film, needs compensation in long exposures.',
-        fuji_provia400xHint: 'Use for Provia 400X.',
 
         fuji_sensia200: 'Fujichrome Sensia 200',
         fuji_sensia200Description: 'Consumer slide film, noticeable reciprocity failure.',
-        fuji_sensia200Hint: 'Use for Sensia 200.',
 
         fuji_64t: 'Fujichrome 64T',
         fuji_64tDescription: 'Tungsten-balanced slide film, compensate in long exposures.',
-        fuji_64tHint: 'Use for 64T.',
 
         fuji_t64: 'Fujichrome T64',
         fuji_t64Description: 'Tungsten-balanced slide film, compensate in long exposures.',
-        fuji_t64Hint: 'Use for T64.',
         
         fuji_velvia50: 'Fuji Velvia 50',
         fuji_velvia50Description: 'Poor reciprocity, avoid for long exposures.',
-        fuji_velvia50Hint: 'Significant compensation needed above 4s.',
         
         fuji_provia100f: 'Fuji Provia 100F',
         fuji_provia100fDescription: 'Best slide film for long exposure.',
-        fuji_provia100fHint: 'No compensation needed up to 128s!',
 
         kodak_ektar100: 'Kodak Ektar 100',
         kodak_ektar100Description: 'Reciprocity profile for Kodak Ektar 100.',
-        kodak_ektar100Hint: 'Select this for Kodak Ektar 100.',
 
         fuji_superia200: 'Fuji Superia 200',
         fuji_superia200Description: 'Reciprocity profile for Fuji Superia 200.',
-        fuji_superia200Hint: 'Select this for Fuji Superia 200.',
 
         fuji_superia1600: 'Fuji Superia 1600',
         fuji_superia1600Description: 'Reciprocity profile for Fuji Superia 1600.',
-        fuji_superia1600Hint: 'Select this for Fuji Superia 1600.',
 
         fuji_c200: 'Fuji C200',
         fuji_c200Description: 'Reciprocity profile for Fuji C200.',
-        fuji_c200Hint: 'Select this for Fuji C200.',
 
         fuji_color100: 'Fuji Color 100',
         fuji_color100Description: 'Reciprocity profile for Fuji Color 100.',
-        fuji_color100Hint: 'Select this for Fuji Color 100.',
 
         fuji_pro160c: 'Fuji Pro 160C',
         fuji_pro160cDescription: 'Reciprocity profile for Fuji Pro 160C.',
-        fuji_pro160cHint: 'Select this for Fuji Pro 160C.',
 
         fuji_pro160ns: 'Fuji Pro 160NS',
         fuji_pro160nsDescription: 'Reciprocity profile for Fuji Pro 160NS.',
-        fuji_pro160nsHint: 'Select this for Fuji Pro 160NS.',
 
         fuji_xtra400: 'Fuji X-TRA 400',
         fuji_xtra400Description: 'Reciprocity profile for Fuji X-TRA 400.',
-        fuji_xtra400Hint: 'Select this for Fuji X-TRA 400.',
 
         fuji_nexia400: 'Fuji Nexia 400',
         fuji_nexia400Description: 'Reciprocity profile for Fuji Nexia 400.',
-        fuji_nexia400Hint: 'Select this for Fuji Nexia 400.',
 
         holga400: 'Holga 400',
         holga400Description: 'Reciprocity profile for Holga 400.',
-        holga400Hint: 'Select this for Holga 400.',
 
         kodak_trix320: 'Kodak Tri-X 320',
         kodak_trix320Description: 'Reciprocity profile for Kodak Tri-X 320.',
-        kodak_trix320Hint: 'Select this for Kodak Tri-X 320.',
 
         kodak_tmax3200: 'Kodak T-Max 3200',
         kodak_tmax3200Description: 'Reciprocity profile for Kodak T-Max 3200.',
-        kodak_tmax3200Hint: 'Select this for Kodak T-Max 3200.',
 
         ilford_kentmere100: 'Kentmere 100',
         ilford_kentmere100Description: 'Reciprocity profile for Kentmere 100.',
-        ilford_kentmere100Hint: 'Select this for Kentmere 100.',
 
         ilford_kentmere400: 'Kentmere 400',
         ilford_kentmere400Description: 'Reciprocity profile for Kentmere 400.',
-        ilford_kentmere400Hint: 'Select this for Kentmere 400.',
 
         shanghai_gp3: 'Shanghai GP3',
         shanghai_gp3Description: 'Reciprocity profile for Shanghai GP3.',
-        shanghai_gp3Hint: 'Select this for Shanghai GP3.',
 
         lomo_potsdam100: 'Lomo Potsdam 100',
         lomo_potsdam100Description: 'Reciprocity profile for Lomo Potsdam 100.',
-        lomo_potsdam100Hint: 'Select this for Lomo Potsdam 100.',
 
         fuji_velvia100: 'Fujichrome Velvia 100',
         fuji_velvia100Description: 'Reciprocity profile for Fujichrome Velvia 100.',
-        fuji_velvia100Hint: 'Select this for Fujichrome Velvia 100.',
 
         fuji_velvia100f: 'Fujichrome Velvia 100F',
         fuji_velvia100fDescription: 'Reciprocity profile for Fujichrome Velvia 100F.',
-        fuji_velvia100fHint: 'Select this for Fujichrome Velvia 100F.',
 
         fuji_pro400h: 'Fuji Pro 400H',
         fuji_pro400hDescription: 'Reciprocity profile for Fuji Pro 400H.',
-        fuji_pro400hHint: 'Select this for Fuji Pro 400H.',
       },
       resultTitle: 'Long exposure result',
       resultBase: 'Metered shutter',
@@ -659,6 +603,13 @@ export default {
     startTimer: 'Start Timer',
     stopTimer: 'Stop Timer',
     timerDone: 'Done',
+    extraStops: 'Extra exposure',
+    dataSource: 'Data source',
+    sourceManufacturer: 'Manufacturer datasheet',
+    sourceCommunity: 'Community tests',
+    sourceEstimate: 'Estimate (no official data)',
+    extrapolatedWarning: 'Beyond the published data for this film ({{max}}). The result is extrapolated, so bracket your exposures.',
+    resetTimer: 'Reset',
   },
 
   settings: {

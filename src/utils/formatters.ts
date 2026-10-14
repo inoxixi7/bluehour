@@ -8,21 +8,58 @@ import i18n from '../locales/i18n';
  */
 export const formatShutterSpeed = (seconds: number): string => {
   const t = i18n.t.bind(i18n);
-  
-  if (seconds >= 1) {
-    if (seconds >= 60) {
-      const minutes = Math.floor(seconds / 60);
-      const remainingSeconds = seconds % 60;
-      if (remainingSeconds === 0) {
-        return `${minutes}${t('common.units.minutes')}`;
-      }
-      return `${minutes}${t('common.units.min')}${Math.round(remainingSeconds)}${t('common.units.sec')}`;
-    }
-    return seconds === 1 ? `1${t('common.units.second')}` : `${Math.round(seconds)}${t('common.units.seconds')}`;
-  } else {
-    const denominator = Math.round(1 / seconds);
-    return `1/${denominator}${t('common.units.sec')}`;
+
+  if (!Number.isFinite(seconds) || seconds <= 0) {
+    return `0${t('common.units.sec')}`;
   }
+
+  if (seconds < 1) {
+    const denominator = 1 / seconds;
+    const rounded = Math.round(denominator);
+    // 标准快门（1/n）显示为分数，其余显示为小数（如 0.6s）
+    if (Math.abs(denominator - rounded) / denominator < 0.05 || seconds < 0.3) {
+      return `1/${rounded}${t('common.units.sec')}`;
+    }
+    return `${seconds.toFixed(1)}${t('common.units.sec')}`;
+  }
+
+  if (seconds < 10) {
+    // 短于 10 秒保留一位小数（如倒易律校正后的 1.3s）
+    const rounded = Math.round(seconds * 10) / 10;
+    if (rounded === 1) {
+      return `1${t('common.units.second')}`;
+    }
+    return `${Number.isInteger(rounded) ? rounded : rounded.toFixed(1)}${t('common.units.seconds')}`;
+  }
+
+  const total = Math.round(seconds);
+  if (total < 60) {
+    return `${total}${t('common.units.seconds')}`;
+  }
+
+  const hours = Math.floor(total / 3600);
+  const minutes = Math.floor((total % 3600) / 60);
+  const secs = total % 60;
+
+  if (hours > 0) {
+    return minutes === 0
+      ? `${hours}${t('common.units.hours')}`
+      : `${hours}${t('common.units.hours')}${minutes}${t('common.units.min')}`;
+  }
+  if (secs === 0) {
+    return `${minutes}${t('common.units.minutes')}`;
+  }
+  return `${minutes}${t('common.units.min')}${secs}${t('common.units.sec')}`;
+};
+
+/**
+ * 格式化档位差（如 +1⅓ 档 → "+1.3 EV"）
+ * @param stops 档位数
+ */
+export const formatExtraStops = (stops: number): string => {
+  const rounded = Math.round(stops * 10) / 10;
+  const sign = rounded > 0 ? '+' : rounded < 0 ? '−' : '±';
+  return `${sign}${Math.abs(rounded).toFixed(1)} EV`;
 };
 
 /**
@@ -50,7 +87,7 @@ export const formatISO = (iso: number): string => {
  */
 export const formatDistance = (meters: number): string => {
   const t = i18n.t.bind(i18n);
-  
+
   if (meters === Infinity) {
     return '∞';
   }
@@ -96,7 +133,7 @@ export const formatTime = (date: Date, timezone?: string): string => {
       console.error('Error formatting time with timezone:', e);
     }
   }
-  
+
   // 没有指定时区，使用浏览器本地时区
   const hours = date.getHours().toString().padStart(2, '0');
   const minutes = date.getMinutes().toString().padStart(2, '0');
@@ -145,7 +182,7 @@ export const formatDateTime = (date: Date): string => {
  */
 export const formatDuration = (minutes: number): string => {
   const t = i18n.t.bind(i18n);
-  
+
   if (minutes < 60) {
     return `${Math.round(minutes)}${t('common.units.minutes')}`;
   }

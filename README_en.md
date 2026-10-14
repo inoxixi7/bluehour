@@ -23,7 +23,7 @@ A comprehensive photography planning tool designed for landscape and outdoor pho
 
 ### 🎞️ Reciprocity Calculator (Film Compensation)
 - **Reciprocity Failure Correction**: Automatically compensates for film sensitivity loss during long exposures
-- Support for 11 major film types: Portra 400, Ektar 100, Provia 100F, Velvia 50, etc.
+- Support for 50+ film stocks (Ilford, Kodak, Fuji, Foma, etc.): Portra 400, Ektar 100, Provia 100F, Velvia 50, etc.
 - **Built-in Timer Function**: Countdown with corrected shutter speed, supports background operation and notifications
 - Detailed explanation of each film's parameters and characteristics
 
@@ -104,9 +104,9 @@ This is the fundamental principle when adjusting the **exposure triangle** (aper
 This app's **Reciprocity Calculator** automatically calculates the correction factor based on each film type and provides you with the actual required shutter speed.
 
 **Example**:
-- Using Kodak Portra 400 film
-- Metered shutter speed: 30 seconds
-- Considering reciprocity failure, you actually need to expose for **52 seconds**
+- Using Kodak Tri-X 400 film
+- Metered shutter speed: 10 seconds
+- Considering reciprocity failure, you actually need to expose for **50 seconds** (Kodak datasheet)
 - This app calculates it automatically and also provides a timer function
 
 ---

@@ -13,6 +13,7 @@ import { ProcessedSunTimes } from "../types/api";
 import * as Location from "expo-location";
 import { reverseGeocode, getTimezone } from "../api/geocodingService";
 import { getSunTimes } from "../api/sunTimeService";
+import { formatDateKey } from "../utils/timezone";
 
 interface LocationDataContextType {
   // Location data
@@ -65,18 +66,10 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({
   const [sunTimesError, setSunTimesError] = useState<string | null>(null);
 
   // Helper to get date key for cache
-  const getDateKey = useCallback((date: Date, timezone?: string): string => {
-    if (timezone) {
-      const formatter = new Intl.DateTimeFormat("en-CA", {
-        timeZone: timezone,
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      });
-      return formatter.format(date);
-    }
-    return date.toISOString().split("T")[0];
-  }, []);
+  const getDateKey = useCallback(
+    (date: Date, timezone?: string): string => formatDateKey(date, timezone),
+    []
+  );
 
   // Get cached sun times for a date
   const getSunTimesForDate = useCallback(
@@ -140,12 +133,29 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({
       if (Platform.OS === 'web') {
         console.log('🌐 [LocationDataContext] 使用浏览器 Geolocation API');
         
-        if (!navigator.geolocation) {
+        // tsconfig 未包含 DOM 类型，这里手动声明浏览器 Geolocation API
+        const geolocation = (
+          globalThis as {
+            navigator?: {
+              geolocation?: {
+                getCurrentPosition: (
+                  success: (position: { coords: { latitude: number; longitude: number } }) => void,
+                  error: (error: unknown) => void,
+                  options?: { timeout?: number; maximumAge?: number; enableHighAccuracy?: boolean }
+                ) => void;
+              };
+            };
+          }
+        ).navigator?.geolocation;
+
+        if (!geolocation) {
           throw new Error('浏览器不支持地理定位');
         }
 
-        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(
+        const position = await new Promise<{
+          coords: { latitude: number; longitude: number };
+        }>((resolve, reject) => {
+          geolocation.getCurrentPosition(
             resolve,
             reject,
             {

@@ -8,7 +8,6 @@ export default {
     fetchingPhaseInfo: '正在获取当前时段信息',
     error: '错误',
     retry: '重试',
-    cancel: '取消',
     confirm: '确认',
     save: '保存',
     delete: '删除',
@@ -398,13 +397,11 @@ export default {
       ndSection: 'ND 滤镜（可选）',
       ndHint: '在强光下使用 ND，延长快门创造流动感。',
       ndNone: '不使用 ND 滤镜',
-      noScene: '无场景',
       aperture: '光圈',
       shutter: '快门',
       iso: 'ISO',
       lock: '锁定',
       unlock: '解锁',
-      resultNd: '加 ND 后快门',
       toReciprocity: '计算倒易律',
       reciprocitySection: '胶片倒易律',
       reciprocity: {
@@ -413,220 +410,167 @@ export default {
         meteredShutter: '测光快门速度',
         digital: '数码/无需校正',
         digitalDescription: '拍摄数码或现代传感器时选用此项。',
-        digitalHint: '曝光时间保持不变。',
         
         // Foma
         foma100: 'Fomapan 100 Classic',
         foma100Description: '倒易率失效极快，1秒以上即需大幅补偿。',
-        foma100Hint: '1秒变3秒，10秒变80秒！',
         
         foma200: 'Fomapan 200 Creative',
         foma200Description: '扁平颗粒技术，失效稍好于100/400。',
-        foma200Hint: '1秒变3秒，10秒变60秒。',
         
         foma400: 'Fomapan 400 Action',
         foma400Description: '倒易率失效极快，类似 Foma 100。',
-        foma400Hint: '1秒变3秒，10秒变80秒！',
 
         // Kodak Motion Picture
         kodak_50d: 'Kodak Vision3 50D (5203)',
         kodak_50dDescription: '日光型低感电影卷，画质极其细腻。',
-        kodak_50dHint: '同 Cinestill 50D，10秒约需13秒。',
 
         kodak_250d: 'Kodak Vision3 250D (5207)',
         kodak_250dDescription: '日光型中感电影卷，全能型选手。',
-        kodak_250dHint: '宽容度极高，10秒约需13秒。',
 
         kodak_500t: 'Kodak Vision3 500T (5219)',
         kodak_500tDescription: '灯光型高感电影卷，夜景之王。',
-        kodak_500tHint: '同 Cinestill 800T，10秒约需13秒。',
 
         // Color Negative
         kodak_portra160: 'Kodak Portra 160',
         kodak_portra160Description: '中性肤色，倒易率补偿温和。',
-        kodak_portra160Hint: 'Portra 160 请选此项。',
 
         kodak_portra400: 'Kodak Portra 400',
         kodak_portra400Description: '宽容度高，长曝色彩稳定。',
-        kodak_portra400Hint: 'Portra 400 请选此项。',
 
         kodak_portra800: 'Kodak Portra 800',
         kodak_portra800Description: '高感彩负，需适度补偿。',
-        kodak_portra800Hint: 'Portra 800 请选此项。',
 
         kodak_gold: 'Kodak Gold/Ultramax',
         kodak_goldDescription: '消费级胶卷，长曝建议稍多补偿。',
-        kodak_goldHint: '注意长曝可能偏色。',
         
         fuji_superia: 'Fuji Superia/Pro 400H',
         fuji_superiaDescription: '富士胶卷，长曝可能偏绿/紫。',
-        fuji_superiaHint: '4秒+1/3档，16秒+2/3档。',
         
         cinestill_800t: 'Cinestill 800T/50D',
         cinestill_800tDescription: '基于电影卷，夜景光晕独特。',
-        cinestill_800tHint: '倒易率失效较明显。',
         
         lomo_cn: 'Lomography CN 400/800',
         lomo_cnDescription: '颗粒较粗，建议多给曝光。',
-        lomo_cnHint: '类似早期柯达乳剂。',
         
         // B&W
         kodak_trix: 'Kodak Tri-X 400',
         kodak_trixDescription: '经典黑白，倒易率失效较明显。',
-        kodak_trixHint: '10秒测光需曝光约50秒。',
         
         kodak_tmax100: 'Kodak T-Max 100',
         kodak_tmax100Description: '极佳的倒易率表现。',
-        kodak_tmax100Hint: '接近 Acros，10秒仅需12秒。',
         
         kodak_tmax400: 'Kodak T-Max 400',
         kodak_tmax400Description: '较好的倒易率表现。',
-        kodak_tmax400Hint: '10秒测光需曝光约18秒。',
         
         ilford_hp5: 'Ilford HP5 Plus',
         ilford_hp5Description: '经典黑白卷，标准倒易率。',
-        ilford_hp5Hint: '10秒测光需曝光约20秒。',
         
         ilford_fp4: 'Ilford FP4 Plus',
         ilford_fp4Description: '中低感光度，表现稳定。',
-        ilford_fp4Hint: '10秒测光需曝光约18秒。',
         
         ilford_delta100: 'Ilford Delta 100',
         ilford_delta100Description: '细腻颗粒，表现稳定。',
-        ilford_delta100Hint: '10秒测光需曝光约18秒。',
         
         ilford_delta400: 'Ilford Delta 400',
         ilford_delta400Description: '高速微粒，失效较快。',
-        ilford_delta400Hint: '10秒测光需曝光约25秒。',
         
         ilford_delta3200: 'Ilford Delta 3200',
         ilford_delta3200Description: '超高速卷，需显著补偿。',
-        ilford_delta3200Hint: '10秒测光需曝光约21秒。',
         
         ilford_panf: 'Ilford Pan F Plus',
         ilford_panfDescription: '低感光度，画质细腻。',
-        ilford_panfHint: '10秒测光需曝光约21秒。',
         
         ilford_xp2: 'Ilford XP2 Super',
         ilford_xp2Description: 'C-41工艺黑白卷。',
-        ilford_xp2Hint: '10秒测光需曝光约20秒。',
         
         ilford_sfx: 'Ilford SFX 200',
         ilford_sfxDescription: '扩展红外感光。',
-        ilford_sfxHint: '10秒测光需曝光约27秒。',
         
         fuji_acros: 'Fuji Neopan Acros II',
         fuji_acrosDescription: '倒易率王者，120秒内无需补偿。',
-        fuji_acrosHint: '长曝首选黑白卷。',
         
         // Slide
         kodak_e100: 'Kodak Ektachrome E100',
         kodak_e100Description: '现代反转片，表现优秀。',
-        kodak_e100Hint: '10秒+1/3档。',
 
         fuji_astia100f: 'Fujichrome Astia 100F',
         fuji_astia100fDescription: '色调柔和，需适度补偿。',
-        fuji_astia100fHint: 'Astia 100F 请选择此项。',
 
         fuji_provia400x: 'Fujichrome Provia 400X',
         fuji_provia400xDescription: '高感反转片，长曝需补偿。',
-        fuji_provia400xHint: 'Provia 400X 请选择此项。',
 
         fuji_sensia200: 'Fujichrome Sensia 200',
         fuji_sensia200Description: '消费级反转片，倒易率失效明显。',
-        fuji_sensia200Hint: 'Sensia 200 请选择此项。',
 
         fuji_64t: 'Fujichrome 64T',
         fuji_64tDescription: '钨光平衡反转片，长曝需补偿。',
-        fuji_64tHint: '64T 请选择此项。',
 
         fuji_t64: 'Fujichrome T64',
         fuji_t64Description: '钨光平衡反转片，长曝需补偿。',
-        fuji_t64Hint: 'T64 请选择此项。',
         
         fuji_velvia50: 'Fuji Velvia 50',
         fuji_velvia50Description: '倒易率极差，慎用于长曝。',
-        fuji_velvia50Hint: '4秒以上需大幅补偿。',
         
         fuji_provia100f: 'Fuji Provia 100F',
         fuji_provia100fDescription: '长曝首选反转片。',
-        fuji_provia100fHint: '128秒内无需补偿！',
 
         kodak_ektar100: 'Kodak Ektar 100',
         kodak_ektar100Description: '用于 Kodak Ektar 100 的倒易律补偿配置。',
-        kodak_ektar100Hint: '使用此胶卷请选择此项。',
 
         fuji_superia200: 'Fuji Superia 200',
         fuji_superia200Description: '用于 Fuji Superia 200 的倒易律补偿配置。',
-        fuji_superia200Hint: '使用此胶卷请选择此项。',
 
         fuji_superia1600: 'Fuji Superia 1600',
         fuji_superia1600Description: '用于 Fuji Superia 1600 的倒易律补偿配置。',
-        fuji_superia1600Hint: '使用此胶卷请选择此项。',
 
         fuji_c200: 'Fuji C200',
         fuji_c200Description: '用于 Fuji C200 的倒易律补偿配置。',
-        fuji_c200Hint: '使用此胶卷请选择此项。',
 
         fuji_color100: 'Fuji Color 100',
         fuji_color100Description: '用于 Fuji Color 100 的倒易律补偿配置。',
-        fuji_color100Hint: '使用此胶卷请选择此项。',
 
         fuji_pro160c: 'Fuji Pro 160C',
         fuji_pro160cDescription: '用于 Fuji Pro 160C 的倒易律补偿配置。',
-        fuji_pro160cHint: '使用此胶卷请选择此项。',
 
         fuji_pro160ns: 'Fuji Pro 160NS',
         fuji_pro160nsDescription: '用于 Fuji Pro 160NS 的倒易律补偿配置。',
-        fuji_pro160nsHint: '使用此胶卷请选择此项。',
 
         fuji_xtra400: 'Fuji X-TRA 400',
         fuji_xtra400Description: '用于 Fuji X-TRA 400 的倒易律补偿配置。',
-        fuji_xtra400Hint: '使用此胶卷请选择此项。',
 
         fuji_nexia400: 'Fuji Nexia 400',
         fuji_nexia400Description: '用于 Fuji Nexia 400 的倒易律补偿配置。',
-        fuji_nexia400Hint: '使用此胶卷请选择此项。',
 
         holga400: 'Holga 400',
         holga400Description: '用于 Holga 400 的倒易律补偿配置。',
-        holga400Hint: '使用此胶卷请选择此项。',
 
         kodak_trix320: 'Kodak Tri-X 320',
         kodak_trix320Description: '用于 Kodak Tri-X 320 的倒易律补偿配置。',
-        kodak_trix320Hint: '使用此胶卷请选择此项。',
 
         kodak_tmax3200: 'Kodak T-Max 3200',
         kodak_tmax3200Description: '用于 Kodak T-Max 3200 的倒易律补偿配置。',
-        kodak_tmax3200Hint: '使用此胶卷请选择此项。',
 
         ilford_kentmere100: 'Kentmere 100',
         ilford_kentmere100Description: '用于 Kentmere 100 的倒易律补偿配置。',
-        ilford_kentmere100Hint: '使用此胶卷请选择此项。',
 
         ilford_kentmere400: 'Kentmere 400',
         ilford_kentmere400Description: '用于 Kentmere 400 的倒易律补偿配置。',
-        ilford_kentmere400Hint: '使用此胶卷请选择此项。',
 
         shanghai_gp3: 'Shanghai GP3',
         shanghai_gp3Description: '用于 Shanghai GP3 的倒易律补偿配置。',
-        shanghai_gp3Hint: '使用此胶卷请选择此项。',
 
         lomo_potsdam100: 'Lomo Potsdam 100',
         lomo_potsdam100Description: '用于 Lomo Potsdam 100 的倒易律补偿配置。',
-        lomo_potsdam100Hint: '使用此胶卷请选择此项。',
 
         fuji_velvia100: 'Fujichrome Velvia 100',
         fuji_velvia100Description: '用于 Fujichrome Velvia 100 的倒易律补偿配置。',
-        fuji_velvia100Hint: '使用此胶卷请选择此项。',
 
         fuji_velvia100f: 'Fujichrome Velvia 100F',
         fuji_velvia100fDescription: '用于 Fujichrome Velvia 100F 的倒易律补偿配置。',
-        fuji_velvia100fHint: '使用此胶卷请选择此项。',
 
         fuji_pro400h: 'Fuji Pro 400H',
         fuji_pro400hDescription: '用于 Fuji Pro 400H 的倒易律补偿配置。',
-        fuji_pro400hHint: '使用此胶卷请选择此项。',
       },
       resultTitle: '长曝光结果',
       resultBase: '原始快门',
@@ -660,6 +604,13 @@ export default {
     startTimer: '开始计时',
     stopTimer: '停止计时',
     timerDone: '完成',
+    extraStops: '额外补偿',
+    dataSource: '数据来源',
+    sourceManufacturer: '厂商技术手册',
+    sourceCommunity: '社区实测',
+    sourceEstimate: '估算值（无官方数据）',
+    extrapolatedWarning: '已超出该胶片公开数据的范围（{{max}}），结果为外推值，建议包围曝光。',
+    resetTimer: '重置',
   },
 
   settings: {

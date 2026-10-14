@@ -33,7 +33,7 @@ import {
   isNotificationsEnabled,
   cancelAllNotifications
 } from '../../services/notificationService';
-import { getCurrentWeather, getWeatherIcon, getWeatherI18nKey, WeatherData } from '../../api/weatherService';
+import { getCurrentWeather, getWeatherIcon, WeatherData } from '../../api/weatherService';
 
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -79,33 +79,6 @@ const HomeScreen: React.FC = () => {
     }
   }, [location]);
 
-  // 当日出日落时间变化时，安排通知
-  useEffect(() => {
-    const scheduleNotifications = async () => {
-      const enabled = await isNotificationsEnabled();
-      if (!enabled || !sunTimes) return;
-
-      // 取消旧的通知
-      await cancelAllNotifications();
-
-      // 安排日出黄金时刻提醒
-      if (sunTimes.sunrise) {
-        const sunriseGolden = new Date(sunTimes.sunrise);
-        sunriseGolden.setMinutes(sunriseGolden.getMinutes() - 30); // 黄金时刻是日出前30分钟开始
-        await scheduleGoldenHourNotification(sunriseGolden, 'sunrise', i18n.language);
-      }
-
-      // 安排日落黄金时刻提醒
-      if (sunTimes.sunset) {
-        const sunsetGolden = new Date(sunTimes.sunset);
-        sunsetGolden.setMinutes(sunsetGolden.getMinutes() - 30); // 黄金时刻是日落前30分钟开始
-        await scheduleGoldenHourNotification(sunsetGolden, 'sunset', i18n.language);
-      }
-    };
-
-    scheduleNotifications();
-  }, [sunTimes, i18n.language]);
-
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     try {
@@ -120,6 +93,26 @@ const HomeScreen: React.FC = () => {
   }, [getCurrentLocation]);
 
   const sunTimes = getSunTimesForDate(new Date());
+
+  // 当黄金时刻时间变化时，安排通知（服务内部会提前 30 分钟提醒）
+  useEffect(() => {
+    const scheduleNotifications = async () => {
+      const enabled = await isNotificationsEnabled();
+      if (!enabled || !sunTimes) return;
+
+      // 取消旧的通知
+      await cancelAllNotifications();
+
+      if (sunTimes.morningGoldenHourStart) {
+        await scheduleGoldenHourNotification(sunTimes.morningGoldenHourStart, 'sunrise', i18n.language);
+      }
+      if (sunTimes.eveningGoldenHourStart) {
+        await scheduleGoldenHourNotification(sunTimes.eveningGoldenHourStart, 'sunset', i18n.language);
+      }
+    };
+
+    scheduleNotifications().catch(error => console.error('Failed to schedule notifications:', error));
+  }, [sunTimes, i18n.language]);
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
   const now = new Date();
   

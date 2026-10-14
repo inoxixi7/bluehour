@@ -1,6 +1,6 @@
 // 用户预设类型定义
 
-import { ReciprocityCurvePoint } from '../constants/Photography';
+import { ReciprocityModel } from '../constants/FilmReciprocity';
 
 /**
  * 胶卷数据
@@ -10,7 +10,7 @@ export interface FilmStock {
   name: string;
   nameKey?: string; // 多语言key
   iso: number;
-  reciprocityCurve?: ReciprocityCurvePoint[];
+  reciprocityModel?: ReciprocityModel;
   isCustom?: boolean; // 是否是用户自定义
   description?: string;
   descriptionKey?: string;

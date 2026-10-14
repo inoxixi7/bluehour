@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, ActivityIndicator } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Layout } from '../../constants/Layout';
@@ -22,6 +22,7 @@ export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
       <View style={styles.content}>
         <Text style={styles.emoji}>🌅</Text>
         <Text style={[styles.title, { color: theme.colors.text }]}>BlueHour</Text>
+        <ActivityIndicator size={size} color={theme.colors.primary} style={styles.spinner} />
         <Text style={[styles.message, { color: theme.colors.textSecondary }]}>{displayMessage}</Text>
       </View>
     </View>
@@ -44,6 +45,9 @@ const styles = StyleSheet.create({
   title: {
     fontSize: Layout.fontSize.xxl,
     fontWeight: 'bold',
+    marginBottom: Layout.spacing.sm,
+  },
+  spinner: {
     marginBottom: Layout.spacing.sm,
   },
   message: {

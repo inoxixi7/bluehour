@@ -1,10 +1,9 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, ScrollView, Modal } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
-import { useUserPresets } from '../../hooks/useUserPresets';
 import { Layout } from '../../constants/Layout';
 import { Card } from '../../components/common/Card';
 import { HorizontalScrollPicker } from '../../components/common/HorizontalScrollPicker';
@@ -29,7 +28,6 @@ const ExposureCalcScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
   const navigation = useNavigation<any>();
-  const { presets, activePreset, setActivePreset } = useUserPresets();
 
   const [helpModalVisible, setHelpModalVisible] = useState(false);
   const [aperture, setAperture] = useState(8);
@@ -83,12 +81,6 @@ const ExposureCalcScreen: React.FC = () => {
       ),
     });
   }, [navigation, theme.colors.primary, t]);
-
-  // 应用预设
-  useEffect(() => {
-    // 这里暂时不自动应用预设的ISO锁定
-    // 用户可以通过预设中定义的默认值来初始化参数
-  }, [activePreset]);
 
   const handleParamChange = (param: 'aperture' | 'shutter' | 'iso', value: number) => {
     const allParams: ('aperture' | 'shutter' | 'iso')[] = ['aperture', 'shutter', 'iso'];
@@ -179,13 +171,9 @@ const ExposureCalcScreen: React.FC = () => {
   };
 
   // 处理ND滤镜改变
+  // ND 滤镜只影响最终快门速度，不改变测光得到的 EV 或其他参数
   const handleNdChange = (stops: number) => {
-    const oldNdStops = ndStops;
     setNdStops(stops);
-    
-    // ND滤镜只影响显示的最终快门速度，不应该改变EV或其他参数
-    // 因为ND滤镜是在相机前加的，不影响测光
-    // 所以这里不需要调整任何曝光参数
   };
 
   const handleSceneSelect = (sceneIndex: number) => {
@@ -216,8 +204,6 @@ const ExposureCalcScreen: React.FC = () => {
 
       if (lockedList.length >= 2) {
         // 如果有两个参数被锁定，计算第三个参数
-        const freeParam = allParams.find(p => !lockedParams.has(p))!;
-        
         // 使用第一个锁定参数作为changedParam（值不变），第二个作为lockedParam
         const result = calculateEquivalentExposureWithEV(
           scene.ev,
