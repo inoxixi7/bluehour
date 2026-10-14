@@ -8,7 +8,7 @@ import { View, Text, StyleSheet, ScrollView, Modal, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
-import { useUserPresets } from '../../hooks/useUserPresets';
+import { useUserPresets } from '../../contexts/UserPresetsContext';
 import { UserPreset } from '../../types/userPreset';
 import { Card } from '../common/Card';
 import { AppButton } from '../common/AppButton';

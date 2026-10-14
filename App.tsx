@@ -5,6 +5,7 @@ import { View, StyleSheet, Text } from 'react-native';
 import RootNavigator from './src/navigation/RootNavigator';
 import { ThemeProvider, useTheme } from './src/contexts/ThemeContext';
 import { LocationDataProvider } from './src/contexts/LocationDataContext';
+import { UserPresetsProvider } from './src/contexts/UserPresetsContext';
 import { initI18n } from './src/locales/i18n';
 
 function AppContent() {
@@ -72,7 +73,9 @@ export default function App() {
   return (
     <ThemeProvider>
       <LocationDataProvider>
-        <AppContent />
+        <UserPresetsProvider>
+          <AppContent />
+        </UserPresetsProvider>
       </LocationDataProvider>
     </ThemeProvider>
   );
