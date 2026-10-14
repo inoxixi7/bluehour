@@ -202,15 +202,3 @@ export const formatDuration = (minutes: number): string => {
 export const formatEV = (ev: number): string => {
   return ev >= 0 ? `EV ${ev.toFixed(1)}` : `EV ${ev.toFixed(1)}`;
 };
-
-/**
- * 格式化档位
- * @param stops 档位数
- * @returns 格式化的字符串
- */
-export const formatStops = (stops: number): string => {
-  const absStops = Math.abs(stops);
-  const rounded = Math.round(absStops * 3) / 3; // 精确到 1/3 档
-  const sign = stops >= 0 ? '+' : '-';
-  return `${sign}${rounded.toFixed(1)} 档`;
-};

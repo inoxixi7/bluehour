@@ -134,7 +134,9 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
         ).navigator?.geolocation;
 
         if (!geolocation) {
-          throw new Error('浏览器不支持地理定位');
+          setLocationError(i18n.t('common.locationErrors.notSupported'));
+          setLocationLoading(false);
+          return;
         }
 
         const position = await new Promise<{
@@ -158,9 +160,8 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
       debugLog('🔐 [LocationDataContext] 权限状态:', status);
 
       if (status !== 'granted') {
-        const errorMsg = 'Permission to access location was denied';
-        console.error('❌ [LocationDataContext]', errorMsg);
-        setLocationError(errorMsg);
+        console.error('❌ [LocationDataContext] Location permission denied');
+        setLocationError(i18n.t('common.locationErrors.permissionDenied'));
         setLocationLoading(false);
         return;
       }
@@ -173,10 +174,13 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
       await updateLocationData(loc.coords.latitude, loc.coords.longitude);
       debugLog('🎉 [LocationDataContext] 位置数据更新完成');
-    } catch (err: any) {
-      const errorMsg = err.message || 'Failed to get current location';
-      console.error('❌ [LocationDataContext] 获取位置失败:', errorMsg, err);
-      setLocationError(errorMsg);
+    } catch (err) {
+      console.error('❌ [LocationDataContext] 获取位置失败:', err);
+      // 浏览器 GeolocationPositionError: code 1 = 用户拒绝授权
+      const denied = (err as { code?: number } | null)?.code === 1;
+      setLocationError(
+        i18n.t(denied ? 'common.locationErrors.permissionDenied' : 'common.locationErrors.failed')
+      );
       setLocationLoading(false);
     }
   }, [updateLocationData]);

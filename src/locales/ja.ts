@@ -24,6 +24,12 @@ export default {
       sunny: '晴天',
       veryBright: '非常に明るい',
     },
+    locationErrors: {
+      permissionDenied:
+        '位置情報の権限がありません。システム設定で許可するか、場所を検索してください。',
+      notSupported: 'このブラウザは位置情報に対応していません。場所を検索してください。',
+      failed: '現在地を取得できませんでした。下に引いて更新するか、場所を検索してください。',
+    },
     units: {
       second: '秒',
       seconds: '秒',

@@ -24,6 +24,12 @@ export default {
       sunny: 'Bright Sunny',
       veryBright: 'Very Bright',
     },
+    locationErrors: {
+      permissionDenied:
+        'Location permission was denied. Allow it in system settings or search for a place.',
+      notSupported: 'This browser does not support location. Search for a place instead.',
+      failed: 'Could not get your current location. Pull to refresh or search for a place.',
+    },
     units: {
       second: 's',
       seconds: 's',

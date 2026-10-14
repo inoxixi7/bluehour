@@ -24,6 +24,11 @@ export default {
       sunny: '晴天直射',
       veryBright: '极亮环境',
     },
+    locationErrors: {
+      permissionDenied: '未获得定位权限。请在系统设置中允许，或手动搜索地点。',
+      notSupported: '当前浏览器不支持定位，请手动搜索地点。',
+      failed: '无法获取当前位置。请下拉刷新，或手动搜索地点。',
+    },
     units: {
       second: '秒',
       seconds: '秒',

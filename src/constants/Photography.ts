@@ -96,7 +96,7 @@ export interface SensorType {
 }
 
 export const SENSOR_TYPES: SensorType[] = [
-  { name: '全画幅 (Full Frame)', cropFactor: 1.0 },
+  { name: 'Full Frame', cropFactor: 1.0 },
   { name: 'APS-C (Canon)', cropFactor: 1.6 },
   { name: 'APS-C (Nikon/Sony)', cropFactor: 1.5 },
   { name: 'M4/3 (Micro Four Thirds)', cropFactor: 2.0 },

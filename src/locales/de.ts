@@ -24,6 +24,14 @@ export default {
       sunny: 'Hell sonnig',
       veryBright: 'Sehr hell',
     },
+    locationErrors: {
+      permissionDenied:
+        'Standortberechtigung verweigert. Erlauben Sie sie in den Systemeinstellungen oder suchen Sie einen Ort.',
+      notSupported:
+        'Dieser Browser unterstützt keine Standortbestimmung. Bitte suchen Sie einen Ort.',
+      failed:
+        'Aktueller Standort konnte nicht ermittelt werden. Zum Aktualisieren nach unten ziehen oder einen Ort suchen.',
+    },
     units: {
       second: 's',
       seconds: 's',

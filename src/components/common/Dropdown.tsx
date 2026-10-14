@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Platform, Modal, FlatList, TouchableOpacity } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { Ionicons } from '@expo/vector-icons';
+import { useTranslation } from 'react-i18next';
 import { Layout } from '../../constants/Layout';
 import { Touchable } from './Touchable';
 
@@ -31,6 +32,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   borderColor,
   accentColor,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [tempValue, setTempValue] = useState(selectedValue);
 
@@ -75,7 +77,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
             <View style={[styles.modalContent, { backgroundColor }]}>
               <View style={styles.modalHeader}>
                 <TouchableOpacity onPress={() => setIsOpen(false)}>
-                  <Text style={[styles.modalButton, { color: accentColor }]}>取消</Text>
+                  <Text style={[styles.modalButton, { color: accentColor }]}>
+                    {t('common.cancel')}
+                  </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   onPress={() => {

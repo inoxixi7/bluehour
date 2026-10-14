@@ -10,6 +10,7 @@ import { Layout } from '../../constants/Layout';
 import { Card } from '../../components/common/Card';
 import { AppButton } from '../../components/common/AppButton';
 import { Dropdown } from '../../components/common/Dropdown';
+import { HelpSections } from '../../components/common/HelpSections';
 import { RECIPROCITY_PROFILES, SHUTTER_SPEEDS } from '../../constants/Photography';
 import { ReciprocitySource } from '../../constants/FilmReciprocity';
 import { useUserPresets } from '../../hooks/useUserPresets';
@@ -319,48 +320,13 @@ const ReciprocityCalcScreen: React.FC = () => {
               </Touchable>
             </View>
             <ScrollView style={styles.modalScroll}>
-              <Text style={[styles.modalDescription, { color: colors.text }]}>
-                {t('reciprocityHelp.description')}
-              </Text>
-
-              <View style={styles.helpSection}>
-                <Text style={[styles.helpSectionTitle, { color: colors.primary }]}>
-                  {t('reciprocityHelp.section1.title')}
-                </Text>
-                {(t('reciprocityHelp.section1.content', { returnObjects: true }) as string[]).map(
-                  (item: string, idx: number) => (
-                    <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
-                      • {item}
-                    </Text>
-                  )
-                )}
-              </View>
-
-              <View style={styles.helpSection}>
-                <Text style={[styles.helpSectionTitle, { color: colors.primary }]}>
-                  {t('reciprocityHelp.section2.title')}
-                </Text>
-                {(t('reciprocityHelp.section2.content', { returnObjects: true }) as string[]).map(
-                  (item: string, idx: number) => (
-                    <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
-                      • {item}
-                    </Text>
-                  )
-                )}
-              </View>
-
-              <View style={styles.helpSection}>
-                <Text style={[styles.helpSectionTitle, { color: colors.primary }]}>
-                  {t('reciprocityHelp.section3.title')}
-                </Text>
-                {(t('reciprocityHelp.section3.content', { returnObjects: true }) as string[]).map(
-                  (item: string, idx: number) => (
-                    <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
-                      • {item}
-                    </Text>
-                  )
-                )}
-              </View>
+              <HelpSections
+                i18nPrefix="reciprocityHelp"
+                sectionCount={3}
+                textColor={colors.text}
+                secondaryColor={colors.textSecondary}
+                accentColor={colors.primary}
+              />
             </ScrollView>
           </View>
         </View>
@@ -505,24 +471,6 @@ const styles = StyleSheet.create({
   },
   modalScroll: {
     padding: Layout.spacing.lg,
-  },
-  modalDescription: {
-    fontSize: Layout.fontSize.base,
-    lineHeight: 24,
-    marginBottom: Layout.spacing.lg,
-  },
-  helpSection: {
-    marginBottom: Layout.spacing.lg,
-  },
-  helpSectionTitle: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '600',
-    marginBottom: Layout.spacing.sm,
-  },
-  helpText: {
-    fontSize: Layout.fontSize.sm,
-    lineHeight: 22,
-    marginBottom: Layout.spacing.xs,
   },
 });
 

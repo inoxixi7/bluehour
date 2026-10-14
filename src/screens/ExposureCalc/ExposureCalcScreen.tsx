@@ -9,6 +9,7 @@ import { Card } from '../../components/common/Card';
 import { HorizontalScrollPicker } from '../../components/common/HorizontalScrollPicker';
 import { Touchable } from '../../components/common/Touchable';
 import { Dropdown } from '../../components/common/Dropdown';
+import { HelpSections } from '../../components/common/HelpSections';
 import {
   APERTURE_VALUES,
   SHUTTER_SPEEDS,
@@ -385,12 +386,14 @@ const ExposureCalcScreen: React.FC = () => {
           />
         </View>
         <View style={[styles.controlHalf, styles.controlHalfRight]}>
-          <Text style={[styles.controlLabel, { color: colors.textSecondary }]}>ND Filter</Text>
+          <Text style={[styles.controlLabel, { color: colors.textSecondary }]}>
+            {t('calculator.ndTitle')}
+          </Text>
           <Dropdown
             options={ndOptions.map(o => ({ label: o.name, value: o.stops }))}
             selectedValue={ndStops}
             onValueChange={handleNdChange}
-            placeholder="None"
+            placeholder={t('calculator.exposureLab.ndNone')}
             textColor={colors.text}
             backgroundColor={colors.card}
             borderColor={colors.border}
@@ -495,10 +498,13 @@ const ExposureCalcScreen: React.FC = () => {
               </Touchable>
             </View>
             <ScrollView>
-              <Text style={[styles.modalText, { color: colors.text }]}>
-                {t('exposureLabHelp.description')}
-              </Text>
-              {/* More help text... */}
+              <HelpSections
+                i18nPrefix="exposureLabHelp"
+                sectionCount={5}
+                textColor={colors.text}
+                secondaryColor={colors.textSecondary}
+                accentColor={colors.primary}
+              />
             </ScrollView>
           </View>
         </View>
@@ -744,10 +750,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     marginBottom: Layout.spacing.md,
-  },
-  modalText: {
-    fontSize: Layout.fontSize.base,
-    lineHeight: 24,
   },
 });
 
