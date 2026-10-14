@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "bluehour.app"
-    compileSdk = 36
+    compileSdk = 37
 
     defaultConfig {
         applicationId = providers.gradleProperty("bluehour.applicationId").get()
