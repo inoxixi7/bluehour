@@ -133,10 +133,6 @@ const styles = StyleSheet.create({
     fontSize: Layout.fontSize.xxl,
     fontWeight: '700',
   },
-  version: {
-    fontSize: Layout.fontSize.base,
-    fontWeight: '500',
-  },
   description: {
     fontSize: Layout.fontSize.base,
     lineHeight: 22,

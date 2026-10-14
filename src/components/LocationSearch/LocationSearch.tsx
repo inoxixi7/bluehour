@@ -308,11 +308,6 @@ const createStyles = (_colors: unknown) =>
       padding: Layout.spacing.md,
       borderBottomWidth: 1,
     },
-    resultIcon: {
-      marginRight: Layout.spacing.md,
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
     resultTextContainer: {
       flex: 1,
     },

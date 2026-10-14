@@ -394,14 +394,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginTop: Layout.spacing.sm,
   },
-  sectionHeader: {
-    marginBottom: Layout.spacing.md,
-    marginTop: Layout.spacing.sm,
-  },
-  sectionTitle: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '600',
-  },
   resultCard: {
     padding: Layout.spacing.lg,
     borderRadius: Layout.borderRadius.lg,

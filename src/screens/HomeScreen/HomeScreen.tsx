@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import {
   View,
   Text,
@@ -8,7 +8,6 @@ import {
   Platform,
   StatusBar,
   RefreshControl,
-  Modal,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
@@ -28,12 +27,12 @@ import { formatLocationName } from '../../utils/locationHelpers';
 import { Card } from '../../components/common/Card';
 import { LoadingIndicator } from '../../components/common/LoadingIndicator';
 import { Touchable } from '../../components/common/Touchable';
-import {
-  scheduleGoldenHourNotification,
-  isNotificationsEnabled,
-  cancelGoldenHourNotifications,
-} from '../../services/notificationService';
-import { getCurrentWeather, getWeatherIcon, WeatherData } from '../../api/weatherService';
+import { getWeatherIcon } from '../../api/weatherService';
+import { useNow } from '../../hooks/useNow';
+import { useWeather } from '../../hooks/useWeather';
+import { useGoldenHourNotifications } from '../../hooks/useGoldenHourNotifications';
+import { AppIntroModal } from './AppIntroModal';
+import { getDailyTip, getShootingAdvice } from './homeContent';
 
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -54,30 +53,7 @@ const HomeScreen: React.FC = () => {
   const [showIntro, setShowIntro] = useState(false);
   const [refreshCount, setRefreshCount] = useState(0);
 
-  // Weather state
-  const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [weatherLoading, setWeatherLoading] = useState(false);
-  const [weatherError, setWeatherError] = useState<string | null>(null);
-
-  // Fetch weather when location is available
-  useEffect(() => {
-    if (location && location.latitude && location.longitude) {
-      const fetchWeather = async () => {
-        try {
-          setWeatherLoading(true);
-          setWeatherError(null);
-          const data = await getCurrentWeather(location.latitude, location.longitude);
-          setWeather(data);
-        } catch (error) {
-          console.error('Failed to fetch weather:', error);
-          setWeatherError('Failed to load weather');
-        } finally {
-          setWeatherLoading(false);
-        }
-      };
-      fetchWeather();
-    }
-  }, [location]);
+  const { weather, loading: weatherLoading, failed: weatherFailed } = useWeather(location);
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -92,44 +68,11 @@ const HomeScreen: React.FC = () => {
     }
   }, [getCurrentLocation]);
 
-  // 每 30 秒刷新一次当前时间，让当前光线阶段和倒计时随时间更新
-  const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    const interval = setInterval(() => setNow(new Date()), 30 * 1000);
-    return () => clearInterval(interval);
-  }, []);
-
+  // 当前时间每 30 秒刷新一次，让当前光线阶段和倒计时随时间更新
+  const now = useNow();
   const sunTimes = getSunTimesForDate(now);
 
-  // 当黄金时刻时间变化时，安排通知（服务内部会提前 30 分钟提醒）
-  useEffect(() => {
-    const scheduleNotifications = async () => {
-      const enabled = await isNotificationsEnabled();
-      if (!enabled || !sunTimes) return;
-
-      // 取消旧的黄金时刻提醒（不影响曝光计时器提醒）
-      await cancelGoldenHourNotifications();
-
-      if (sunTimes.morningGoldenHourStart) {
-        await scheduleGoldenHourNotification(
-          sunTimes.morningGoldenHourStart,
-          'sunrise',
-          timezoneInfo.timezone || undefined
-        );
-      }
-      if (sunTimes.eveningGoldenHourStart) {
-        await scheduleGoldenHourNotification(
-          sunTimes.eveningGoldenHourStart,
-          'sunset',
-          timezoneInfo.timezone || undefined
-        );
-      }
-    };
-
-    scheduleNotifications().catch(error =>
-      console.error('Failed to schedule notifications:', error)
-    );
-  }, [sunTimes, i18n.language, timezoneInfo.timezone]);
+  useGoldenHourNotifications(sunTimes, timezoneInfo.timezone || undefined);
 
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
   const phaseState = useMemo(
@@ -144,110 +87,12 @@ const HomeScreen: React.FC = () => {
 
   const isLoading = locationLoading || (sunTimesLoading && !sunTimes);
 
-  const quickActions = useMemo(() => {
-    const getRandomAdvice = (
-      adviceList: { icon: string; title: string; description: string }[]
-    ) => {
-      const index = (refreshCount + Math.floor(Date.now() / 1000 / 3600)) % adviceList.length;
-      return adviceList[index];
-    };
+  const quickActions = useMemo(
+    () => getShootingAdvice(phaseState?.current.id ?? null, t, refreshCount),
+    [phaseState, t, refreshCount]
+  );
 
-    if (!phaseState) {
-      const defaultAdvices = [
-        {
-          icon: '⏱️',
-          title: t('home.advice.default.title1'),
-          description: t('home.advice.default.desc1'),
-        },
-        {
-          icon: '📸',
-          title: t('home.advice.default.title2'),
-          description: t('home.advice.default.desc2'),
-        },
-      ];
-      return getRandomAdvice(defaultAdvices);
-    }
-
-    switch (phaseState.current.id) {
-      case 'daylight':
-        const dayAdvices = [
-          {
-            icon: '🗺️',
-            title: t('home.advice.day.title1'),
-            description: t('home.advice.day.desc1'),
-          },
-          {
-            icon: '🔍',
-            title: t('home.advice.day.title2'),
-            description: t('home.advice.day.desc2'),
-          },
-          {
-            icon: '🏞️',
-            title: t('home.advice.day.title3'),
-            description: t('home.advice.day.desc3'),
-          },
-        ];
-        return getRandomAdvice(dayAdvices);
-
-      case 'eveningBlueHour':
-      case 'morningBlueHour':
-      case 'nextMorningBlueHour':
-        const blueAdvices = [
-          {
-            icon: '⚖️',
-            title: t('home.advice.blue.title1'),
-            description: t('home.advice.blue.desc1'),
-          },
-          {
-            icon: '🏙️',
-            title: t('home.advice.blue.title2'),
-            description: t('home.advice.blue.desc2'),
-          },
-          {
-            icon: '🌆',
-            title: t('home.advice.blue.title3'),
-            description: t('home.advice.blue.desc3'),
-          },
-        ];
-        return getRandomAdvice(blueAdvices);
-
-      default:
-        const nightAdvices = [
-          {
-            icon: '✨',
-            title: t('home.advice.night.title1'),
-            description: t('home.advice.night.desc1'),
-          },
-          {
-            icon: '🌌',
-            title: t('home.advice.night.title2'),
-            description: t('home.advice.night.desc2'),
-          },
-          {
-            icon: '🚗',
-            title: t('home.advice.night.title3'),
-            description: t('home.advice.night.desc3'),
-          },
-        ];
-        return getRandomAdvice(nightAdvices);
-    }
-  }, [phaseState, t, refreshCount]);
-
-  const dailyTip = useMemo(() => {
-    const tips = ['tripod', 'aperture', 'iso', 'raw', 'foreground'];
-    const dayOfYear = Math.floor(
-      (new Date().getTime() - new Date(new Date().getFullYear(), 0, 0).getTime()) /
-        1000 /
-        60 /
-        60 /
-        24
-    );
-    const tipKey = tips[dayOfYear % tips.length];
-    return {
-      title: t('home.tips.title'),
-      content: t(`home.tips.items.${tipKey}`),
-    };
-  }, [t]);
+  const dailyTip = useMemo(() => getDailyTip(t), [t]);
 
   // Filter timeline to show only photography golden hours (blue hour and golden hour)
   const photographyTimeline = useMemo(() => {
@@ -351,7 +196,7 @@ const HomeScreen: React.FC = () => {
                       {t('weather.loading')}
                     </Text>
                   </View>
-                ) : weatherError || !weather ? (
+                ) : weatherFailed || !weather ? (
                   <View style={styles.weatherCompact}>
                     <Ionicons
                       name="cloud-offline-outline"
@@ -563,71 +408,7 @@ const HomeScreen: React.FC = () => {
         </View>
       </ScrollView>
 
-      {/* App Introduction Modal */}
-      <Modal
-        visible={showIntro}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={() => setShowIntro(false)}
-      >
-        <View style={styles.modalOverlay}>
-          <View style={[styles.modalContent, { backgroundColor: theme.colors.card }]}>
-            <View style={styles.modalHeader}>
-              <Text style={[styles.modalTitle, { color: theme.colors.text }]}>
-                {t('home.intro.title')}
-              </Text>
-              <Touchable onPress={() => setShowIntro(false)} style={styles.modalCloseButton}>
-                <Ionicons name="close" size={24} color={theme.colors.text} />
-              </Touchable>
-            </View>
-            <ScrollView style={styles.modalScroll} showsVerticalScrollIndicator={false}>
-              <Text style={[styles.modalDescription, { color: theme.colors.text }]}>
-                {t('home.intro.description')}
-              </Text>
-
-              <Text style={[styles.modalSectionTitle, { color: theme.colors.text }]}>
-                {t('home.intro.featuresTitle')}
-              </Text>
-
-              <View style={styles.modalFeature}>
-                <Text style={styles.modalFeatureIcon}>🌅</Text>
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.modalFeatureTitle, { color: theme.colors.text }]}>
-                    {t('home.intro.feature1Title')}
-                  </Text>
-                  <Text style={[styles.modalFeatureDesc, { color: theme.colors.textSecondary }]}>
-                    {t('home.intro.feature1Desc')}
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.modalFeature}>
-                <Text style={styles.modalFeatureIcon}>📷</Text>
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.modalFeatureTitle, { color: theme.colors.text }]}>
-                    {t('home.intro.feature2Title')}
-                  </Text>
-                  <Text style={[styles.modalFeatureDesc, { color: theme.colors.textSecondary }]}>
-                    {t('home.intro.feature2Desc')}
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.modalFeature}>
-                <Text style={styles.modalFeatureIcon}>🎞️</Text>
-                <View style={{ flex: 1 }}>
-                  <Text style={[styles.modalFeatureTitle, { color: theme.colors.text }]}>
-                    {t('home.intro.feature3Title')}
-                  </Text>
-                  <Text style={[styles.modalFeatureDesc, { color: theme.colors.textSecondary }]}>
-                    {t('home.intro.feature3Desc')}
-                  </Text>
-                </View>
-              </View>
-            </ScrollView>
-          </View>
-        </View>
-      </Modal>
+      <AppIntroModal visible={showIntro} onClose={() => setShowIntro(false)} />
     </SafeAreaView>
   );
 };
@@ -774,15 +555,6 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     fontVariant: ['tabular-nums'],
   },
-  detailButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-  },
-  detailText: {
-    fontSize: Layout.fontSize.sm,
-    fontWeight: '500',
-  },
   labCard: {
     padding: Layout.spacing.md,
     borderRadius: Layout.borderRadius.lg,
@@ -880,76 +652,6 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: Layout.fontSize.sm,
-  },
-  modalOverlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: Layout.spacing.lg,
-  },
-  modalContent: {
-    borderRadius: Layout.borderRadius.xl,
-    maxWidth: 500,
-    width: '100%',
-    maxHeight: '80%',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 8,
-    elevation: 8,
-  },
-  modalHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: Layout.spacing.lg,
-    paddingBottom: Layout.spacing.md,
-  },
-  modalTitle: {
-    fontSize: Layout.fontSize.xl,
-    fontWeight: 'bold',
-    flex: 1,
-  },
-  modalCloseButton: {
-    padding: Layout.spacing.xs,
-  },
-  modalScroll: {
-    paddingHorizontal: Layout.spacing.lg,
-    paddingBottom: Layout.spacing.lg,
-  },
-  modalDescription: {
-    fontSize: Layout.fontSize.base,
-    lineHeight: 24,
-    marginBottom: Layout.spacing.lg,
-  },
-  modalSectionTitle: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '600',
-    marginBottom: Layout.spacing.md,
-  },
-  modalFeature: {
-    flexDirection: 'row',
-    gap: Layout.spacing.md,
-    marginBottom: Layout.spacing.lg,
-  },
-  modalFeatureIcon: {
-    fontSize: 28,
-  },
-  modalFeatureTitle: {
-    fontSize: Layout.fontSize.base,
-    fontWeight: '600',
-    marginBottom: Layout.spacing.xs,
-  },
-  modalFeatureDesc: {
-    fontSize: Layout.fontSize.sm,
-    lineHeight: 20,
-  },
-  modalFooter: {
-    fontSize: Layout.fontSize.sm,
-    lineHeight: 20,
-    marginTop: Layout.spacing.md,
-    fontStyle: 'italic',
   },
 });
 
