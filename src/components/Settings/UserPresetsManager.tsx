@@ -8,8 +8,8 @@ import { View, Text, StyleSheet, ScrollView, Modal, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
-import { useUserPresets } from '../../hooks/useUserPresets';
-import { UserPreset } from '../../types/userPreset';
+import { useUserPresets } from '../../contexts/UserPresetsContext';
+import { UserPreset, UserPresetInput } from '../../types/userPreset';
 import { Card } from '../common/Card';
 import { AppButton } from '../common/AppButton';
 import { Touchable } from '../common/Touchable';
@@ -40,12 +40,12 @@ export const UserPresetsManager: React.FC = () => {
   };
 
   // 保存预设
-  const handleSave = async (presetData: Partial<UserPreset>) => {
+  const handleSave = async (presetData: UserPresetInput) => {
     try {
       if (editingPreset) {
         await updatePreset(editingPreset.id, presetData);
       } else {
-        await createPreset(presetData as any);
+        await createPreset(presetData);
       }
 
       setModalVisible(false);
@@ -261,60 +261,5 @@ const createStyles = (_colors: unknown) =>
       maxHeight: '80%',
       borderRadius: Layout.borderRadius.lg,
       padding: Layout.spacing.lg,
-    },
-    modalHeader: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-      marginBottom: Layout.spacing.md,
-    },
-    modalTitle: {
-      fontSize: Layout.fontSize.lg,
-      fontWeight: '600',
-    },
-    modalBody: {
-      flex: 1,
-    },
-    modalFooter: {
-      flexDirection: 'row',
-      gap: Layout.spacing.md,
-      marginTop: Layout.spacing.md,
-    },
-    formGroup: {
-      marginBottom: Layout.spacing.md,
-    },
-    label: {
-      fontSize: Layout.fontSize.sm,
-      fontWeight: '600',
-      marginBottom: Layout.spacing.xs,
-    },
-    input: {
-      borderWidth: 1,
-      borderRadius: Layout.borderRadius.md,
-      padding: Layout.spacing.md,
-      fontSize: Layout.fontSize.base,
-    },
-    switchRow: {
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-      alignItems: 'center',
-    },
-    filmOption: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      padding: Layout.spacing.md,
-      borderWidth: 1,
-      borderRadius: Layout.borderRadius.md,
-      marginBottom: Layout.spacing.sm,
-    },
-    filmName: {
-      flex: 1,
-      fontSize: Layout.fontSize.base,
-      fontWeight: '500',
-    },
-    filmISO: {
-      fontSize: Layout.fontSize.sm,
-      marginRight: Layout.spacing.sm,
     },
   });

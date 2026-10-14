@@ -1,13 +1,17 @@
 // Navigation 类型定义
 
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import type { StackNavigationProp } from '@react-navigation/stack';
 
-// 底部标签导航参数类型
-export type RootTabParamList = {
+export type RootStackParamList = {
+  Home: undefined;
   SunTimes: undefined;
-  Calculator: undefined;
+  ExposureCalc: undefined;
+  ReciprocityCalc: { initialShutter?: number } | undefined;
   Settings: undefined;
+  LanguageSelection: undefined;
+  ThemeSelection: undefined;
+  About: undefined;
+  UserPresets: undefined;
 };
 
-// 底部标签导航 Props 类型
-export type RootTabNavigationProp = BottomTabNavigationProp<RootTabParamList>;
+export type RootStackNavigationProp = StackNavigationProp<RootStackParamList>;

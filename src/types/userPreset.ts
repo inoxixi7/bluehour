@@ -51,3 +51,8 @@ export interface UserPresetList {
   presets: UserPreset[];
   activePresetId?: string; // 当前激活的预设ID
 }
+
+/**
+ * 创建 / 编辑预设时填写的字段（id 与时间戳由存储层生成）
+ */
+export type UserPresetInput = Omit<UserPreset, 'id' | 'createdAt' | 'updatedAt'>;

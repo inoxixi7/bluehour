@@ -2,12 +2,13 @@ import React, { createContext, useContext, useState, useCallback, useEffect, use
 import { Platform } from 'react-native';
 import { useTranslation } from 'react-i18next';
 import i18n from '../locales/i18n';
-import { LocationData, TimezoneData } from '../hooks/useLocation';
+import { LocationData, TimezoneData } from '../types';
 import { ProcessedSunTimes } from '../types/api';
 import * as Location from 'expo-location';
 import { reverseGeocode, getTimezone } from '../api/geocodingService';
 import { getSunTimes } from '../api/sunTimeService';
 import { formatDateKey } from '../utils/timezone';
+import { getErrorMessage } from '../utils/apiHelpers';
 import { debugLog } from '../utils/logger';
 
 interface LocationDataContextType {
@@ -94,8 +95,8 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
         // Clear cache when location changes
         setSunTimesCache(new Map());
-      } catch (err: any) {
-        const errorMsg = err.message || 'Failed to update location data';
+      } catch (err) {
+        const errorMsg = getErrorMessage(err, 'Failed to update location data');
         console.error('❌ [LocationDataContext] 更新位置数据失败:', errorMsg, err);
         setLocationError(errorMsg);
       } finally {
@@ -134,7 +135,9 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
         ).navigator?.geolocation;
 
         if (!geolocation) {
-          throw new Error('浏览器不支持地理定位');
+          setLocationError(i18n.t('common.locationErrors.notSupported'));
+          setLocationLoading(false);
+          return;
         }
 
         const position = await new Promise<{
@@ -158,9 +161,8 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
       debugLog('🔐 [LocationDataContext] 权限状态:', status);
 
       if (status !== 'granted') {
-        const errorMsg = 'Permission to access location was denied';
-        console.error('❌ [LocationDataContext]', errorMsg);
-        setLocationError(errorMsg);
+        console.error('❌ [LocationDataContext] Location permission denied');
+        setLocationError(i18n.t('common.locationErrors.permissionDenied'));
         setLocationLoading(false);
         return;
       }
@@ -173,10 +175,13 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
 
       await updateLocationData(loc.coords.latitude, loc.coords.longitude);
       debugLog('🎉 [LocationDataContext] 位置数据更新完成');
-    } catch (err: any) {
-      const errorMsg = err.message || 'Failed to get current location';
-      console.error('❌ [LocationDataContext] 获取位置失败:', errorMsg, err);
-      setLocationError(errorMsg);
+    } catch (err) {
+      console.error('❌ [LocationDataContext] 获取位置失败:', err);
+      // 浏览器 GeolocationPositionError: code 1 = 用户拒绝授权
+      const denied = (err as { code?: number } | null)?.code === 1;
+      setLocationError(
+        i18n.t(denied ? 'common.locationErrors.permissionDenied' : 'common.locationErrors.failed')
+      );
       setLocationLoading(false);
     }
   }, [updateLocationData]);
@@ -211,8 +216,8 @@ export const LocationDataProvider: React.FC<{ children: React.ReactNode }> = ({ 
           newCache.set(dateKey, data);
           return newCache;
         });
-      } catch (err: any) {
-        setSunTimesError(err.message || 'Failed to fetch sun times');
+      } catch (err) {
+        setSunTimesError(getErrorMessage(err, 'Failed to fetch sun times'));
         console.error('Error fetching sun times:', err);
       } finally {
         setSunTimesLoading(false);

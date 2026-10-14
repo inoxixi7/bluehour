@@ -7,7 +7,8 @@ import {
   generateCacheKey,
   isNetworkError,
 } from '../utils/apiHelpers';
-import { calculateGoldenAndBlueHours } from '../utils/sunPosition';
+import { calculateGoldenAndBlueHours, calculateSunTimesLocally } from '../utils/sunPosition';
+import { formatDateKey } from '../utils/timezone';
 import { debugLog } from '../utils/logger';
 
 const BASE_URL = 'https://api.sunrise-sunset.org/json';
@@ -158,7 +159,7 @@ export const getSunTimes = async (
 
     return processSunTimes(response, lat, lng);
   } catch (error) {
-    // 如果是网络错误，尝试从过期缓存中读取
+    // 网络错误时先尝试过期缓存
     if (isNetworkError(error)) {
       console.warn('⚠️ 网络错误，尝试使用过期缓存...');
       try {
@@ -170,11 +171,35 @@ export const getSunTimes = async (
         );
         debugLog('📦 使用过期缓存数据');
         return processSunTimes(cachedData, lat, lng);
-      } catch (cacheError) {
-        // 缓存也没有，抛出原始错误
-        throw error;
+      } catch (_cacheError) {
+        // 没有缓存，继续使用本地计算
       }
     }
-    throw error;
+
+    // 离线或接口异常时，在本地计算（与接口使用相同的天文定义）
+    console.warn('⚠️ 日出日落接口不可用，改用本地计算:', error);
+    return processSunTimes(buildLocalResponse(lat, lng, date), lat, lng);
   }
+};
+
+/**
+ * 用本地计算结果构造与接口相同格式的响应，复用 processSunTimes
+ */
+const buildLocalResponse = (lat: number, lng: number, date?: string): SunTimesResponse => {
+  const local = calculateSunTimesLocally(lat, lng, date || formatDateKey(new Date()));
+  return {
+    status: 'OK',
+    results: {
+      sunrise: local.sunrise.toISOString(),
+      sunset: local.sunset.toISOString(),
+      solar_noon: local.solarNoon.toISOString(),
+      day_length: local.dayLengthSeconds,
+      civil_twilight_begin: local.civilTwilightBegin.toISOString(),
+      civil_twilight_end: local.civilTwilightEnd.toISOString(),
+      nautical_twilight_begin: local.nauticalTwilightBegin.toISOString(),
+      nautical_twilight_end: local.nauticalTwilightEnd.toISOString(),
+      astronomical_twilight_begin: local.astronomicalTwilightBegin.toISOString(),
+      astronomical_twilight_end: local.astronomicalTwilightEnd.toISOString(),
+    },
+  };
 };

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Pressable, PressableProps, ViewStyle, StyleProp, Platform } from 'react-native';
+import { webStyle } from '../../utils/webStyles';
 
 interface TouchableProps extends PressableProps {
   style?: StyleProp<ViewStyle>;
@@ -23,7 +24,7 @@ export const Touchable: React.FC<TouchableProps> = ({
         Platform.OS === 'web' &&
           hovered &&
           !pressed &&
-          ({ opacity: hoverOpacity, cursor: 'pointer' } as any),
+          webStyle({ opacity: hoverOpacity, cursor: 'pointer' }),
       ]}
       {...props}
     >

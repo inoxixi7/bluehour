@@ -39,3 +39,15 @@ export interface TimeZoneInfo {
   offset: number;
   name: string;
 }
+
+// 当前位置坐标
+export interface LocationData {
+  latitude: number;
+  longitude: number;
+}
+
+// 地点时区
+export interface TimezoneData {
+  timezone: string;
+  offset: number;
+}

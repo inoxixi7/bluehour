@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, Platform, Modal } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, Platform, Modal, Vibration } from 'react-native';
 import { useNavigation, useRoute, RouteProp } from '@react-navigation/native';
+import { RootStackNavigationProp } from '../../navigation/types';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -10,11 +11,17 @@ import { Layout } from '../../constants/Layout';
 import { Card } from '../../components/common/Card';
 import { AppButton } from '../../components/common/AppButton';
 import { Dropdown } from '../../components/common/Dropdown';
+import { HelpSections } from '../../components/common/HelpSections';
 import { RECIPROCITY_PROFILES, SHUTTER_SPEEDS } from '../../constants/Photography';
 import { ReciprocitySource } from '../../constants/FilmReciprocity';
-import { useUserPresets } from '../../hooks/useUserPresets';
+import { useUserPresets } from '../../contexts/UserPresetsContext';
 import { calculateReciprocity } from '../../utils/photographyCalculations';
 import { formatExtraStops, formatShutterSpeed } from '../../utils/formatters';
+import {
+  cancelExposureTimerNotification,
+  requestNotificationPermissions,
+  scheduleExposureTimerNotification,
+} from '../../services/notificationService';
 
 const LONG_EXPOSURE_TIMES = [
   1, 2, 4, 8, 10, 15, 20, 30, 45, 60, 90, 120, 180, 240, 300, 480, 600, 900, 1200, 1800, 2700, 3600,
@@ -39,7 +46,7 @@ const formatCountdown = (seconds: number) => {
 const ReciprocityCalcScreen: React.FC = () => {
   const { theme } = useTheme();
   const { t } = useTranslation();
-  const navigation = useNavigation<any>();
+  const navigation = useNavigation<RootStackNavigationProp>();
   const route = useRoute<ReciprocityCalcRouteProp>();
   const { activePreset } = useUserPresets();
 
@@ -123,6 +130,7 @@ const ReciprocityCalcScreen: React.FC = () => {
       setRemainingSeconds(left);
       if (left === 0) {
         setTimerState('done');
+        Vibration.vibrate([0, 500, 200, 500]);
       }
     };
 
@@ -133,14 +141,26 @@ const ReciprocityCalcScreen: React.FC = () => {
 
   const resetTimer = useCallback(() => {
     endTimeRef.current = null;
+    cancelExposureTimerNotification();
     setTimerState('idle');
     setRemainingSeconds(roundedTarget);
   }, [roundedTarget]);
 
   const toggleTimer = () => {
     if (timerState === 'idle' && roundedTarget > 0) {
-      endTimeRef.current = Date.now() + roundedTarget * 1000;
+      const endTime = Date.now() + roundedTarget * 1000;
+      endTimeRef.current = endTime;
       setTimerState('running');
+      // 应用切到后台或锁屏时，用系统通知提醒曝光结束
+      if (Platform.OS !== 'web') {
+        requestNotificationPermissions()
+          .then(granted => {
+            if (granted) {
+              return scheduleExposureTimerNotification(new Date(endTime));
+            }
+          })
+          .catch(error => console.error('Failed to schedule timer notification:', error));
+      }
     } else {
       // 运行中 → 停止并重置；完成 → 重置
       resetTimer();
@@ -301,48 +321,13 @@ const ReciprocityCalcScreen: React.FC = () => {
               </Touchable>
             </View>
             <ScrollView style={styles.modalScroll}>
-              <Text style={[styles.modalDescription, { color: colors.text }]}>
-                {t('reciprocityHelp.description')}
-              </Text>
-
-              <View style={styles.helpSection}>
-                <Text style={[styles.helpSectionTitle, { color: colors.primary }]}>
-                  {t('reciprocityHelp.section1.title')}
-                </Text>
-                {(t('reciprocityHelp.section1.content', { returnObjects: true }) as string[]).map(
-                  (item: string, idx: number) => (
-                    <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
-                      • {item}
-                    </Text>
-                  )
-                )}
-              </View>
-
-              <View style={styles.helpSection}>
-                <Text style={[styles.helpSectionTitle, { color: colors.primary }]}>
-                  {t('reciprocityHelp.section2.title')}
-                </Text>
-                {(t('reciprocityHelp.section2.content', { returnObjects: true }) as string[]).map(
-                  (item: string, idx: number) => (
-                    <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
-                      • {item}
-                    </Text>
-                  )
-                )}
-              </View>
-
-              <View style={styles.helpSection}>
-                <Text style={[styles.helpSectionTitle, { color: colors.primary }]}>
-                  {t('reciprocityHelp.section3.title')}
-                </Text>
-                {(t('reciprocityHelp.section3.content', { returnObjects: true }) as string[]).map(
-                  (item: string, idx: number) => (
-                    <Text key={idx} style={[styles.helpText, { color: colors.textSecondary }]}>
-                      • {item}
-                    </Text>
-                  )
-                )}
-              </View>
+              <HelpSections
+                i18nPrefix="reciprocityHelp"
+                sectionCount={3}
+                textColor={colors.text}
+                secondaryColor={colors.textSecondary}
+                accentColor={colors.primary}
+              />
             </ScrollView>
           </View>
         </View>
@@ -408,14 +393,6 @@ const styles = StyleSheet.create({
     fontSize: Layout.fontSize.base,
     fontWeight: '600',
     marginTop: Layout.spacing.sm,
-  },
-  sectionHeader: {
-    marginBottom: Layout.spacing.md,
-    marginTop: Layout.spacing.sm,
-  },
-  sectionTitle: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '600',
   },
   resultCard: {
     padding: Layout.spacing.lg,
@@ -487,24 +464,6 @@ const styles = StyleSheet.create({
   },
   modalScroll: {
     padding: Layout.spacing.lg,
-  },
-  modalDescription: {
-    fontSize: Layout.fontSize.base,
-    lineHeight: 24,
-    marginBottom: Layout.spacing.lg,
-  },
-  helpSection: {
-    marginBottom: Layout.spacing.lg,
-  },
-  helpSectionTitle: {
-    fontSize: Layout.fontSize.lg,
-    fontWeight: '600',
-    marginBottom: Layout.spacing.sm,
-  },
-  helpText: {
-    fontSize: Layout.fontSize.sm,
-    lineHeight: 22,
-    marginBottom: Layout.spacing.xs,
   },
 });
 

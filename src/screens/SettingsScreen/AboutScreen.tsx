@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { IoniconName } from '../../types/icons';
 import { useTranslation } from 'react-i18next';
 import { Card } from '../../components/common/Card';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -40,13 +41,13 @@ const AboutScreen: React.FC = () => {
 
           {[
             {
-              icon: 'sunny',
+              icon: 'sunny' as IoniconName,
               color: theme.colors.blueHour,
               titleKey: 'settings.featureList.blueHour.title',
               descKey: 'settings.featureList.blueHour.description',
             },
             {
-              icon: 'timer',
+              icon: 'timer' as IoniconName,
               color: theme.colors.accent,
               titleKey: 'settings.featureList.exposureLab.title',
               descKey: 'settings.featureList.exposureLab.description',
@@ -57,7 +58,7 @@ const AboutScreen: React.FC = () => {
                 <View
                   style={[styles.featureIconContainer, { backgroundColor: feature.color + '20' }]}
                 >
-                  <Ionicons name={feature.icon as any} size={24} color={feature.color} />
+                  <Ionicons name={feature.icon} size={24} color={feature.color} />
                 </View>
                 <View style={styles.featureContent}>
                   <Text style={[styles.featureTitle, { color: theme.colors.text }]}>
@@ -131,10 +132,6 @@ const styles = StyleSheet.create({
   appName: {
     fontSize: Layout.fontSize.xxl,
     fontWeight: '700',
-  },
-  version: {
-    fontSize: Layout.fontSize.base,
-    fontWeight: '500',
   },
   description: {
     fontSize: Layout.fontSize.base,

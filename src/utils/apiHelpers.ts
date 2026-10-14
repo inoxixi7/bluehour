@@ -123,7 +123,8 @@ export const clearCacheByPrefix = async (prefix: string): Promise<void> => {
 /**
  * 网络请求错误类型检测
  */
-export const isNetworkError = (error: any): boolean => {
+export const isNetworkError = (error: unknown): boolean => {
+  if (!(error instanceof Error)) return false;
   return (
     error.message === 'Network request failed' ||
     error.message === 'Failed to fetch' ||
@@ -132,9 +133,18 @@ export const isNetworkError = (error: any): boolean => {
 };
 
 /**
+ * 从 catch 到的未知错误中取出可读信息
+ */
+export const getErrorMessage = (error: unknown, fallback: string): string =>
+  error instanceof Error && error.message ? error.message : fallback;
+
+/**
  * 生成缓存键
  */
-export const generateCacheKey = (prefix: string, params: Record<string, any>): string => {
+export const generateCacheKey = (
+  prefix: string,
+  params: Record<string, string | number | boolean>
+): string => {
   const sortedParams = Object.keys(params)
     .sort()
     .map(key => `${key}=${params[key]}`)

@@ -14,18 +14,7 @@ import LanguageSelectionScreen from '../screens/SettingsScreen/LanguageSelection
 import ThemeSelectionScreen from '../screens/SettingsScreen/ThemeSelectionScreen';
 import AboutScreen from '../screens/SettingsScreen/AboutScreen';
 import UserPresetsScreen from '../screens/UserPresetsScreen/UserPresetsScreen';
-
-export type RootStackParamList = {
-  Home: undefined;
-  SunTimes: undefined;
-  ExposureCalc: undefined;
-  ReciprocityCalc: { initialShutter?: number } | undefined;
-  Settings: undefined;
-  LanguageSelection: undefined;
-  ThemeSelection: undefined;
-  About: undefined;
-  UserPresets: undefined;
-};
+import { RootStackParamList } from './types';
 
 const Stack = createStackNavigator<RootStackParamList>();
 

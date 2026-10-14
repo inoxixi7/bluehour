@@ -24,6 +24,12 @@ export default {
       sunny: 'Bright Sunny',
       veryBright: 'Very Bright',
     },
+    locationErrors: {
+      permissionDenied:
+        'Location permission was denied. Allow it in system settings or search for a place.',
+      notSupported: 'This browser does not support location. Search for a place instead.',
+      failed: 'Could not get your current location. Pull to refresh or search for a place.',
+    },
     units: {
       second: 's',
       seconds: 's',
@@ -621,6 +627,8 @@ export default {
     extrapolatedWarning:
       'Beyond the published data for this film ({{max}}). The result is extrapolated, so bracket your exposures.',
     resetTimer: 'Reset',
+    timerNotificationTitle: '⏱️ Exposure complete',
+    timerNotificationBody: 'Close the shutter now.',
   },
 
   settings: {
@@ -636,6 +644,8 @@ export default {
       permissionTitle: 'Notification Permission Required',
       permissionMessage:
         'Please allow notification permission in system settings to receive photo reminders',
+      goldenHourTitle: 'Golden hour starting soon',
+      goldenHourBody: 'Golden hour starts in 30 minutes ({{time}}). Get your gear ready.',
     },
     appearance: 'Appearance',
     appearanceDescription: 'Choose your preferred theme mode',

@@ -108,7 +108,7 @@ export const initI18n = async (): Promise<void> => {
     react: {
       useSuspense: false, // 禁用 Suspense，避免 React Native 问题
     },
-  } as any);
+  });
 };
 
 /**

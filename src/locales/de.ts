@@ -24,6 +24,14 @@ export default {
       sunny: 'Hell sonnig',
       veryBright: 'Sehr hell',
     },
+    locationErrors: {
+      permissionDenied:
+        'Standortberechtigung verweigert. Erlauben Sie sie in den Systemeinstellungen oder suchen Sie einen Ort.',
+      notSupported:
+        'Dieser Browser unterstützt keine Standortbestimmung. Bitte suchen Sie einen Ort.',
+      failed:
+        'Aktueller Standort konnte nicht ermittelt werden. Zum Aktualisieren nach unten ziehen oder einen Ort suchen.',
+    },
     units: {
       second: 's',
       seconds: 's',
@@ -639,6 +647,8 @@ export default {
     extrapolatedWarning:
       'Außerhalb der veröffentlichten Filmdaten ({{max}}). Das Ergebnis ist extrapoliert, Belichtungsreihe empfohlen.',
     resetTimer: 'Zurücksetzen',
+    timerNotificationTitle: '⏱️ Belichtung abgeschlossen',
+    timerNotificationBody: 'Jetzt den Verschluss schließen.',
   },
 
   settings: {
@@ -654,6 +664,9 @@ export default {
       permissionTitle: 'Benachrichtigungsberechtigung erforderlich',
       permissionMessage:
         'Bitte erlauben Sie die Benachrichtigungsberechtigung in den Systemeinstellungen, um Fotoerinnerungen zu erhalten',
+      goldenHourTitle: 'Goldene Stunde beginnt bald',
+      goldenHourBody:
+        'Die goldene Stunde beginnt in 30 Minuten ({{time}}). Bereiten Sie Ihre Ausrüstung vor.',
     },
     appearance: 'Erscheinungsbild',
     appearanceDescription: 'Wählen Sie Ihren bevorzugten Designmodus',

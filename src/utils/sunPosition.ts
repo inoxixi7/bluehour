@@ -345,3 +345,84 @@ export const calculateGoldenAndBlueHours = (
     eveningBlueHourEnd: eveningBlueHourEnd || new Date(sunset.getTime() + 40 * 60 * 1000),
   };
 };
+
+/**
+ * 本地计算的日出日落与晨昏蒙影时间（UTC 时刻）
+ */
+export interface LocalSunTimes {
+  sunrise: Date;
+  sunset: Date;
+  solarNoon: Date;
+  civilTwilightBegin: Date;
+  civilTwilightEnd: Date;
+  nauticalTwilightBegin: Date;
+  nauticalTwilightEnd: Date;
+  astronomicalTwilightBegin: Date;
+  astronomicalTwilightEnd: Date;
+  /** 白昼长度（秒） */
+  dayLengthSeconds: number;
+}
+
+const HOUR_MS = 60 * 60 * 1000;
+
+/**
+ * 不依赖网络，按 NOAA 算法在本地计算某日的日出日落时间
+ * 用作 sunrise-sunset.org 请求失败（如离线）时的回退
+ *
+ * @param date 日期 YYYY-MM-DD（地点当地日期）
+ *
+ * 日出/日落取太阳中心高度 −0.833°（含大气折射与太阳半径），
+ * 民用/航海/天文晨昏蒙影分别为 −6° / −12° / −18°。
+ * 极昼极夜时，无法到达的高度角会退化为正午（从不升起）或子夜（从不落下）。
+ */
+export const calculateSunTimesLocally = (lat: number, lng: number, date: string): LocalSunTimes => {
+  const [year, month, day] = date.split('-').map(Number);
+  const elevationAt = (time: number) => getSolarElevation(new Date(time), lat, lng);
+
+  // 太阳正午：先按经度估算（每度 4 分钟），再用三分搜索找最高点（修正时间方程）
+  const approxNoon = Date.UTC(year, month - 1, day, 12) - lng * 4 * 60 * 1000;
+  let lo = approxNoon - HOUR_MS;
+  let hi = approxNoon + HOUR_MS;
+  for (let i = 0; i < 60; i++) {
+    const m1 = lo + (hi - lo) / 3;
+    const m2 = hi - (hi - lo) / 3;
+    if (elevationAt(m1) < elevationAt(m2)) {
+      lo = m1;
+    } else {
+      hi = m2;
+    }
+  }
+  const noon = (lo + hi) / 2;
+  const noonElevation = elevationAt(noon);
+
+  const crossing = (target: number, rising: boolean): Date => {
+    const nadir = rising ? noon - 12 * HOUR_MS : noon + 12 * HOUR_MS;
+    if (target >= noonElevation) {
+      return new Date(noon); // 太阳全天都到不了这个高度
+    }
+    if (target <= elevationAt(nadir)) {
+      return new Date(nadir); // 太阳全天都在这个高度之上
+    }
+    const [start, end] = rising ? [nadir, noon] : [noon, nadir];
+    return (
+      findTimeForElevation(target, new Date(start), new Date(end), lat, lng, rising) ??
+      new Date((start + end) / 2)
+    );
+  };
+
+  const sunrise = crossing(-0.833, true);
+  const sunset = crossing(-0.833, false);
+
+  return {
+    sunrise,
+    sunset,
+    solarNoon: new Date(noon),
+    civilTwilightBegin: crossing(-6, true),
+    civilTwilightEnd: crossing(-6, false),
+    nauticalTwilightBegin: crossing(-12, true),
+    nauticalTwilightEnd: crossing(-12, false),
+    astronomicalTwilightBegin: crossing(-18, true),
+    astronomicalTwilightEnd: crossing(-18, false),
+    dayLengthSeconds: Math.max(0, (sunset.getTime() - sunrise.getTime()) / 1000),
+  };
+};

@@ -1,16 +1,17 @@
 /**
- * 用户预设管理 Hook
- * 提供预设的创建、读取、更新、删除功能
+ * 用户预设管理
+ * 提供预设的创建、读取、更新、删除功能。
+ * 数据放在 Context 中，所有页面共享同一份状态，修改后立即同步。
  */
 
-import { useState, useEffect, useCallback } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserPreset } from '../types/userPreset';
 
 const PRESETS_STORAGE_KEY = '@user_presets';
 const ACTIVE_PRESET_KEY = '@active_preset_id';
 
-export const useUserPresets = () => {
+const useUserPresetsState = () => {
   const [presets, setPresets] = useState<UserPreset[]>([]);
   const [activePresetId, setActivePresetId] = useState<string | undefined>();
   const [loading, setLoading] = useState(true);
@@ -141,4 +142,21 @@ export const useUserPresets = () => {
     setActivePreset,
     refreshPresets: loadPresets,
   };
+};
+
+type UserPresetsContextValue = ReturnType<typeof useUserPresetsState>;
+
+const UserPresetsContext = createContext<UserPresetsContextValue | undefined>(undefined);
+
+export const UserPresetsProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const value = useUserPresetsState();
+  return <UserPresetsContext.Provider value={value}>{children}</UserPresetsContext.Provider>;
+};
+
+export const useUserPresets = (): UserPresetsContextValue => {
+  const context = useContext(UserPresetsContext);
+  if (!context) {
+    throw new Error('useUserPresets must be used within a UserPresetsProvider');
+  }
+  return context;
 };
