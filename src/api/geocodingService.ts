@@ -1,5 +1,7 @@
 // 地理编码服务 - 支持多语言地点搜索
 
+import { debugLog } from '../utils/logger';
+
 export interface GeocodingResult {
   name: string;
   displayName: string;
@@ -37,7 +39,7 @@ export const searchLocation = async (
       ja: 'ja,en,zh-CN,de',
       de: 'de,en,zh-CN,ja',
     };
-    
+
     const acceptLanguage = languageMap[userLanguage] || languageMap['en'];
 
     const params = new URLSearchParams({
@@ -99,7 +101,7 @@ export const reverseGeocode = async (
       ja: 'ja',
       de: 'de',
     };
-    
+
     const acceptLanguage = languageMap[userLanguage] || 'en';
 
     const params = new URLSearchParams({
@@ -143,7 +145,7 @@ export const getTimezone = async (
   try {
     // 1. 优先尝试 Open-Meteo API (稳定、免费、无需key)
     try {
-      console.log('🌐 查询时区 (Open-Meteo):', latitude, longitude);
+      debugLog('🌐 查询时区 (Open-Meteo):', latitude, longitude);
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
 
@@ -156,10 +158,10 @@ export const getTimezone = async (
       if (response.ok) {
         const data = await response.json();
         if (data.timezone) {
-          console.log('✅ 从 Open-Meteo 获取时区:', data.timezone);
+          debugLog('✅ 从 Open-Meteo 获取时区:', data.timezone);
           return {
             timezone: data.timezone,
-            offset: data.utc_offset_seconds / 60 // 秒 -> 分钟
+            offset: data.utc_offset_seconds / 60, // 秒 -> 分钟
           };
         }
       }
@@ -169,7 +171,7 @@ export const getTimezone = async (
 
     // 2. 备选: timeapi.io
     try {
-      console.log('🌐 查询时区 (timeapi.io):', latitude, longitude);
+      debugLog('🌐 查询时区 (timeapi.io):', latitude, longitude);
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
 
@@ -182,12 +184,12 @@ export const getTimezone = async (
       if (response.ok) {
         const data = await response.json();
         if (data && data.timeZone) {
-          console.log('✅ 从 timeapi.io 获取时区:', data.timeZone);
+          debugLog('✅ 从 timeapi.io 获取时区:', data.timeZone);
           // timeapi.io 不直接返回 offset 分钟数，需要计算或再次请求，这里我们只拿 timezone ID
           // 下面会统一计算 offset
           return {
             timezone: data.timeZone,
-            offset: calculateOffset(data.timeZone)
+            offset: calculateOffset(data.timeZone),
           };
         }
       }
@@ -200,9 +202,8 @@ export const getTimezone = async (
     const deviceTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC';
     return {
       timezone: deviceTimezone,
-      offset: calculateOffset(deviceTimezone)
+      offset: calculateOffset(deviceTimezone),
     };
-
   } catch (error) {
     console.error('❌ Error getting timezone:', error);
     return {
@@ -220,7 +221,7 @@ const calculateOffset = (timezone: string): number => {
     const now = new Date();
     const formatter = new Intl.DateTimeFormat('en-US', {
       timeZone: timezone,
-      timeZoneName: 'longOffset'
+      timeZoneName: 'longOffset',
     });
 
     const parts = formatter.formatToParts(now);

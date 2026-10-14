@@ -62,7 +62,11 @@ const getSunEqOfCenter = (t: number): number => {
   const sinm = Math.sin(mrad);
   const sin2m = Math.sin(2 * mrad);
   const sin3m = Math.sin(3 * mrad);
-  return sinm * (1.914602 - t * (0.004817 + 0.000014 * t)) + sin2m * (0.019993 - 0.000101 * t) + sin3m * 0.000289;
+  return (
+    sinm * (1.914602 - t * (0.004817 + 0.000014 * t)) +
+    sin2m * (0.019993 - 0.000101 * t) +
+    sin3m * 0.000289
+  );
 };
 
 /**
@@ -128,7 +132,12 @@ const getEquationOfTime = (t: number): number => {
   const sin4l0 = Math.sin(4.0 * degToRad(l0));
   const sin2m = Math.sin(2.0 * degToRad(m));
 
-  const Etime = y * sin2l0 - 2.0 * e * sinm + 4.0 * e * y * sinm * cos2l0 - 0.5 * y * y * sin4l0 - 1.25 * e * e * sin2m;
+  const Etime =
+    y * sin2l0 -
+    2.0 * e * sinm +
+    4.0 * e * y * sinm * cos2l0 -
+    0.5 * y * y * sin4l0 -
+    1.25 * e * e * sin2m;
 
   return radToDeg(Etime) * 4.0;
 };
@@ -143,40 +152,39 @@ const getEquationOfTime = (t: number): number => {
 export const getSolarElevation = (date: Date, lat: number, lng: number): number => {
   const jd = getJulianDay(date);
   const t = getJulianCentury(jd);
-  
+
   // 计算太阳赤纬
   const declination = getSunDeclination(t);
-  
+
   // 计算时间方程
   const eqTime = getEquationOfTime(t);
-  
+
   // 使用UTC时间计算真太阳时（分钟）
   const utcHours = date.getUTCHours();
   const utcMinutes = date.getUTCMinutes();
   const utcSeconds = date.getUTCSeconds();
   const utcTimeMinutes = utcHours * 60 + utcMinutes + utcSeconds / 60;
-  
+
   // 经度时差（分钟）：每度经度对应4分钟时差
   const timeOffset = eqTime + 4.0 * lng;
   const tst = utcTimeMinutes + timeOffset;
-  
+
   // 计算时角（度）：从正午开始计算，每小时15度
   let hourAngle = tst / 4.0 - 180.0;
   if (hourAngle < -180) hourAngle += 360.0;
   if (hourAngle > 180) hourAngle -= 360.0;
-  
+
   // 计算太阳高度角
   const latRad = degToRad(lat);
   const decRad = degToRad(declination);
   const haRad = degToRad(hourAngle);
-  
+
   const elevation = radToDeg(
     Math.asin(
-      Math.sin(latRad) * Math.sin(decRad) +
-      Math.cos(latRad) * Math.cos(decRad) * Math.cos(haRad)
+      Math.sin(latRad) * Math.sin(decRad) + Math.cos(latRad) * Math.cos(decRad) * Math.cos(haRad)
     )
   );
-  
+
   return elevation;
 };
 
@@ -200,19 +208,19 @@ export const findTimeForElevation = (
 ): Date | null => {
   const maxIterations = 50;
   const tolerance = 0.01; // 角度容差
-  
+
   let start = startTime.getTime();
   let end = endTime.getTime();
-  
+
   for (let i = 0; i < maxIterations; i++) {
     const mid = (start + end) / 2;
     const midDate = new Date(mid);
     const elevation = getSolarElevation(midDate, lat, lng);
-    
+
     if (Math.abs(elevation - targetElevation) < tolerance) {
       return midDate;
     }
-    
+
     if (ascending) {
       // 太阳上升：如果当前角度小于目标，向后搜索
       if (elevation < targetElevation) {
@@ -228,13 +236,14 @@ export const findTimeForElevation = (
         end = mid;
       }
     }
-    
+
     // 防止搜索范围过小
-    if (Math.abs(end - start) < 1000) { // 1秒
+    if (Math.abs(end - start) < 1000) {
+      // 1秒
       return new Date((start + end) / 2);
     }
   }
-  
+
   return new Date((start + end) / 2);
 };
 
@@ -253,12 +262,12 @@ export const calculateGoldenAndBlueHours = (
 ) => {
   // 搜索窗口（前后2小时）
   const searchWindow = 2 * 60 * 60 * 1000;
-  
+
   // 摄影标准定义（参考 PhotoPills, TPE 等专业应用）：
   // - Blue Hour（蓝调时刻）: 太阳高度角 -6° 到 -4°
   // - Golden Hour（黄金时刻）: 太阳高度角 -4° 到 +6°
   // 注意：黄金时刻从蓝调结束（-4°）开始，而不是从0°开始
-  
+
   // 早晨蓝调时刻：太阳从 -6° 上升到 -4°
   const morningBlueHourStart = findTimeForElevation(
     -6,
@@ -268,7 +277,7 @@ export const calculateGoldenAndBlueHours = (
     lng,
     true // 上升
   );
-  
+
   const morningBlueHourEnd = findTimeForElevation(
     -4,
     morningBlueHourStart || new Date(sunrise.getTime() - searchWindow),
@@ -277,11 +286,11 @@ export const calculateGoldenAndBlueHours = (
     lng,
     true
   );
-  
+
   // 早晨黄金时刻：太阳从 -4° 上升到 +6°
   // 黄金时刻从蓝调结束（-4°）开始
   const morningGoldenHourStart = morningBlueHourEnd;
-  
+
   const morningGoldenHourEnd = findTimeForElevation(
     6,
     morningBlueHourEnd || sunrise,
@@ -290,7 +299,7 @@ export const calculateGoldenAndBlueHours = (
     lng,
     true
   );
-  
+
   // 傍晚黄金时刻：太阳从 +6° 下降到 -4°
   const eveningGoldenHourStart = findTimeForElevation(
     6,
@@ -300,7 +309,7 @@ export const calculateGoldenAndBlueHours = (
     lng,
     false // 下降
   );
-  
+
   const eveningGoldenHourEnd = findTimeForElevation(
     -4,
     sunset,
@@ -309,11 +318,11 @@ export const calculateGoldenAndBlueHours = (
     lng,
     false
   );
-  
+
   // 傍晚蓝调时刻：太阳从 -4° 下降到 -6°
   // 蓝调开始就是黄金结束
   const eveningBlueHourStart = eveningGoldenHourEnd;
-  
+
   const eveningBlueHourEnd = findTimeForElevation(
     -6,
     eveningBlueHourStart || sunset,
@@ -322,15 +331,17 @@ export const calculateGoldenAndBlueHours = (
     lng,
     false
   );
-  
+
   return {
     morningBlueHourStart: morningBlueHourStart || new Date(sunrise.getTime() - 40 * 60 * 1000),
     morningBlueHourEnd: morningBlueHourEnd || new Date(sunrise.getTime() - 20 * 60 * 1000),
-    morningGoldenHourStart: morningGoldenHourStart || morningBlueHourEnd || new Date(sunrise.getTime() - 10 * 60 * 1000),
+    morningGoldenHourStart:
+      morningGoldenHourStart || morningBlueHourEnd || new Date(sunrise.getTime() - 10 * 60 * 1000),
     morningGoldenHourEnd: morningGoldenHourEnd || new Date(sunrise.getTime() + 60 * 60 * 1000),
     eveningGoldenHourStart: eveningGoldenHourStart || new Date(sunset.getTime() - 60 * 60 * 1000),
     eveningGoldenHourEnd: eveningGoldenHourEnd || new Date(sunset.getTime() + 10 * 60 * 1000),
-    eveningBlueHourStart: eveningBlueHourStart || eveningGoldenHourEnd || new Date(sunset.getTime() + 10 * 60 * 1000),
+    eveningBlueHourStart:
+      eveningBlueHourStart || eveningGoldenHourEnd || new Date(sunset.getTime() + 10 * 60 * 1000),
     eveningBlueHourEnd: eveningBlueHourEnd || new Date(sunset.getTime() + 40 * 60 * 1000),
   };
 };

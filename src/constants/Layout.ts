@@ -8,7 +8,7 @@ export const Layout = {
     height,
   },
   isSmallDevice: width < 375,
-  
+
   // 间距
   spacing: {
     xs: 4,
@@ -18,7 +18,7 @@ export const Layout = {
     xl: 32,
     xxl: 48,
   },
-  
+
   // 圆角
   borderRadius: {
     sm: 4,
@@ -27,7 +27,7 @@ export const Layout = {
     xl: 16,
     round: 999,
   },
-  
+
   // 字体大小
   fontSize: {
     xs: 10,
@@ -40,7 +40,7 @@ export const Layout = {
     title: 28,
     hero: 36,
   },
-  
+
   // 图标大小
   iconSize: {
     sm: 16,
@@ -48,7 +48,7 @@ export const Layout = {
     lg: 32,
     xl: 48,
   },
-  
+
   // 阴影
   shadow: {
     small: {

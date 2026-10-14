@@ -37,7 +37,7 @@ const ExposureCalcScreen: React.FC = () => {
   // 独立锁定状态：每个参数可以独立锁定
   // 胶片模式下 ISO 锁定，用户可选择锁定光圈或快门
   const [lockedParams, setLockedParams] = useState<Set<'aperture' | 'shutter' | 'iso'>>(
-    new Set(['iso'])  // 默认只锁定 ISO（胶片模式友好）
+    new Set(['iso']) // 默认只锁定 ISO（胶片模式友好）
   );
 
   // EV锁定（场景亮度锁定）
@@ -48,7 +48,7 @@ const ExposureCalcScreen: React.FC = () => {
   const [ndStops, setNdStops] = useState(0);
 
   const sceneCards = EV_SCENES;
-  
+
   // 场景选项
   const sceneOptions = useMemo(() => {
     return [
@@ -59,7 +59,7 @@ const ExposureCalcScreen: React.FC = () => {
       })),
     ];
   }, [sceneCards, t]);
-  
+
   const ndOptions = useMemo(
     () => [
       { name: t('calculator.exposureLab.ndNone'), stops: 0 },
@@ -93,7 +93,7 @@ const ExposureCalcScreen: React.FC = () => {
       // 需要找一个可调整的参数来维持目标EV
       // 优先调整未锁定的参数
       let adjustParam: 'aperture' | 'shutter' | 'iso' | null = null;
-      
+
       if (unlockedOthers.length > 0) {
         // 有未锁定的其他参数，优先调整快门（最常见的调整项）
         adjustParam = unlockedOthers.includes('shutter') ? 'shutter' : unlockedOthers[0];
@@ -110,8 +110,9 @@ const ExposureCalcScreen: React.FC = () => {
 
       if (adjustParam) {
         // 找一个作为「保持不变」的参考参数（被锁定的优先）
-        const keepParam = lockedOthers[0] || (unlockedOthers.find(p => p !== adjustParam) ?? adjustParam);
-        
+        const keepParam =
+          lockedOthers[0] || (unlockedOthers.find(p => p !== adjustParam) ?? adjustParam);
+
         const result = calculateEquivalentExposureWithEV(targetEV, param, value, keepParam, {
           aperture,
           shutter,
@@ -156,7 +157,7 @@ const ExposureCalcScreen: React.FC = () => {
     if (lockedOthers.length === 0) {
       const adjustParam = unlockedOthers.includes('shutter') ? 'shutter' : unlockedOthers[0];
       const keepParam = unlockedOthers.find(p => p !== adjustParam)!;
-      
+
       // 保持 keepParam 不变，调整 adjustParam
       const result = calculateEquivalentExposure(
         { aperture, shutter, iso },
@@ -184,7 +185,7 @@ const ExposureCalcScreen: React.FC = () => {
       setTargetEV(null);
       return;
     }
-    
+
     const scene = sceneCards[sceneIndex];
 
     if (selectedSceneIndex === sceneIndex && evLocked) {
@@ -212,7 +213,7 @@ const ExposureCalcScreen: React.FC = () => {
           lockedList[1],
           { aperture, shutter, iso }
         );
-        
+
         if (result) {
           setAperture(result.aperture);
           setShutter(result.shutter);
@@ -223,10 +224,10 @@ const ExposureCalcScreen: React.FC = () => {
         // 优先调整快门来达到目标EV
         const lockedParam = lockedList[0];
         const freeParams = allParams.filter(p => !lockedParams.has(p));
-        
+
         // keepParam保持当前值，adjustParam会被计算
         const keepParam = freeParams.includes('aperture') ? 'aperture' : freeParams[0];
-        
+
         const result = calculateEquivalentExposureWithEV(
           scene.ev,
           keepParam,
@@ -234,7 +235,7 @@ const ExposureCalcScreen: React.FC = () => {
           lockedParam,
           { aperture, shutter, iso }
         );
-        
+
         if (result) {
           setAperture(result.aperture);
           setShutter(result.shutter);
@@ -244,12 +245,12 @@ const ExposureCalcScreen: React.FC = () => {
         // 没有参数锁定，保持光圈和ISO不变，调整快门
         const result = calculateEquivalentExposureWithEV(
           scene.ev,
-          'aperture',  // 保持光圈不变
+          'aperture', // 保持光圈不变
           aperture,
-          'iso',       // ISO作为参考（但也会保持不变，因为调整的是快门）
+          'iso', // ISO作为参考（但也会保持不变，因为调整的是快门）
           { aperture, shutter, iso }
         );
-        
+
         if (result) {
           setAperture(result.aperture);
           setShutter(result.shutter);
@@ -269,7 +270,7 @@ const ExposureCalcScreen: React.FC = () => {
     const otherParams = allParams.filter(p => p !== param);
     const lockedOthers = otherParams.filter(p => lockedParams.has(p));
     const unlockedOthers = otherParams.filter(p => !lockedParams.has(p));
-    
+
     // 判断是否显示 "会自动调整"
     // 情况1: 其他两个参数都锁定 -> 此参数是唯一自由变量，会根据EV自动计算
     // 情况2: EV锁定 + 此参数未锁定 + 有1个其他参数锁定 -> 调整另一个时此参数会自动补偿
@@ -297,7 +298,7 @@ const ExposureCalcScreen: React.FC = () => {
         if (next.has(param)) {
           // 解锁该参数
           next.delete(param);
-          
+
           // 检查：如果EV锁定且所有参数都解锁了，至少保留一个锁
           // 否则无法确定曝光组合
           if (evLocked && next.size === 0) {
@@ -384,9 +385,7 @@ const ExposureCalcScreen: React.FC = () => {
           />
         </View>
         <View style={[styles.controlHalf, styles.controlHalfRight]}>
-          <Text style={[styles.controlLabel, { color: colors.textSecondary }]}>
-            ND Filter
-          </Text>
+          <Text style={[styles.controlLabel, { color: colors.textSecondary }]}>ND Filter</Text>
           <Dropdown
             options={ndOptions.map(o => ({ label: o.name, value: o.stops }))}
             selectedValue={ndStops}
@@ -465,9 +464,11 @@ const ExposureCalcScreen: React.FC = () => {
 
       {/* Reciprocity Button */}
       <Touchable
-        onPress={() => navigation.navigate('ReciprocityCalc', { 
-          initialShutter: ndStops > 0 ? ndAdjustedShutter : shutter 
-        })}
+        onPress={() =>
+          navigation.navigate('ReciprocityCalc', {
+            initialShutter: ndStops > 0 ? ndAdjustedShutter : shutter,
+          })
+        }
         style={[styles.reciprocityButton, { backgroundColor: colors.primary }]}
       >
         <Ionicons name="arrow-forward-circle-outline" size={20} color="#fff" />

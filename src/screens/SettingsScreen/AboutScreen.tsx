@@ -11,16 +11,17 @@ const AboutScreen: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <ScrollView 
+    <ScrollView
       style={[styles.container, { backgroundColor: theme.colors.background }]}
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.content}>
-        
         {/* 应用信息 */}
         <Card style={styles.card}>
           <View style={styles.appHeader}>
-            <Text style={[styles.appName, { color: theme.colors.text }]}>{t('settings.appName')}</Text>
+            <Text style={[styles.appName, { color: theme.colors.text }]}>
+              {t('settings.appName')}
+            </Text>
           </View>
           <Text style={[styles.description, { color: theme.colors.textSecondary }]}>
             {t('settings.description')}
@@ -36,18 +37,32 @@ const AboutScreen: React.FC = () => {
           <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
             {t('settings.features')}
           </Text>
-          
+
           {[
-            { icon: 'sunny', color: theme.colors.blueHour, titleKey: 'settings.featureList.blueHour.title', descKey: 'settings.featureList.blueHour.description' },
-            { icon: 'timer', color: theme.colors.accent, titleKey: 'settings.featureList.exposureLab.title', descKey: 'settings.featureList.exposureLab.description' },
-          ].map((feature) => (
+            {
+              icon: 'sunny',
+              color: theme.colors.blueHour,
+              titleKey: 'settings.featureList.blueHour.title',
+              descKey: 'settings.featureList.blueHour.description',
+            },
+            {
+              icon: 'timer',
+              color: theme.colors.accent,
+              titleKey: 'settings.featureList.exposureLab.title',
+              descKey: 'settings.featureList.exposureLab.description',
+            },
+          ].map(feature => (
             <Card style={styles.featureCard} key={feature.titleKey}>
               <View style={styles.featureItem}>
-                <View style={[styles.featureIconContainer, { backgroundColor: feature.color + '20' }]}>
+                <View
+                  style={[styles.featureIconContainer, { backgroundColor: feature.color + '20' }]}
+                >
                   <Ionicons name={feature.icon as any} size={24} color={feature.color} />
                 </View>
                 <View style={styles.featureContent}>
-                  <Text style={[styles.featureTitle, { color: theme.colors.text }]}>{t(feature.titleKey)}</Text>
+                  <Text style={[styles.featureTitle, { color: theme.colors.text }]}>
+                    {t(feature.titleKey)}
+                  </Text>
                   <Text style={[styles.featureDescription, { color: theme.colors.textSecondary }]}>
                     {t(feature.descKey)}
                   </Text>
@@ -62,7 +77,7 @@ const AboutScreen: React.FC = () => {
           <Text style={[styles.sectionHeader, { color: theme.colors.textSecondary }]}>
             {t('settings.dataSource')}
           </Text>
-          
+
           <Card style={styles.card}>
             <Text style={[styles.infoText, { color: theme.colors.textSecondary }]}>
               {t('settings.dataSourceText')}

@@ -117,7 +117,8 @@ export default {
         title1: 'Scout for Compositions',
         desc1: 'Harsh light is perfect for finding angles. Plan your spot for tonight.',
         title2: 'Test Different Angles',
-        desc2: 'Use the abundant daylight to find the best shooting angles and foreground elements.',
+        desc2:
+          'Use the abundant daylight to find the best shooting angles and foreground elements.',
         title3: 'Observe Light Changes',
         desc3: 'Notice shadow direction and intensity to predict evening light effects.',
       },
@@ -135,7 +136,8 @@ export default {
         title2: 'Capture the Milky Way',
         desc2: 'Get away from light pollution, use wide aperture lenses and high ISO for stars.',
         title3: 'Record Traffic Trails',
-        desc3: 'Use bulb mode or long exposures to capture traffic light trails for dynamic effects.',
+        desc3:
+          'Use bulb mode or long exposures to capture traffic light trails for dynamic effects.',
       },
     },
     timeline: {
@@ -168,22 +170,28 @@ export default {
       title: 'Daily Photo Tip',
       items: {
         tripod: 'Blue hour light is low; use a tripod to keep your images sharp.',
-        aperture: 'For cityscapes, use a small aperture (f/8 - f/11) to create starbursts on streetlights.',
+        aperture:
+          'For cityscapes, use a small aperture (f/8 - f/11) to create starbursts on streetlights.',
         iso: 'Stick to the base ISO (e.g., ISO 100) to minimize noise and keep the sky clean.',
         raw: 'Shoot in RAW format to easily adjust white balance and recover shadow details later.',
-        foreground: 'With wide-angle lenses, find an interesting foreground to add depth to your composition.',
-      }
+        foreground:
+          'With wide-angle lenses, find an interesting foreground to add depth to your composition.',
+      },
     },
     intro: {
       title: 'About BlueHour',
-      description: 'BlueHour is a golden hour and blue hour tool designed specifically for photography enthusiasts. Whether you\'re just starting out or you\'re a seasoned photographer, we help you capture the most beautiful light moments of the day.',
+      description:
+        "BlueHour is a golden hour and blue hour tool designed specifically for photography enthusiasts. Whether you're just starting out or you're a seasoned photographer, we help you capture the most beautiful light moments of the day.",
       featuresTitle: 'Main Features:',
       feature1Title: 'Golden & Blue Hour Timeline',
-      feature1Desc: 'Accurately displays sunrise, sunset, golden hour, and blue hour times for your location. Plan your shoots in advance and never miss the magic moment.',
+      feature1Desc:
+        'Accurately displays sunrise, sunset, golden hour, and blue hour times for your location. Plan your shoots in advance and never miss the magic moment.',
       feature2Title: 'Exposure Calculator',
-      feature2Desc: 'Smart calculator helps you handle complex exposure parameters. Supports equivalent exposure calculation, ND filter calculation, and provides EV reference values for common scenes.',
+      feature2Desc:
+        'Smart calculator helps you handle complex exposure parameters. Supports equivalent exposure calculation, ND filter calculation, and provides EV reference values for common scenes.',
       feature3Title: 'Reciprocity Calculator',
-      feature3Desc: 'Designed for film photographers. Automatically calculates reciprocity failure compensation for different film stocks during long exposures, with a built-in exposure timer.',
+      feature3Desc:
+        'Designed for film photographers. Automatically calculates reciprocity failure compensation for different film stocks during long exposures, with a built-in exposure timer.',
       footer: 'Tap the navigation bar to explore more features and start your photography journey!',
     },
     sections: {
@@ -374,12 +382,14 @@ export default {
       nearLimit: 'Near Limit',
       farLimit: 'Far Limit',
       hyperfocal: 'Hyperfocal Distance',
-      hyperfocalDesc: 'Focus at this distance to achieve sharpness from half the hyperfocal distance to infinity',
+      hyperfocalDesc:
+        'Focus at this distance to achieve sharpness from half the hyperfocal distance to infinity',
       tips: 'Tips',
       portraitTip: 'Portrait Photography',
       portraitDesc: 'Use wide aperture (e.g., f/1.8) for shallow depth and background blur',
       landscapeTip: 'Landscape Photography',
-      landscapeDesc: 'Use narrow aperture (e.g., f/11), focus at hyperfocal distance for sharp foreground to background',
+      landscapeDesc:
+        'Use narrow aperture (e.g., f/11), focus at hyperfocal distance for sharp foreground to background',
       streetTip: 'Street Photography',
       streetDesc: 'Use moderate aperture (e.g., f/5.6) to balance depth of field and shutter speed',
     },
@@ -409,14 +419,14 @@ export default {
         meteredShutter: 'Metered Shutter Speed',
         digital: 'Digital / No correction',
         digitalDescription: 'Use this when shooting digital or modern sensors.',
-        
+
         // Foma
         foma100: 'Fomapan 100 Classic',
         foma100Description: 'Severe reciprocity failure, compensate above 1s.',
-        
+
         foma200: 'Fomapan 200 Creative',
         foma200Description: 'Flat grain tech, slightly better than 100/400.',
-        
+
         foma400: 'Fomapan 400 Action',
         foma400Description: 'Severe reciprocity failure, similar to Foma 100.',
 
@@ -442,53 +452,53 @@ export default {
 
         kodak_gold: 'Kodak Gold/Ultramax',
         kodak_goldDescription: 'Consumer film, suggest slightly more compensation.',
-        
+
         fuji_superia: 'Fuji Superia/Pro 400H',
         fuji_superiaDescription: 'Fuji films, potential green/magenta shift.',
-        
+
         cinestill_800t: 'Cinestill 800T/50D',
         cinestill_800tDescription: 'Based on cinema film, unique halation.',
-        
+
         lomo_cn: 'Lomography CN 400/800',
         lomo_cnDescription: 'Coarser grain, give generous exposure.',
-        
+
         // B&W
         kodak_trix: 'Kodak Tri-X 400',
         kodak_trixDescription: 'Classic B&W, significant reciprocity failure.',
-        
+
         kodak_tmax100: 'Kodak T-Max 100',
         kodak_tmax100Description: 'Excellent reciprocity characteristics.',
-        
+
         kodak_tmax400: 'Kodak T-Max 400',
         kodak_tmax400Description: 'Good reciprocity characteristics.',
-        
+
         ilford_hp5: 'Ilford HP5 Plus',
         ilford_hp5Description: 'Classic B&W, standard reciprocity.',
-        
+
         ilford_fp4: 'Ilford FP4 Plus',
         ilford_fp4Description: 'Medium speed, stable performance.',
-        
+
         ilford_delta100: 'Ilford Delta 100',
         ilford_delta100Description: 'Fine grain, stable performance.',
-        
+
         ilford_delta400: 'Ilford Delta 400',
         ilford_delta400Description: 'High speed fine grain, faster failure.',
-        
+
         ilford_delta3200: 'Ilford Delta 3200',
         ilford_delta3200Description: 'Ultra high speed, needs significant compensation.',
-        
+
         ilford_panf: 'Ilford Pan F Plus',
         ilford_panfDescription: 'Low speed, fine detail.',
-        
+
         ilford_xp2: 'Ilford XP2 Super',
         ilford_xp2Description: 'C-41 process B&W film.',
-        
+
         ilford_sfx: 'Ilford SFX 200',
         ilford_sfxDescription: 'Extended red sensitivity.',
-        
+
         fuji_acros: 'Fuji Neopan Acros II',
         fuji_acrosDescription: 'Reciprocity King, no compensation under 120s.',
-        
+
         // Slide
         kodak_e100: 'Kodak Ektachrome E100',
         kodak_e100Description: 'Modern slide film, excellent performance.',
@@ -507,10 +517,10 @@ export default {
 
         fuji_t64: 'Fujichrome T64',
         fuji_t64Description: 'Tungsten-balanced slide film, compensate in long exposures.',
-        
+
         fuji_velvia50: 'Fuji Velvia 50',
         fuji_velvia50Description: 'Poor reciprocity, avoid for long exposures.',
-        
+
         fuji_provia100f: 'Fuji Provia 100F',
         fuji_provia100fDescription: 'Best slide film for long exposure.',
 
@@ -608,7 +618,8 @@ export default {
     sourceManufacturer: 'Manufacturer datasheet',
     sourceCommunity: 'Community tests',
     sourceEstimate: 'Estimate (no official data)',
-    extrapolatedWarning: 'Beyond the published data for this film ({{max}}). The result is extrapolated, so bracket your exposures.',
+    extrapolatedWarning:
+      'Beyond the published data for this film ({{max}}). The result is extrapolated, so bracket your exposures.',
     resetTimer: 'Reset',
   },
 
@@ -623,7 +634,8 @@ export default {
       enableTitle: 'Golden Hour Reminder',
       enableDescription: 'Remind you 30 minutes before golden hour',
       permissionTitle: 'Notification Permission Required',
-      permissionMessage: 'Please allow notification permission in system settings to receive photo reminders',
+      permissionMessage:
+        'Please allow notification permission in system settings to receive photo reminders',
     },
     appearance: 'Appearance',
     appearanceDescription: 'Choose your preferred theme mode',
@@ -641,7 +653,8 @@ export default {
     aboutDescription: 'App information and features',
     appName: 'BlueHour - Photography Assistant',
     version: 'Version',
-    description: 'A tool app designed for photography enthusiasts to help you plan perfect shooting times and easily calculate exposure parameters, ND filters, and depth of field.',
+    description:
+      'A tool app designed for photography enthusiasts to help you plan perfect shooting times and easily calculate exposure parameters, ND filters, and depth of field.',
     features: 'Features',
     support: 'Support',
 
@@ -690,7 +703,7 @@ export default {
       currentPreset: 'Active Preset',
       noActivePreset: 'No Preset Active',
       manage: 'Manage',
-      
+
       // Stepper steps
       step1Title: 'Basic Information',
       step1Description: 'Enter preset name, camera, and lens information',
@@ -700,12 +713,12 @@ export default {
       step3Description: 'Select shutter speeds your gear supports (multiple selection)',
       step4Title: 'Supported ISO',
       step4Description: 'Select ISO values your gear supports (multiple selection)',
-      
+
       // Actions
       previousStep: 'Previous',
       nextStep: 'Next',
       selectedCount: '{{count}} selected',
-      
+
       // Validation messages
       nameRequired: 'Please enter preset name',
       saveFailed: 'Failed to save preset',
@@ -714,7 +727,8 @@ export default {
   },
   reciprocityHelp: {
     title: 'Reciprocity Calculator - Guide',
-    description: 'The Reciprocity Calculator is designed for film photography to help you compensate for reciprocity failure during long exposures. When exposure times exceed 1 second, film sensitivity decreases, requiring extended exposure times to achieve correct exposure.',
+    description:
+      'The Reciprocity Calculator is designed for film photography to help you compensate for reciprocity failure during long exposures. When exposure times exceed 1 second, film sensitivity decreases, requiring extended exposure times to achieve correct exposure.',
     section1: {
       title: 'What is Reciprocity Failure?',
       content: [
@@ -746,7 +760,8 @@ export default {
 
   exposureLabHelp: {
     title: 'Exposure Lab - Feature Guide',
-    description: 'Exposure Lab is a powerful photography calculation tool that integrates exposure parameter adjustment, scene EV reference, ND filter calculation, reciprocity failure compensation, and exposure timer. It helps you precisely control exposure, especially for long exposure photography.',
+    description:
+      'Exposure Lab is a powerful photography calculation tool that integrates exposure parameter adjustment, scene EV reference, ND filter calculation, reciprocity failure compensation, and exposure timer. It helps you precisely control exposure, especially for long exposure photography.',
     section1: {
       title: '1. Basic Exposure Parameters',
       content: [

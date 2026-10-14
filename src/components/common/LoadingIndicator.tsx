@@ -9,21 +9,20 @@ interface LoadingIndicatorProps {
   size?: 'small' | 'large';
 }
 
-export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({
-  message,
-  size = 'large',
-}) => {
+export const LoadingIndicator: React.FC<LoadingIndicatorProps> = ({ message, size = 'large' }) => {
   const { t } = useTranslation();
   const { theme } = useTheme();
   const displayMessage = message || t('common.loading');
-  
+
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
       <View style={styles.content}>
         <Text style={styles.emoji}>🌅</Text>
         <Text style={[styles.title, { color: theme.colors.text }]}>BlueHour</Text>
         <ActivityIndicator size={size} color={theme.colors.primary} style={styles.spinner} />
-        <Text style={[styles.message, { color: theme.colors.textSecondary }]}>{displayMessage}</Text>
+        <Text style={[styles.message, { color: theme.colors.textSecondary }]}>
+          {displayMessage}
+        </Text>
       </View>
     </View>
   );

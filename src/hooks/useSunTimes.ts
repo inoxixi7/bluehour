@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { getSunTimes } from '../api/sunTimeService';
 import { ProcessedSunTimes } from '../types/api';
 import { formatDateKey } from '../utils/timezone';
+import { debugLog } from '../utils/logger';
 
 export const useSunTimes = () => {
   const [sunTimes, setSunTimes] = useState<ProcessedSunTimes | null>(null);
@@ -16,7 +17,7 @@ export const useSunTimes = () => {
 
         const dateStr = formatDateKey(date, timezone);
 
-        console.log('📅 Fetching sun times for date:', dateStr);
+        debugLog('📅 Fetching sun times for date:', dateStr);
 
         const data = await getSunTimes(lat, lng, dateStr);
         setSunTimes(data);

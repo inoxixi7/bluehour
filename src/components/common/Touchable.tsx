@@ -20,7 +20,10 @@ export const Touchable: React.FC<TouchableProps> = ({
       style={({ pressed, hovered }: { pressed: boolean; hovered?: boolean }) => [
         style as ViewStyle,
         pressed && { opacity: activeOpacity },
-        Platform.OS === 'web' && hovered && !pressed && { opacity: hoverOpacity, cursor: 'pointer' } as any,
+        Platform.OS === 'web' &&
+          hovered &&
+          !pressed &&
+          ({ opacity: hoverOpacity, cursor: 'pointer' } as any),
       ]}
       {...props}
     >

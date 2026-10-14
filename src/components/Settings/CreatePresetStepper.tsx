@@ -61,7 +61,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
       Alert.alert(t('common.error'), t('settings.userPresets.nameRequired'));
       return;
     }
-    
+
     if (currentStep < 4) {
       setCurrentStep(currentStep + 1);
     }
@@ -112,12 +112,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
               {step < currentStep ? (
                 <Ionicons name="checkmark" size={16} color="#fff" />
               ) : (
-                <Text
-                  style={[
-                    styles.stepNumber,
-                    step === currentStep && styles.stepNumberActive,
-                  ]}
-                >
+                <Text style={[styles.stepNumber, step === currentStep && styles.stepNumberActive]}>
                   {step}
                 </Text>
               )}
@@ -152,10 +147,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
           {t('settings.userPresets.presetName')} *
         </Text>
         <TextInput
-          style={[
-            styles.input,
-            { color: theme.colors.text, borderColor: theme.colors.border },
-          ]}
+          style={[styles.input, { color: theme.colors.text, borderColor: theme.colors.border }]}
           value={presetName}
           onChangeText={setPresetName}
           placeholder={t('settings.userPresets.presetNamePlaceholder')}
@@ -169,10 +161,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
           {t('settings.userPresets.camera')}
         </Text>
         <TextInput
-          style={[
-            styles.input,
-            { color: theme.colors.text, borderColor: theme.colors.border },
-          ]}
+          style={[styles.input, { color: theme.colors.text, borderColor: theme.colors.border }]}
           value={camera}
           onChangeText={setCamera}
           placeholder={t('settings.userPresets.cameraPlaceholder')}
@@ -186,10 +175,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
           {t('settings.userPresets.lens')}
         </Text>
         <TextInput
-          style={[
-            styles.input,
-            { color: theme.colors.text, borderColor: theme.colors.border },
-          ]}
+          style={[styles.input, { color: theme.colors.text, borderColor: theme.colors.border }]}
           value={lens}
           onChangeText={setLens}
           placeholder={t('settings.userPresets.lensPlaceholder')}
@@ -214,9 +200,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
           return (
             <Touchable
               key={aperture}
-              onPress={() =>
-                toggleSelection(selectedApertures, aperture, setSelectedApertures)
-              }
+              onPress={() => toggleSelection(selectedApertures, aperture, setSelectedApertures)}
               style={[
                 styles.checkboxItem,
                 { borderColor: theme.colors.border },
@@ -251,7 +235,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
           );
         })}
       </View>
-      
+
       <Text style={[styles.selectionCount, { color: theme.colors.textSecondary }]}>
         {t('settings.userPresets.selectedCount', { count: selectedApertures.length })}
       </Text>
@@ -273,9 +257,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
           return (
             <Touchable
               key={shutter.value}
-              onPress={() =>
-                toggleSelection(selectedShutters, shutter.value, setSelectedShutters)
-              }
+              onPress={() => toggleSelection(selectedShutters, shutter.value, setSelectedShutters)}
               style={[
                 styles.checkboxItem,
                 { borderColor: theme.colors.border },
@@ -310,7 +292,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
           );
         })}
       </View>
-      
+
       <Text style={[styles.selectionCount, { color: theme.colors.textSecondary }]}>
         {t('settings.userPresets.selectedCount', { count: selectedShutters.length })}
       </Text>
@@ -367,7 +349,7 @@ export const CreatePresetStepper: React.FC<CreatePresetStepperProps> = ({
           );
         })}
       </View>
-      
+
       <Text style={[styles.selectionCount, { color: theme.colors.textSecondary }]}>
         {t('settings.userPresets.selectedCount', { count: selectedISOs.length })}
       </Text>

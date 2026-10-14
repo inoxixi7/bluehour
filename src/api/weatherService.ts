@@ -3,6 +3,8 @@
  * 获取当前天气状况、温度和风速
  */
 
+import { debugLog } from '../utils/logger';
+
 export interface WeatherData {
   temperature: number; // 摄氏度
   windSpeed: number; // km/h
@@ -104,9 +106,9 @@ export const getCurrentWeather = async (
     });
 
     const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-    
-    console.log('🌤️ [WeatherService] 获取天气数据:', { latitude, longitude });
-    
+
+    debugLog('🌤️ [WeatherService] 获取天气数据:', { latitude, longitude });
+
     const response = await fetch(url);
 
     if (!response.ok) {
@@ -114,7 +116,7 @@ export const getCurrentWeather = async (
     }
 
     const data = await response.json();
-    
+
     const weatherCode = data.current.weather_code;
     const weatherInfo = weatherCodeMap[weatherCode] || { description: 'Unknown', ev: 12 };
 
@@ -126,7 +128,7 @@ export const getCurrentWeather = async (
       recommendedEV: weatherInfo.ev,
     };
 
-    console.log('✅ [WeatherService] 天气数据获取成功:', weatherData);
+    debugLog('✅ [WeatherService] 天气数据获取成功:', weatherData);
     return weatherData;
   } catch (error) {
     console.error('❌ [WeatherService] 获取天气失败:', error);

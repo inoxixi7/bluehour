@@ -9,37 +9,37 @@ export interface ThemeColors {
   background: string;
   backgroundSecondary: string;
   backgroundTertiary: string;
-  
+
   // 卡片
   card: string;
   cardBorder: string;
-  
+
   // 文字
   text: string;
   textSecondary: string;
   textTertiary: string;
-  
+
   // 主色调
   primary: string;
   accent: string;
-  
+
   // 状态色
   success: string;
   warning: string;
   error: string;
   information: string;
-  
+
   // 特殊色（摄影相关）
   sunrise: string;
   sunset: string;
   goldenHour: string;
   blueHour: string;
   twilight: string;
-  
+
   // 边框和分隔线
   border: string;
   divider: string;
-  
+
   // 按钮
   buttonPrimary: string;
   buttonPrimaryText: string;
@@ -49,7 +49,7 @@ export interface ThemeColors {
   buttonSecondaryText: string;
   buttonSecondaryHover: string;
   buttonSecondaryPressed: string;
-  
+
   // 交互状态
   ripple: string;
   overlay: string;
@@ -70,31 +70,31 @@ const lightColors: ThemeColors = {
   background: '#FFFFFF',
   backgroundSecondary: '#F5F7FA',
   backgroundTertiary: '#E8ECF1',
-  
+
   card: '#FFFFFF',
   cardBorder: '#E1E8ED',
-  
+
   text: '#1A202C',
   textSecondary: '#4A5568',
   textTertiary: '#718096',
-  
+
   primary: '#3B82F6',
   accent: '#F59E0B',
-  
+
   success: '#10B981',
   warning: '#F59E0B',
   error: '#EF4444',
   information: '#3B82F6',
-  
+
   sunrise: '#FF6B35',
   sunset: '#FF8C42',
   goldenHour: '#FFB627',
   blueHour: '#4A90E2',
   twilight: '#6B7FD7',
-  
+
   border: '#E1E8ED',
   divider: '#E5E7EB',
-  
+
   buttonPrimary: '#3B82F6',
   buttonPrimaryText: '#FFFFFF',
   buttonPrimaryHover: '#2563EB',
@@ -103,7 +103,7 @@ const lightColors: ThemeColors = {
   buttonSecondaryText: '#374151',
   buttonSecondaryHover: '#D1D5DB',
   buttonSecondaryPressed: '#9CA3AF',
-  
+
   ripple: 'rgba(59, 130, 246, 0.3)',
   overlay: 'rgba(0, 0, 0, 0.1)',
 };
@@ -112,31 +112,31 @@ const darkColors: ThemeColors = {
   background: '#222222',
   backgroundSecondary: '#2A2A2A',
   backgroundTertiary: '#333333',
-  
+
   card: '#2A2A2A',
   cardBorder: '#3A3A3A',
-  
+
   text: '#AB3334',
   textSecondary: '#C65858',
   textTertiary: '#8B4545',
-  
+
   primary: '#7A92A8',
   accent: '#C9934A',
-  
+
   success: '#6B9A7A',
   warning: '#C9934A',
   error: '#B85858',
   information: '#7A92A8',
-  
+
   sunrise: '#D4826B',
   sunset: '#D49A7A',
   goldenHour: '#C9934A',
   blueHour: '#6B8CA8',
   twilight: '#7A8AAA',
-  
+
   border: '#334155',
   divider: '#475569',
-  
+
   buttonPrimary: '#3B82F6',
   buttonPrimaryText: '#FFFFFF',
   buttonPrimaryHover: '#2563EB',
@@ -145,7 +145,7 @@ const darkColors: ThemeColors = {
   buttonSecondaryText: '#F1F5F9',
   buttonSecondaryHover: '#64748B',
   buttonSecondaryPressed: '#94A3B8',
-  
+
   ripple: 'rgba(96, 165, 250, 0.3)',
   overlay: 'rgba(255, 255, 255, 0.1)',
 };
@@ -157,12 +157,12 @@ const THEME_STORAGE_KEY = '@theme_mode';
 export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const systemColorScheme = useColorScheme();
   const [themeMode, setThemeModeState] = useState<ThemeMode>('auto');
-  
+
   // 从存储加载主题设置
   useEffect(() => {
     loadThemeMode();
   }, []);
-  
+
   const loadThemeMode = async () => {
     try {
       const savedMode = await AsyncStorage.getItem(THEME_STORAGE_KEY);
@@ -173,7 +173,7 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       console.error('Error loading theme mode:', error);
     }
   };
-  
+
   const setThemeMode = async (mode: ThemeMode) => {
     try {
       await AsyncStorage.setItem(THEME_STORAGE_KEY, mode);
@@ -182,17 +182,15 @@ export const ThemeProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       console.error('Error saving theme mode:', error);
     }
   };
-  
+
   // 计算当前主题
-  const isDark = themeMode === 'auto' 
-    ? systemColorScheme === 'dark'
-    : themeMode === 'dark';
-  
+  const isDark = themeMode === 'auto' ? systemColorScheme === 'dark' : themeMode === 'dark';
+
   const theme: Theme = {
     colors: isDark ? darkColors : lightColors,
     isDark,
   };
-  
+
   return (
     <ThemeContext.Provider value={{ theme, themeMode, setThemeMode }}>
       {children}

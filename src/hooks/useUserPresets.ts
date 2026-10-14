@@ -27,7 +27,7 @@ export const useUserPresets = () => {
       if (presetsJson) {
         const parsed: UserPreset[] = JSON.parse(presetsJson);
         // 转换日期字符串为Date对象
-        const presetsWithDates = parsed.map((p) => ({
+        const presetsWithDates = parsed.map(p => ({
           ...p,
           createdAt: new Date(p.createdAt),
           updatedAt: new Date(p.updatedAt),
@@ -76,7 +76,7 @@ export const useUserPresets = () => {
   // 更新预设
   const updatePreset = useCallback(
     async (id: string, updates: Partial<Omit<UserPreset, 'id' | 'createdAt'>>) => {
-      const newPresets = presets.map((p) =>
+      const newPresets = presets.map(p =>
         p.id === id
           ? {
               ...p,
@@ -89,20 +89,6 @@ export const useUserPresets = () => {
       await savePresets(newPresets);
     },
     [presets, savePresets]
-  );
-
-  // 删除预设
-  const deletePreset = useCallback(
-    async (id: string) => {
-      const newPresets = presets.filter((p) => p.id !== id);
-      await savePresets(newPresets);
-
-      // 如果删除的是激活的预设，清除激活状态
-      if (activePresetId === id) {
-        await setActivePreset(undefined);
-      }
-    },
-    [presets, savePresets, activePresetId]
   );
 
   // 设置激活的预设
@@ -119,10 +105,24 @@ export const useUserPresets = () => {
     }
   }, []);
 
+  // 删除预设
+  const deletePreset = useCallback(
+    async (id: string) => {
+      const newPresets = presets.filter(p => p.id !== id);
+      await savePresets(newPresets);
+
+      // 如果删除的是激活的预设，清除激活状态
+      if (activePresetId === id) {
+        await setActivePreset(undefined);
+      }
+    },
+    [presets, savePresets, activePresetId, setActivePreset]
+  );
+
   // 获取激活的预设
   const getActivePreset = useCallback((): UserPreset | undefined => {
     if (!activePresetId) return undefined;
-    return presets.find((p) => p.id === activePresetId);
+    return presets.find(p => p.id === activePresetId);
   }, [activePresetId, presets]);
 
   // 初始加载

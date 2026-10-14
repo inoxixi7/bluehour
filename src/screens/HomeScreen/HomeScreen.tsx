@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../locales/i18n';
 import { useTheme } from '../../contexts/ThemeContext';
 import { useLocationData } from '../../contexts/LocationDataContext';
 import { Layout } from '../../constants/Layout';
@@ -28,16 +27,16 @@ import { formatLocationName } from '../../utils/locationHelpers';
 import { Card } from '../../components/common/Card';
 import { LoadingIndicator } from '../../components/common/LoadingIndicator';
 import { Touchable } from '../../components/common/Touchable';
-import { 
+import {
   scheduleGoldenHourNotification,
   isNotificationsEnabled,
-  cancelAllNotifications
+  cancelAllNotifications,
 } from '../../services/notificationService';
 import { getCurrentWeather, getWeatherIcon, WeatherData } from '../../api/weatherService';
 
 const HomeScreen: React.FC = () => {
   const { theme } = useTheme();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const navigation = useNavigation<any>();
   const {
     locationName,
@@ -53,7 +52,7 @@ const HomeScreen: React.FC = () => {
   const [refreshing, setRefreshing] = useState(false);
   const [showIntro, setShowIntro] = useState(false);
   const [refreshCount, setRefreshCount] = useState(0);
-  
+
   // Weather state
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [weatherLoading, setWeatherLoading] = useState(false);
@@ -92,7 +91,14 @@ const HomeScreen: React.FC = () => {
     }
   }, [getCurrentLocation]);
 
-  const sunTimes = getSunTimesForDate(new Date());
+  // 每 30 秒刷新一次当前时间，让当前光线阶段和倒计时随时间更新
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const interval = setInterval(() => setNow(new Date()), 30 * 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const sunTimes = getSunTimesForDate(now);
 
   // 当黄金时刻时间变化时，安排通知（服务内部会提前 30 分钟提醒）
   useEffect(() => {
@@ -104,33 +110,42 @@ const HomeScreen: React.FC = () => {
       await cancelAllNotifications();
 
       if (sunTimes.morningGoldenHourStart) {
-        await scheduleGoldenHourNotification(sunTimes.morningGoldenHourStart, 'sunrise', i18n.language);
+        await scheduleGoldenHourNotification(
+          sunTimes.morningGoldenHourStart,
+          'sunrise',
+          i18n.language
+        );
       }
       if (sunTimes.eveningGoldenHourStart) {
-        await scheduleGoldenHourNotification(sunTimes.eveningGoldenHourStart, 'sunset', i18n.language);
+        await scheduleGoldenHourNotification(
+          sunTimes.eveningGoldenHourStart,
+          'sunset',
+          i18n.language
+        );
       }
     };
 
-    scheduleNotifications().catch(error => console.error('Failed to schedule notifications:', error));
+    scheduleNotifications().catch(error =>
+      console.error('Failed to schedule notifications:', error)
+    );
   }, [sunTimes, i18n.language]);
+
   const timeline = useMemo(() => (sunTimes ? buildLightTimeline(sunTimes) : []), [sunTimes]);
-  const now = new Date();
-  
   const phaseState = useMemo(
     () => (sunTimes ? getCurrentPhaseState(timeline, now) : null),
-    [sunTimes, timeline]
+    [sunTimes, timeline, now]
   );
-  
+
   const nextBlueHour = useMemo(
     () => (sunTimes ? getNextBlueHourWindow(sunTimes, now) : null),
-    [sunTimes]
+    [sunTimes, now]
   );
 
   const isLoading = locationLoading || (sunTimesLoading && !sunTimes);
 
   const quickActions = useMemo(() => {
     const getRandomAdvice = (
-      adviceList: Array<{ icon: string; title: string; description: string }>
+      adviceList: { icon: string; title: string; description: string }[]
     ) => {
       const index = (refreshCount + Math.floor(Date.now() / 1000 / 3600)) % adviceList.length;
       return adviceList[index];
@@ -313,7 +328,9 @@ const HomeScreen: React.FC = () => {
                             ? t('sunTimes.currentPhase.tomorrows') + t(nextBlueHour.labelKey)
                             : t(nextBlueHour.labelKey),
                           time: formatTimeCountdown(
-                            Math.round((nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)),
+                            Math.round(
+                              (nextBlueHour.start.getTime() - now.getTime()) / (1000 * 60)
+                            ),
                             t
                           ),
                         })}
@@ -322,23 +339,31 @@ const HomeScreen: React.FC = () => {
                   </View>
                 </View>
               </View>
-              
+
               {/* Right: Weather Info */}
               <View style={styles.heroRight}>
                 {weatherLoading ? (
                   <View style={styles.weatherCompact}>
-                    <Text style={[styles.weatherLoadingText, { color: theme.colors.textSecondary }]}>
+                    <Text
+                      style={[styles.weatherLoadingText, { color: theme.colors.textSecondary }]}
+                    >
                       {t('weather.loading')}
                     </Text>
                   </View>
                 ) : weatherError || !weather ? (
                   <View style={styles.weatherCompact}>
-                    <Ionicons name="cloud-offline-outline" size={24} color={theme.colors.textSecondary} />
+                    <Ionicons
+                      name="cloud-offline-outline"
+                      size={24}
+                      color={theme.colors.textSecondary}
+                    />
                   </View>
                 ) : (
                   <View style={styles.weatherCompact}>
                     <View style={styles.weatherTempRow}>
-                      <Text style={styles.weatherEmojiCompact}>{getWeatherIcon(weather.weatherCode)}</Text>
+                      <Text style={styles.weatherEmojiCompact}>
+                        {getWeatherIcon(weather.weatherCode)}
+                      </Text>
                       <Text style={[styles.weatherTempCompact, { color: theme.colors.text }]}>
                         {weather.temperature}°
                       </Text>
@@ -346,23 +371,40 @@ const HomeScreen: React.FC = () => {
                     {(() => {
                       // 判断当地时间是否在日出到日落之间
                       if (!sunTimes) return false;
-                      
+
                       const nowUTC = new Date();
                       const sunrise = sunTimes.sunrise;
                       const sunset = sunTimes.sunset;
-                      
+
                       // 判断是否是夜晚（日落后或日出前）
                       const isNight = nowUTC < sunrise || nowUTC > sunset;
-                      
+
                       return isNight ? (
-                        <View style={[styles.weatherEVBadgeCompact, { backgroundColor: theme.colors.textTertiary + '30' }]}>
-                          <Text style={[styles.weatherEVTextCompact, { color: theme.colors.textSecondary }]}>
+                        <View
+                          style={[
+                            styles.weatherEVBadgeCompact,
+                            { backgroundColor: theme.colors.textTertiary + '30' },
+                          ]}
+                        >
+                          <Text
+                            style={[
+                              styles.weatherEVTextCompact,
+                              { color: theme.colors.textSecondary },
+                            ]}
+                          >
                             {t('weather.notApplicable')}
                           </Text>
                         </View>
                       ) : (
-                        <View style={[styles.weatherEVBadgeCompact, { backgroundColor: theme.colors.primary + '20' }]}>
-                          <Text style={[styles.weatherEVTextCompact, { color: theme.colors.primary }]}>
+                        <View
+                          style={[
+                            styles.weatherEVBadgeCompact,
+                            { backgroundColor: theme.colors.primary + '20' },
+                          ]}
+                        >
+                          <Text
+                            style={[styles.weatherEVTextCompact, { color: theme.colors.primary }]}
+                          >
                             EV {weather.recommendedEV}
                           </Text>
                         </View>
@@ -372,11 +414,11 @@ const HomeScreen: React.FC = () => {
                 )}
               </View>
             </View>
-            
+
             {locationError && (
               <Text style={[styles.errorText, { color: theme.colors.error }]}>{locationError}</Text>
             )}
-            
+
             {photographyTimeline.length > 0 && (
               <View style={styles.timelineSection}>
                 <View style={styles.divider} />
@@ -410,7 +452,12 @@ const HomeScreen: React.FC = () => {
 
         <View>
           <Touchable onPress={() => navigation.navigate('ExposureCalc')} activeOpacity={0.9}>
-            <Card style={[styles.labCard, { backgroundColor: theme.colors.card, marginBottom: Layout.spacing.md }]}>
+            <Card
+              style={[
+                styles.labCard,
+                { backgroundColor: theme.colors.card, marginBottom: Layout.spacing.md },
+              ]}
+            >
               <View style={styles.labHeader}>
                 <Ionicons
                   name="sunny-outline"
@@ -536,11 +583,11 @@ const HomeScreen: React.FC = () => {
               <Text style={[styles.modalDescription, { color: theme.colors.text }]}>
                 {t('home.intro.description')}
               </Text>
-              
+
               <Text style={[styles.modalSectionTitle, { color: theme.colors.text }]}>
                 {t('home.intro.featuresTitle')}
               </Text>
-              
+
               <View style={styles.modalFeature}>
                 <Text style={styles.modalFeatureIcon}>🌅</Text>
                 <View style={{ flex: 1 }}>
@@ -576,8 +623,6 @@ const HomeScreen: React.FC = () => {
                   </Text>
                 </View>
               </View>
-
-              
             </ScrollView>
           </View>
         </View>

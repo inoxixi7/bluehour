@@ -166,7 +166,7 @@ export const getNextBlueHourWindow = (
   ];
 
   const nowTime = now.getTime();
-  const upcoming = windows.find((window) => window.start.getTime() > nowTime);
+  const upcoming = windows.find(window => window.start.getTime() > nowTime);
 
   return upcoming || windows[windows.length - 1] || null;
 };

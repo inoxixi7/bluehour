@@ -1,6 +1,7 @@
 // 跨平台位置获取工具
 import { Platform } from 'react-native';
 import * as Location from 'expo-location';
+import { debugLog } from './logger';
 
 export interface LocationCoords {
   latitude: number;
@@ -20,11 +21,11 @@ export const getCurrentLocation = async (): Promise<LocationCoords> => {
         return;
       }
 
-      console.log('🌐 使用浏览器 Geolocation API');
-      
+      debugLog('🌐 使用浏览器 Geolocation API');
+
       nav.geolocation.getCurrentPosition(
         (position: any) => {
-          console.log('✅ 浏览器位置获取成功:', position.coords);
+          debugLog('✅ 浏览器位置获取成功:', position.coords);
           resolve({
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -44,9 +45,9 @@ export const getCurrentLocation = async (): Promise<LocationCoords> => {
   }
 
   // 移动端使用 expo-location
-  console.log('📱 使用 expo-location');
+  debugLog('📱 使用 expo-location');
   const { status } = await Location.requestForegroundPermissionsAsync();
-  
+
   if (status !== 'granted') {
     throw new Error('位置权限未授予');
   }

@@ -1,8 +1,14 @@
 // sunrise-sunset.org API 服务封装
 
 import { SunTimesResponse, ProcessedSunTimes } from '../types/api';
-import { fetchWithRetry, fetchWithCache, generateCacheKey, isNetworkError } from '../utils/apiHelpers';
+import {
+  fetchWithRetry,
+  fetchWithCache,
+  generateCacheKey,
+  isNetworkError,
+} from '../utils/apiHelpers';
 import { calculateGoldenAndBlueHours } from '../utils/sunPosition';
+import { debugLog } from '../utils/logger';
 
 const BASE_URL = 'https://api.sunrise-sunset.org/json';
 const CACHE_PREFIX = 'suntimes';
@@ -31,7 +37,7 @@ const fetchSunTimesRaw = async (
   }
 
   const url = `${BASE_URL}?${params.toString()}`;
-  
+
   const response = await fetch(url);
 
   if (!response.ok) {
@@ -54,7 +60,11 @@ const fetchSunTimesRaw = async (
  * @param lng 经度（用于精确计算太阳高度角）
  * @returns 处理后的太阳时间数据
  */
-export const processSunTimes = (response: SunTimesResponse, lat: number, lng: number): ProcessedSunTimes => {
+export const processSunTimes = (
+  response: SunTimesResponse,
+  lat: number,
+  lng: number
+): ProcessedSunTimes => {
   const { results } = response;
 
   // 直接解析 ISO 8601 时间字符串为 Date 对象，不做任何转换
@@ -145,7 +155,7 @@ export const getSunTimes = async (
       CACHE_TTL,
       forceRefresh
     );
-    
+
     return processSunTimes(response, lat, lng);
   } catch (error) {
     // 如果是网络错误，尝试从过期缓存中读取
@@ -158,7 +168,7 @@ export const getSunTimes = async (
           Infinity, // 接受任何过期时间
           false
         );
-        console.log('📦 使用过期缓存数据');
+        debugLog('📦 使用过期缓存数据');
         return processSunTimes(cachedData, lat, lng);
       } catch (cacheError) {
         // 缓存也没有，抛出原始错误

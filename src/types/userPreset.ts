@@ -22,13 +22,13 @@ export interface FilmStock {
 export interface UserPreset {
   id: string;
   name: string; // 预设名称，如"风光套装"
-  
+
   // 相机信息
   camera?: string; // 相机名称，如"Nikon Z6 II"
-  
+
   // 镜头信息
   lens?: string; // 镜头名称及焦段，如"24-70mm f/2.8"
-  
+
   // Supported settings (selected subsets)
   shutterSpeeds?: number[];
   apertures?: number[];
@@ -38,7 +38,7 @@ export interface UserPreset {
   defaultAperture?: number;
   defaultShutter?: number;
   defaultISO?: number;
-  
+
   // 创建和更新时间
   createdAt: Date;
   updatedAt: Date;

@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.yourcompany.bluehour",
@@ -36,9 +34,7 @@
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION"
       ],
-      "blockedPermissions": [
-        "android.permission.DETECT_SCREEN_CAPTURE"
-      ]
+      "blockedPermissions": ["android.permission.DETECT_SCREEN_CAPTURE"]
     },
     "web": {
       "favicon": "./assets/images/favicon.png"
