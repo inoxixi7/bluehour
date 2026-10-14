@@ -52,6 +52,17 @@ npm start
 - 扫描二维码（Expo Go 应用）
 - 或按 `i` (iOS) / `a` (Android)
 
+### 5. 提交前检查
+
+GitHub Actions（`.github/workflows/ci.yml`）会在每个 PR 和 main 上运行以下检查，提交前可在本地先跑一遍：
+
+```bash
+npm run type-check   # TypeScript 类型检查
+npm run lint         # ESLint
+npm run format:check # Prettier 格式检查（npm run format 自动修复）
+npm test             # Jest 单元测试（src/**/__tests__）
+```
+
 ## TypeScript 编译错误
 
 当前显示的 TypeScript 错误（找不到模块）是**正常的**，因为：
