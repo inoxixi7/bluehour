@@ -1,4 +1,6 @@
 module.exports = {
+  // 原生工程（含 Gradle 生成的报告）不属于 JS 代码
+  ignorePatterns: ['native/'],
   extends: ['expo', 'prettier'],
   plugins: ['prettier'],
   rules: {

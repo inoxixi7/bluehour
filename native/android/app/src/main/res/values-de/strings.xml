@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_light">Blaue Stunde</string>
+    <string name="tab_exposure">Belichtung</string>
+    <string name="tab_reciprocity">Schwarzschild</string>
+    <string name="coming_soon">Dieser Bildschirm folgt bald in der nativen App.</string>
+    <string name="reciprocity_title">Schwarzschild-Effekt</string>
+    <string name="film_profile">Filmprofil</string>
+    <string name="select_film">Film auswählen</string>
+    <string name="metered_shutter">Gemessene Verschlusszeit</string>
+    <string name="nd_filter">ND-Filter</string>
+    <string name="nd_none">Keiner</string>
+    <string name="result_base">Basis-Verschluss</string>
+    <string name="result_reciprocity">Korrigiert</string>
+    <string name="extra_stops">Zusätzliche Belichtung</string>
+    <string name="data_source">Datenquelle</string>
+    <string name="source_manufacturer">Herstellerdatenblatt</string>
+    <string name="source_community">Community-Tests</string>
+    <string name="source_estimate">Schätzung (keine offiziellen Daten)</string>
+    <string name="extrapolated_warning">Außerhalb der veröffentlichten Filmdaten (%1$s). Das Ergebnis ist extrapoliert, Belichtungsreihe empfohlen.</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="unit_second">s</string>
+    <string name="unit_seconds">s</string>
+    <string name="unit_sec">s</string>
+    <string name="unit_minutes">Min</string>
+    <string name="unit_min">Min</string>
+    <string name="unit_hours">Std</string>
+</resources>

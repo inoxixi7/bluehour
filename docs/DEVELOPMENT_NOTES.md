@@ -63,6 +63,14 @@ npm run format:check # Prettier 格式检查（npm run format 自动修复）
 npm test             # Jest 单元测试（src/**/__tests__）
 ```
 
+修改了胶片数据或计算逻辑时，还需要重新生成原生版本共用的数据与测试向量（见 `shared/README.md`）：
+
+```bash
+npm run shared:update
+```
+
+原生 Android 版本在 `native/android/`（见该目录的 README），CI 会运行 `core` 测试并构建调试 APK。
+
 ## TypeScript 编译错误
 
 当前显示的 TypeScript 错误（找不到模块）是**正常的**，因为：

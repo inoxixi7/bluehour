@@ -1,0 +1,490 @@
+{
+  "version": 1,
+  "apertures": [
+    1,
+    1.1,
+    1.2,
+    1.4,
+    1.6,
+    1.8,
+    2,
+    2.2,
+    2.5,
+    2.8,
+    3.2,
+    3.5,
+    4,
+    4.5,
+    5,
+    5.6,
+    6.3,
+    7.1,
+    8,
+    9,
+    10,
+    11,
+    13,
+    14,
+    16,
+    18,
+    20,
+    22,
+    25,
+    29,
+    32
+  ],
+  "shutterSpeeds": [
+    {
+      "value": 0.000125,
+      "label": "1/8000s"
+    },
+    {
+      "value": 0.00025,
+      "label": "1/4000s"
+    },
+    {
+      "value": 0.0005,
+      "label": "1/2000s"
+    },
+    {
+      "value": 0.001,
+      "label": "1/1000s"
+    },
+    {
+      "value": 0.002,
+      "label": "1/500s"
+    },
+    {
+      "value": 0.004,
+      "label": "1/250s"
+    },
+    {
+      "value": 0.008,
+      "label": "1/125s"
+    },
+    {
+      "value": 0.016666666666666666,
+      "label": "1/60s"
+    },
+    {
+      "value": 0.03333333333333333,
+      "label": "1/30s"
+    },
+    {
+      "value": 0.06666666666666667,
+      "label": "1/15s"
+    },
+    {
+      "value": 0.125,
+      "label": "1/8s"
+    },
+    {
+      "value": 0.25,
+      "label": "1/4s"
+    },
+    {
+      "value": 0.5,
+      "label": "1/2s"
+    },
+    {
+      "value": 1,
+      "label": "1s"
+    },
+    {
+      "value": 2,
+      "label": "2s"
+    },
+    {
+      "value": 4,
+      "label": "4s"
+    },
+    {
+      "value": 8,
+      "label": "8s"
+    },
+    {
+      "value": 15,
+      "label": "15s"
+    },
+    {
+      "value": 30,
+      "label": "30s"
+    },
+    {
+      "value": 60,
+      "label": "1min"
+    },
+    {
+      "value": 120,
+      "label": "2min"
+    },
+    {
+      "value": 240,
+      "label": "4min"
+    },
+    {
+      "value": 480,
+      "label": "8min"
+    },
+    {
+      "value": 900,
+      "label": "15min"
+    },
+    {
+      "value": 1800,
+      "label": "30min"
+    },
+    {
+      "value": 3600,
+      "label": "1h"
+    },
+    {
+      "value": 7200,
+      "label": "2h"
+    },
+    {
+      "value": 14400,
+      "label": "4h"
+    },
+    {
+      "value": 28800,
+      "label": "8h"
+    },
+    {
+      "value": 43200,
+      "label": "12h"
+    },
+    {
+      "value": 86400,
+      "label": "24h"
+    },
+    {
+      "value": 172800,
+      "label": "48h"
+    }
+  ],
+  "isos": [
+    50,
+    64,
+    80,
+    100,
+    125,
+    160,
+    200,
+    250,
+    320,
+    400,
+    500,
+    640,
+    800,
+    1000,
+    1250,
+    1600,
+    2000,
+    2500,
+    3200,
+    4000,
+    5000,
+    6400,
+    8000,
+    10000,
+    12800,
+    16000,
+    20000,
+    25600
+  ],
+  "ndFilters": [
+    {
+      "name": "ND2 (0.3)",
+      "stops": 1,
+      "factor": 2
+    },
+    {
+      "name": "ND4 (0.6)",
+      "stops": 2,
+      "factor": 4
+    },
+    {
+      "name": "ND8 (0.9)",
+      "stops": 3,
+      "factor": 8
+    },
+    {
+      "name": "ND16 (1.2)",
+      "stops": 4,
+      "factor": 16
+    },
+    {
+      "name": "ND32 (1.5)",
+      "stops": 5,
+      "factor": 32
+    },
+    {
+      "name": "ND64 (1.8)",
+      "stops": 6,
+      "factor": 64
+    },
+    {
+      "name": "ND128 (2.1)",
+      "stops": 7,
+      "factor": 128
+    },
+    {
+      "name": "ND256 (2.4)",
+      "stops": 8,
+      "factor": 256
+    },
+    {
+      "name": "ND512 (2.7)",
+      "stops": 9,
+      "factor": 512
+    },
+    {
+      "name": "ND1000 (3.0)",
+      "stops": 10,
+      "factor": 1024
+    },
+    {
+      "name": "ND2000 (3.3)",
+      "stops": 11,
+      "factor": 2048
+    },
+    {
+      "name": "ND4000 (3.6)",
+      "stops": 12,
+      "factor": 4096
+    }
+  ],
+  "evScenes": [
+    {
+      "ev": 16,
+      "descriptionKey": "calculator.ev.scenes.ev16",
+      "icon": "☀️",
+      "params": {
+        "aperture": 16,
+        "shutter": 0.004,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 15,
+      "descriptionKey": "calculator.ev.scenes.ev15",
+      "icon": "☀️",
+      "params": {
+        "aperture": 16,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 14,
+      "descriptionKey": "calculator.ev.scenes.ev14",
+      "icon": "🌤️",
+      "params": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 13,
+      "descriptionKey": "calculator.ev.scenes.ev13",
+      "icon": "⛅",
+      "params": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 12,
+      "descriptionKey": "calculator.ev.scenes.ev12",
+      "icon": "☁️",
+      "params": {
+        "aperture": 5.6,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 11,
+      "descriptionKey": "calculator.ev.scenes.ev11",
+      "icon": "🌥️",
+      "params": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 10,
+      "descriptionKey": "calculator.ev.scenes.ev10",
+      "icon": "🌩️",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 9,
+      "descriptionKey": "calculator.ev.scenes.ev9",
+      "icon": "🏙️",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 8,
+      "descriptionKey": "calculator.ev.scenes.ev8",
+      "icon": "🌃",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 7,
+      "descriptionKey": "calculator.ev.scenes.ev7",
+      "icon": "💡",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 0.06666666666666667,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 6,
+      "descriptionKey": "calculator.ev.scenes.ev6",
+      "icon": "🏠",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 0.125,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 5,
+      "descriptionKey": "calculator.ev.scenes.ev5",
+      "icon": "🏮",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 0.25,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 4,
+      "descriptionKey": "calculator.ev.scenes.ev4",
+      "icon": "🕯️",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 0.5,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 3,
+      "descriptionKey": "calculator.ev.scenes.ev3",
+      "icon": "🌕",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 1,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 2,
+      "descriptionKey": "calculator.ev.scenes.ev2",
+      "icon": "⚡",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 1,
+      "descriptionKey": "calculator.ev.scenes.ev1",
+      "icon": "🌆",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 4,
+        "iso": 100
+      }
+    },
+    {
+      "ev": 0,
+      "descriptionKey": "calculator.ev.scenes.ev0",
+      "icon": "✨",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 8,
+        "iso": 100
+      }
+    },
+    {
+      "ev": -1,
+      "descriptionKey": "calculator.ev.scenes.evMinus1",
+      "icon": "🌌",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 15,
+        "iso": 100
+      }
+    },
+    {
+      "ev": -2,
+      "descriptionKey": "calculator.ev.scenes.evMinus2",
+      "icon": "🔭",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 30,
+        "iso": 100
+      }
+    },
+    {
+      "ev": -3,
+      "descriptionKey": "calculator.ev.scenes.evMinus3",
+      "icon": "🌑",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 60,
+        "iso": 100
+      }
+    },
+    {
+      "ev": -4,
+      "descriptionKey": "calculator.ev.scenes.evMinus4",
+      "icon": "🌑",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 120,
+        "iso": 100
+      }
+    },
+    {
+      "ev": -5,
+      "descriptionKey": "calculator.ev.scenes.evMinus5",
+      "icon": "🌑",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 240,
+        "iso": 100
+      }
+    },
+    {
+      "ev": -6,
+      "descriptionKey": "calculator.ev.scenes.evMinus6",
+      "icon": "🌑",
+      "params": {
+        "aperture": 2.8,
+        "shutter": 480,
+        "iso": 100
+      }
+    }
+  ]
+}

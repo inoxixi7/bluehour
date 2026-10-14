@@ -1,0 +1,1036 @@
+{
+  "description": "sunPosition.ts：时间均为 UTC 毫秒时间戳。注意 getSolarElevation 只取到整秒（忽略毫秒）。goldenAndBlueHours = calculateGoldenAndBlueHours(本地计算的日出, 日落, lat, lng)",
+  "elevation": [
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "epochMs": 1768435200000,
+      "elevation": 20.27972193122757
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "epochMs": 1773988215000,
+      "elevation": 27.428317806815716
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "epochMs": 1782043200000,
+      "elevation": -19.400346376182856
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "epochMs": 1790189130000,
+      "elevation": -21.866417576947832
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "epochMs": 1797897599000,
+      "elevation": 19.846822859860442
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "epochMs": 1768435200000,
+      "elevation": -63.30268279095595
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "epochMs": 1773988215000,
+      "elevation": 9.481484813667318
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "epochMs": 1782043200000,
+      "elevation": 65.20344337257256
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "epochMs": 1790189130000,
+      "elevation": -14.823360309230575
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "epochMs": 1797897599000,
+      "elevation": -65.01273765722222
+    },
+    {
+      "location": "Los Angeles",
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "epochMs": 1768435200000,
+      "elevation": 10.989310577099406
+    },
+    {
+      "location": "Los Angeles",
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "epochMs": 1773988215000,
+      "elevation": -50.036447566663405
+    },
+    {
+      "location": "Los Angeles",
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "epochMs": 1782043200000,
+      "elevation": -8.18233326762711
+    },
+    {
+      "location": "Los Angeles",
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "epochMs": 1790189130000,
+      "elevation": 52.89761681821273
+    },
+    {
+      "location": "Los Angeles",
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "epochMs": 1797897599000,
+      "elevation": 7.594002998411488
+    },
+    {
+      "location": "Sydney",
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "epochMs": 1768435200000,
+      "elevation": 59.79334352081517
+    },
+    {
+      "location": "Sydney",
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "epochMs": 1773988215000,
+      "elevation": 19.093430336834853
+    },
+    {
+      "location": "Sydney",
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "epochMs": 1782043200000,
+      "elevation": -62.419597319692684
+    },
+    {
+      "location": "Sydney",
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "epochMs": 1790189130000,
+      "elevation": -12.637659224730774
+    },
+    {
+      "location": "Sydney",
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "epochMs": 1797897599000,
+      "elevation": 63.11804778065258
+    },
+    {
+      "location": "Quito",
+      "lat": -0.1807,
+      "lng": -78.4678,
+      "epochMs": 1768435200000,
+      "elevation": -8.531943039475816
+    },
+    {
+      "location": "Quito",
+      "lat": -0.1807,
+      "lng": -78.4678,
+      "epochMs": 1773988215000,
+      "elevation": -72.77763383852185
+    },
+    {
+      "location": "Quito",
+      "lat": -0.1807,
+      "lng": -78.4678,
+      "epochMs": 1782043200000,
+      "elevation": 10.079046923383302
+    },
+    {
+      "location": "Quito",
+      "lat": -0.1807,
+      "lng": -78.4678,
+      "epochMs": 1790189130000,
+      "elevation": 65.16480119303641
+    },
+    {
+      "location": "Quito",
+      "lat": -0.1807,
+      "lng": -78.4678,
+      "epochMs": 1797897599000,
+      "elevation": -10.875118268044107
+    },
+    {
+      "location": "Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "epochMs": 1768435200000,
+      "elevation": -44.07728608427074
+    },
+    {
+      "location": "Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "epochMs": 1773988215000,
+      "elevation": -7.1325457721857335
+    },
+    {
+      "location": "Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "epochMs": 1782043200000,
+      "elevation": 46.70663613402165
+    },
+    {
+      "location": "Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "epochMs": 1790189130000,
+      "elevation": 3.483902645504536
+    },
+    {
+      "location": "Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "epochMs": 1797897599000,
+      "elevation": -46.89669477948009
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "epochMs": 1768435200000,
+      "elevation": -40.47868971405809
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "epochMs": 1773988215000,
+      "elevation": 8.210696471790293
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "epochMs": 1782043200000,
+      "elevation": 42.49419890201855
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "epochMs": 1790189130000,
+      "elevation": -10.984818770466044
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "epochMs": 1797897599000,
+      "elevation": -42.371781074747574
+    }
+  ],
+  "sunTimes": [
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "date": "2026-03-20",
+      "result": {
+        "sunrise": 1773953148608,
+        "sunset": 1773996762573,
+        "solarNoon": 1773974948999,
+        "civilTwilightBegin": 1773951619311,
+        "civilTwilightEnd": 1773998289233,
+        "nauticalTwilightBegin": 1773949836889,
+        "nauticalTwilightEnd": 1774000076928,
+        "astronomicalTwilightBegin": 1773948033374,
+        "astronomicalTwilightEnd": 1774001885717,
+        "dayLengthSeconds": 43613.965
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1773951622826,
+        "morningBlueHourEnd": 1773952210793,
+        "morningGoldenHourStart": 1773952210793,
+        "morningGoldenHourEnd": 1773955167108,
+        "eveningGoldenHourStart": 1773994741088,
+        "eveningGoldenHourEnd": 1773997697729,
+        "eveningBlueHourStart": 1773997697729,
+        "eveningBlueHourEnd": 1773998291176
+      }
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "date": "2026-06-21",
+      "result": {
+        "sunrise": 1781983548374,
+        "sunset": 1782036029624,
+        "solarNoon": 1782009788999,
+        "civilTwilightBegin": 1781981744858,
+        "civilTwilightEnd": 1782037833139,
+        "nauticalTwilightBegin": 1781979503647,
+        "nauticalTwilightEnd": 1782040074350,
+        "astronomicalTwilightBegin": 1781977014584,
+        "astronomicalTwilightEnd": 1782042563413,
+        "dayLengthSeconds": 52481.25
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1781981741342,
+        "morningBlueHourEnd": 1781982453812,
+        "morningGoldenHourStart": 1781982453812,
+        "morningGoldenHourEnd": 1781985823477,
+        "eveningGoldenHourStart": 1782033758530,
+        "eveningGoldenHourEnd": 1782037126499,
+        "eveningBlueHourStart": 1782037126499,
+        "eveningBlueHourEnd": 1782037835748
+      }
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "date": "2026-09-23",
+      "result": {
+        "sunrise": 1790108982421,
+        "sunset": 1790152651757,
+        "solarNoon": 1790130825000,
+        "civilTwilightBegin": 1790107453125,
+        "civilTwilightEnd": 1790154181054,
+        "nauticalTwilightBegin": 1790105670703,
+        "nauticalTwilightEnd": 1790155963476,
+        "astronomicalTwilightBegin": 1790103861914,
+        "astronomicalTwilightEnd": 1790157766992,
+        "dayLengthSeconds": 43669.336
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790107456639,
+        "morningBlueHourEnd": 1790108048867,
+        "morningGoldenHourStart": 1790108048867,
+        "morningGoldenHourEnd": 1790111003634,
+        "eveningGoldenHourStart": 1790150633788,
+        "eveningGoldenHourEnd": 1790153586913,
+        "eveningBlueHourStart": 1790153586913,
+        "eveningBlueHourEnd": 1790154180360
+      }
+    },
+    {
+      "location": "Tokyo",
+      "lat": 35.6762,
+      "lng": 139.6503,
+      "date": "2026-12-21",
+      "result": {
+        "sunrise": 1797803222820,
+        "sunset": 1797838291179,
+        "solarNoon": 1797820757000,
+        "civilTwilightBegin": 1797801514226,
+        "civilTwilightEnd": 1797839999773,
+        "nauticalTwilightBegin": 1797799594695,
+        "nauticalTwilightEnd": 1797841919304,
+        "astronomicalTwilightBegin": 1797797722625,
+        "astronomicalTwilightEnd": 1797843791375,
+        "dayLengthSeconds": 35068.359
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797801514226,
+        "morningBlueHourEnd": 1797802166710,
+        "morningGoldenHourStart": 1797802166710,
+        "morningGoldenHourEnd": 1797805593318,
+        "eveningGoldenHourStart": 1797835921647,
+        "eveningGoldenHourEnd": 1797839345866,
+        "eveningBlueHourStart": 1797839345866,
+        "eveningBlueHourEnd": 1797840000005
+      }
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "date": "2026-03-20",
+      "result": {
+        "sunrise": 1773984543780,
+        "sunset": 1774028302764,
+        "solarNoon": 1774006417999,
+        "civilTwilightBegin": 1773982713897,
+        "civilTwilightEnd": 1774030137920,
+        "nauticalTwilightBegin": 1773980557061,
+        "nauticalTwilightEnd": 1774032300030,
+        "astronomicalTwilightBegin": 1773978342217,
+        "astronomicalTwilightEnd": 1774034530694,
+        "dayLengthSeconds": 43758.984
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1773982715655,
+        "morningBlueHourEnd": 1773983420977,
+        "morningGoldenHourStart": 1773983420977,
+        "morningGoldenHourEnd": 1773986968734,
+        "eveningGoldenHourStart": 1774025869951,
+        "eveningGoldenHourEnd": 1774029427764,
+        "eveningBlueHourStart": 1774029427764,
+        "eveningBlueHourEnd": 1774030139678
+      }
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "date": "2026-06-21",
+      "result": {
+        "sunrise": 1782012539859,
+        "sunset": 1782069978140,
+        "solarNoon": 1782041259000,
+        "civilTwilightBegin": 1782010114078,
+        "civilTwilightEnd": 1782072403921,
+        "nauticalTwilightBegin": 1782006770718,
+        "nauticalTwilightEnd": 1782075747281,
+        "astronomicalTwilightBegin": 1782001518375,
+        "astronomicalTwilightEnd": 1782080999625,
+        "dayLengthSeconds": 57438.281
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1782010121109,
+        "morningBlueHourEnd": 1782011088619,
+        "morningGoldenHourStart": 1782011088619,
+        "morningGoldenHourEnd": 1782015422687,
+        "eveningGoldenHourStart": 1782067095327,
+        "eveningGoldenHourEnd": 1782071426577,
+        "eveningBlueHourStart": 1782071426577,
+        "eveningBlueHourEnd": 1782072403893
+      }
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "date": "2026-09-23",
+      "result": {
+        "sunrise": 1790140427875,
+        "sunset": 1790184113031,
+        "solarNoon": 1790162281000,
+        "civilTwilightBegin": 1790138587445,
+        "civilTwilightEnd": 1790185942914,
+        "nauticalTwilightBegin": 1790136430609,
+        "nauticalTwilightEnd": 1790188099750,
+        "astronomicalTwilightBegin": 1790134199945,
+        "astronomicalTwilightEnd": 1790190314593,
+        "dayLengthSeconds": 43685.156
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790138585687,
+        "morningBlueHourEnd": 1790139300938,
+        "morningGoldenHourStart": 1790139300938,
+        "morningGoldenHourEnd": 1790142854523,
+        "eveningGoldenHourStart": 1790181687249,
+        "eveningGoldenHourEnd": 1790185230999,
+        "eveningBlueHourStart": 1790185230999,
+        "eveningBlueHourEnd": 1790185943737
+      }
+    },
+    {
+      "location": "Zurich",
+      "lat": 47.3769,
+      "lng": 8.5417,
+      "date": "2026-12-21",
+      "result": {
+        "sunrise": 1797837014859,
+        "sunset": 1797867453140,
+        "solarNoon": 1797852234000,
+        "civilTwilightBegin": 1797834858023,
+        "civilTwilightEnd": 1797869609976,
+        "nauticalTwilightBegin": 1797832511343,
+        "nauticalTwilightEnd": 1797871956656,
+        "astronomicalTwilightBegin": 1797830264859,
+        "astronomicalTwilightEnd": 1797874203140,
+        "dayLengthSeconds": 30438.281
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797834856265,
+        "morningBlueHourEnd": 1797835678797,
+        "morningGoldenHourStart": 1797835678797,
+        "morningGoldenHourEnd": 1797840163563,
+        "eveningGoldenHourStart": 1797864303140,
+        "eveningGoldenHourEnd": 1797868796108,
+        "eveningBlueHourStart": 1797868796108,
+        "eveningBlueHourEnd": 1797869608313
+      }
+    },
+    {
+      "location": "Los Angeles",
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "date": "2026-03-20",
+      "result": {
+        "sunrise": 1774014986420,
+        "sunset": 1774058687397,
+        "solarNoon": 1774036828999,
+        "civilTwilightBegin": 1774013488764,
+        "civilTwilightEnd": 1774060185053,
+        "nauticalTwilightBegin": 1774011743256,
+        "nauticalTwilightEnd": 1774061935834,
+        "astronomicalTwilightBegin": 1774009976655,
+        "astronomicalTwilightEnd": 1774063707709,
+        "dayLengthSeconds": 43700.977
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1774013488763,
+        "morningBlueHourEnd": 1774014066341,
+        "morningGoldenHourStart": 1774014066341,
+        "morningGoldenHourEnd": 1774016960705,
+        "eveningGoldenHourStart": 1774056704584,
+        "eveningGoldenHourEnd": 1774059604975,
+        "eveningBlueHourStart": 1774059604975,
+        "eveningBlueHourEnd": 1774060187816
+      }
+    },
+    {
+      "location": "Los Angeles",
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "date": "2026-06-21",
+      "result": {
+        "sunrise": 1782045725593,
+        "sunset": 1782097658406,
+        "solarNoon": 1782071692000,
+        "civilTwilightBegin": 1782043969539,
+        "civilTwilightEnd": 1782099419734,
+        "nauticalTwilightBegin": 1782041807429,
+        "nauticalTwilightEnd": 1782101581843,
+        "astronomicalTwilightBegin": 1782039434382,
+        "astronomicalTwilightEnd": 1782103949617,
+        "dayLengthSeconds": 51932.813
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1782043967780,
+        "morningBlueHourEnd": 1782044658861,
+        "morningGoldenHourStart": 1782044658861,
+        "morningGoldenHourEnd": 1782047944564,
+        "eveningGoldenHourStart": 1782095443562,
+        "eveningGoldenHourEnd": 1782098727156,
+        "eveningBlueHourStart": 1782098727156,
+        "eveningBlueHourEnd": 1782099415724
+      }
+    },
+    {
+      "location": "Los Angeles",
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "date": "2026-09-23",
+      "result": {
+        "sunrise": 1790170915156,
+        "sunset": 1790214484296,
+        "solarNoon": 1790192705000,
+        "civilTwilightBegin": 1790169417500,
+        "civilTwilightEnd": 1790215981953,
+        "nauticalTwilightBegin": 1790167666718,
+        "nauticalTwilightEnd": 1790217722187,
+        "astronomicalTwilightBegin": 1790165900117,
+        "astronomicalTwilightEnd": 1790219488789,
+        "dayLengthSeconds": 43569.14
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790169417499,
+        "morningBlueHourEnd": 1790169995077,
+        "morningGoldenHourStart": 1790169995077,
+        "morningGoldenHourEnd": 1790172897370,
+        "eveningGoldenHourStart": 1790212504999,
+        "eveningGoldenHourEnd": 1790215398358,
+        "eveningBlueHourStart": 1790215398358,
+        "eveningBlueHourEnd": 1790215981526
+      }
+    },
+    {
+      "location": "Los Angeles",
+      "lat": 34.0522,
+      "lng": -118.2437,
+      "date": "2026-12-21",
+      "result": {
+        "sunrise": 1797864880421,
+        "sunset": 1797900465578,
+        "solarNoon": 1797882673000,
+        "civilTwilightBegin": 1797863214015,
+        "civilTwilightEnd": 1797902131984,
+        "nauticalTwilightBegin": 1797861336671,
+        "nauticalTwilightEnd": 1797904014601,
+        "astronomicalTwilightBegin": 1797859501515,
+        "astronomicalTwilightEnd": 1797905844484,
+        "dayLengthSeconds": 35585.157
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797863214014,
+        "morningBlueHourEnd": 1797863854750,
+        "morningGoldenHourStart": 1797863854750,
+        "morningGoldenHourEnd": 1797867188395,
+        "eveningGoldenHourStart": 1797898159328,
+        "eveningGoldenHourEnd": 1797901492140,
+        "eveningBlueHourStart": 1797901492140,
+        "eveningBlueHourEnd": 1797902131187
+      }
+    },
+    {
+      "location": "Sydney",
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "date": "2026-03-20",
+      "result": {
+        "sunrise": 1773950277781,
+        "sunset": 1773994015671,
+        "solarNoon": 1773972152000,
+        "civilTwilightBegin": 1773948780125,
+        "civilTwilightEnd": 1773995513328,
+        "nauticalTwilightBegin": 1773947034617,
+        "nauticalTwilightEnd": 1773997253562,
+        "astronomicalTwilightBegin": 1773945268015,
+        "astronomicalTwilightEnd": 1773999014890,
+        "dayLengthSeconds": 43737.89
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1773948780124,
+        "morningBlueHourEnd": 1773949361949,
+        "morningGoldenHourStart": 1773949361949,
+        "morningGoldenHourEnd": 1773952254799,
+        "eveningGoldenHourStart": 1773992043405,
+        "eveningGoldenHourEnd": 1773994929733,
+        "eveningBlueHourStart": 1773994929733,
+        "eveningBlueHourEnd": 1773995512901
+      }
+    },
+    {
+      "location": "Sydney",
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "date": "2026-06-21",
+      "result": {
+        "sunrise": 1781989200328,
+        "sunset": 1782024827671,
+        "solarNoon": 1782007014000,
+        "civilTwilightBegin": 1781987533921,
+        "civilTwilightEnd": 1782026494078,
+        "nauticalTwilightBegin": 1781985656578,
+        "nauticalTwilightEnd": 1782028371421,
+        "astronomicalTwilightBegin": 1781983831968,
+        "astronomicalTwilightEnd": 1782030196031,
+        "dayLengthSeconds": 35627.343
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1781987533921,
+        "morningBlueHourEnd": 1781988174657,
+        "morningGoldenHourStart": 1781988174657,
+        "morningGoldenHourEnd": 1781991496253,
+        "eveningGoldenHourStart": 1782022531967,
+        "eveningGoldenHourEnd": 1782025854233,
+        "eveningBlueHourStart": 1782025854233,
+        "eveningBlueHourEnd": 1782026493280
+      }
+    },
+    {
+      "location": "Sydney",
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "date": "2026-09-23",
+      "result": {
+        "sunrise": 1790106236694,
+        "sunset": 1790149916577,
+        "solarNoon": 1790128073999,
+        "civilTwilightBegin": 1790104744311,
+        "civilTwilightEnd": 1790151414233,
+        "nauticalTwilightBegin": 1790103004077,
+        "nauticalTwilightEnd": 1790153159741,
+        "astronomicalTwilightBegin": 1790101242749,
+        "astronomicalTwilightEnd": 1790154926342,
+        "dayLengthSeconds": 43679.883
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790104746069,
+        "morningBlueHourEnd": 1790105323180,
+        "morningGoldenHourStart": 1790105323180,
+        "morningGoldenHourEnd": 1790108215204,
+        "eveningGoldenHourStart": 1790147940795,
+        "eveningGoldenHourEnd": 1790150834155,
+        "eveningBlueHourStart": 1790150834155,
+        "eveningBlueHourEnd": 1790151416996
+      }
+    },
+    {
+      "location": "Sydney",
+      "lat": -33.8688,
+      "lng": 151.2093,
+      "date": "2026-12-21",
+      "result": {
+        "sunrise": 1797792037686,
+        "sunset": 1797843928311,
+        "solarNoon": 1797817982999,
+        "civilTwilightBegin": 1797790286905,
+        "civilTwilightEnd": 1797845679092,
+        "nauticalTwilightBegin": 1797788135342,
+        "nauticalTwilightEnd": 1797847830655,
+        "astronomicalTwilightBegin": 1797785772842,
+        "astronomicalTwilightEnd": 1797850193155,
+        "dayLengthSeconds": 51890.625
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797790286904,
+        "morningBlueHourEnd": 1797790977442,
+        "morningGoldenHourStart": 1797790977442,
+        "morningGoldenHourEnd": 1797794252499,
+        "eveningGoldenHourStart": 1797841713467,
+        "eveningGoldenHourEnd": 1797844990029,
+        "eveningBlueHourStart": 1797844990029,
+        "eveningBlueHourEnd": 1797845673392
+      }
+    },
+    {
+      "location": "Quito",
+      "lat": -0.1807,
+      "lng": -78.4678,
+      "date": "2026-03-20",
+      "result": {
+        "sunrise": 1774005478882,
+        "sunset": 1774049069117,
+        "solarNoon": 1774027274000,
+        "civilTwilightBegin": 1774004239625,
+        "civilTwilightEnd": 1774050308375,
+        "nauticalTwilightBegin": 1774002799976,
+        "nauticalTwilightEnd": 1774051748023,
+        "astronomicalTwilightBegin": 1774001360328,
+        "astronomicalTwilightEnd": 1774053187671,
+        "dayLengthSeconds": 43590.235
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1774004241382,
+        "morningBlueHourEnd": 1774004719287,
+        "morningGoldenHourStart": 1774004719287,
+        "morningGoldenHourEnd": 1774007117270,
+        "eveningGoldenHourStart": 1774047430835,
+        "eveningGoldenHourEnd": 1774049828492,
+        "eveningBlueHourStart": 1774049828492,
+        "eveningBlueHourEnd": 1774050309651
+      }
+    },
+    {
+      "location": "Quito",
+      "lat": -0.1807,
+      "lng": -78.4678,
+      "date": "2026-06-21",
+      "result": {
+        "sunrise": 1782040340334,
+        "sunset": 1782083946389,
+        "solarNoon": 1782062145999,
+        "civilTwilightBegin": 1782038990334,
+        "civilTwilightEnd": 1782085301663,
+        "nauticalTwilightBegin": 1782037418850,
+        "nauticalTwilightEnd": 1782086873147,
+        "astronomicalTwilightBegin": 1782035836819,
+        "astronomicalTwilightEnd": 1782088452541,
+        "dayLengthSeconds": 43606.055
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1782038990334,
+        "morningBlueHourEnd": 1782039516359,
+        "morningGoldenHourStart": 1782039516359,
+        "morningGoldenHourEnd": 1782042133553,
+        "eveningGoldenHourStart": 1782082160451,
+        "eveningGoldenHourEnd": 1782084776076,
+        "eveningBlueHourStart": 1782084776076,
+        "eveningBlueHourEnd": 1782085298640
+      }
+    },
+    {
+      "location": "Quito",
+      "lat": -0.1807,
+      "lng": -78.4678,
+      "date": "2026-09-23",
+      "result": {
+        "sunrise": 1790161375882,
+        "sunset": 1790204966117,
+        "solarNoon": 1790183171000,
+        "civilTwilightBegin": 1790160136625,
+        "civilTwilightEnd": 1790206205375,
+        "nauticalTwilightBegin": 1790158696976,
+        "nauticalTwilightEnd": 1790207645023,
+        "astronomicalTwilightBegin": 1790157257328,
+        "astronomicalTwilightEnd": 1790209084671,
+        "dayLengthSeconds": 43590.235
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790160138382,
+        "morningBlueHourEnd": 1790160616287,
+        "morningGoldenHourStart": 1790160616287,
+        "morningGoldenHourEnd": 1790163018156,
+        "eveningGoldenHourStart": 1790203327835,
+        "eveningGoldenHourEnd": 1790205725492,
+        "eveningBlueHourStart": 1790205725492,
+        "eveningBlueHourEnd": 1790206206651
+      }
+    },
+    {
+      "location": "Quito",
+      "lat": -0.1807,
+      "lng": -78.4678,
+      "date": "2026-12-21",
+      "result": {
+        "sunrise": 1797851280421,
+        "sunset": 1797894965578,
+        "solarNoon": 1797873123000,
+        "civilTwilightBegin": 1797849925148,
+        "civilTwilightEnd": 1797896320851,
+        "nauticalTwilightBegin": 1797848353664,
+        "nauticalTwilightEnd": 1797897897609,
+        "astronomicalTwilightBegin": 1797846771632,
+        "astronomicalTwilightEnd": 1797899474367,
+        "dayLengthSeconds": 43685.157
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797849926905,
+        "morningBlueHourEnd": 1797850448970,
+        "morningGoldenHourStart": 1797850448970,
+        "morningGoldenHourEnd": 1797853068603,
+        "eveningGoldenHourStart": 1797893179640,
+        "eveningGoldenHourEnd": 1797895795265,
+        "eveningBlueHourStart": 1797895795265,
+        "eveningBlueHourEnd": 1797896320940
+      }
+    },
+    {
+      "location": "Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "date": "2026-03-20",
+      "result": {
+        "sunrise": 1773991710577,
+        "sunset": 1774035807061,
+        "solarNoon": 1774013742999,
+        "civilTwilightBegin": 1773988852374,
+        "civilTwilightEnd": 1774038686358,
+        "nauticalTwilightBegin": 1773985371905,
+        "nauticalTwilightEnd": 1774042198467,
+        "astronomicalTwilightBegin": 1773981406280,
+        "astronomicalTwilightEnd": 1774046227374,
+        "dayLengthSeconds": 44096.484
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1773988855889,
+        "morningBlueHourEnd": 1773989975258,
+        "morningGoldenHourStart": 1773989975258,
+        "morningGoldenHourEnd": 1773995490025,
+        "eveningGoldenHourStart": 1774032010186,
+        "eveningGoldenHourEnd": 1774037564873,
+        "eveningBlueHourStart": 1774037564873,
+        "eveningBlueHourEnd": 1774038680946
+      }
+    },
+    {
+      "location": "Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "date": "2026-06-21",
+      "result": {
+        "sunrise": 1782010522875,
+        "sunset": 1782086629125,
+        "solarNoon": 1782048576000,
+        "civilTwilightBegin": 1782005376000,
+        "civilTwilightEnd": 1782091776000,
+        "nauticalTwilightBegin": 1782005376000,
+        "nauticalTwilightEnd": 1782091776000,
+        "astronomicalTwilightBegin": 1782005376000,
+        "astronomicalTwilightEnd": 1782091776000,
+        "dayLengthSeconds": 76106.25
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1782003323314,
+        "morningBlueHourEnd": 1782003323753,
+        "morningGoldenHourStart": 1782003323753,
+        "morningGoldenHourEnd": 1782017540073,
+        "eveningGoldenHourStart": 1782079611937,
+        "eveningGoldenHourEnd": 1782093828685,
+        "eveningBlueHourStart": 1782093828685,
+        "eveningBlueHourEnd": 1782093829015
+      }
+    },
+    {
+      "location": "Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "date": "2026-09-23",
+      "result": {
+        "sunrise": 1790147611859,
+        "sunset": 1790191507953,
+        "solarNoon": 1790169581000,
+        "civilTwilightBegin": 1790144732562,
+        "civilTwilightEnd": 1790194366156,
+        "nauticalTwilightBegin": 1790141231000,
+        "nauticalTwilightEnd": 1790197846625,
+        "astronomicalTwilightBegin": 1790137233734,
+        "astronomicalTwilightEnd": 1790201780609,
+        "dayLengthSeconds": 43896.094
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790144743109,
+        "morningBlueHourEnd": 1790145854211,
+        "morningGoldenHourStart": 1790145854211,
+        "morningGoldenHourEnd": 1790151409002,
+        "eveningGoldenHourStart": 1790187725140,
+        "eveningGoldenHourEnd": 1790193251703,
+        "eveningBlueHourStart": 1790193251703,
+        "eveningBlueHourEnd": 1790194360003
+      }
+    },
+    {
+      "location": "Reykjavik",
+      "lat": 64.1466,
+      "lng": -21.9426,
+      "date": "2026-12-21",
+      "result": {
+        "sunrise": 1797852148093,
+        "sunset": 1797866955906,
+        "solarNoon": 1797859552000,
+        "civilTwilightBegin": 1797847380906,
+        "civilTwilightEnd": 1797871723093,
+        "nauticalTwilightBegin": 1797843235984,
+        "nauticalTwilightEnd": 1797875878562,
+        "astronomicalTwilightBegin": 1797839628953,
+        "astronomicalTwilightEnd": 1797879475046,
+        "dayLengthSeconds": 14807.813
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797847380905,
+        "morningBlueHourEnd": 1797849005357,
+        "morningGoldenHourStart": 1797849005357,
+        "morningGoldenHourEnd": 1797859347777,
+        "eveningGoldenHourStart": 1797859756345,
+        "eveningGoldenHourEnd": 1797870105906,
+        "eveningBlueHourStart": 1797870105906,
+        "eveningBlueHourEnd": 1797871719577
+      }
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "date": "2026-03-20",
+      "result": {
+        "sunrise": 1773981828749,
+        "sunset": 1774026093983,
+        "solarNoon": 1774003934999,
+        "civilTwilightBegin": 1773978221717,
+        "civilTwilightEnd": 1774029732655,
+        "nauticalTwilightBegin": 1773973654920,
+        "nauticalTwilightEnd": 1774034373280,
+        "astronomicalTwilightBegin": 1773967569374,
+        "astronomicalTwilightEnd": 1774040680311,
+        "dayLengthSeconds": 44265.234
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1773978228749,
+        "morningBlueHourEnd": 1773979642030,
+        "morningGoldenHourStart": 1773979642030,
+        "morningGoldenHourEnd": 1773986590402,
+        "eveningGoldenHourStart": 1774021312733,
+        "eveningGoldenHourEnd": 1774028301795,
+        "eveningBlueHourStart": 1774028301795,
+        "eveningBlueHourEnd": 1774029725348
+      }
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "date": "2026-06-21",
+      "result": {
+        "sunrise": 1781995559000,
+        "sunset": 1782081959000,
+        "solarNoon": 1782038759000,
+        "civilTwilightBegin": 1781995559000,
+        "civilTwilightEnd": 1782081959000,
+        "nauticalTwilightBegin": 1781995559000,
+        "nauticalTwilightEnd": 1782081959000,
+        "astronomicalTwilightBegin": 1781995559000,
+        "astronomicalTwilightEnd": 1782081959000,
+        "dayLengthSeconds": 86400
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1781988359439,
+        "morningBlueHourEnd": 1781988359878,
+        "morningGoldenHourStart": 1781988359878,
+        "morningGoldenHourEnd": 1782002758560,
+        "eveningGoldenHourStart": 1782074759439,
+        "eveningGoldenHourEnd": 1782089158560,
+        "eveningBlueHourStart": 1782089158560,
+        "eveningBlueHourEnd": 1782089158890
+      }
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "date": "2026-09-23",
+      "result": {
+        "sunrise": 1790137665843,
+        "sunset": 1790181793968,
+        "solarNoon": 1790159751000,
+        "civilTwilightBegin": 1790134037718,
+        "civilTwilightEnd": 1790185401000,
+        "nauticalTwilightBegin": 1790129418187,
+        "nauticalTwilightEnd": 1790189957250,
+        "astronomicalTwilightBegin": 1790123174437,
+        "astronomicalTwilightEnd": 1790195990062,
+        "dayLengthSeconds": 44128.125
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1790134037718,
+        "morningBlueHourEnd": 1790135465254,
+        "morningGoldenHourStart": 1790135465254,
+        "morningGoldenHourEnd": 1790142460614,
+        "eveningGoldenHourStart": 1790177026780,
+        "eveningGoldenHourEnd": 1790183987718,
+        "eveningBlueHourStart": 1790183987718,
+        "eveningBlueHourEnd": 1790185395725
+      }
+    },
+    {
+      "location": "Tromso",
+      "lat": 69.6492,
+      "lng": 18.9553,
+      "date": "2026-12-21",
+      "result": {
+        "sunrise": 1797849733000,
+        "sunset": 1797849733000,
+        "solarNoon": 1797849733000,
+        "civilTwilightBegin": 1797841886125,
+        "civilTwilightEnd": 1797857600968,
+        "nauticalTwilightBegin": 1797835600187,
+        "nauticalTwilightEnd": 1797863865812,
+        "astronomicalTwilightBegin": 1797830896281,
+        "astronomicalTwilightEnd": 1797868569718,
+        "dayLengthSeconds": 0
+      },
+      "goldenAndBlueHours": {
+        "morningBlueHourStart": 1797842533439,
+        "morningBlueHourEnd": 1797845373977,
+        "morningGoldenHourStart": 1797845373977,
+        "morningGoldenHourEnd": 1797856932647,
+        "eveningGoldenHourStart": 1797842533439,
+        "eveningGoldenHourEnd": 1797854120500,
+        "eveningBlueHourStart": 1797854120500,
+        "eveningBlueHourEnd": 1797856932656
+      }
+    }
+  ]
+}

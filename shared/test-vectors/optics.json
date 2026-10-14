@@ -1,0 +1,817 @@
+{
+  "description": "景深与超焦距（米）；null 表示无穷远",
+  "depthOfField": [
+    {
+      "aperture": 1.8,
+      "focalLength": 24,
+      "distance": 0.5,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.47932319564774545,
+        "farLimit": 0.5225411174541797,
+        "totalDoF": 0.04321792180643427,
+        "hyperFocalDistance": 11.058482758620688,
+        "inFrontOfSubject": 0.02067680435225458,
+        "behindSubject": 0.022541117454179697
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 24,
+      "distance": 0.5,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 0.48625715709753103,
+        "farLimit": 0.5145422503505319,
+        "totalDoF": 0.028285093253000923,
+        "hyperFocalDistance": 16.866105263157895,
+        "inFrontOfSubject": 0.013742842902468964,
+        "behindSubject": 0.014542250350531959
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 24,
+      "distance": 3,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 2.362762857367882,
+        "farLimit": 4.107900862659181,
+        "totalDoF": 1.745138005291299,
+        "hyperFocalDistance": 11.058482758620688,
+        "inFrontOfSubject": 0.6372371426321178,
+        "behindSubject": 1.1079008626591813
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 24,
+      "distance": 3,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 2.5495028469448457,
+        "farLimit": 3.6438722215474315,
+        "totalDoF": 1.0943693746025855,
+        "hyperFocalDistance": 16.866105263157895,
+        "inFrontOfSubject": 0.4504971530551543,
+        "behindSubject": 0.6438722215474313
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 24,
+      "distance": 20,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 7.11661462642221,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 11.058482758620688,
+        "inFrontOfSubject": 12.883385373577788,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 24,
+      "distance": 20,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 9.14881694360898,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 16.866105263157895,
+        "inFrontOfSubject": 10.85118305639102,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 50,
+      "distance": 0.5,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.4953457315067624,
+        "farLimit": 0.5047425611041344,
+        "totalDoF": 0.009396829597372005,
+        "hyperFocalDistance": 47.94272030651341,
+        "inFrontOfSubject": 0.004654268493237567,
+        "behindSubject": 0.004742561104134438
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 50,
+      "distance": 0.5,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 0.49694083223675056,
+        "farLimit": 0.5030970655354362,
+        "totalDoF": 0.006156233298685606,
+        "hyperFocalDistance": 73.14941520467836,
+        "inFrontOfSubject": 0.003059167763249434,
+        "behindSubject": 0.0030970655354361724
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 50,
+      "distance": 3,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 2.8259337827196034,
+        "farLimit": 3.1969173191930125,
+        "totalDoF": 0.3709835364734095,
+        "hyperFocalDistance": 47.94272030651341,
+        "inFrontOfSubject": 0.1740662172803968,
+        "behindSubject": 0.19691731919301264
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 50,
+      "distance": 3,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 2.8836282964677475,
+        "farLimit": 3.1261592840678416,
+        "totalDoF": 0.24253098760009426,
+        "hyperFocalDistance": 73.14941520467836,
+        "inFrontOfSubject": 0.11637170353225247,
+        "behindSubject": 0.12615928406784177
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 50,
+      "distance": 20,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 14.118749982351563,
+        "farLimit": 34.27921102967894,
+        "totalDoF": 20.160461047327377,
+        "hyperFocalDistance": 47.94272030651341,
+        "inFrontOfSubject": 5.881250017648437,
+        "behindSubject": 14.27921102967894
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 50,
+      "distance": 20,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 15.711955855688828,
+        "farLimit": 27.507138102337557,
+        "totalDoF": 11.79518224664873,
+        "hyperFocalDistance": 73.14941520467836,
+        "inFrontOfSubject": 4.288044144311172,
+        "behindSubject": 7.507138102337558
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 200,
+      "distance": 0.5,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.49980432660613366,
+        "farLimit": 0.5001958266661397,
+        "totalDoF": 0.00039150006000608075,
+        "hyperFocalDistance": 766.4835249042145,
+        "inFrontOfSubject": 0.00019567339386634332,
+        "behindSubject": 0.00019582666613973744
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 200,
+      "distance": 0.5,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 0.49987178288768935,
+        "farLimit": 0.500128282904565,
+        "totalDoF": 0.000256500016875691,
+        "hyperFocalDistance": 1169.7906432748537,
+        "inFrontOfSubject": 0.00012821711231066502,
+        "behindSubject": 0.000128282904565026
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 200,
+      "distance": 3,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 2.989077909319347,
+        "farLimit": 3.011002202046277,
+        "totalDoF": 0.021924292726930163,
+        "hyperFocalDistance": 766.4835249042145,
+        "inFrontOfSubject": 0.010922090680653128,
+        "behindSubject": 0.011002202046277033
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 200,
+      "distance": 3,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 2.992835152644569,
+        "farLimit": 3.007199234968515,
+        "totalDoF": 0.014364082323945695,
+        "hyperFocalDistance": 1169.7906432748537,
+        "inFrontOfSubject": 0.007164847355430993,
+        "behindSubject": 0.007199234968514702
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 200,
+      "distance": 20,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 19.496236738903473,
+        "farLimit": 20.530487260319394,
+        "totalDoF": 1.034250521415921,
+        "hyperFocalDistance": 766.4835249042145,
+        "inFrontOfSubject": 0.5037632610965266,
+        "behindSubject": 0.5304872603193944
+      }
+    },
+    {
+      "aperture": 1.8,
+      "focalLength": 200,
+      "distance": 20,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 19.667056402167702,
+        "farLimit": 20.34441052579112,
+        "totalDoF": 0.677354123623416,
+        "hyperFocalDistance": 1169.7906432748537,
+        "inFrontOfSubject": 0.3329435978322981,
+        "behindSubject": 0.34441052579111786
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 24,
+      "distance": 0.5,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.4408371988224748,
+        "farLimit": 0.5775042831567667,
+        "totalDoF": 0.13666708433429192,
+        "hyperFocalDistance": 3.5707980295566504,
+        "inFrontOfSubject": 0.05916280117752518,
+        "behindSubject": 0.07750428315676675
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 24,
+      "distance": 0.5,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 0.45958933139965374,
+        "farLimit": 0.5482022013363951,
+        "totalDoF": 0.08861286993674133,
+        "hyperFocalDistance": 5.437533834586467,
+        "inFrontOfSubject": 0.04041066860034624,
+        "behindSubject": 0.04820220133639509
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 24,
+      "distance": 3,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 1.6312622344667587,
+        "farLimit": 18.641259320629658,
+        "totalDoF": 17.0099970861629,
+        "hyperFocalDistance": 3.5707980295566504,
+        "inFrontOfSubject": 1.3687377655332413,
+        "behindSubject": 15.64125932062966
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 24,
+      "distance": 3,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 1.9358169147380198,
+        "farLimit": 6.6627183891027535,
+        "totalDoF": 4.726901474364734,
+        "hyperFocalDistance": 5.437533834586467,
+        "inFrontOfSubject": 1.0641830852619802,
+        "behindSubject": 3.6627183891027535
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 24,
+      "distance": 20,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 3.0156259685604243,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 3.5707980295566504,
+        "inFrontOfSubject": 16.984374031439575,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 24,
+      "distance": 20,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 4.2643822213166995,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 5.437533834586467,
+        "inFrontOfSubject": 15.735617778683299,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 50,
+      "distance": 0.5,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.48579912012063364,
+        "farLimit": 0.5150561205148912,
+        "totalDoF": 0.02925700039425766,
+        "hyperFocalDistance": 15.44408866995074,
+        "inFrontOfSubject": 0.01420087987936637,
+        "behindSubject": 0.01505612051489129
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 50,
+      "distance": 0.5,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 0.4906039530904124,
+        "farLimit": 0.5097629806045382,
+        "totalDoF": 0.01915902751412574,
+        "hyperFocalDistance": 23.546240601503758,
+        "inFrontOfSubject": 0.009396046909587596,
+        "behindSubject": 0.009762980604538143
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 50,
+      "distance": 3,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 2.517555755468131,
+        "farLimit": 3.71118104625616,
+        "totalDoF": 1.1936252907880294,
+        "hyperFocalDistance": 15.44408866995074,
+        "inFrontOfSubject": 0.4824442445318691,
+        "behindSubject": 0.7111810462561603
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 50,
+      "distance": 3,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 2.6653588639174375,
+        "farLimit": 3.430735732713666,
+        "totalDoF": 0.7653768687962283,
+        "hyperFocalDistance": 23.546240601503758,
+        "inFrontOfSubject": 0.3346411360825623,
+        "behindSubject": 0.43073573271366605
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 50,
+      "distance": 20,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 8.710983504881636,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 15.44408866995074,
+        "inFrontOfSubject": 11.289016495118364,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 50,
+      "distance": 20,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 10.81623646888818,
+        "farLimit": 132.5135163786706,
+        "totalDoF": 121.69727990978244,
+        "hyperFocalDistance": 23.546240601503758,
+        "inFrontOfSubject": 9.18376353111182,
+        "behindSubject": 112.51351637867062
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 200,
+      "distance": 0.5,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.49939174085963295,
+        "farLimit": 0.5006097426665679,
+        "totalDoF": 0.0012180018069349217,
+        "hyperFocalDistance": 246.50541871921183,
+        "inFrontOfSubject": 0.0006082591403670677,
+        "behindSubject": 0.000609742666567854
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 200,
+      "distance": 0.5,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 0.4996013181481178,
+        "farLimit": 0.5003993186562877,
+        "totalDoF": 0.0007980005081699346,
+        "hyperFocalDistance": 376.13984962406016,
+        "inFrontOfSubject": 0.00039868185188220195,
+        "behindSubject": 0.00039931865628773267
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 200,
+      "distance": 3,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 2.966279336502638,
+        "farLimit": 3.0344961522588787,
+        "totalDoF": 0.06821681575624097,
+        "hyperFocalDistance": 246.50541871921183,
+        "inFrontOfSubject": 0.03372066349736224,
+        "behindSubject": 0.03449615225887874
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 200,
+      "distance": 3,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 2.9778211877933156,
+        "farLimit": 3.022511666895034,
+        "totalDoF": 0.044690479101718666,
+        "hyperFocalDistance": 376.13984962406016,
+        "inFrontOfSubject": 0.022178812206684596,
+        "behindSubject": 0.022511666895034067
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 200,
+      "distance": 20,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 18.511867958548223,
+        "farLimit": 21.748302544986363,
+        "totalDoF": 3.2364345864381394,
+        "hyperFocalDistance": 246.50541871921183,
+        "inFrontOfSubject": 1.4881320414517758,
+        "behindSubject": 1.7483025449863634
+      }
+    },
+    {
+      "aperture": 5.6,
+      "focalLength": 200,
+      "distance": 20,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 18.999342622745253,
+        "farLimit": 21.111922747252283,
+        "totalDoF": 2.112580124507029,
+        "hyperFocalDistance": 376.13984962406016,
+        "inFrontOfSubject": 1.0006573772547454,
+        "behindSubject": 1.1119227472522835
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 24,
+      "distance": 0.5,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.3614167536744036,
+        "farLimit": 0.8109569291764281,
+        "totalDoF": 0.4495401755020245,
+        "hyperFocalDistance": 1.2653793103448274,
+        "inFrontOfSubject": 0.13858324632559635,
+        "behindSubject": 0.31095692917642814
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 24,
+      "distance": 0.5,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 0.39960927093508564,
+        "farLimit": 0.6677548597714794,
+        "totalDoF": 0.26814558883639383,
+        "hyperFocalDistance": 1.918736842105263,
+        "inFrontOfSubject": 0.10039072906491435,
+        "behindSubject": 0.16775485977147947
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 24,
+      "distance": 3,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.8830455259026686,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 1.2653793103448274,
+        "inFrontOfSubject": 2.1169544740973314,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 24,
+      "distance": 3,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 1.16701244813278,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 1.918736842105263,
+        "inFrontOfSubject": 1.83298755186722,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 24,
+      "distance": 20,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 1.1701532900810006,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 1.2653793103448274,
+        "inFrontOfSubject": 18.829846709919,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 24,
+      "distance": 20,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 1.7326685020118207,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 1.918736842105263,
+        "inFrontOfSubject": 18.26733149798818,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 50,
+      "distance": 0.5,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.46145894861193154,
+        "farLimit": 0.5455656424581006,
+        "totalDoF": 0.08410669384616903,
+        "hyperFocalDistance": 5.437931034482758,
+        "inFrontOfSubject": 0.038541051388068466,
+        "behindSubject": 0.04556564245810057
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 50,
+      "distance": 0.5,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 0.47405946601941745,
+        "farLimit": 0.5289438050101556,
+        "totalDoF": 0.05488433899073817,
+        "hyperFocalDistance": 8.273684210526318,
+        "inFrontOfSubject": 0.02594053398058253,
+        "behindSubject": 0.028943805010155643
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 50,
+      "distance": 3,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 1.9385856079404467,
+        "farLimit": 6.630127298444131,
+        "totalDoF": 4.6915416905036835,
+        "hyperFocalDistance": 5.437931034482758,
+        "inFrontOfSubject": 1.0614143920595533,
+        "behindSubject": 3.63012729844413
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 50,
+      "distance": 3,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 2.207960433349035,
+        "farLimit": 4.678143712574851,
+        "totalDoF": 2.470183279225816,
+        "hyperFocalDistance": 8.273684210526318,
+        "inFrontOfSubject": 0.7920395666509653,
+        "behindSubject": 1.6781437125748506
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 50,
+      "distance": 20,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 4.252857920522591,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 5.437931034482758,
+        "inFrontOfSubject": 15.74714207947741,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 50,
+      "distance": 20,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 5.837847935736971,
+        "farLimit": null,
+        "totalDoF": null,
+        "hyperFocalDistance": 8.273684210526318,
+        "inFrontOfSubject": 14.16215206426303,
+        "behindSubject": null
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 200,
+      "distance": 0.5,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 0.49826603420098065,
+        "farLimit": 0.501746076345683,
+        "totalDoF": 0.003480042144702395,
+        "hyperFocalDistance": 86.40689655172413,
+        "inFrontOfSubject": 0.0017339657990193586,
+        "behindSubject": 0.0017460763456830363
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 200,
+      "distance": 0.5,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 0.4988625932873049,
+        "farLimit": 0.5011426051397185,
+        "totalDoF": 0.0022800118524135657,
+        "hyperFocalDistance": 131.77894736842106,
+        "inFrontOfSubject": 0.0011374067126950535,
+        "behindSubject": 0.001142605139718512
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 200,
+      "distance": 3,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 2.905625290562529,
+        "farLimit": 3.1007110964114437,
+        "totalDoF": 0.1950858058489148,
+        "hyperFocalDistance": 86.40689655172413,
+        "inFrontOfSubject": 0.09437470943747121,
+        "behindSubject": 0.10071109641144357
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 200,
+      "distance": 3,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 2.9374902083659724,
+        "farLimit": 3.065228052967141,
+        "totalDoF": 0.12773784460116894,
+        "hyperFocalDistance": 131.77894736842106,
+        "inFrontOfSubject": 0.06250979163402781,
+        "behindSubject": 0.06522805296714114
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 200,
+      "distance": 20,
+      "coc": 0.029,
+      "result": {
+        "nearLimit": 16.26439398867998,
+        "farLimit": 25.96323605774224,
+        "totalDoF": 9.698842069062259,
+        "hyperFocalDistance": 86.40689655172413,
+        "inFrontOfSubject": 3.7356060113200185,
+        "behindSubject": 5.9632360577422405
+      }
+    },
+    {
+      "aperture": 16,
+      "focalLength": 200,
+      "distance": 20,
+      "coc": 0.019,
+      "result": {
+        "nearLimit": 17.38404839719074,
+        "farLimit": 23.54270646953574,
+        "totalDoF": 6.158658072345003,
+        "hyperFocalDistance": 131.77894736842106,
+        "inFrontOfSubject": 2.615951602809262,
+        "behindSubject": 3.5427064695357404
+      }
+    }
+  ],
+  "hyperFocal": [
+    {
+      "aperture": 2.8,
+      "focalLength": 16,
+      "coc": 0.029,
+      "result": 3.1687093596059115
+    },
+    {
+      "aperture": 2.8,
+      "focalLength": 35,
+      "coc": 0.029,
+      "result": 15.121206896551724
+    },
+    {
+      "aperture": 2.8,
+      "focalLength": 85,
+      "coc": 0.029,
+      "result": 89.06283251231528
+    },
+    {
+      "aperture": 8,
+      "focalLength": 16,
+      "coc": 0.029,
+      "result": 1.1194482758620687
+    },
+    {
+      "aperture": 8,
+      "focalLength": 35,
+      "coc": 0.029,
+      "result": 5.315172413793103
+    },
+    {
+      "aperture": 8,
+      "focalLength": 85,
+      "coc": 0.029,
+      "result": 31.227241379310342
+    },
+    {
+      "aperture": 22,
+      "focalLength": 16,
+      "coc": 0.029,
+      "result": 0.4172539184952978
+    },
+    {
+      "aperture": 22,
+      "focalLength": 35,
+      "coc": 0.029,
+      "result": 1.955062695924765
+    },
+    {
+      "aperture": 22,
+      "focalLength": 85,
+      "coc": 0.029,
+      "result": 11.409451410658306
+    }
+  ]
+}

@@ -1,0 +1,5459 @@
+{
+  "description": "exposureLocks.ts：locked 为按插入顺序排列的锁定参数；toggleParamLock 的 result 也按插入顺序",
+  "applyParamChange": [
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.002,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 16,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.004,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.0005,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.125,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 5.6,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.004,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.002,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 2,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.004,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.0005,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.125,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.004,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 16,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 0.008,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 5.6,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.002,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 16,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.004,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.0005,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.125,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 5.6,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.004,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 2,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.002,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.004,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.0005,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.125,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.004,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 16,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 0.008,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 5.6,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.008,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.25,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 2,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.004,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.004,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.004,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.0005,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.25,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 2,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.004,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.004,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.004,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.0005,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 800
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 6400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 2,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2,
+        "shutter": 0.016666666666666666,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 5.6,
+        "shutter": 0.016666666666666666,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 640
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 5.6,
+        "shutter": 0.016666666666666666,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 16,
+        "shutter": 0.016666666666666666,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.25,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 2,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.004,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.004,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.004,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.0005,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 800
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 6400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 2,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 640
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.25,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 2,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.03333333333333333,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.004,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.004,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 2,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.004,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.0005,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 32,
+        "shutter": 2,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 2,
+        "shutter": 0.016666666666666666,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": null,
+      "result": {
+        "aperture": 5.6,
+        "shutter": 0.016666666666666666,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 4,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 4,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "aperture",
+      "value": 11,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 0.03333333333333333,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 11,
+        "shutter": 0.03333333333333333,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "shutter",
+      "value": 2,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 200,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 5.6,
+        "shutter": 0.016666666666666666,
+        "iso": 200
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "param": "iso",
+      "value": 1600,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "targetEV": 10,
+      "result": {
+        "aperture": 16,
+        "shutter": 0.016666666666666666,
+        "iso": 1600
+      }
+    }
+  ],
+  "applyTargetEV": [
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": -2,
+      "locked": [],
+      "result": {
+        "aperture": 8,
+        "shutter": 240,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 5,
+      "locked": [],
+      "result": {
+        "aperture": 8,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 11,
+      "locked": [],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 16,
+      "locked": [],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.001,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": -2,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 5,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 25600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 11,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 16,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": -2,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 5,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 25600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 11,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 16,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": -2,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 240,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 5,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 11,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 16,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.001,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": -2,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 5,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 25600
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 11,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 16,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": -2,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 240,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 5,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 2,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 11,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.03333333333333333,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 16,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.001,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": -2,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 5,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 11,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 4,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
+      },
+      "targetEV": 16,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 22,
+        "shutter": 0.008,
+        "iso": 100
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": -2,
+      "locked": [],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 8,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 5,
+      "locked": [],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.06666666666666667,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 11,
+      "locked": [],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.001,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 16,
+      "locked": [],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": -2,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 5,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 11,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 16,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": -2,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 5,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 11,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 16,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": -2,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 8,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 5,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.06666666666666667,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 11,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.001,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 16,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": -2,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 5,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 1600
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 11,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 16,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": -2,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 8,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 5,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.06666666666666667,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 11,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.001,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 16,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": -2,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 5,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 1.4,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 11,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 11,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      },
+      "targetEV": 16,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": -2,
+      "locked": [],
+      "result": {
+        "aperture": 16,
+        "shutter": 1800,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 5,
+      "locked": [],
+      "result": {
+        "aperture": 16,
+        "shutter": 15,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 11,
+      "locked": [],
+      "result": {
+        "aperture": 16,
+        "shutter": 0.25,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 16,
+      "locked": [],
+      "result": {
+        "aperture": 16,
+        "shutter": 0.008,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": -2,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 3200
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 5,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 11,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 16,
+      "locked": [
+        "aperture"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": -2,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 3200
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 5,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 11,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 16,
+      "locked": [
+        "shutter"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": -2,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 1800,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 5,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 15,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 11,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 0.25,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 16,
+      "locked": [
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 0.008,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": -2,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 3200
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 5,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 11,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 16,
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": -2,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 1800,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 5,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 15,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 11,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 0.25,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 16,
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 0.008,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": -2,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 2,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 5,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 22,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 11,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    },
+    {
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      },
+      "targetEV": 16,
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "result": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
+      }
+    }
+  ],
+  "isAutoAdjusted": [
+    {
+      "param": "aperture",
+      "locked": [],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "aperture"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "aperture"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "aperture"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "aperture"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "aperture"
+      ],
+      "evLocked": true,
+      "result": true
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "aperture"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "shutter"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "shutter"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "shutter"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "shutter"
+      ],
+      "evLocked": true,
+      "result": true
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "shutter"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "shutter"
+      ],
+      "evLocked": true,
+      "result": true
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "iso"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "iso"
+      ],
+      "evLocked": true,
+      "result": true
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "iso"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "evLocked": false,
+      "result": true
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "evLocked": true,
+      "result": true
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "evLocked": false,
+      "result": true
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "evLocked": true,
+      "result": true
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "evLocked": false,
+      "result": true
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "evLocked": true,
+      "result": true
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "aperture",
+        "shutter",
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "aperture",
+        "shutter",
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "aperture",
+        "shutter",
+        "iso"
+      ],
+      "evLocked": false,
+      "result": false
+    },
+    {
+      "param": "aperture",
+      "locked": [
+        "aperture",
+        "shutter",
+        "iso"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "shutter",
+      "locked": [
+        "aperture",
+        "shutter",
+        "iso"
+      ],
+      "evLocked": true,
+      "result": false
+    },
+    {
+      "param": "iso",
+      "locked": [
+        "aperture",
+        "shutter",
+        "iso"
+      ],
+      "evLocked": true,
+      "result": false
+    }
+  ],
+  "toggleParamLock": [
+    {
+      "locked": [],
+      "param": "aperture",
+      "evLocked": false,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [],
+      "param": "shutter",
+      "evLocked": false,
+      "result": [
+        "shutter"
+      ]
+    },
+    {
+      "locked": [],
+      "param": "iso",
+      "evLocked": false,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "shutter"
+      ]
+    },
+    {
+      "locked": [],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "aperture"
+      ],
+      "param": "aperture",
+      "evLocked": false,
+      "result": []
+    },
+    {
+      "locked": [
+        "aperture"
+      ],
+      "param": "shutter",
+      "evLocked": false,
+      "result": [
+        "aperture",
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "aperture"
+      ],
+      "param": "iso",
+      "evLocked": false,
+      "result": [
+        "aperture",
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "aperture"
+      ],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "aperture"
+      ],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "aperture",
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "aperture"
+      ],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "aperture",
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "shutter"
+      ],
+      "param": "aperture",
+      "evLocked": false,
+      "result": [
+        "shutter",
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "shutter"
+      ],
+      "param": "shutter",
+      "evLocked": false,
+      "result": []
+    },
+    {
+      "locked": [
+        "shutter"
+      ],
+      "param": "iso",
+      "evLocked": false,
+      "result": [
+        "shutter",
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "shutter"
+      ],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "shutter",
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "shutter"
+      ],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "shutter"
+      ],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "shutter",
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "iso"
+      ],
+      "param": "aperture",
+      "evLocked": false,
+      "result": [
+        "iso",
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "iso"
+      ],
+      "param": "shutter",
+      "evLocked": false,
+      "result": [
+        "iso",
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "iso"
+      ],
+      "param": "iso",
+      "evLocked": false,
+      "result": []
+    },
+    {
+      "locked": [
+        "iso"
+      ],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "iso",
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "iso"
+      ],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "iso",
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "iso"
+      ],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "param": "aperture",
+      "evLocked": false,
+      "result": [
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "param": "shutter",
+      "evLocked": false,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "param": "iso",
+      "evLocked": false,
+      "result": [
+        "shutter",
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "shutter"
+      ],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "shutter",
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "aperture"
+      ],
+      "param": "aperture",
+      "evLocked": false,
+      "result": [
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "aperture"
+      ],
+      "param": "shutter",
+      "evLocked": false,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "aperture"
+      ],
+      "param": "iso",
+      "evLocked": false,
+      "result": [
+        "aperture",
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "aperture"
+      ],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "aperture"
+      ],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "aperture"
+      ],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "aperture",
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "param": "aperture",
+      "evLocked": false,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "param": "shutter",
+      "evLocked": false,
+      "result": [
+        "iso",
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "param": "iso",
+      "evLocked": false,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "iso",
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "aperture",
+        "iso"
+      ],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "aperture"
+      ],
+      "param": "aperture",
+      "evLocked": false,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "aperture"
+      ],
+      "param": "shutter",
+      "evLocked": false,
+      "result": [
+        "iso",
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "aperture"
+      ],
+      "param": "iso",
+      "evLocked": false,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "aperture"
+      ],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "aperture"
+      ],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "iso",
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "aperture"
+      ],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "param": "aperture",
+      "evLocked": false,
+      "result": [
+        "iso",
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "param": "shutter",
+      "evLocked": false,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "param": "iso",
+      "evLocked": false,
+      "result": [
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "iso",
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "shutter",
+        "iso"
+      ],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "shutter"
+      ],
+      "param": "aperture",
+      "evLocked": false,
+      "result": [
+        "iso",
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "shutter"
+      ],
+      "param": "shutter",
+      "evLocked": false,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "shutter"
+      ],
+      "param": "iso",
+      "evLocked": false,
+      "result": [
+        "shutter"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "shutter"
+      ],
+      "param": "aperture",
+      "evLocked": true,
+      "result": [
+        "iso",
+        "aperture"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "shutter"
+      ],
+      "param": "shutter",
+      "evLocked": true,
+      "result": [
+        "iso"
+      ]
+    },
+    {
+      "locked": [
+        "iso",
+        "shutter"
+      ],
+      "param": "iso",
+      "evLocked": true,
+      "result": [
+        "shutter"
+      ]
+    }
+  ]
+}
