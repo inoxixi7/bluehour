@@ -16,4 +16,11 @@ module.exports = {
     'react/prop-types': 'off',
     'react-hooks/exhaustive-deps': 'warn',
   },
+  overrides: [
+    {
+      // 命令行脚本需要输出到终端
+      files: ['scripts/**/*'],
+      rules: { 'no-console': 'off' },
+    },
+  ],
 };
