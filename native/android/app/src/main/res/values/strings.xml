@@ -148,4 +148,19 @@
         <item>Extreme Cases: Some films may require several times the compensation for ultra-long exposures</item>
         <item>Rule of Thumb: At 1s metered exposure, compensation is minimal; beyond 10s, compensation increases significantly</item>
     </string-array>
+    <string name="tab_settings">Settings</string>
+    <string name="settings_preferences">Preferences</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">Follow System</string>
+    <string name="theme_light">Light Mode</string>
+    <string name="theme_dark">Dark Mode</string>
+    <string name="settings_reminders">Photo Reminders</string>
+    <string name="golden_reminder_title">Golden Hour Reminder</string>
+    <string name="golden_reminder_description">Remind you 30 minutes before golden hour</string>
+    <string name="notification_permission_message">Please allow notification permission in system settings to receive photo reminders</string>
+    <string name="golden_notification_title">Golden hour starting soon</string>
+    <string name="golden_notification_body">Golden hour starts in 30 minutes (%1$s). Get your gear ready.</string>
+    <string name="settings_version">Version</string>
+    <string name="exact_alarm_hint">Allow “Alarms &amp; reminders” so reminders arrive on time.</string>
 </resources>

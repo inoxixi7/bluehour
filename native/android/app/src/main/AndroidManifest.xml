@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+    <!-- 黄金时刻提醒：开机后重新安排 -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -26,6 +28,20 @@
         <receiver
             android:name=".timer.ExposureTimerReceiver"
             android:exported="false" />
+        <receiver
+            android:name=".reminder.GoldenHourReceiver"
+            android:exported="false" />
+        <!-- 只接收系统广播，收到后仅重新安排提醒 -->
+        <receiver
+            android:name=".reminder.RescheduleReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+                <action android:name="android.intent.action.TIME_SET" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
