@@ -56,10 +56,10 @@
       "states": [
         {
           "nowMs": 1773940822826,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1630,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.7281764034466225,
           "nextBlueHour": {
             "id": "morning",
             "start": 1773951622826,
@@ -410,10 +410,10 @@
       "states": [
         {
           "nowMs": 1781970941342,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1632,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.6436301496020833,
           "nextBlueHour": {
             "id": "morning",
             "start": 1781981741342,
@@ -764,10 +764,10 @@
       "states": [
         {
           "nowMs": 1790096656639,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1630,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.7277970547590917,
           "nextBlueHour": {
             "id": "morning",
             "start": 1790107456639,
@@ -1118,10 +1118,10 @@
       "states": [
         {
           "nowMs": 1797790714226,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1631,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.7745971910928073,
           "nextBlueHour": {
             "id": "morning",
             "start": 1797801514226,
@@ -1472,10 +1472,10 @@
       "states": [
         {
           "nowMs": 1773971915655,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1632,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.7229062404259937,
           "nextBlueHour": {
             "id": "morning",
             "start": 1773982715655,
@@ -1826,10 +1826,10 @@
       "states": [
         {
           "nowMs": 1781999321109,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1636,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.5521871181151258,
           "nextBlueHour": {
             "id": "morning",
             "start": 1782010121109,
@@ -2180,10 +2180,10 @@
       "states": [
         {
           "nowMs": 1790127785687,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1632,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.7233744728426731,
           "nextBlueHour": {
             "id": "morning",
             "start": 1790138585687,
@@ -2534,10 +2534,10 @@
       "states": [
         {
           "nowMs": 1797824056265,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1634,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.7908919989702593,
           "nextBlueHour": {
             "id": "morning",
             "start": 1797834856265,
@@ -2888,10 +2888,10 @@
       "states": [
         {
           "nowMs": 1773967428749,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1644,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.6905745660716559,
           "nextBlueHour": {
             "id": "morning",
             "start": 1773978228749,
@@ -3242,9 +3242,9 @@
       "states": [
         {
           "nowMs": 1781977559439,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1620,
+          "minutesUntilTransition": 180,
           "progress": 0,
           "nextBlueHour": {
             "id": "morning",
@@ -3281,9 +3281,9 @@
         },
         {
           "nowMs": 1781988299878,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1441,
+          "minutesUntilTransition": 1,
           "progress": 0,
           "nextBlueHour": {
             "id": "morning",
@@ -3596,10 +3596,10 @@
       "states": [
         {
           "nowMs": 1790123237718,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1644,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.6917983517661225,
           "nextBlueHour": {
             "id": "morning",
             "start": 1790134037718,
@@ -3950,10 +3950,10 @@
       "states": [
         {
           "nowMs": 1797831733439,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1667,
-          "progress": 0,
+          "minutesUntilTransition": 180,
+          "progress": 0.8500016312322604,
           "nextBlueHour": {
             "id": "morning",
             "start": 1797842533439,
@@ -4067,10 +4067,10 @@
         },
         {
           "nowMs": 1797842473439,
-          "current": "nextMorningBlueHour",
+          "current": "night",
           "next": "morningBlueHour",
-          "minutesUntilTransition": 1488,
-          "progress": 0,
+          "minutesUntilTransition": 1,
+          "progress": 0.9991666757290681,
           "nextBlueHour": {
             "id": "morning",
             "start": 1797842533439,

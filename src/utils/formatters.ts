@@ -16,6 +16,10 @@ export const formatShutterSpeed = (seconds: number): string => {
   if (seconds < 1) {
     const denominator = 1 / seconds;
     const rounded = Math.round(denominator);
+    // 接近 1 秒（如 0.97s）显示为 1 秒，而不是 1/1s
+    if (rounded <= 1) {
+      return `1${t('common.units.second')}`;
+    }
     // 标准快门（1/n）显示为分数，其余显示为小数（如 0.6s）
     if (Math.abs(denominator - rounded) / denominator < 0.05 || seconds < 0.3) {
       return `1/${rounded}${t('common.units.sec')}`;

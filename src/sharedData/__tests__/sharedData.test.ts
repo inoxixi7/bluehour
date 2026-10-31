@@ -13,6 +13,12 @@ import { buildSharedFiles } from '../buildSharedData';
 const SHARED_DIR = path.resolve(__dirname, '../../../shared');
 const shouldUpdate = process.env.UPDATE_SHARED_DATA === '1';
 
+/** 数字保留 12 位有效数字比较：不同平台的 Math.pow 等末位可能不同（文件在 Linux 上生成） */
+const roundNumbers = (value: unknown): unknown =>
+  JSON.parse(JSON.stringify(value), (_key, v) =>
+    typeof v === 'number' ? Number(v.toPrecision(12)) : v
+  );
+
 describe('shared data', () => {
   let files: Record<string, unknown> = {};
 
@@ -33,6 +39,8 @@ describe('shared data', () => {
     }
 
     expect(fs.existsSync(filePath)).toBe(true);
-    expect(JSON.parse(fs.readFileSync(filePath, 'utf8'))).toEqual(expected);
+    expect(roundNumbers(JSON.parse(fs.readFileSync(filePath, 'utf8')))).toEqual(
+      roundNumbers(expected)
+    );
   });
 });

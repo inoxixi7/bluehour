@@ -48,7 +48,7 @@ object LightPhases {
     }
 
     /**
-     * 当前所处阶段；不在任何阶段内时（如当天第一个阶段之前）与 TS 版本一样取最后一个阶段
+     * 当前所处阶段；当天第一个阶段之前算作前一晚的夜晚，其余不在任何阶段内时取最后一个阶段
      */
     fun currentState(timeline: List<LightPhaseSegment>, nowMs: Long): PhaseState? {
         if (timeline.isEmpty()) return null
@@ -56,8 +56,15 @@ object LightPhases {
         // 与 TS 的 forEach 一致：多个阶段重叠时取最后一个
         val currentIndex = timeline.indexOfLast { nowMs >= it.start && nowMs < it.end }
             .takeIf { it >= 0 } ?: timeline.lastIndex
-        val current = timeline[currentIndex]
-        val next = timeline[(currentIndex + 1) % timeline.size]
+        var current = timeline[currentIndex]
+        var next = timeline[(currentIndex + 1) % timeline.size]
+
+        // 当天第一个阶段之前（凌晨）：仍处于前一晚的夜晚，下一个是今天早晨的蓝调时刻
+        val night = timeline.firstOrNull { it.id == LightPhaseId.Night }
+        if (night != null && nowMs < timeline.first().start) {
+            current = night.copy(start = night.start - DAY_MS, end = night.end - DAY_MS)
+            next = timeline.first()
+        }
         val total = current.end - current.start
         val elapsed = nowMs - current.start
 

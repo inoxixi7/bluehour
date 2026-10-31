@@ -32,11 +32,8 @@ BlueHour 正在从 Expo / React Native 迁移到原生：Android 用 Kotlin + Je
 
 ## 已知问题
 
-- TypeScript 与 Kotlin 两版都会把 0.97 秒显示为 `1/1s`（`formatShutterSpeed`），以后两边一起修
-- 两版的 `getCurrentPhaseState` 在当天第一个蓝调时刻之前（凌晨）会取到「明天早晨蓝调时刻」这一段，
-  倒计时显示为到明天蓝调结束（约 24 小时以上），而不是「夜晚」；以后两边一起修
-- `npm test` 的共享数据一致性检查是精确比较，macOS 上 `reciprocity.json`、`sun.json` 会有末位浮点差异而失败
-  （文件在 Linux 上生成）；不要在 macOS 上提交这两个文件的重新生成结果
+- `shared/` 的一致性检查按 12 位有效数字比较（macOS 与 Linux 的浮点末位不同）；
+  在 macOS 上运行 `npm run shared:update` 后，若 `reciprocity.json`、`sun.json` 只有末位差异，不要提交这两个文件
 
 ## 本地开发
 

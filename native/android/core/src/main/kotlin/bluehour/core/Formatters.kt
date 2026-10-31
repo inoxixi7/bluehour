@@ -43,6 +43,7 @@ fun formatShutterSpeed(seconds: Double, units: DurationUnits): String {
     if (seconds < 1) {
         val denominator = 1 / seconds
         val rounded = jsRound(denominator).toLong()
+        if (rounded <= 1) return "1${units.second}"
         return if (abs(denominator - rounded) / denominator < 0.05 || seconds < 0.3) {
             "1/$rounded${units.sec}"
         } else {
