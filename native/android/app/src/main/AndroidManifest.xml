@@ -3,6 +3,10 @@
 
     <!-- 日出日落只需城市级精度 -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!-- 曝光计时器：结束时通知并震动；精确闹钟需用户在系统设置中允许，否则退回非精确闹钟 -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
 
     <application
         android:allowBackup="true"
@@ -19,6 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <receiver
+            android:name=".timer.ExposureTimerReceiver"
+            android:exported="false" />
     </application>
 
 </manifest>

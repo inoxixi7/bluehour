@@ -35,7 +35,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import bluehour.app.R
+import bluehour.app.timer.BulbTimerCard
 import bluehour.app.ui.common.LabeledSlider
+import bluehour.app.ui.common.TitleWithHelp
 import bluehour.app.ui.common.durationUnits
 import bluehour.core.Film
 import bluehour.core.FilmCatalog
@@ -45,6 +47,7 @@ import bluehour.core.calculateNDShutter
 import bluehour.core.calculateReciprocity
 import bluehour.core.formatExtraStops
 import bluehour.core.formatShutterSpeed
+import kotlin.math.ceil
 
 private const val DEFAULT_FILM_ID = "kodak_trix"
 private const val DEFAULT_SHUTTER_SECONDS = 1.0
@@ -95,7 +98,16 @@ fun ReciprocityScreen(
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text(stringResource(R.string.reciprocity_title), style = MaterialTheme.typography.headlineMedium)
+        TitleWithHelp(
+            title = stringResource(R.string.reciprocity_title),
+            helpTitle = R.string.help_reciprocity_title,
+            helpDescription = R.string.help_reciprocity_description,
+            helpSections = listOf(
+                R.array.help_reciprocity_section1,
+                R.array.help_reciprocity_section2,
+                R.array.help_reciprocity_section3,
+            ),
+        )
 
         // 胶片
         OutlinedCard(Modifier.fillMaxWidth().clickable { showFilmPicker = true }) {
@@ -133,6 +145,9 @@ fun ReciprocityScreen(
             corrected = formatShutterSpeed(result.correctedSeconds, units),
             extraStops = formatExtraStops(result.extraStops),
         )
+
+        // 向上取整，宁可略多曝光也不欠曝
+        BulbTimerCard(targetSeconds = ceil(result.correctedSeconds - 0.05).toLong().coerceAtLeast(0))
 
         val maxReliable = film.maxReliableSeconds
         if (result.isExtrapolated && maxReliable != null) {

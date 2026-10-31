@@ -88,4 +88,64 @@
         <item>Extremely Dark Environment</item>
         <item>Long Exposure Art</item>
     </string-array>
+    <string name="timer_title">Bulb Timer</string>
+    <string name="timer_start">Start Timer</string>
+    <string name="timer_stop">Stop Timer</string>
+    <string name="timer_reset">Reset</string>
+    <string name="timer_done">Done</string>
+    <string name="timer_notification_title">⏱️ Exposure complete</string>
+    <string name="timer_notification_body">Close the shutter now.</string>
+    <string name="ok">OK</string>
+    <string name="help_exposure_title">Exposure Lab - Feature Guide</string>
+    <string name="help_exposure_description">Exposure Lab is a powerful photography calculation tool that integrates exposure parameter adjustment, scene EV reference, ND filter calculation, reciprocity failure compensation, and exposure timer. It helps you precisely control exposure, especially for long exposure photography.</string>
+    <!-- 每节第一项为标题 -->
+    <string-array name="help_exposure_section1">
+        <item>1. Basic Exposure Parameters</item>
+        <item>Aperture, Shutter, ISO: Freely adjust the three pillars of exposure.</item>
+        <item>Smart Lock: Tap the lock icon next to a parameter to lock it. When adjusting other values, the system automatically calculates the unlocked parameter to maintain Exposure Value (EV) balance.</item>
+        <item>EV Lock: Lock the current Exposure Value (EV). Adjusting any parameter will automatically update the others to match.</item>
+    </string-array>
+    <string-array name="help_exposure_section2">
+        <item>2. Scene EV Reference</item>
+        <item>Provides references for various lighting conditions, from bright daylight to very dark environments (e.g., sunny, overcast, night scenes, starry sky).</item>
+        <item>Tap a scene card to directly set its EV as the target value.</item>
+    </string-array>
+    <string-array name="help_exposure_section3">
+        <item>3. ND Filter Calculation</item>
+        <item>Simulates the effect of attaching an ND (Neutral Density) filter.</item>
+        <item>Select different ND strengths (e.g., ND8, ND1000), and the system automatically calculates the equivalent shutter speed.</item>
+    </string-array>
+    <string-array name="help_exposure_section4">
+        <item>4. Reciprocity Failure Compensation</item>
+        <item>Designed for film photography.</item>
+        <item>Select a film stock preset, and the system calculates the necessary exposure compensation for long exposures due to reciprocity failure.</item>
+    </string-array>
+    <string-array name="help_exposure_section5">
+        <item>5. Exposure Timer</item>
+        <item>Provides a countdown timer based on the final calculated exposure time (including ND and reciprocity adjustments), useful for long exposure shots.</item>
+    </string-array>
+    <string name="help_reciprocity_title">Reciprocity Calculator - Guide</string>
+    <string name="help_reciprocity_description">The Reciprocity Calculator is designed for film photography to help you compensate for reciprocity failure during long exposures. When exposure times exceed 1 second, film sensitivity decreases, requiring extended exposure times to achieve correct exposure.</string>
+    <!-- 每节第一项为标题 -->
+    <string-array name="help_reciprocity_section1">
+        <item>What is Reciprocity Failure?</item>
+        <item>Reciprocity Law states: Exposure = Light Intensity × Time</item>
+        <item>In theory, reducing intensity and extending time should produce identical exposure</item>
+        <item>However, during long exposures (typically >1s), film sensitivity decreases</item>
+        <item>This phenomenon is called \"Reciprocity Failure\" and requires additional exposure time compensation</item>
+    </string-array>
+    <string-array name="help_reciprocity_section2">
+        <item>How to Use the Calculator?</item>
+        <item>1. Select your film stock (different films have different reciprocity characteristics)</item>
+        <item>2. Enter the metered shutter speed (initial exposure time)</item>
+        <item>3. The calculator automatically displays the corrected exposure time</item>
+        <item>4. Use the built-in bulb timer to precisely control your exposure</item>
+    </string-array>
+    <string-array name="help_reciprocity_section3">
+        <item>Practical Tips</item>
+        <item>Digital Cameras: Almost unaffected by reciprocity failure, no compensation needed</item>
+        <item>Film Variations: Black &amp; white and color negative films have significantly different characteristics</item>
+        <item>Extreme Cases: Some films may require several times the compensation for ultra-long exposures</item>
+        <item>Rule of Thumb: At 1s metered exposure, compensation is minimal; beyond 10s, compensation increases significantly</item>
+    </string-array>
 </resources>
