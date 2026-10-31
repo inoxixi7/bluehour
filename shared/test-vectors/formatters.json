@@ -1,0 +1,159 @@
+{
+  "description": "格式化函数。formatExtraStops 与语言无关（负号为 U+2212）；formatShutterSpeed 使用英文单位 shutterUnits（原生版本用各自语言的单位替换）",
+  "formatExtraStops": [
+    {
+      "stops": -1.66,
+      "result": "−1.7 EV"
+    },
+    {
+      "stops": -0.04,
+      "result": "±0.0 EV"
+    },
+    {
+      "stops": 0,
+      "result": "±0.0 EV"
+    },
+    {
+      "stops": 0.04,
+      "result": "±0.0 EV"
+    },
+    {
+      "stops": 0.05,
+      "result": "+0.1 EV"
+    },
+    {
+      "stops": 0.3333333333333333,
+      "result": "+0.3 EV"
+    },
+    {
+      "stops": 0.5,
+      "result": "+0.5 EV"
+    },
+    {
+      "stops": 1,
+      "result": "+1.0 EV"
+    },
+    {
+      "stops": 2.3333,
+      "result": "+2.3 EV"
+    },
+    {
+      "stops": 3.66,
+      "result": "+3.7 EV"
+    }
+  ],
+  "shutterUnits": {
+    "second": "s",
+    "seconds": "s",
+    "sec": "s",
+    "minutes": "min",
+    "min": "min",
+    "hours": "h"
+  },
+  "formatShutterSpeed": [
+    {
+      "seconds": 0,
+      "result": "0s"
+    },
+    {
+      "seconds": -1,
+      "result": "0s"
+    },
+    {
+      "seconds": 0.000125,
+      "result": "1/8000s"
+    },
+    {
+      "seconds": 0.004,
+      "result": "1/250s"
+    },
+    {
+      "seconds": 0.3333333333333333,
+      "result": "1/3s"
+    },
+    {
+      "seconds": 0.29,
+      "result": "1/3s"
+    },
+    {
+      "seconds": 0.4,
+      "result": "0.4s"
+    },
+    {
+      "seconds": 0.6,
+      "result": "0.6s"
+    },
+    {
+      "seconds": 0.97,
+      "result": "1s"
+    },
+    {
+      "seconds": 1,
+      "result": "1s"
+    },
+    {
+      "seconds": 1.04,
+      "result": "1s"
+    },
+    {
+      "seconds": 1.26,
+      "result": "1.3s"
+    },
+    {
+      "seconds": 2,
+      "result": "2s"
+    },
+    {
+      "seconds": 9.96,
+      "result": "10s"
+    },
+    {
+      "seconds": 10,
+      "result": "10s"
+    },
+    {
+      "seconds": 30,
+      "result": "30s"
+    },
+    {
+      "seconds": 59.6,
+      "result": "1min"
+    },
+    {
+      "seconds": 60,
+      "result": "1min"
+    },
+    {
+      "seconds": 75,
+      "result": "1min15s"
+    },
+    {
+      "seconds": 120,
+      "result": "2min"
+    },
+    {
+      "seconds": 599,
+      "result": "9min59s"
+    },
+    {
+      "seconds": 3600,
+      "result": "1h"
+    },
+    {
+      "seconds": 4020,
+      "result": "1h7min"
+    },
+    {
+      "seconds": 5430,
+      "result": "1h30min"
+    },
+    {
+      "seconds": 86400,
+      "result": "24h"
+    },
+    {
+      "seconds": 172800,
+      "result": "48h"
+    }
+  ]
+}

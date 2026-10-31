@@ -118,8 +118,15 @@ export const getCurrentPhaseState = (
     }
   });
 
-  const current = timeline[currentIndex];
-  const next = timeline[(currentIndex + 1) % timeline.length];
+  let current = timeline[currentIndex];
+  let next = timeline[(currentIndex + 1) % timeline.length];
+
+  // 当天第一个阶段之前（凌晨）：仍处于前一晚的夜晚，下一个是今天早晨的蓝调时刻
+  const night = timeline.find(segment => segment.id === 'night');
+  if (night && nowTime < timeline[0].start.getTime()) {
+    current = { ...night, start: addDays(night.start, -1), end: addDays(night.end, -1) };
+    next = timeline[0];
+  }
   const total = current.end.getTime() - current.start.getTime();
   const elapsed = nowTime - current.start.getTime();
 

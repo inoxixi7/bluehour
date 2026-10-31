@@ -56,3 +56,10 @@ ios/Pods/
 
 # Generated files
 screenshot.png
+
+# 生成的共享数据（npm run shared:update）
+shared/data/
+shared/test-vectors/
+
+# 原生工程
+native/

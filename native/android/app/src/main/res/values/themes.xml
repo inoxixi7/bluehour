@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 界面由 Compose 绘制，这里只负责启动时的窗口背景 -->
+    <style name="Theme.BlueHour" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/windowBackground</item>
+    </style>
+</resources>

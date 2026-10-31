@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">BlueHour</string>
+    <string name="tab_light">Blue Hour</string>
+    <string name="tab_exposure">Exposure Lab</string>
+    <string name="tab_reciprocity">Reciprocity</string>
+    <string name="reciprocity_title">Reciprocity</string>
+    <string name="film_profile">Film Profile</string>
+    <string name="select_film">Select film</string>
+    <string name="metered_shutter">Metered Shutter Speed</string>
+    <string name="nd_filter">ND filter</string>
+    <string name="nd_none">None</string>
+    <string name="result_base">Base Shutter</string>
+    <string name="result_reciprocity">Corrected</string>
+    <string name="extra_stops">Extra exposure</string>
+    <string name="data_source">Data source</string>
+    <string name="source_manufacturer">Manufacturer datasheet</string>
+    <string name="source_community">Community tests</string>
+    <string name="source_estimate">Estimate (no official data)</string>
+    <string name="extrapolated_warning">Beyond the published data for this film (%1$s). The result is extrapolated, so bracket your exposures.</string>
+    <string name="cancel">Cancel</string>
+    <string name="unit_second">s</string>
+    <string name="unit_seconds">s</string>
+    <string name="unit_sec">s</string>
+    <string name="unit_minutes">min</string>
+    <string name="unit_min">min</string>
+    <string name="unit_hours">h</string>
+    <string name="light_title">Blue Hour</string>
+    <string name="phase_morning_blue">Morning Blue Hour</string>
+    <string name="phase_morning_golden">Morning Golden Hour</string>
+    <string name="phase_daylight">Daylight</string>
+    <string name="phase_evening_golden">Evening Golden Hour</string>
+    <string name="phase_evening_blue">Evening Blue Hour</string>
+    <string name="phase_night">Night</string>
+    <string name="current_phase">Now</string>
+    <string name="phase_ends_in">%1$s until %2$s</string>
+    <string name="next_blue_hour">Next blue hour</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="today_schedule">Today</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="sunset">Sunset</string>
+    <string name="solar_noon">Solar Noon</string>
+    <string name="day_length">Day Length</string>
+    <string name="duration_hm">%1$d h %2$d min</string>
+    <string name="duration_m">%1$d min</string>
+    <string name="location_rationale">BlueHour uses your location to calculate sunrise, sunset and blue hour on this device. Your location is not sent anywhere.</string>
+    <string name="location_allow">Allow location</string>
+    <string name="location_denied">Location permission was denied. You can allow it in system settings.</string>
+    <string name="open_settings">Open settings</string>
+    <string name="locating">Getting your location…</string>
+    <string name="location_unavailable">Couldn\'t get your location. Make sure location services are turned on.</string>
+    <string name="retry">Try again</string>
+    <string name="refresh_location">Update location</string>
+    <string name="exposure_title">Exposure Calculator</string>
+    <string name="scene_preset">Scene Preset</string>
+    <string name="no_scene">No Scene</string>
+    <string name="param_aperture">Aperture</string>
+    <string name="param_shutter">Shutter</string>
+    <string name="param_iso">ISO</string>
+    <string name="lock_ev">Lock</string>
+    <string name="unlock_ev">Unlock</string>
+    <string name="will_adjust">Will auto-adjust</string>
+    <string name="result_nd">After ND filter</string>
+    <string name="to_reciprocity">Calculate Reciprocity</string>
+    <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
+    <string-array name="ev_scenes">
+        <item>Snow / Sand (Bright Sun)</item>
+        <item>Bright Sunny (Sunny 16 Rule)</item>
+        <item>Hazy Sun / Soft Shadows</item>
+        <item>Cloudy / Bright Overcast</item>
+        <item>Overcast / Sunrise / Sunset</item>
+        <item>Deep Shade / Twilight</item>
+        <item>After Sunset / Stormy</item>
+        <item>Blue Hour / Bright Night Street</item>
+        <item>City Night / Bonfire</item>
+        <item>Indoor Artificial Light</item>
+        <item>Home Interior / Night Market</item>
+        <item>Bright Street Light</item>
+        <item>Candlelight / Christmas Lights</item>
+        <item>Moonlit Landscape</item>
+        <item>Distant Lights / Lightning</item>
+        <item>Distant Skyline</item>
+        <item>Very Dark / Starlight Only</item>
+        <item>Milky Way / Aurora (High ISO)</item>
+        <item>Deep Sky Astrophotography</item>
+        <item>Total Darkness</item>
+        <item>Moonless Night Landscape</item>
+        <item>Extremely Dark Environment</item>
+        <item>Long Exposure Art</item>
+    </string-array>
+</resources>

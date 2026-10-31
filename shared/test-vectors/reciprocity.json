@@ -1,0 +1,6312 @@
+{
+  "description": "calculateReciprocity(meteredSeconds, film)：校正时间、额外档数、是否超出可靠范围（外推）",
+  "cases": [
+    {
+      "filmId": "digital",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 10,
+      "correctedSeconds": 10,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 30,
+      "correctedSeconds": 30,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 60,
+      "correctedSeconds": 60,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 100,
+      "correctedSeconds": 100,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 128,
+      "correctedSeconds": 128,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 200,
+      "correctedSeconds": 200,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 240,
+      "correctedSeconds": 240,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 500,
+      "correctedSeconds": 500,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1000,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "digital",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 3600,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.5140267490436567,
+      "extraStops": 0.33,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.310932956554556,
+      "extraStops": 0.5230376252379817,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.504134215419624,
+      "extraStops": 0.7662362713128299,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 10,
+      "correctedSeconds": 21.379620895022324,
+      "extraStops": 1.0962362713128297,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 30,
+      "correctedSeconds": 92.16611231499414,
+      "extraStops": 1.6192738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 60,
+      "correctedSeconds": 231.70807171525726,
+      "extraStops": 1.9492738965508116,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 100,
+      "correctedSeconds": 457.0881896148752,
+      "extraStops": 2.1924725426256595,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 128,
+      "correctedSeconds": 634.7303423687613,
+      "extraStops": 2.3100000000000005,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1149.1319353637352,
+      "extraStops": 2.52247254262566,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1464.4715915780425,
+      "extraStops": 2.6092738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3887.1393127680726,
+      "extraStops": 2.9587088139384896,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 9772.37220955811,
+      "extraStops": 3.2887088139384892,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_panf",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 53688.6304980028,
+      "extraStops": 3.8985477931016232,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.394957409237857,
+      "extraStops": 0.2599999999999999,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.9918368314229804,
+      "extraStops": 0.4120902501875006,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 5,
+      "correctedSeconds": 7.598051019993142,
+      "extraStops": 0.6037013046707141,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 10,
+      "correctedSeconds": 18.197008586099834,
+      "extraStops": 0.8637013046707142,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 30,
+      "correctedSeconds": 72.63948909571353,
+      "extraStops": 1.2757915548582148,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 60,
+      "correctedSeconds": 173.96848261303165,
+      "extraStops": 1.5357915548582146,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 100,
+      "correctedSeconds": 331.1311214825911,
+      "extraStops": 1.7274026093414283,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 128,
+      "correctedSeconds": 451.94393410081534,
+      "extraStops": 1.82,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 200,
+      "correctedSeconds": 793.0449328239727,
+      "extraStops": 1.9874026093414285,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 240,
+      "correctedSeconds": 997.8520745292279,
+      "extraStops": 2.055791554858215,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 500,
+      "correctedSeconds": 2515.9511553322745,
+      "extraStops": 2.3311039140121426,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 6025.595860743578,
+      "extraStops": 2.591103914012143,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_fp4",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 30265.0329426807,
+      "extraStops": 3.0715831097164297,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.4794153998779733,
+      "extraStops": 0.3100000000000001,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.217245113462352,
+      "extraStops": 0.4913383752235586,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.234755437793988,
+      "extraStops": 0.7197977094150824,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 10,
+      "correctedSeconds": 20.417379446695296,
+      "extraStops": 1.0297977094150825,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 30,
+      "correctedSeconds": 86.10509370128239,
+      "extraStops": 1.521136084638641,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 60,
+      "correctedSeconds": 213.4902953308954,
+      "extraStops": 1.8311360846386409,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 100,
+      "correctedSeconds": 416.8693834703355,
+      "extraStops": 2.059595418830165,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 128,
+      "correctedSeconds": 576.0299441606705,
+      "extraStops": 2.1700000000000004,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1033.592369113986,
+      "extraStops": 2.369595418830165,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1312.4317453596047,
+      "extraStops": 2.451136084638641,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3432.8174223821725,
+      "extraStops": 2.7793931282452475,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 8511.380382023768,
+      "extraStops": 3.0893931282452476,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_hp5",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 45578.10620047295,
+      "extraStops": 3.662272169277282,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.394957409237857,
+      "extraStops": 0.2599999999999999,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.9918368314229804,
+      "extraStops": 0.4120902501875006,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 5,
+      "correctedSeconds": 7.598051019993142,
+      "extraStops": 0.6037013046707141,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 10,
+      "correctedSeconds": 18.197008586099834,
+      "extraStops": 0.8637013046707142,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 30,
+      "correctedSeconds": 72.63948909571353,
+      "extraStops": 1.2757915548582148,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 60,
+      "correctedSeconds": 173.96848261303165,
+      "extraStops": 1.5357915548582146,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 100,
+      "correctedSeconds": 331.1311214825911,
+      "extraStops": 1.7274026093414283,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 128,
+      "correctedSeconds": 451.94393410081534,
+      "extraStops": 1.82,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 200,
+      "correctedSeconds": 793.0449328239727,
+      "extraStops": 1.9874026093414285,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 240,
+      "correctedSeconds": 997.8520745292279,
+      "extraStops": 2.055791554858215,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 500,
+      "correctedSeconds": 2515.9511553322745,
+      "extraStops": 2.3311039140121426,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 6025.595860743578,
+      "extraStops": 2.591103914012143,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta100",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 30265.0329426807,
+      "extraStops": 3.0715831097164297,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.6573716281930233,
+      "extraStops": 0.4100000000000001,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.706965001716572,
+      "extraStops": 0.6498346252956737,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 5,
+      "correctedSeconds": 9.67269972892989,
+      "extraStops": 0.9519905189038185,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 10,
+      "correctedSeconds": 25.703957827688633,
+      "extraStops": 1.3619905189038184,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 30,
+      "correctedSeconds": 120.98762990052913,
+      "extraStops": 2.0118251441994923,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 60,
+      "correctedSeconds": 321.50909505998396,
+      "extraStops": 2.421825144199492,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 100,
+      "correctedSeconds": 660.6934480075957,
+      "extraStops": 2.723981037807637,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 128,
+      "correctedSeconds": 935.7634050349058,
+      "extraStops": 2.869999999999999,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1755.7080236684071,
+      "extraStops": 3.1339810378076365,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 240,
+      "correctedSeconds": 2270.3763323531584,
+      "extraStops": 3.241825144199492,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 500,
+      "correctedSeconds": 6390.689335448826,
+      "extraStops": 3.675971556711455,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 16982.436524617435,
+      "extraStops": 4.0859715567114545,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta400",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 103368.09820628981,
+      "extraStops": 4.843650288398984,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.5140267490436567,
+      "extraStops": 0.33,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.310932956554556,
+      "extraStops": 0.5230376252379817,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.504134215419624,
+      "extraStops": 0.7662362713128299,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 10,
+      "correctedSeconds": 21.379620895022324,
+      "extraStops": 1.0962362713128297,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 30,
+      "correctedSeconds": 92.16611231499414,
+      "extraStops": 1.6192738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 60,
+      "correctedSeconds": 231.70807171525726,
+      "extraStops": 1.9492738965508116,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 100,
+      "correctedSeconds": 457.0881896148752,
+      "extraStops": 2.1924725426256595,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 128,
+      "correctedSeconds": 634.7303423687613,
+      "extraStops": 2.3100000000000005,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1149.1319353637352,
+      "extraStops": 2.52247254262566,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1464.4715915780425,
+      "extraStops": 2.6092738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3887.1393127680726,
+      "extraStops": 2.9587088139384896,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 9772.37220955811,
+      "extraStops": 3.2887088139384892,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_delta3200",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 53688.6304980028,
+      "extraStops": 3.8985477931016232,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.6944671537313805,
+      "extraStops": 0.43,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.811532174517033,
+      "extraStops": 0.6815338753100971,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 5,
+      "correctedSeconds": 9.989117143994855,
+      "extraStops": 0.9984290808015657,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 10,
+      "correctedSeconds": 26.915348039269155,
+      "extraStops": 1.4284290808015658,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 30,
+      "correctedSeconds": 129.50406307926747,
+      "extraStops": 2.109962956111662,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 60,
+      "correctedSeconds": 348.944444241843,
+      "extraStops": 2.539962956111663,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 100,
+      "correctedSeconds": 724.4359600749899,
+      "extraStops": 2.856858161603131,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 128,
+      "correctedSeconds": 1031.1224832580797,
+      "extraStops": 3.0099999999999993,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1951.968899403918,
+      "extraStops": 3.286858161603131,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 240,
+      "correctedSeconds": 2533.3901383277876,
+      "extraStops": 3.399962956111662,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 500,
+      "correctedSeconds": 7236.4756685114535,
+      "extraStops": 3.855287242404697,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 19498.445997580446,
+      "extraStops": 4.285287242404697,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_sfx",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 121762.22516724867,
+      "extraStops": 5.079925912223326,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.4794153998779733,
+      "extraStops": 0.3100000000000001,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.217245113462352,
+      "extraStops": 0.4913383752235586,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.234755437793988,
+      "extraStops": 0.7197977094150824,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 10,
+      "correctedSeconds": 20.417379446695296,
+      "extraStops": 1.0297977094150825,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 30,
+      "correctedSeconds": 86.10509370128239,
+      "extraStops": 1.521136084638641,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 60,
+      "correctedSeconds": 213.4902953308954,
+      "extraStops": 1.8311360846386409,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 100,
+      "correctedSeconds": 416.8693834703355,
+      "extraStops": 2.059595418830165,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 128,
+      "correctedSeconds": 576.0299441606705,
+      "extraStops": 2.1700000000000004,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1033.592369113986,
+      "extraStops": 2.369595418830165,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1312.4317453596047,
+      "extraStops": 2.451136084638641,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3432.8174223821725,
+      "extraStops": 2.7793931282452475,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 8511.380382023768,
+      "extraStops": 3.0893931282452476,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_xp2",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 45578.10620047295,
+      "extraStops": 3.662272169277282,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.394957409237857,
+      "extraStops": 0.2599999999999999,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.9918368314229804,
+      "extraStops": 0.4120902501875006,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 5,
+      "correctedSeconds": 7.598051019993142,
+      "extraStops": 0.6037013046707141,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 10,
+      "correctedSeconds": 18.197008586099834,
+      "extraStops": 0.8637013046707142,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 30,
+      "correctedSeconds": 72.63948909571353,
+      "extraStops": 1.2757915548582148,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 60,
+      "correctedSeconds": 173.96848261303165,
+      "extraStops": 1.5357915548582146,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 100,
+      "correctedSeconds": 331.1311214825911,
+      "extraStops": 1.7274026093414283,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 128,
+      "correctedSeconds": 451.94393410081534,
+      "extraStops": 1.82,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 200,
+      "correctedSeconds": 793.0449328239727,
+      "extraStops": 1.9874026093414285,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 240,
+      "correctedSeconds": 997.8520745292279,
+      "extraStops": 2.055791554858215,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 500,
+      "correctedSeconds": 2515.9511553322745,
+      "extraStops": 2.3311039140121426,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 6025.595860743578,
+      "extraStops": 2.591103914012143,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere100",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 30265.0329426807,
+      "extraStops": 3.0715831097164297,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.4622888266898326,
+      "extraStops": 0.30000000000000004,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.171167510947728,
+      "extraStops": 0.47548875021634696,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.103282983463814,
+      "extraStops": 0.6965784284662089,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 10,
+      "correctedSeconds": 19.952623149688797,
+      "extraStops": 0.9965784284662088,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 30,
+      "correctedSeconds": 83.22573344016544,
+      "extraStops": 1.4720671786825559,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 60,
+      "correctedSeconds": 204.92579354278575,
+      "extraStops": 1.772067178682556,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 100,
+      "correctedSeconds": 398.1071705534973,
+      "extraStops": 1.9931568569324176,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 128,
+      "correctedSeconds": 548.7480128185822,
+      "extraStops": 2.1,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 200,
+      "correctedSeconds": 980.2548378789801,
+      "extraStops": 2.2931568569324177,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1242.4376807123597,
+      "extraStops": 2.372067178682556,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3225.9750607410806,
+      "extraStops": 2.6897352853986263,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 7943.282347242817,
+      "extraStops": 2.9897352853986265,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "ilford_kentmere400",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 41994.58085914045,
+      "extraStops": 3.544134357365112,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.32940629000632793,
+      "extraStops": 0.3979400086720379,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.811672704981913,
+      "extraStops": 0.6989700043360186,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 1,
+      "correctedSeconds": 2,
+      "extraStops": 1,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 2,
+      "correctedSeconds": 5.270500640101245,
+      "extraStops": 1.3979400086720375,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 3,
+      "correctedSeconds": 9.290025083796593,
+      "extraStops": 1.6307199912818309,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 5,
+      "correctedSeconds": 18.97352961863581,
+      "extraStops": 1.9239880862153245,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 10,
+      "correctedSeconds": 49.99999999999999,
+      "extraStops": 2.321928094887362,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 30,
+      "correctedSeconds": 227.77084016732223,
+      "extraStops": 2.924548655352884,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 60,
+      "correctedSeconds": 592.9022628585165,
+      "extraStops": 3.3047598970644905,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 100,
+      "correctedSeconds": 1200,
+      "extraStops": 3.584962500721156,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 128,
+      "correctedSeconds": 1687.1498256155078,
+      "extraStops": 3.7203723810348084,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 200,
+      "correctedSeconds": 3123.6777934680217,
+      "extraStops": 3.9651737424327598,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 240,
+      "correctedSeconds": 4017.474011789902,
+      "extraStops": 4.065182380487703,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 500,
+      "correctedSeconds": 11063.881195515416,
+      "extraStops": 4.467785664843343,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 28799.99999999994,
+      "extraStops": 4.847996906554947,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 168735.8847853196,
+      "extraStops": 5.550626105075412,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.32940629000632793,
+      "extraStops": 0.3979400086720379,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.811672704981913,
+      "extraStops": 0.6989700043360186,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 1,
+      "correctedSeconds": 2,
+      "extraStops": 1,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 2,
+      "correctedSeconds": 5.270500640101245,
+      "extraStops": 1.3979400086720375,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 3,
+      "correctedSeconds": 9.290025083796593,
+      "extraStops": 1.6307199912818309,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 5,
+      "correctedSeconds": 18.97352961863581,
+      "extraStops": 1.9239880862153245,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 10,
+      "correctedSeconds": 49.99999999999999,
+      "extraStops": 2.321928094887362,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 30,
+      "correctedSeconds": 227.77084016732223,
+      "extraStops": 2.924548655352884,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 60,
+      "correctedSeconds": 592.9022628585165,
+      "extraStops": 3.3047598970644905,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 100,
+      "correctedSeconds": 1200,
+      "extraStops": 3.584962500721156,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 128,
+      "correctedSeconds": 1687.1498256155078,
+      "extraStops": 3.7203723810348084,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 200,
+      "correctedSeconds": 3123.6777934680217,
+      "extraStops": 3.9651737424327598,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 240,
+      "correctedSeconds": 4017.474011789902,
+      "extraStops": 4.065182380487703,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 500,
+      "correctedSeconds": 11063.881195515416,
+      "extraStops": 4.467785664843343,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 28799.99999999994,
+      "extraStops": 4.847996906554947,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_trix320",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 168735.8847853196,
+      "extraStops": 5.550626105075412,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.27407576503099595,
+      "extraStops": 0.13264666955734583,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5876340916153462,
+      "extraStops": 0.23299000144533977,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1.2599210498948734,
+      "extraStops": 0.3333333333333336,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.6556798950161653,
+      "extraStops": 0.4090812605010206,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.107764455742015,
+      "extraStops": 0.4533909574014746,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 5,
+      "correctedSeconds": 7.116375653515293,
+      "extraStops": 0.5092145735534682,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 10,
+      "correctedSeconds": 15,
+      "extraStops": 0.5849625007211562,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 30,
+      "correctedSeconds": 51.620646639964484,
+      "extraStops": 0.7829857131327886,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 60,
+      "correctedSeconds": 112.58064786437967,
+      "extraStops": 0.9079244497410879,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 100,
+      "correctedSeconds": 199.99999999999994,
+      "extraStops": 0.9999999999999996,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 128,
+      "correctedSeconds": 264.01867274383704,
+      "extraStops": 1.044496157700411,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 200,
+      "correctedSeconds": 436.1845702925392,
+      "extraStops": 1.1249387366082981,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 240,
+      "correctedSeconds": 535.4813499303411,
+      "extraStops": 1.1578019229576866,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1222.7239789239607,
+      "extraStops": 1.2900987626705407,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 2666.6666666666633,
+      "extraStops": 1.4150374992788421,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax100",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 11266.135354278624,
+      "extraStops": 1.645923898039863,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.27407576503099595,
+      "extraStops": 0.13264666955734583,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5876340916153462,
+      "extraStops": 0.23299000144533977,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1.2599210498948734,
+      "extraStops": 0.3333333333333336,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.6556798950161653,
+      "extraStops": 0.4090812605010206,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.107764455742015,
+      "extraStops": 0.4533909574014746,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 5,
+      "correctedSeconds": 7.116375653515293,
+      "extraStops": 0.5092145735534682,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 10,
+      "correctedSeconds": 15,
+      "extraStops": 0.5849625007211562,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 30,
+      "correctedSeconds": 62.63835199973108,
+      "extraStops": 1.0620837554408173,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 60,
+      "correctedSeconds": 154.34386696821815,
+      "extraStops": 1.3631137511047988,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 100,
+      "correctedSeconds": 299.99999999999994,
+      "extraStops": 1.584962500721156,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 128,
+      "correctedSeconds": 413.6229627096754,
+      "extraStops": 1.6921724703690233,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 200,
+      "correctedSeconds": 739.214213213403,
+      "extraStops": 1.885992496385136,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 240,
+      "correctedSeconds": 937.1033380404066,
+      "extraStops": 1.96517374243276,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 500,
+      "correctedSeconds": 2435.018114945735,
+      "extraStops": 2.2839325050571726,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 5999.999999999995,
+      "extraStops": 2.584962500721155,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax400",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 31762.70569427066,
+      "extraStops": 3.14126500148844,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.2869696368983694,
+      "extraStops": 0.19897000433601894,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.6370528647537474,
+      "extraStops": 0.3494850021680092,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1.4142135623730951,
+      "extraStops": 0.5000000000000001,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 2,
+      "correctedSeconds": 3.139456881295242,
+      "extraStops": 0.6505149978319905,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 3,
+      "correctedSeconds": 5.005531020770168,
+      "extraStops": 0.738560627359831,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 5,
+      "correctedSeconds": 9.009288012833826,
+      "extraStops": 0.849485002168009,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 10,
+      "correctedSeconds": 19.999999999999996,
+      "extraStops": 0.9999999999999997,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 30,
+      "correctedSeconds": 72.80616118966252,
+      "extraStops": 1.279098042308029,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 60,
+      "correctedSeconds": 164.5155218727983,
+      "extraStops": 1.4551893013637092,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 100,
+      "correctedSeconds": 299.99999999999994,
+      "extraStops": 1.584962500721156,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 128,
+      "correctedSeconds": 401.06056648657443,
+      "extraStops": 1.6476763126686107,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 200,
+      "correctedSeconds": 677.8912080430787,
+      "extraStops": 1.7610537597768348,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 240,
+      "correctedSeconds": 840.0098384713285,
+      "extraStops": 1.8073718194750723,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1991.4699939790419,
+      "extraStops": 1.9938337423866288,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 4499.999999999994,
+      "extraStops": 2.1699250014423104,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_tmax3200",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 20299.017702809404,
+      "extraStops": 2.495341103448576,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 10,
+      "correctedSeconds": 10,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 30,
+      "correctedSeconds": 30,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 60,
+      "correctedSeconds": 60,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 100,
+      "correctedSeconds": 100,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 128,
+      "correctedSeconds": 181.01933598375612,
+      "extraStops": 0.49999999999999967,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 200,
+      "correctedSeconds": 282.8427124746189,
+      "extraStops": 0.49999999999999944,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 240,
+      "correctedSeconds": 339.4112549695428,
+      "extraStops": 0.5000000000000001,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 500,
+      "correctedSeconds": 707.1067811865473,
+      "extraStops": 0.49999999999999967,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1414.2135623730946,
+      "extraStops": 0.49999999999999967,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_acros",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 5091.168824543135,
+      "extraStops": 0.49999999999999806,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 1,
+      "correctedSeconds": 2,
+      "extraStops": 1,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 2,
+      "correctedSeconds": 6.071529477963459,
+      "extraStops": 1.602059991327962,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 3,
+      "correctedSeconds": 11.625372270347313,
+      "extraStops": 1.9542425094393239,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 5,
+      "correctedSeconds": 26.352503200506213,
+      "extraStops": 2.3979400086720366,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 10,
+      "correctedSeconds": 79.99999999999997,
+      "extraStops": 2.9999999999999996,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 30,
+      "correctedSeconds": 334.0712106652324,
+      "extraStops": 3.4771212547196613,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 60,
+      "correctedSeconds": 823.1672904971634,
+      "extraStops": 3.7781512503836425,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 100,
+      "correctedSeconds": 1599.9999999999998,
+      "extraStops": 4,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 128,
+      "correctedSeconds": 2205.9891344516022,
+      "extraStops": 4.107209969647867,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 200,
+      "correctedSeconds": 3942.4758038048126,
+      "extraStops": 4.301029995663979,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 240,
+      "correctedSeconds": 4997.88446954884,
+      "extraStops": 4.3802112417116055,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 500,
+      "correctedSeconds": 12986.7632797106,
+      "extraStops": 4.698970004336018,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 31999.99999999995,
+      "extraStops": 4.999999999999997,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma100",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 169401.09703611035,
+      "extraStops": 5.556302500767285,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1.4142135623730954,
+      "extraStops": 0.5000000000000003,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 2,
+      "correctedSeconds": 3.8678852473734473,
+      "extraStops": 0.9515449934959717,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 3,
+      "correctedSeconds": 6.967515867212783,
+      "extraStops": 1.2156818820794932,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 5,
+      "correctedSeconds": 14.625186342675914,
+      "extraStops": 1.548455006504028,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 10,
+      "correctedSeconds": 40,
+      "extraStops": 2,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 30,
+      "correctedSeconds": 167.03560533261634,
+      "extraStops": 2.477121254719662,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 60,
+      "correctedSeconds": 411.58364524858166,
+      "extraStops": 2.7781512503836425,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 100,
+      "correctedSeconds": 799.9999999999998,
+      "extraStops": 2.9999999999999996,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 128,
+      "correctedSeconds": 1102.994567225801,
+      "extraStops": 3.107209969647867,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1971.237901902406,
+      "extraStops": 3.301029995663978,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 240,
+      "correctedSeconds": 2498.94223477442,
+      "extraStops": 3.3802112417116055,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 500,
+      "correctedSeconds": 6493.381639855299,
+      "extraStops": 3.6989700043360174,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 15999.999999999973,
+      "extraStops": 3.999999999999998,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma200",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 84700.54851805516,
+      "extraStops": 4.556302500767285,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 1,
+      "correctedSeconds": 2,
+      "extraStops": 1,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 2,
+      "correctedSeconds": 6.071529477963459,
+      "extraStops": 1.602059991327962,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 3,
+      "correctedSeconds": 11.625372270347313,
+      "extraStops": 1.9542425094393239,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 5,
+      "correctedSeconds": 26.352503200506213,
+      "extraStops": 2.3979400086720366,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 10,
+      "correctedSeconds": 79.99999999999997,
+      "extraStops": 2.9999999999999996,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 30,
+      "correctedSeconds": 334.0712106652324,
+      "extraStops": 3.4771212547196613,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 60,
+      "correctedSeconds": 823.1672904971634,
+      "extraStops": 3.7781512503836425,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 100,
+      "correctedSeconds": 1599.9999999999998,
+      "extraStops": 4,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 128,
+      "correctedSeconds": 2205.9891344516022,
+      "extraStops": 4.107209969647867,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 200,
+      "correctedSeconds": 3942.4758038048126,
+      "extraStops": 4.301029995663979,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 240,
+      "correctedSeconds": 4997.88446954884,
+      "extraStops": 4.3802112417116055,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 500,
+      "correctedSeconds": 12986.7632797106,
+      "extraStops": 4.698970004336018,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 31999.99999999995,
+      "extraStops": 4.999999999999997,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "foma400",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 169401.09703611035,
+      "extraStops": 5.556302500767285,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.6390158215457884,
+      "extraStops": 0.3999999999999999,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.655536721746079,
+      "extraStops": 0.6339850002884624,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 5,
+      "correctedSeconds": 9.518269693579391,
+      "extraStops": 0.9287712379549447,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 10,
+      "correctedSeconds": 25.118864315095795,
+      "extraStops": 1.3287712379549448,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 30,
+      "correctedSeconds": 116.94179522748564,
+      "extraStops": 1.962756238243407,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 60,
+      "correctedSeconds": 308.61124780530236,
+      "extraStops": 2.362756238243407,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 100,
+      "correctedSeconds": 630.957344480193,
+      "extraStops": 2.657542475909889,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 128,
+      "correctedSeconds": 891.4437768152308,
+      "extraStops": 2.7999999999999994,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1665.1064148037456,
+      "extraStops": 3.0575424759098895,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 240,
+      "correctedSeconds": 2149.2935649314054,
+      "extraStops": 3.1627562382434067,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 500,
+      "correctedSeconds": 6005.622169907153,
+      "extraStops": 3.586313713864834,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 15848.931924611124,
+      "extraStops": 3.986313713864834,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "shanghai_gp3",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 95240.90227194574,
+      "extraStops": 4.725512476486814,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.4794153998779733,
+      "extraStops": 0.3100000000000001,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.217245113462352,
+      "extraStops": 0.4913383752235586,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.234755437793988,
+      "extraStops": 0.7197977094150824,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 10,
+      "correctedSeconds": 20.417379446695296,
+      "extraStops": 1.0297977094150825,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 30,
+      "correctedSeconds": 86.10509370128239,
+      "extraStops": 1.521136084638641,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 60,
+      "correctedSeconds": 213.4902953308954,
+      "extraStops": 1.8311360846386409,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 100,
+      "correctedSeconds": 416.8693834703355,
+      "extraStops": 2.059595418830165,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 128,
+      "correctedSeconds": 576.0299441606705,
+      "extraStops": 2.1700000000000004,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1033.592369113986,
+      "extraStops": 2.369595418830165,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1312.4317453596047,
+      "extraStops": 2.451136084638641,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3432.8174223821725,
+      "extraStops": 2.7793931282452475,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 8511.380382023768,
+      "extraStops": 3.0893931282452476,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_potsdam100",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 45578.10620047295,
+      "extraStops": 3.662272169277282,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.5140267490436567,
+      "extraStops": 0.33,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.310932956554556,
+      "extraStops": 0.5230376252379817,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.504134215419624,
+      "extraStops": 0.7662362713128299,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 10,
+      "correctedSeconds": 21.379620895022324,
+      "extraStops": 1.0962362713128297,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 30,
+      "correctedSeconds": 92.16611231499414,
+      "extraStops": 1.6192738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 60,
+      "correctedSeconds": 231.70807171525726,
+      "extraStops": 1.9492738965508116,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 100,
+      "correctedSeconds": 457.0881896148752,
+      "extraStops": 2.1924725426256595,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 128,
+      "correctedSeconds": 634.7303423687613,
+      "extraStops": 2.3100000000000005,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1149.1319353637352,
+      "extraStops": 2.52247254262566,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1464.4715915780425,
+      "extraStops": 2.6092738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3887.1393127680726,
+      "extraStops": 2.9587088139384896,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 9772.37220955811,
+      "extraStops": 3.2887088139384892,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra160",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 53688.6304980028,
+      "extraStops": 3.8985477931016232,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.5140267490436567,
+      "extraStops": 0.33,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.310932956554556,
+      "extraStops": 0.5230376252379817,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.504134215419624,
+      "extraStops": 0.7662362713128299,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 10,
+      "correctedSeconds": 21.379620895022324,
+      "extraStops": 1.0962362713128297,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 30,
+      "correctedSeconds": 92.16611231499414,
+      "extraStops": 1.6192738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 60,
+      "correctedSeconds": 231.70807171525726,
+      "extraStops": 1.9492738965508116,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 100,
+      "correctedSeconds": 457.0881896148752,
+      "extraStops": 2.1924725426256595,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 128,
+      "correctedSeconds": 634.7303423687613,
+      "extraStops": 2.3100000000000005,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1149.1319353637352,
+      "extraStops": 2.52247254262566,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1464.4715915780425,
+      "extraStops": 2.6092738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3887.1393127680726,
+      "extraStops": 2.9587088139384896,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 9772.37220955811,
+      "extraStops": 3.2887088139384892,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra400",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 53688.6304980028,
+      "extraStops": 3.8985477931016232,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.5140267490436567,
+      "extraStops": 0.33,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.310932956554556,
+      "extraStops": 0.5230376252379817,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.504134215419624,
+      "extraStops": 0.7662362713128299,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 10,
+      "correctedSeconds": 21.379620895022324,
+      "extraStops": 1.0962362713128297,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 30,
+      "correctedSeconds": 92.16611231499414,
+      "extraStops": 1.6192738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 60,
+      "correctedSeconds": 231.70807171525726,
+      "extraStops": 1.9492738965508116,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 100,
+      "correctedSeconds": 457.0881896148752,
+      "extraStops": 2.1924725426256595,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 128,
+      "correctedSeconds": 634.7303423687613,
+      "extraStops": 2.3100000000000005,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1149.1319353637352,
+      "extraStops": 2.52247254262566,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1464.4715915780425,
+      "extraStops": 2.6092738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3887.1393127680726,
+      "extraStops": 2.9587088139384896,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 9772.37220955811,
+      "extraStops": 3.2887088139384892,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_portra800",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 53688.6304980028,
+      "extraStops": 3.8985477931016232,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.5140267490436567,
+      "extraStops": 0.33,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.310932956554556,
+      "extraStops": 0.5230376252379817,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.504134215419624,
+      "extraStops": 0.7662362713128299,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 10,
+      "correctedSeconds": 21.379620895022324,
+      "extraStops": 1.0962362713128297,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 30,
+      "correctedSeconds": 92.16611231499414,
+      "extraStops": 1.6192738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 60,
+      "correctedSeconds": 231.70807171525726,
+      "extraStops": 1.9492738965508116,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 100,
+      "correctedSeconds": 457.0881896148752,
+      "extraStops": 2.1924725426256595,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 128,
+      "correctedSeconds": 634.7303423687613,
+      "extraStops": 2.3100000000000005,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1149.1319353637352,
+      "extraStops": 2.52247254262566,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1464.4715915780425,
+      "extraStops": 2.6092738965508113,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3887.1393127680726,
+      "extraStops": 2.9587088139384896,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 9772.37220955811,
+      "extraStops": 3.2887088139384892,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_ektar100",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 53688.6304980028,
+      "extraStops": 3.8985477931016232,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.5491212546385245,
+      "extraStops": 0.3500000000000001,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.406702113800222,
+      "extraStops": 0.5547368752524049,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.782325024730138,
+      "extraStops": 0.8126748332105769,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 10,
+      "correctedSeconds": 22.3872113856834,
+      "extraStops": 1.162674833210577,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 30,
+      "correctedSeconds": 98.65377173538343,
+      "extraStops": 1.7174117084629819,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 60,
+      "correctedSeconds": 251.4804263809232,
+      "extraStops": 2.067411708462982,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 100,
+      "correctedSeconds": 501.18723362727246,
+      "extraStops": 2.3253496664211544,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 128,
+      "correctedSeconds": 699.4126114582508,
+      "extraStops": 2.4500000000000006,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1277.587029792764,
+      "extraStops": 2.6753496664211545,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1634.1246317167422,
+      "extraStops": 2.767411708462982,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 500,
+      "correctedSeconds": 4401.589183960065,
+      "extraStops": 3.1380244996317312,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 11220.18454301964,
+      "extraStops": 3.4880244996317313,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_gold",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 63242.40485273094,
+      "extraStops": 4.134823416925964,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.4622888266898326,
+      "extraStops": 0.30000000000000004,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.171167510947728,
+      "extraStops": 0.47548875021634696,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.103282983463814,
+      "extraStops": 0.6965784284662089,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 10,
+      "correctedSeconds": 19.952623149688797,
+      "extraStops": 0.9965784284662088,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 30,
+      "correctedSeconds": 83.22573344016544,
+      "extraStops": 1.4720671786825559,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 60,
+      "correctedSeconds": 204.92579354278575,
+      "extraStops": 1.772067178682556,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 100,
+      "correctedSeconds": 398.1071705534973,
+      "extraStops": 1.9931568569324176,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 128,
+      "correctedSeconds": 548.7480128185822,
+      "extraStops": 2.1,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 200,
+      "correctedSeconds": 980.2548378789801,
+      "extraStops": 2.2931568569324177,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1242.4376807123597,
+      "extraStops": 2.372067178682556,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3225.9750607410806,
+      "extraStops": 2.6897352853986263,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 7943.282347242817,
+      "extraStops": 2.9897352853986265,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_50d",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 41994.58085914045,
+      "extraStops": 3.544134357365112,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.4622888266898326,
+      "extraStops": 0.30000000000000004,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.171167510947728,
+      "extraStops": 0.47548875021634696,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.103282983463814,
+      "extraStops": 0.6965784284662089,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 10,
+      "correctedSeconds": 19.952623149688797,
+      "extraStops": 0.9965784284662088,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 30,
+      "correctedSeconds": 83.22573344016544,
+      "extraStops": 1.4720671786825559,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 60,
+      "correctedSeconds": 204.92579354278575,
+      "extraStops": 1.772067178682556,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 100,
+      "correctedSeconds": 398.1071705534973,
+      "extraStops": 1.9931568569324176,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 128,
+      "correctedSeconds": 548.7480128185822,
+      "extraStops": 2.1,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 200,
+      "correctedSeconds": 980.2548378789801,
+      "extraStops": 2.2931568569324177,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1242.4376807123597,
+      "extraStops": 2.372067178682556,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3225.9750607410806,
+      "extraStops": 2.6897352853986263,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 7943.282347242817,
+      "extraStops": 2.9897352853986265,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_250d",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 41994.58085914045,
+      "extraStops": 3.544134357365112,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.4622888266898326,
+      "extraStops": 0.30000000000000004,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.171167510947728,
+      "extraStops": 0.47548875021634696,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.103282983463814,
+      "extraStops": 0.6965784284662089,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 10,
+      "correctedSeconds": 19.952623149688797,
+      "extraStops": 0.9965784284662088,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 30,
+      "correctedSeconds": 83.22573344016544,
+      "extraStops": 1.4720671786825559,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 60,
+      "correctedSeconds": 204.92579354278575,
+      "extraStops": 1.772067178682556,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 100,
+      "correctedSeconds": 398.1071705534973,
+      "extraStops": 1.9931568569324176,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 128,
+      "correctedSeconds": 548.7480128185822,
+      "extraStops": 2.1,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 200,
+      "correctedSeconds": 980.2548378789801,
+      "extraStops": 2.2931568569324177,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1242.4376807123597,
+      "extraStops": 2.372067178682556,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3225.9750607410806,
+      "extraStops": 2.6897352853986263,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 7943.282347242817,
+      "extraStops": 2.9897352853986265,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_500t",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 41994.58085914045,
+      "extraStops": 3.544134357365112,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.4622888266898326,
+      "extraStops": 0.30000000000000004,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.171167510947728,
+      "extraStops": 0.47548875021634696,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.103282983463814,
+      "extraStops": 0.6965784284662089,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 10,
+      "correctedSeconds": 19.952623149688797,
+      "extraStops": 0.9965784284662088,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 30,
+      "correctedSeconds": 83.22573344016544,
+      "extraStops": 1.4720671786825559,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 60,
+      "correctedSeconds": 204.92579354278575,
+      "extraStops": 1.772067178682556,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 100,
+      "correctedSeconds": 398.1071705534973,
+      "extraStops": 1.9931568569324176,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 128,
+      "correctedSeconds": 548.7480128185822,
+      "extraStops": 2.1,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 200,
+      "correctedSeconds": 980.2548378789801,
+      "extraStops": 2.2931568569324177,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1242.4376807123597,
+      "extraStops": 2.372067178682556,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 500,
+      "correctedSeconds": 3225.9750607410806,
+      "extraStops": 2.6897352853986263,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 7943.282347242817,
+      "extraStops": 2.9897352853986265,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "cinestill_800t",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 41994.58085914045,
+      "extraStops": 3.544134357365112,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5.1894540777810665,
+      "extraStops": 0.05365468248122674,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 10,
+      "correctedSeconds": 11.64993050750713,
+      "extraStops": 0.22032134914789392,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 30,
+      "correctedSeconds": 41.97249621509293,
+      "extraStops": 0.4844817659347538,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 60,
+      "correctedSeconds": 94.22506814850114,
+      "extraStops": 0.6511484326014191,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 100,
+      "correctedSeconds": 170.99759466766983,
+      "extraStops": 0.773976031629122,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 128,
+      "correctedSeconds": 228.07007184392694,
+      "extraStops": 0.8333333333333338,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 200,
+      "correctedSeconds": 383.87662073329665,
+      "extraStops": 0.9406426982957865,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 240,
+      "correctedSeconds": 474.8645871523025,
+      "extraStops": 0.9844817659347536,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1118.0339887498951,
+      "extraStops": 1.1609640474436815,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 2509.90144218341,
+      "extraStops": 1.3276307141103474,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160c",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 11186.037021433887,
+      "extraStops": 1.6356301985361723,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5.1894540777810665,
+      "extraStops": 0.05365468248122674,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 10,
+      "correctedSeconds": 11.64993050750713,
+      "extraStops": 0.22032134914789392,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 30,
+      "correctedSeconds": 41.97249621509293,
+      "extraStops": 0.4844817659347538,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 60,
+      "correctedSeconds": 94.22506814850114,
+      "extraStops": 0.6511484326014191,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 100,
+      "correctedSeconds": 170.99759466766983,
+      "extraStops": 0.773976031629122,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 128,
+      "correctedSeconds": 228.07007184392694,
+      "extraStops": 0.8333333333333338,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 200,
+      "correctedSeconds": 383.87662073329665,
+      "extraStops": 0.9406426982957865,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 240,
+      "correctedSeconds": 474.8645871523025,
+      "extraStops": 0.9844817659347536,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1118.0339887498951,
+      "extraStops": 1.1609640474436815,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 2509.90144218341,
+      "extraStops": 1.3276307141103474,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro160ns",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 11186.037021433887,
+      "extraStops": 1.6356301985361723,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5.1894540777810665,
+      "extraStops": 0.05365468248122674,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 10,
+      "correctedSeconds": 11.64993050750713,
+      "extraStops": 0.22032134914789392,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 30,
+      "correctedSeconds": 41.97249621509293,
+      "extraStops": 0.4844817659347538,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 60,
+      "correctedSeconds": 94.22506814850114,
+      "extraStops": 0.6511484326014191,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 100,
+      "correctedSeconds": 170.99759466766983,
+      "extraStops": 0.773976031629122,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 128,
+      "correctedSeconds": 228.07007184392694,
+      "extraStops": 0.8333333333333338,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 200,
+      "correctedSeconds": 383.87662073329665,
+      "extraStops": 0.9406426982957865,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 240,
+      "correctedSeconds": 474.8645871523025,
+      "extraStops": 0.9844817659347536,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1118.0339887498951,
+      "extraStops": 1.1609640474436815,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 2509.90144218341,
+      "extraStops": 1.3276307141103474,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_pro400h",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 11186.037021433887,
+      "extraStops": 1.6356301985361723,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.434142727659995,
+      "extraStops": 0.1949875002403851,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 5,
+      "correctedSeconds": 6.538302430059153,
+      "extraStops": 0.3869880158145604,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 10,
+      "correctedSeconds": 14.677992676220699,
+      "extraStops": 0.5536546824812274,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 30,
+      "correctedSeconds": 52.882031498028454,
+      "extraStops": 0.8178150992680866,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 60,
+      "correctedSeconds": 118.7161467880756,
+      "extraStops": 0.9844817659347533,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 100,
+      "correctedSeconds": 215.44346900318848,
+      "extraStops": 1.1073093649624548,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 128,
+      "correctedSeconds": 287.35028436719927,
+      "extraStops": 1.1666666666666656,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 200,
+      "correctedSeconds": 483.6542350243915,
+      "extraStops": 1.2739760316291207,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 240,
+      "correctedSeconds": 598.2918892028242,
+      "extraStops": 1.3178150992680862,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1408.6345569239202,
+      "extraStops": 1.4942973807770144,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 3162.2776601683745,
+      "extraStops": 1.660964047443679,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_c200",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 14093.523508207913,
+      "extraStops": 1.9689635318695067,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.434142727659995,
+      "extraStops": 0.1949875002403851,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 5,
+      "correctedSeconds": 6.538302430059153,
+      "extraStops": 0.3869880158145604,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 10,
+      "correctedSeconds": 14.677992676220699,
+      "extraStops": 0.5536546824812274,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 30,
+      "correctedSeconds": 52.882031498028454,
+      "extraStops": 0.8178150992680866,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 60,
+      "correctedSeconds": 118.7161467880756,
+      "extraStops": 0.9844817659347533,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 100,
+      "correctedSeconds": 215.44346900318848,
+      "extraStops": 1.1073093649624548,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 128,
+      "correctedSeconds": 287.35028436719927,
+      "extraStops": 1.1666666666666656,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 200,
+      "correctedSeconds": 483.6542350243915,
+      "extraStops": 1.2739760316291207,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 240,
+      "correctedSeconds": 598.2918892028242,
+      "extraStops": 1.3178150992680862,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1408.6345569239202,
+      "extraStops": 1.4942973807770144,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 3162.2776601683745,
+      "extraStops": 1.660964047443679,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_color100",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 14093.523508207913,
+      "extraStops": 1.9689635318695067,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.434142727659995,
+      "extraStops": 0.1949875002403851,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 5,
+      "correctedSeconds": 6.538302430059153,
+      "extraStops": 0.3869880158145604,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 10,
+      "correctedSeconds": 14.677992676220699,
+      "extraStops": 0.5536546824812274,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 30,
+      "correctedSeconds": 52.882031498028454,
+      "extraStops": 0.8178150992680866,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 60,
+      "correctedSeconds": 118.7161467880756,
+      "extraStops": 0.9844817659347533,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 100,
+      "correctedSeconds": 215.44346900318848,
+      "extraStops": 1.1073093649624548,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 128,
+      "correctedSeconds": 287.35028436719927,
+      "extraStops": 1.1666666666666656,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 200,
+      "correctedSeconds": 483.6542350243915,
+      "extraStops": 1.2739760316291207,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 240,
+      "correctedSeconds": 598.2918892028242,
+      "extraStops": 1.3178150992680862,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1408.6345569239202,
+      "extraStops": 1.4942973807770144,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 3162.2776601683745,
+      "extraStops": 1.660964047443679,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia200",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 14093.523508207913,
+      "extraStops": 1.9689635318695067,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.434142727659995,
+      "extraStops": 0.1949875002403851,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 5,
+      "correctedSeconds": 6.538302430059153,
+      "extraStops": 0.3869880158145604,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 10,
+      "correctedSeconds": 14.677992676220699,
+      "extraStops": 0.5536546824812274,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 30,
+      "correctedSeconds": 52.882031498028454,
+      "extraStops": 0.8178150992680866,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 60,
+      "correctedSeconds": 118.7161467880756,
+      "extraStops": 0.9844817659347533,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 100,
+      "correctedSeconds": 215.44346900318848,
+      "extraStops": 1.1073093649624548,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 128,
+      "correctedSeconds": 287.35028436719927,
+      "extraStops": 1.1666666666666656,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 200,
+      "correctedSeconds": 483.6542350243915,
+      "extraStops": 1.2739760316291207,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 240,
+      "correctedSeconds": 598.2918892028242,
+      "extraStops": 1.3178150992680862,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1408.6345569239202,
+      "extraStops": 1.4942973807770144,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 3162.2776601683745,
+      "extraStops": 1.660964047443679,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 14093.523508207913,
+      "extraStops": 1.9689635318695067,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.434142727659995,
+      "extraStops": 0.1949875002403851,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 5,
+      "correctedSeconds": 6.538302430059153,
+      "extraStops": 0.3869880158145604,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 10,
+      "correctedSeconds": 14.677992676220699,
+      "extraStops": 0.5536546824812274,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 30,
+      "correctedSeconds": 52.882031498028454,
+      "extraStops": 0.8178150992680866,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 60,
+      "correctedSeconds": 118.7161467880756,
+      "extraStops": 0.9844817659347533,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 100,
+      "correctedSeconds": 215.44346900318848,
+      "extraStops": 1.1073093649624548,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 128,
+      "correctedSeconds": 287.35028436719927,
+      "extraStops": 1.1666666666666656,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 200,
+      "correctedSeconds": 483.6542350243915,
+      "extraStops": 1.2739760316291207,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 240,
+      "correctedSeconds": 598.2918892028242,
+      "extraStops": 1.3178150992680862,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1408.6345569239202,
+      "extraStops": 1.4942973807770144,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 3162.2776601683745,
+      "extraStops": 1.660964047443679,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_xtra400",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 14093.523508207913,
+      "extraStops": 1.9689635318695067,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.434142727659995,
+      "extraStops": 0.1949875002403851,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 5,
+      "correctedSeconds": 6.538302430059153,
+      "extraStops": 0.3869880158145604,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 10,
+      "correctedSeconds": 14.677992676220699,
+      "extraStops": 0.5536546824812274,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 30,
+      "correctedSeconds": 52.882031498028454,
+      "extraStops": 0.8178150992680866,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 60,
+      "correctedSeconds": 118.7161467880756,
+      "extraStops": 0.9844817659347533,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 100,
+      "correctedSeconds": 215.44346900318848,
+      "extraStops": 1.1073093649624548,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 128,
+      "correctedSeconds": 287.35028436719927,
+      "extraStops": 1.1666666666666656,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 200,
+      "correctedSeconds": 483.6542350243915,
+      "extraStops": 1.2739760316291207,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 240,
+      "correctedSeconds": 598.2918892028242,
+      "extraStops": 1.3178150992680862,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1408.6345569239202,
+      "extraStops": 1.4942973807770144,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 3162.2776601683745,
+      "extraStops": 1.660964047443679,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_nexia400",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 14093.523508207913,
+      "extraStops": 1.9689635318695067,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.434142727659995,
+      "extraStops": 0.1949875002403851,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 5,
+      "correctedSeconds": 6.538302430059153,
+      "extraStops": 0.3869880158145604,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 10,
+      "correctedSeconds": 14.677992676220699,
+      "extraStops": 0.5536546824812274,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 30,
+      "correctedSeconds": 52.882031498028454,
+      "extraStops": 0.8178150992680866,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 60,
+      "correctedSeconds": 118.7161467880756,
+      "extraStops": 0.9844817659347533,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 100,
+      "correctedSeconds": 215.44346900318848,
+      "extraStops": 1.1073093649624548,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 128,
+      "correctedSeconds": 287.35028436719927,
+      "extraStops": 1.1666666666666656,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 200,
+      "correctedSeconds": 483.6542350243915,
+      "extraStops": 1.2739760316291207,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 240,
+      "correctedSeconds": 598.2918892028242,
+      "extraStops": 1.3178150992680862,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 500,
+      "correctedSeconds": 1408.6345569239202,
+      "extraStops": 1.4942973807770144,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 3162.2776601683745,
+      "extraStops": 1.660964047443679,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_superia1600",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 14093.523508207913,
+      "extraStops": 1.9689635318695067,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.6390158215457884,
+      "extraStops": 0.3999999999999999,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.655536721746079,
+      "extraStops": 0.6339850002884624,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 5,
+      "correctedSeconds": 9.518269693579391,
+      "extraStops": 0.9287712379549447,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 10,
+      "correctedSeconds": 25.118864315095795,
+      "extraStops": 1.3287712379549448,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 30,
+      "correctedSeconds": 116.94179522748564,
+      "extraStops": 1.962756238243407,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 60,
+      "correctedSeconds": 308.61124780530236,
+      "extraStops": 2.362756238243407,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 100,
+      "correctedSeconds": 630.957344480193,
+      "extraStops": 2.657542475909889,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 128,
+      "correctedSeconds": 891.4437768152308,
+      "extraStops": 2.7999999999999994,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1665.1064148037456,
+      "extraStops": 3.0575424759098895,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 240,
+      "correctedSeconds": 2149.2935649314054,
+      "extraStops": 3.1627562382434067,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 500,
+      "correctedSeconds": 6005.622169907153,
+      "extraStops": 3.586313713864834,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 15848.931924611124,
+      "extraStops": 3.986313713864834,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "lomo_cn",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 95240.90227194574,
+      "extraStops": 4.725512476486814,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.5491212546385245,
+      "extraStops": 0.3500000000000001,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 3,
+      "correctedSeconds": 4.406702113800222,
+      "extraStops": 0.5547368752524049,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 5,
+      "correctedSeconds": 8.782325024730138,
+      "extraStops": 0.8126748332105769,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 10,
+      "correctedSeconds": 22.3872113856834,
+      "extraStops": 1.162674833210577,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 30,
+      "correctedSeconds": 98.65377173538343,
+      "extraStops": 1.7174117084629819,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 60,
+      "correctedSeconds": 251.4804263809232,
+      "extraStops": 2.067411708462982,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 100,
+      "correctedSeconds": 501.18723362727246,
+      "extraStops": 2.3253496664211544,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 128,
+      "correctedSeconds": 699.4126114582508,
+      "extraStops": 2.4500000000000006,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 200,
+      "correctedSeconds": 1277.587029792764,
+      "extraStops": 2.6753496664211545,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 240,
+      "correctedSeconds": 1634.1246317167422,
+      "extraStops": 2.767411708462982,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 500,
+      "correctedSeconds": 4401.589183960065,
+      "extraStops": 3.1380244996317312,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 11220.18454301964,
+      "extraStops": 3.4880244996317313,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "holga400",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 63242.40485273094,
+      "extraStops": 4.134823416925964,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 10,
+      "correctedSeconds": 10,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 30,
+      "correctedSeconds": 33.49632727236977,
+      "extraStops": 0.1590404182398872,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 60,
+      "correctedSeconds": 71.81803851545676,
+      "extraStops": 0.25938375012788045,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 100,
+      "correctedSeconds": 125.99210498948733,
+      "extraStops": 0.3333333333333336,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 128,
+      "correctedSeconds": 166.60976218142878,
+      "extraStops": 0.3803291249206781,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 200,
+      "correctedSeconds": 276.119098316866,
+      "extraStops": 0.46529067819809283,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 240,
+      "correctedSeconds": 339.4112549695428,
+      "extraStops": 0.5000000000000001,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 500,
+      "correctedSeconds": 779.0181247267705,
+      "extraStops": 0.6397287997015595,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1707.2639765007464,
+      "extraStops": 0.7716861445663187,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "kodak_e100",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 7277.98872529499,
+      "extraStops": 1.0155429096735982,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 10,
+      "correctedSeconds": 10,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 30,
+      "correctedSeconds": 30,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 60,
+      "correctedSeconds": 60,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 100,
+      "correctedSeconds": 100,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 128,
+      "correctedSeconds": 128,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 200,
+      "correctedSeconds": 235.6512584350219,
+      "extraStops": 0.2366533857161665,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 240,
+      "correctedSeconds": 302.38105197476943,
+      "extraStops": 0.33333333333333287,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 500,
+      "correctedSeconds": 711.9341024967008,
+      "extraStops": 0.5098156148422607,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1598.2380218994845,
+      "extraStops": 0.6764822815089281,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia100f",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 7122.96880728454,
+      "extraStops": 0.9844817659347542,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 10,
+      "correctedSeconds": 10,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 30,
+      "correctedSeconds": 30,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 60,
+      "correctedSeconds": 60,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 100,
+      "correctedSeconds": 100,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 128,
+      "correctedSeconds": 128,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 200,
+      "correctedSeconds": 235.6512584350219,
+      "extraStops": 0.2366533857161665,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 240,
+      "correctedSeconds": 302.38105197476943,
+      "extraStops": 0.33333333333333287,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 500,
+      "correctedSeconds": 711.9341024967008,
+      "extraStops": 0.5098156148422607,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1598.2380218994845,
+      "extraStops": 0.6764822815089281,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_astia100f",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 7122.96880728454,
+      "extraStops": 0.9844817659347542,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 10,
+      "correctedSeconds": 10,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 30,
+      "correctedSeconds": 30,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 60,
+      "correctedSeconds": 60,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 100,
+      "correctedSeconds": 100,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 128,
+      "correctedSeconds": 128,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 200,
+      "correctedSeconds": 235.6512584350219,
+      "extraStops": 0.2366533857161665,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 240,
+      "correctedSeconds": 302.38105197476943,
+      "extraStops": 0.33333333333333287,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 500,
+      "correctedSeconds": 711.9341024967008,
+      "extraStops": 0.5098156148422607,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1598.2380218994845,
+      "extraStops": 0.6764822815089281,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_provia400x",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 7122.96880728454,
+      "extraStops": 0.9844817659347542,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 10,
+      "correctedSeconds": 10,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 30,
+      "correctedSeconds": 30,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 60,
+      "correctedSeconds": 60,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 100,
+      "correctedSeconds": 108.88668887870031,
+      "extraStops": 0.1228275990277013,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 128,
+      "correctedSeconds": 145.2289139135346,
+      "extraStops": 0.18218490073191332,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 200,
+      "correctedSeconds": 244.44235166482264,
+      "extraStops": 0.2894942656943672,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 240,
+      "correctedSeconds": 302.38105197476943,
+      "extraStops": 0.33333333333333287,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 500,
+      "correctedSeconds": 711.9341024967008,
+      "extraStops": 0.5098156148422607,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1598.2380218994845,
+      "extraStops": 0.6764822815089281,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 7122.96880728454,
+      "extraStops": 0.9844817659347542,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 10,
+      "correctedSeconds": 10,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 30,
+      "correctedSeconds": 30,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 60,
+      "correctedSeconds": 60,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 100,
+      "correctedSeconds": 108.88668887870031,
+      "extraStops": 0.1228275990277013,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 128,
+      "correctedSeconds": 145.2289139135346,
+      "extraStops": 0.18218490073191332,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 200,
+      "correctedSeconds": 244.44235166482264,
+      "extraStops": 0.2894942656943672,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 240,
+      "correctedSeconds": 302.38105197476943,
+      "extraStops": 0.33333333333333287,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 500,
+      "correctedSeconds": 711.9341024967008,
+      "extraStops": 0.5098156148422607,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1598.2380218994845,
+      "extraStops": 0.6764822815089281,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia100f",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 7122.96880728454,
+      "extraStops": 0.9844817659347542,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2.244924096618746,
+      "extraStops": 0.1666666666666667,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3.6028108655280078,
+      "extraStops": 0.2641604167868591,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 5,
+      "correctedSeconds": 6.5383024300591535,
+      "extraStops": 0.3869880158145604,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 10,
+      "correctedSeconds": 14.677992676220706,
+      "extraStops": 0.5536546824812281,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 30,
+      "correctedSeconds": 58.723014617532925,
+      "extraStops": 0.9689635318695055,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 60,
+      "correctedSeconds": 147.97272445982796,
+      "extraStops": 1.302296865202837,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 100,
+      "correctedSeconds": 292.4017738212864,
+      "extraStops": 1.5479520632582404,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 128,
+      "correctedSeconds": 406.3746693038584,
+      "extraStops": 1.6666666666666643,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 200,
+      "correctedSeconds": 736.806299728076,
+      "extraStops": 1.8812853965915723,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 240,
+      "correctedSeconds": 939.5682338805254,
+      "extraStops": 1.9689635318695033,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 500,
+      "correctedSeconds": 2499.999999999995,
+      "extraStops": 2.3219280948873595,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 6299.605249474341,
+      "extraStops": 2.65526142822069,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_velvia50",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 34757.61784580254,
+      "extraStops": 3.27126039707234,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5.1894540777810665,
+      "extraStops": 0.05365468248122674,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 10,
+      "correctedSeconds": 11.64993050750713,
+      "extraStops": 0.22032134914789392,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 30,
+      "correctedSeconds": 39.830402269382795,
+      "extraStops": 0.40890754963404347,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 60,
+      "correctedSeconds": 84.39768247579153,
+      "extraStops": 0.49224088296737595,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 100,
+      "correctedSeconds": 146.77992676220697,
+      "extraStops": 0.5536546824812272,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 128,
+      "correctedSeconds": 191.78330584021523,
+      "extraStops": 0.5833333333333334,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 200,
+      "correctedSeconds": 311.0158307946368,
+      "extraStops": 0.6369880158145594,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 240,
+      "correctedSeconds": 378.9327821773643,
+      "extraStops": 0.6589075496340432,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 500,
+      "correctedSeconds": 839.2361279532477,
+      "extraStops": 0.747148690388507,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1778.2794100389212,
+      "extraStops": 0.8304820237218393,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_sensia200",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 7122.968807284527,
+      "extraStops": 0.9844817659347516,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5.1894540777810665,
+      "extraStops": 0.05365468248122674,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 10,
+      "correctedSeconds": 11.64993050750713,
+      "extraStops": 0.22032134914789392,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 30,
+      "correctedSeconds": 39.830402269382795,
+      "extraStops": 0.40890754963404347,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 60,
+      "correctedSeconds": 84.39768247579153,
+      "extraStops": 0.49224088296737595,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 100,
+      "correctedSeconds": 146.77992676220697,
+      "extraStops": 0.5536546824812272,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 128,
+      "correctedSeconds": 191.78330584021523,
+      "extraStops": 0.5833333333333334,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 200,
+      "correctedSeconds": 311.0158307946368,
+      "extraStops": 0.6369880158145594,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 240,
+      "correctedSeconds": 378.9327821773643,
+      "extraStops": 0.6589075496340432,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 500,
+      "correctedSeconds": 839.2361279532477,
+      "extraStops": 0.747148690388507,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1778.2794100389212,
+      "extraStops": 0.8304820237218393,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_64t",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 7122.968807284527,
+      "extraStops": 0.9844817659347516,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 0,
+      "correctedSeconds": 0,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 0.25,
+      "correctedSeconds": 0.25,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 0.5,
+      "correctedSeconds": 0.5,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 1,
+      "correctedSeconds": 1,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 2,
+      "correctedSeconds": 2,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 3,
+      "correctedSeconds": 3,
+      "extraStops": 0,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 5,
+      "correctedSeconds": 5.1894540777810665,
+      "extraStops": 0.05365468248122674,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 10,
+      "correctedSeconds": 11.64993050750713,
+      "extraStops": 0.22032134914789392,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 30,
+      "correctedSeconds": 39.830402269382795,
+      "extraStops": 0.40890754963404347,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 60,
+      "correctedSeconds": 84.39768247579153,
+      "extraStops": 0.49224088296737595,
+      "isExtrapolated": false
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 100,
+      "correctedSeconds": 146.77992676220697,
+      "extraStops": 0.5536546824812272,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 128,
+      "correctedSeconds": 191.78330584021523,
+      "extraStops": 0.5833333333333334,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 200,
+      "correctedSeconds": 311.0158307946368,
+      "extraStops": 0.6369880158145594,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 240,
+      "correctedSeconds": 378.9327821773643,
+      "extraStops": 0.6589075496340432,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 500,
+      "correctedSeconds": 839.2361279532477,
+      "extraStops": 0.747148690388507,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 1000,
+      "correctedSeconds": 1778.2794100389212,
+      "extraStops": 0.8304820237218393,
+      "isExtrapolated": true
+    },
+    {
+      "filmId": "fuji_t64",
+      "meteredSeconds": 3600,
+      "correctedSeconds": 7122.968807284527,
+      "extraStops": 0.9844817659347516,
+      "isExtrapolated": true
+    }
+  ]
+}

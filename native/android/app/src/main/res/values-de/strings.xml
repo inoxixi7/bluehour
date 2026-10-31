@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tab_light">Blaue Stunde</string>
+    <string name="tab_exposure">Belichtung</string>
+    <string name="tab_reciprocity">Schwarzschild</string>
+    <string name="reciprocity_title">Schwarzschild-Effekt</string>
+    <string name="film_profile">Filmprofil</string>
+    <string name="select_film">Film auswählen</string>
+    <string name="metered_shutter">Gemessene Verschlusszeit</string>
+    <string name="nd_filter">ND-Filter</string>
+    <string name="nd_none">Keiner</string>
+    <string name="result_base">Basis-Verschluss</string>
+    <string name="result_reciprocity">Korrigiert</string>
+    <string name="extra_stops">Zusätzliche Belichtung</string>
+    <string name="data_source">Datenquelle</string>
+    <string name="source_manufacturer">Herstellerdatenblatt</string>
+    <string name="source_community">Community-Tests</string>
+    <string name="source_estimate">Schätzung (keine offiziellen Daten)</string>
+    <string name="extrapolated_warning">Außerhalb der veröffentlichten Filmdaten (%1$s). Das Ergebnis ist extrapoliert, Belichtungsreihe empfohlen.</string>
+    <string name="cancel">Abbrechen</string>
+    <string name="unit_second">s</string>
+    <string name="unit_seconds">s</string>
+    <string name="unit_sec">s</string>
+    <string name="unit_minutes">Min</string>
+    <string name="unit_min">Min</string>
+    <string name="unit_hours">Std</string>
+    <string name="light_title">Blaue Stunde</string>
+    <string name="phase_morning_blue">Morgendliche Blaue Stunde</string>
+    <string name="phase_morning_golden">Morgendliche Goldene Stunde</string>
+    <string name="phase_daylight">Tageslicht</string>
+    <string name="phase_evening_golden">Abendliche Goldene Stunde</string>
+    <string name="phase_evening_blue">Abendliche Blaue Stunde</string>
+    <string name="phase_night">Nacht</string>
+    <string name="current_phase">Jetzt</string>
+    <string name="phase_ends_in">Noch %1$s bis %2$s</string>
+    <string name="next_blue_hour">Nächste Blaue Stunde</string>
+    <string name="tomorrow">Morgen</string>
+    <string name="today_schedule">Heute</string>
+    <string name="sunrise">Sonnenaufgang</string>
+    <string name="sunset">Sonnenuntergang</string>
+    <string name="solar_noon">Sonnenmittag</string>
+    <string name="day_length">Tageslänge</string>
+    <string name="duration_hm">%1$d Std. %2$d Min.</string>
+    <string name="duration_m">%1$d Min.</string>
+    <string name="location_rationale">BlueHour verwendet Ihren Standort, um Sonnenaufgang, Sonnenuntergang und Blaue Stunde auf dem Gerät zu berechnen. Ihr Standort wird nirgendwohin gesendet.</string>
+    <string name="location_allow">Standort erlauben</string>
+    <string name="location_denied">Standortberechtigung verweigert. Sie können sie in den Systemeinstellungen erlauben.</string>
+    <string name="open_settings">Einstellungen öffnen</string>
+    <string name="locating">Standort wird ermittelt…</string>
+    <string name="location_unavailable">Standort konnte nicht ermittelt werden. Prüfen Sie, ob die Ortungsdienste aktiviert sind.</string>
+    <string name="retry">Erneut versuchen</string>
+    <string name="refresh_location">Standort aktualisieren</string>
+    <string name="exposure_title">Belichtungsrechner</string>
+    <string name="scene_preset">Szenenvoreinstellung</string>
+    <string name="no_scene">Keine Szene</string>
+    <string name="param_aperture">Blende</string>
+    <string name="param_shutter">Verschlusszeit</string>
+    <string name="param_iso">ISO</string>
+    <string name="lock_ev">Sperren</string>
+    <string name="unlock_ev">Entsperren</string>
+    <string name="will_adjust">Wird automatisch angepasst</string>
+    <string name="result_nd">Nach ND-Filter</string>
+    <string name="to_reciprocity">Reziprozität berechnen</string>
+    <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
+    <string-array name="ev_scenes">
+        <item>Schnee / Sand (Helle Sonne)</item>
+        <item>Helle Sonne (Sunny-16-Regel)</item>
+        <item>Diesige Sonne / Weiche Schatten</item>
+        <item>Bewölkt / Hell bedeckt</item>
+        <item>Bedeckt / Sonnenauf-/untergang</item>
+        <item>Tiefer Schatten / Dämmerung</item>
+        <item>Nach Sonnenuntergang / Stürmisch</item>
+        <item>Blaue Stunde / Helle Nachtstraße</item>
+        <item>Stadtnacht / Lagerfeuer</item>
+        <item>Innen Kunstlicht</item>
+        <item>Heim-Interieur / Nachtmarkt</item>
+        <item>Helle Straßenbeleuchtung</item>
+        <item>Kerzenlicht / Weihnachtslichter</item>
+        <item>Mondbeleuchtete Landschaft</item>
+        <item>Entfernte Lichter / Blitz</item>
+        <item>Entfernte Skyline</item>
+        <item>Sehr dunkel / Nur Sternenlicht</item>
+        <item>Milchstraße / Polarlicht (Hohes ISO)</item>
+        <item>Deep-Sky-Astrofotografie</item>
+        <item>Totale Dunkelheit</item>
+        <item>Mondlose Nachtlandschaft</item>
+        <item>Extrem dunkle Umgebung</item>
+        <item>Langzeitbelichtungs-Kunst</item>
+    </string-array>
+</resources>
