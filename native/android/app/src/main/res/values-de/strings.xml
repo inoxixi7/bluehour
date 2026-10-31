@@ -3,7 +3,6 @@
     <string name="tab_light">Blaue Stunde</string>
     <string name="tab_exposure">Belichtung</string>
     <string name="tab_reciprocity">Schwarzschild</string>
-    <string name="coming_soon">Dieser Bildschirm folgt bald in der nativen App.</string>
     <string name="reciprocity_title">Schwarzschild-Effekt</string>
     <string name="film_profile">Filmprofil</string>
     <string name="select_film">Film auswählen</string>
@@ -51,4 +50,41 @@
     <string name="location_unavailable">Standort konnte nicht ermittelt werden. Prüfen Sie, ob die Ortungsdienste aktiviert sind.</string>
     <string name="retry">Erneut versuchen</string>
     <string name="refresh_location">Standort aktualisieren</string>
+    <string name="exposure_title">Belichtungsrechner</string>
+    <string name="scene_preset">Szenenvoreinstellung</string>
+    <string name="no_scene">Keine Szene</string>
+    <string name="param_aperture">Blende</string>
+    <string name="param_shutter">Verschlusszeit</string>
+    <string name="param_iso">ISO</string>
+    <string name="lock_ev">Sperren</string>
+    <string name="unlock_ev">Entsperren</string>
+    <string name="will_adjust">Wird automatisch angepasst</string>
+    <string name="result_nd">Nach ND-Filter</string>
+    <string name="to_reciprocity">Reziprozität berechnen</string>
+    <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
+    <string-array name="ev_scenes">
+        <item>Schnee / Sand (Helle Sonne)</item>
+        <item>Helle Sonne (Sunny-16-Regel)</item>
+        <item>Diesige Sonne / Weiche Schatten</item>
+        <item>Bewölkt / Hell bedeckt</item>
+        <item>Bedeckt / Sonnenauf-/untergang</item>
+        <item>Tiefer Schatten / Dämmerung</item>
+        <item>Nach Sonnenuntergang / Stürmisch</item>
+        <item>Blaue Stunde / Helle Nachtstraße</item>
+        <item>Stadtnacht / Lagerfeuer</item>
+        <item>Innen Kunstlicht</item>
+        <item>Heim-Interieur / Nachtmarkt</item>
+        <item>Helle Straßenbeleuchtung</item>
+        <item>Kerzenlicht / Weihnachtslichter</item>
+        <item>Mondbeleuchtete Landschaft</item>
+        <item>Entfernte Lichter / Blitz</item>
+        <item>Entfernte Skyline</item>
+        <item>Sehr dunkel / Nur Sternenlicht</item>
+        <item>Milchstraße / Polarlicht (Hohes ISO)</item>
+        <item>Deep-Sky-Astrofotografie</item>
+        <item>Totale Dunkelheit</item>
+        <item>Mondlose Nachtlandschaft</item>
+        <item>Extrem dunkle Umgebung</item>
+        <item>Langzeitbelichtungs-Kunst</item>
+    </string-array>
 </resources>

@@ -3,7 +3,6 @@
     <string name="tab_light">蓝调时刻</string>
     <string name="tab_exposure">曝光实验室</string>
     <string name="tab_reciprocity">倒易律</string>
-    <string name="coming_soon">原生版本的这个页面即将推出。</string>
     <string name="reciprocity_title">倒易律计算器</string>
     <string name="film_profile">胶片型号</string>
     <string name="select_film">选择胶片</string>
@@ -51,4 +50,41 @@
     <string name="location_unavailable">无法获取位置，请确认已开启定位服务。</string>
     <string name="retry">重试</string>
     <string name="refresh_location">更新位置</string>
+    <string name="exposure_title">曝光计算器</string>
+    <string name="scene_preset">场景预设</string>
+    <string name="no_scene">无场景</string>
+    <string name="param_aperture">光圈</string>
+    <string name="param_shutter">快门</string>
+    <string name="param_iso">ISO</string>
+    <string name="lock_ev">锁定</string>
+    <string name="unlock_ev">解锁</string>
+    <string name="will_adjust">会自动调整</string>
+    <string name="result_nd">加 ND 后</string>
+    <string name="to_reciprocity">计算倒易律</string>
+    <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
+    <string-array name="ev_scenes">
+        <item>雪地/沙滩强光</item>
+        <item>晴朗日光 (阳光16法则)</item>
+        <item>薄云/柔和日光</item>
+        <item>多云/阴影下</item>
+        <item>阴天/日出日落</item>
+        <item>深阴天/黄昏</item>
+        <item>日落后/暴风雨</item>
+        <item>蓝调时刻/灯火通明</item>
+        <item>城市夜景/篝火</item>
+        <item>室内人工照明</item>
+        <item>家庭室内/夜市</item>
+        <item>明亮路灯下</item>
+        <item>烛光/圣诞彩灯</item>
+        <item>月光下的风景</item>
+        <item>远处灯光/闪电</item>
+        <item>远处天际线</item>
+        <item>极暗/仅有星光</item>
+        <item>银河/极光 (需高ISO)</item>
+        <item>深空摄影</item>
+        <item>几乎完全黑暗</item>
+        <item>无月夜景</item>
+        <item>极暗环境</item>
+        <item>长时间曝光</item>
+    </string-array>
 </resources>

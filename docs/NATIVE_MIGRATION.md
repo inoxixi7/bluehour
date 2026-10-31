@@ -9,13 +9,13 @@ BlueHour 正在从 Expo / React Native 迁移到原生：Android 用 Kotlin + Je
 | --------------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | `shared/`             | ✅ 完成   | 由 TypeScript 代码生成的胶片数据与测试向量（`npm run shared:update`），见 `shared/README.md`     |
 | `native/android/core` | ✅ 完成   | 纯 Kotlin 计算逻辑：倒易率、EV、参数锁定、太阳位置、光线阶段、景深、格式化；已用测试向量逐条验证 |
-| `native/android/app`  | 🚧 进行中 | 「蓝调时刻」「倒易率」页面可用；「曝光」页面为占位                                               |
+| `native/android/app`  | 🚧 进行中 | 「蓝调时刻」「曝光」「倒易率」页面可用；切换标签保留各页状态                                     |
 | CI                    | ✅ 完成   | `android` 任务：core 测试、构建调试 APK（Artifacts 中可下载 `bluehour-debug-apk`）、Android lint |
 | iOS（SwiftUI）        | ⏳ 未开始 | 计划同样用 `shared/test-vectors` 验证计算结果                                                    |
 
 ### Android 待办
 
-1. 曝光页面：EV、ND、参数锁定（`ExposureLocks`）、EV 场景
+1. 曝光页面：帮助说明（TS 版 `exposureLabHelp` 的 5 节内容）
 2. 倒易率计时器：结束时通知 + 震动；之后考虑常驻通知
 3. 设置：语言、主题、黄金时刻提醒
 4. 主屏幕小组件（今日黄金 / 蓝调时刻）

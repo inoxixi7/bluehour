@@ -4,7 +4,6 @@
     <string name="tab_light">Blue Hour</string>
     <string name="tab_exposure">Exposure Lab</string>
     <string name="tab_reciprocity">Reciprocity</string>
-    <string name="coming_soon">This screen is coming soon in the native app.</string>
     <string name="reciprocity_title">Reciprocity</string>
     <string name="film_profile">Film Profile</string>
     <string name="select_film">Select film</string>
@@ -52,4 +51,41 @@
     <string name="location_unavailable">Couldn\'t get your location. Make sure location services are turned on.</string>
     <string name="retry">Try again</string>
     <string name="refresh_location">Update location</string>
+    <string name="exposure_title">Exposure Calculator</string>
+    <string name="scene_preset">Scene Preset</string>
+    <string name="no_scene">No Scene</string>
+    <string name="param_aperture">Aperture</string>
+    <string name="param_shutter">Shutter</string>
+    <string name="param_iso">ISO</string>
+    <string name="lock_ev">Lock</string>
+    <string name="unlock_ev">Unlock</string>
+    <string name="will_adjust">Will auto-adjust</string>
+    <string name="result_nd">After ND filter</string>
+    <string name="to_reciprocity">Calculate Reciprocity</string>
+    <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
+    <string-array name="ev_scenes">
+        <item>Snow / Sand (Bright Sun)</item>
+        <item>Bright Sunny (Sunny 16 Rule)</item>
+        <item>Hazy Sun / Soft Shadows</item>
+        <item>Cloudy / Bright Overcast</item>
+        <item>Overcast / Sunrise / Sunset</item>
+        <item>Deep Shade / Twilight</item>
+        <item>After Sunset / Stormy</item>
+        <item>Blue Hour / Bright Night Street</item>
+        <item>City Night / Bonfire</item>
+        <item>Indoor Artificial Light</item>
+        <item>Home Interior / Night Market</item>
+        <item>Bright Street Light</item>
+        <item>Candlelight / Christmas Lights</item>
+        <item>Moonlit Landscape</item>
+        <item>Distant Lights / Lightning</item>
+        <item>Distant Skyline</item>
+        <item>Very Dark / Starlight Only</item>
+        <item>Milky Way / Aurora (High ISO)</item>
+        <item>Deep Sky Astrophotography</item>
+        <item>Total Darkness</item>
+        <item>Moonless Night Landscape</item>
+        <item>Extremely Dark Environment</item>
+        <item>Long Exposure Art</item>
+    </string-array>
 </resources>

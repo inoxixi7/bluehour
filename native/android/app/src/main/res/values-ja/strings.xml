@@ -3,7 +3,6 @@
     <string name="tab_light">ブルーアワー</string>
     <string name="tab_exposure">露出ラボ</string>
     <string name="tab_reciprocity">相反則</string>
-    <string name="coming_soon">この画面はネイティブ版で近日公開予定です。</string>
     <string name="reciprocity_title">相反則計算</string>
     <string name="film_profile">フィルムプロファイル</string>
     <string name="select_film">フィルムを選択</string>
@@ -51,4 +50,41 @@
     <string name="location_unavailable">現在地を取得できませんでした。位置情報サービスがオンになっているか確認してください。</string>
     <string name="retry">再試行</string>
     <string name="refresh_location">現在地を更新</string>
+    <string name="exposure_title">露出計算機</string>
+    <string name="scene_preset">シーンプリセット</string>
+    <string name="no_scene">シーンなし</string>
+    <string name="param_aperture">絞り</string>
+    <string name="param_shutter">シャッター</string>
+    <string name="param_iso">ISO</string>
+    <string name="lock_ev">ロック</string>
+    <string name="unlock_ev">ロック解除</string>
+    <string name="will_adjust">自動調整されます</string>
+    <string name="result_nd">ND適用後のシャッター</string>
+    <string name="to_reciprocity">相反則を計算</string>
+    <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
+    <string-array name="ev_scenes">
+        <item>雪地/砂浜の強光</item>
+        <item>快晴の日光 (サニー16の法則)</item>
+        <item>薄い雲/柔らかい日光</item>
+        <item>曇り空/日陰</item>
+        <item>曇天/日の出・日の入り</item>
+        <item>濃い曇り/夕暮れ</item>
+        <item>日没後/嵐</item>
+        <item>ブルーアワー/明るい街灯</item>
+        <item>都市夜景/焦き火</item>
+        <item>室内の人工照明</item>
+        <item>家庭内/夜市</item>
+        <item>明るい街灯下</item>
+        <item>ろうそくの光/クリスマスライト</item>
+        <item>月明かりの風景</item>
+        <item>遠くの光/稲妻</item>
+        <item>遠くの地平線</item>
+        <item>極暗/星明かりのみ</item>
+        <item>天の川/オーロラ (高ISO必要)</item>
+        <item>ディープスカイ撮影</item>
+        <item>ほぼ完全な暗闇</item>
+        <item>月のない夜景</item>
+        <item>極端に暗い環境</item>
+        <item>長時間露光アート</item>
+    </string-array>
 </resources>

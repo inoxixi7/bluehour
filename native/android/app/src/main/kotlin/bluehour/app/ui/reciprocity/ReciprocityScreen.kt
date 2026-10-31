@@ -19,10 +19,10 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.RadioButton
-import androidx.compose.material3.Slider
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
@@ -35,7 +35,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import bluehour.app.R
-import bluehour.core.DurationUnits
+import bluehour.app.ui.common.LabeledSlider
+import bluehour.app.ui.common.durationUnits
 import bluehour.core.Film
 import bluehour.core.FilmCatalog
 import bluehour.core.PhotographyData
@@ -44,16 +45,22 @@ import bluehour.core.calculateNDShutter
 import bluehour.core.calculateReciprocity
 import bluehour.core.formatExtraStops
 import bluehour.core.formatShutterSpeed
-import kotlin.math.roundToInt
 
 private const val DEFAULT_FILM_ID = "kodak_trix"
 private const val DEFAULT_SHUTTER_SECONDS = 1.0
+
+/** 从曝光页带过来的测光快门（标准快门值）与 ND 档数 */
+data class ReciprocityInput(val shutter: Double, val ndStops: Int)
 
 /**
  * 倒易律计算：选择胶片、测光快门与 ND 滤镜，显示校正后的曝光时间
  */
 @Composable
-fun ReciprocityScreen(modifier: Modifier = Modifier) {
+fun ReciprocityScreen(
+    modifier: Modifier = Modifier,
+    input: ReciprocityInput? = null,
+    onInputConsumed: () -> Unit = {},
+) {
     val films = FilmCatalog.films
     val photography = PhotographyData.default
     val shutters = photography.shutterSpeeds
@@ -67,6 +74,13 @@ fun ReciprocityScreen(modifier: Modifier = Modifier) {
     // 0 表示不用 ND，1..n 对应 ndFilters 中的滤镜
     var ndIndex by rememberSaveable { mutableIntStateOf(0) }
     var showFilmPicker by remember { mutableStateOf(false) }
+
+    LaunchedEffect(input) {
+        if (input == null) return@LaunchedEffect
+        shutters.indexOfFirst { it.value == input.shutter }.takeIf { it >= 0 }?.let { shutterIndex = it }
+        ndIndex = ndFilters.indexOfFirst { it.stops == input.ndStops } + 1
+        onInputConsumed()
+    }
 
     val film = films.firstOrNull { it.id == filmId } ?: films.first()
     val nd = ndFilters.getOrNull(ndIndex - 1)
@@ -151,22 +165,6 @@ fun ReciprocityScreen(modifier: Modifier = Modifier) {
 }
 
 @Composable
-private fun LabeledSlider(label: String, valueText: String, index: Int, count: Int, onChange: (Int) -> Unit) {
-    Column {
-        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-            Text(label, style = MaterialTheme.typography.labelLarge, modifier = Modifier.weight(1f))
-            Text(valueText, style = MaterialTheme.typography.titleMedium)
-        }
-        Slider(
-            value = index.toFloat(),
-            onValueChange = { onChange(it.roundToInt().coerceIn(0, count - 1)) },
-            valueRange = 0f..(count - 1).toFloat(),
-            steps = (count - 2).coerceAtLeast(0),
-        )
-    }
-}
-
-@Composable
 private fun ResultCard(metered: String, corrected: String, extraStops: String) {
     Card(Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -227,14 +225,4 @@ private fun sourceLabel(source: ReciprocitySource): String = stringResource(
         ReciprocitySource.Community -> R.string.source_community
         ReciprocitySource.Estimate -> R.string.source_estimate
     },
-)
-
-@Composable
-private fun durationUnits(): DurationUnits = DurationUnits(
-    second = stringResource(R.string.unit_second),
-    seconds = stringResource(R.string.unit_seconds),
-    sec = stringResource(R.string.unit_sec),
-    minutes = stringResource(R.string.unit_minutes),
-    min = stringResource(R.string.unit_min),
-    hours = stringResource(R.string.unit_hours),
 )
