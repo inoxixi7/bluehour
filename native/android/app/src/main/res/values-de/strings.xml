@@ -147,4 +147,19 @@
         <item>Extremfälle: Einige Filme erfordern bei extrem langen Belichtungen mehrfache Kompensation</item>
         <item>Faustregel: Bei 1s gemessener Belichtung ist die Kompensation minimal; ab 10s steigt sie deutlich</item>
     </string-array>
+    <string name="tab_settings">Einstellungen</string>
+    <string name="settings_preferences">Einstellungen</string>
+    <string name="settings_language">Sprache</string>
+    <string name="settings_theme">Design</string>
+    <string name="theme_system">Systemeinstellung folgen</string>
+    <string name="theme_light">Heller Modus</string>
+    <string name="theme_dark">Dunkler Modus</string>
+    <string name="settings_reminders">Foto-Erinnerungen</string>
+    <string name="golden_reminder_title">Goldene Stunde Erinnerung</string>
+    <string name="golden_reminder_description">30 Minuten vor der goldenen Stunde erinnern</string>
+    <string name="notification_permission_message">Bitte erlauben Sie die Benachrichtigungsberechtigung in den Systemeinstellungen, um Fotoerinnerungen zu erhalten</string>
+    <string name="golden_notification_title">Goldene Stunde beginnt bald</string>
+    <string name="golden_notification_body">Die goldene Stunde beginnt in 30 Minuten (%1$s). Bereiten Sie Ihre Ausrüstung vor.</string>
+    <string name="settings_version">Version</string>
+    <string name="exact_alarm_hint">Erlaube „Wecker und Erinnerungen“, damit Erinnerungen pünktlich ankommen.</string>
 </resources>

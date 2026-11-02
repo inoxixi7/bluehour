@@ -147,4 +147,19 @@
         <item>极限情况：某些胶片在超长曝光时可能需要数倍的补偿时间</item>
         <item>经验法则：当测光快门为1秒时，补偿通常较小；10秒以上时补偿会显著增加</item>
     </string-array>
+    <string name="tab_settings">设置</string>
+    <string name="settings_preferences">偏好设置</string>
+    <string name="settings_language">语言</string>
+    <string name="settings_theme">主题</string>
+    <string name="theme_system">跟随系统</string>
+    <string name="theme_light">浅色模式</string>
+    <string name="theme_dark">深色模式</string>
+    <string name="settings_reminders">拍摄提醒</string>
+    <string name="golden_reminder_title">黄金时刻提醒</string>
+    <string name="golden_reminder_description">在黄金时刻开始前30分钟提醒您</string>
+    <string name="notification_permission_message">请在系统设置中允许通知权限，以便接收拍摄提醒</string>
+    <string name="golden_notification_title">黄金时刻即将开始</string>
+    <string name="golden_notification_body">30 分钟后进入黄金时刻（%1$s），准备器材，前往拍摄地点。</string>
+    <string name="settings_version">版本</string>
+    <string name="exact_alarm_hint">允许「闹钟和提醒」，提醒才能准时送达。</string>
 </resources>

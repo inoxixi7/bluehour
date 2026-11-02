@@ -1,5 +1,7 @@
 package bluehour.core
 
+import java.time.Instant
+import java.time.ZoneId
 import kotlin.math.max
 
 /**
@@ -28,6 +30,8 @@ data class PhaseState(
 )
 
 enum class BlueHourWindowId { Morning, Evening, Tomorrow }
+
+data class GoldenHourReminder(val isMorning: Boolean, val goldenHourStart: Long)
 
 data class BlueHourWindow(val id: BlueHourWindowId, val start: Long, val end: Long, val isNextDay: Boolean)
 
@@ -86,5 +90,29 @@ object LightPhases {
             ),
         )
         return windows.firstOrNull { it.start > nowMs } ?: windows.last()
+    }
+
+    /**
+     * 下一个还来得及提前 leadMs 提醒的黄金时刻（从今天起 3 天内，按 zone 的日期计算）；
+     * 极昼、极夜等没有黄金时刻时返回 null
+     */
+    fun nextGoldenHourReminder(
+        lat: Double,
+        lng: Double,
+        nowMs: Long,
+        zone: ZoneId,
+        leadMs: Long = 30 * 60_000L,
+    ): GoldenHourReminder? {
+        val today = Instant.ofEpochMilli(nowMs).atZone(zone).toLocalDate()
+        return (0L..2L).asSequence()
+            .flatMap { days ->
+                val sun = SunPosition.sunTimes(lat, lng, today.plusDays(days))
+                val h = SunPosition.goldenAndBlueHours(sun.sunrise, sun.sunset, lat, lng)
+                sequenceOf(
+                    GoldenHourReminder(true, h.morningGoldenHourStart),
+                    GoldenHourReminder(false, h.eveningGoldenHourStart),
+                )
+            }
+            .firstOrNull { it.goldenHourStart - leadMs > nowMs }
     }
 }

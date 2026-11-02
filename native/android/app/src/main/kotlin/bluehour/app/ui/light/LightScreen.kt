@@ -40,7 +40,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import bluehour.app.AppSettings
 import bluehour.app.R
+import bluehour.app.reminder.GoldenHourReminders
 import bluehour.core.BlueHourWindowId
 import bluehour.core.LightPhaseId
 import bluehour.core.LightPhases
@@ -90,6 +92,9 @@ fun LightScreen(modifier: Modifier = Modifier) {
         if (location != null) {
             lat = location.latitude
             lng = location.longitude
+            // 黄金时刻提醒在后台用上次定位计算
+            AppSettings(context).lastLocation = location.latitude to location.longitude
+            GoldenHourReminders.reschedule(context)
         } else if (lat == null) {
             unavailable = true
         }

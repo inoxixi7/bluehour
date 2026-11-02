@@ -31,6 +31,11 @@ android {
     buildFeatures {
         compose = true
     }
+
+    // 生成 locales_config.xml：Android 13+ 可在系统设置中单独选择应用语言
+    androidResources {
+        generateLocaleConfig = true
+    }
 }
 
 dependencies {
