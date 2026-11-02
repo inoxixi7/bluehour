@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Slider
+import androidx.compose.material3.SliderDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -37,6 +38,11 @@ fun LabeledSlider(
             onValueChange = { onChange(it.roundToInt().coerceIn(0, count - 1)) },
             valueRange = 0f..(count - 1).toFloat(),
             steps = (count - 2).coerceAtLeast(0),
+            // 默认未选段用 secondaryContainer（暖棕），在深蓝背景上太突兀
+            colors = SliderDefaults.colors(
+                inactiveTrackColor = MaterialTheme.colorScheme.surfaceContainerHighest,
+                inactiveTickColor = MaterialTheme.colorScheme.onSurfaceVariant,
+            ),
         )
     }
 }
