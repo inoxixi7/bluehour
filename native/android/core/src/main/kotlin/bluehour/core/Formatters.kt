@@ -71,3 +71,15 @@ fun formatShutterSpeed(seconds: Double, units: DurationUnits): String {
         else -> "$minutes${units.min}$secs${units.sec}"
     }
 }
+
+/**
+ * 计时器倒计时显示（对应 ReciprocityCalcScreen.tsx 的 formatCountdown）：
+ * 不到 1 小时为 m:ss，否则为 h:mm:ss
+ */
+fun formatCountdown(seconds: Long): String {
+    val h = seconds / 3600
+    val m = seconds % 3600 / 60
+    val s = seconds % 60
+    val mmss = if (h > 0) "%02d:%02d".format(Locale.ROOT, m, s) else "%d:%02d".format(Locale.ROOT, m, s)
+    return if (h > 0) "$h:$mmss" else mmss
+}

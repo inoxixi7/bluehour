@@ -87,4 +87,64 @@
         <item>極端に暗い環境</item>
         <item>長時間露光アート</item>
     </string-array>
+    <string name="timer_title">バルブタイマー</string>
+    <string name="timer_start">タイマー開始</string>
+    <string name="timer_stop">タイマー停止</string>
+    <string name="timer_reset">リセット</string>
+    <string name="timer_done">完了</string>
+    <string name="timer_notification_title">⏱️ 露光完了</string>
+    <string name="timer_notification_body">シャッターを閉じてください。</string>
+    <string name="ok">OK</string>
+    <string name="help_exposure_title">露出ラボ - 機能紹介</string>
+    <string name="help_exposure_description">露出ラボは、露出パラメータ調整、シーン別EV参考値、NDフィルター計算、相反則不軌補正、露出タイマーを統合した強力な撮影計算ツールです。特に長時間露光撮影において、露出を精密にコントロールするのに役立ちます。</string>
+    <!-- 每节第一项为标题 -->
+    <string-array name="help_exposure_section1">
+        <item>1. 基本露出パラメータ</item>
+        <item>絞り (Aperture)、シャッタースピード (Shutter)、ISO：露出の3要素を自由に調整できます。</item>
+        <item>スマートロック：パラメータ横の鍵アイコンをタップしてロックします。他の値を調整すると、露出値 (EV) を維持するように、ロックされていないパラメータが自動計算されます。</item>
+        <item>EVロック：現在の露出値 (EV) を固定します。任意のパラメータを調整すると、他のパラメータが連動して変化します。</item>
+    </string-array>
+    <string-array name="help_exposure_section2">
+        <item>2. シーン別EV参考</item>
+        <item>強光から極暗所（日光、曇天、夜景、星空など）まで、様々なシーンのEV値を提供します。</item>
+        <item>シーンカードをタップすると、そのEV値を目標値として直接設定できます。</item>
+    </string-array>
+    <string-array name="help_exposure_section3">
+        <item>3. NDフィルター計算</item>
+        <item>NDフィルター（減光フィルター）装着時の効果をシミュレーションします。</item>
+        <item>NDの濃度（ND8, ND1000など）を選択すると、減光後の等価シャッタースピードが自動計算されます。</item>
+    </string-array>
+    <string-array name="help_exposure_section4">
+        <item>4. 相反則不軌補正</item>
+        <item>フィルム写真専用の機能です。</item>
+        <item>フィルムの種類を選択すると、長時間露光時に発生する相反則不軌による露出不足を補うための補正時間を自動計算します。</item>
+    </string-array>
+    <string-array name="help_exposure_section5">
+        <item>5. 露出タイマー</item>
+        <item>計算された最終的な露出時間（ND減光や相反則不軌補正を含む）に基づいて、長時間露光撮影に便利なカウントダウンタイマー機能を提供します。</item>
+    </string-array>
+    <string name="help_reciprocity_title">相反則不軌計算機 - ガイド</string>
+    <string name="help_reciprocity_description">相反則不軌計算機は、フィルム写真の長時間露光における相反則不軌の補正を支援するツールです。露光時間が1秒を超えると、フィルムの感度が低下し、正しい露光を得るために露光時間を延長する必要があります。</string>
+    <!-- 每节第一项为标题 -->
+    <string-array name="help_reciprocity_section1">
+        <item>相反則不軌とは？</item>
+        <item>相反則の法則：露光量 = 光の強度 × 露光時間</item>
+        <item>理論上、光の強度を下げて時間を延ばしても同じ露光効果が得られるはず</item>
+        <item>しかし、長時間露光（通常1秒以上）では、フィルムの感光効率が低下</item>
+        <item>この現象を「相反則不軌」と呼び、追加の露光時間補正が必要</item>
+    </string-array>
+    <string-array name="help_reciprocity_section2">
+        <item>計算機の使い方</item>
+        <item>1. 使用するフィルムを選択（フィルムごとに相反則特性が異なる）</item>
+        <item>2. 露出計で測定したシャッター速度を入力</item>
+        <item>3. 計算機が自動的に補正後の露光時間を表示</item>
+        <item>4. 内蔵のバルブタイマーで正確な露光時間を制御</item>
+    </string-array>
+    <string-array name="help_reciprocity_section3">
+        <item>実用的なヒント</item>
+        <item>デジタルカメラ：相反則不軌の影響をほとんど受けず、補正不要</item>
+        <item>フィルムの違い：モノクロとカラーネガでは相反則特性が大きく異なる</item>
+        <item>極端な場合：一部のフィルムでは超長時間露光時に数倍の補正が必要</item>
+        <item>経験則：測光値1秒では補正はわずか、10秒以上では補正が大幅に増加</item>
+    </string-array>
 </resources>

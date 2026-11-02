@@ -39,6 +39,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import bluehour.app.R
 import bluehour.app.ui.common.LabeledSlider
+import bluehour.app.ui.common.TitleWithHelp
 import bluehour.app.ui.common.durationUnits
 import bluehour.app.ui.reciprocity.ReciprocityInput
 import bluehour.core.ExposureLocks
@@ -107,7 +108,18 @@ fun ExposureScreen(modifier: Modifier = Modifier, onOpenReciprocity: (Reciprocit
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text(stringResource(R.string.exposure_title), style = MaterialTheme.typography.headlineMedium)
+        TitleWithHelp(
+            title = stringResource(R.string.exposure_title),
+            helpTitle = R.string.help_exposure_title,
+            helpDescription = R.string.help_exposure_description,
+            helpSections = listOf(
+                R.array.help_exposure_section1,
+                R.array.help_exposure_section2,
+                R.array.help_exposure_section3,
+                R.array.help_exposure_section4,
+                R.array.help_exposure_section5,
+            ),
+        )
 
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             DropdownField(

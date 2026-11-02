@@ -87,4 +87,64 @@
         <item>极暗环境</item>
         <item>长时间曝光</item>
     </string-array>
+    <string name="timer_title">B 门计时器</string>
+    <string name="timer_start">开始计时</string>
+    <string name="timer_stop">停止计时</string>
+    <string name="timer_reset">重置</string>
+    <string name="timer_done">完成</string>
+    <string name="timer_notification_title">⏱️ 曝光完成</string>
+    <string name="timer_notification_body">现在关闭快门。</string>
+    <string name="ok">好的</string>
+    <string name="help_exposure_title">曝光实验室 - 功能介绍</string>
+    <string name="help_exposure_description">曝光实验室是一个强大的摄影计算工具，集成了曝光参数调整、场景EV参考、ND滤镜计算、倒易律补偿和曝光计时器于一体。帮助您精确控制曝光，尤其适用于长时间曝光摄影。</string>
+    <!-- 每节第一项为标题 -->
+    <string-array name="help_exposure_section1">
+        <item>1. 基础曝光参数</item>
+        <item>光圈 (Aperture)、快门 (Shutter)、ISO：自由调整三大曝光要素。</item>
+        <item>智能锁定：点击参数旁的锁图标，可锁定该参数。调整其他数值时，系统会自动计算未锁定的参数，以保持曝光值 (EV) 平衡。</item>
+        <item>EV 锁定：锁定当前曝光值 (EV)，调整任意参数时，其他参数会自动联动变化。</item>
+    </string-array>
+    <string-array name="help_exposure_section2">
+        <item>2. 场景 EV 参考</item>
+        <item>提供从强光到极暗环境（如日光、阴天、夜景、星空）的多种场景参考。</item>
+        <item>点击场景卡片，可直接将该场景的 EV 值设为目标值。</item>
+    </string-array>
+    <string-array name="help_exposure_section3">
+        <item>3. ND 滤镜计算</item>
+        <item>模拟安装 ND 减光镜后的效果。</item>
+        <item>选择不同的 ND 档位（如 ND8, ND1000），系统会自动计算减光后的等效快门速度。</item>
+    </string-array>
+    <string-array name="help_exposure_section4">
+        <item>4. 倒易律失效补偿</item>
+        <item>专为胶片摄影设计。</item>
+        <item>选择胶片类型预设，系统会自动计算长曝光下因倒易律失效而需要增加的补偿时间。</item>
+    </string-array>
+    <string-array name="help_exposure_section5">
+        <item>5. 曝光计时器</item>
+        <item>根据计算出的最终曝光时间（已包含 ND 减光和倒易律补偿），提供倒计时功能，方便进行长曝光拍摄。</item>
+    </string-array>
+    <string name="help_reciprocity_title">倒易律计算器 - 功能介绍</string>
+    <string name="help_reciprocity_description">倒易律计算器专为胶片摄影设计，帮助您在长时间曝光时补偿倒易律失效效应。当曝光时间超过1秒时，胶片的感光效率会降低，需要延长曝光时间来获得正确的曝光效果。</string>
+    <!-- 每节第一项为标题 -->
+    <string-array name="help_reciprocity_section1">
+        <item>什么是倒易律失效？</item>
+        <item>倒易律（Reciprocity Law）指出：曝光量 = 光强度 × 曝光时间</item>
+        <item>理论上，降低光强度并延长时间应该产生相同的曝光效果</item>
+        <item>但在长时间曝光（通常 >1秒）时，胶片的感光效率会降低</item>
+        <item>这种现象称为\"倒易律失效\"（Reciprocity Failure），需要补偿额外的曝光时间</item>
+    </string-array>
+    <string-array name="help_reciprocity_section2">
+        <item>如何使用计算器？</item>
+        <item>1. 选择您使用的胶片型号（不同胶片的倒易律特性不同）</item>
+        <item>2. 输入测光表读取的快门速度（原始快门时间）</item>
+        <item>3. 计算器会自动显示补偿后的实际曝光时间</item>
+        <item>4. 使用内置的B门计时器来精确控制曝光时间</item>
+    </string-array>
+    <string-array name="help_reciprocity_section3">
+        <item>实用技巧</item>
+        <item>数码相机：几乎不受倒易律失效影响，无需补偿</item>
+        <item>不同胶片：黑白胶片和彩色负片的倒易律特性差异较大</item>
+        <item>极限情况：某些胶片在超长曝光时可能需要数倍的补偿时间</item>
+        <item>经验法则：当测光快门为1秒时，补偿通常较小；10秒以上时补偿会显著增加</item>
+    </string-array>
 </resources>

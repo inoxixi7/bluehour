@@ -87,4 +87,64 @@
         <item>Extrem dunkle Umgebung</item>
         <item>Langzeitbelichtungs-Kunst</item>
     </string-array>
+    <string name="timer_title">Bulb-Timer</string>
+    <string name="timer_start">Timer starten</string>
+    <string name="timer_stop">Timer stoppen</string>
+    <string name="timer_reset">Zurücksetzen</string>
+    <string name="timer_done">Fertig</string>
+    <string name="timer_notification_title">⏱️ Belichtung abgeschlossen</string>
+    <string name="timer_notification_body">Jetzt den Verschluss schließen.</string>
+    <string name="ok">OK</string>
+    <string name="help_exposure_title">Belichtungslabor - Funktionsübersicht</string>
+    <string name="help_exposure_description">Das Belichtungslabor ist ein leistungsstarkes Fotografie-Berechnungstool, das Belichtungsparameter-Anpassung, Szenen-EV-Referenz, ND-Filter-Berechnung, Schwarzschildeffekt-Korrektur und Belichtungstimer integriert. Es hilft Ihnen, die Belichtung präzise zu steuern, insbesondere bei Langzeitbelichtungen.</string>
+    <!-- 每节第一项为标题 -->
+    <string-array name="help_exposure_section1">
+        <item>1. Grundlegende Belichtungsparameter</item>
+        <item>Blende (Aperture), Verschlusszeit (Shutter), ISO: Passen Sie die drei Grundpfeiler der Belichtung frei an.</item>
+        <item>Smart Lock: Tippen Sie auf das Schloss-Symbol neben einem Parameter, um ihn zu sperren. Wenn Sie andere Werte anpassen, berechnet das System automatisch den nicht gesperrten Parameter, um den Lichtwert (EV) beizubehalten.</item>
+        <item>EV Lock: Sperren Sie den aktuellen Lichtwert (EV). Bei Anpassung eines Parameters werden die anderen automatisch aktualisiert.</item>
+    </string-array>
+    <string-array name="help_exposure_section2">
+        <item>2. Szenen-EV-Referenz</item>
+        <item>Bietet Referenzwerte für verschiedene Lichtverhältnisse, von hellem Tageslicht bis zu sehr dunklen Umgebungen (z. B. sonnig, bewölkt, Nachtszenen, Sternenhimmel).</item>
+        <item>Tippen Sie auf eine Szenenkarte, um deren EV-Wert direkt als Zielwert festzulegen.</item>
+    </string-array>
+    <string-array name="help_exposure_section3">
+        <item>3. ND-Filter-Berechnung</item>
+        <item>Simuliert den Effekt eines ND-Filters (Graufilter).</item>
+        <item>Wählen Sie verschiedene ND-Stärken (z. B. ND8, ND1000), und das System berechnet automatisch die äquivalente Verschlusszeit.</item>
+    </string-array>
+    <string-array name="help_exposure_section4">
+        <item>4. Schwarzschildeffekt-Korrektur</item>
+        <item>Speziell für die Analogfotografie entwickelt.</item>
+        <item>Wählen Sie eine Filmvoreinstellung, und das System berechnet die notwendige Belichtungskorrektur für Langzeitbelichtungen aufgrund des Schwarzschildeffekts (Reziprozitätsfehler).</item>
+    </string-array>
+    <string-array name="help_exposure_section5">
+        <item>5. Belichtungstimer</item>
+        <item>Bietet einen Countdown-Timer basierend auf der endgültigen Belichtungszeit (einschließlich ND- und Schwarzschildeffekt-Anpassungen), ideal für Langzeitbelichtungen.</item>
+    </string-array>
+    <string name="help_reciprocity_title">Schwarzschild-Effekt Rechner - Anleitung</string>
+    <string name="help_reciprocity_description">Der Schwarzschild-Effekt Rechner ist für die Filmfotografie konzipiert und hilft Ihnen, den Schwarzschild-Effekt bei Langzeitbelichtungen zu kompensieren. Wenn die Belichtungszeiten 1 Sekunde überschreiten, nimmt die Filmempfindlichkeit ab und erfordert verlängerte Belichtungszeiten für korrekte Belichtung.</string>
+    <!-- 每节第一项为标题 -->
+    <string-array name="help_reciprocity_section1">
+        <item>Was ist der Schwarzschild-Effekt?</item>
+        <item>Reziprozitätsgesetz: Belichtung = Lichtintensität × Zeit</item>
+        <item>Theoretisch sollten reduzierte Intensität und verlängerte Zeit identische Belichtung erzeugen</item>
+        <item>Bei Langzeitbelichtungen (typischerweise >1s) nimmt jedoch die Filmempfindlichkeit ab</item>
+        <item>Dieses Phänomen wird \"Schwarzschild-Effekt\" genannt und erfordert zusätzliche Belichtungszeitkompensation</item>
+    </string-array>
+    <string-array name="help_reciprocity_section2">
+        <item>Verwendung des Rechners</item>
+        <item>1. Wählen Sie Ihren Film (verschiedene Filme haben unterschiedliche Reziprozitätscharakteristiken)</item>
+        <item>2. Geben Sie die gemessene Verschlusszeit ein (anfängliche Belichtungszeit)</item>
+        <item>3. Der Rechner zeigt automatisch die korrigierte Belichtungszeit an</item>
+        <item>4. Verwenden Sie den integrierten Bulb-Timer zur präzisen Belichtungssteuerung</item>
+    </string-array>
+    <string-array name="help_reciprocity_section3">
+        <item>Praktische Tipps</item>
+        <item>Digitalkameras: Fast nicht vom Schwarzschild-Effekt betroffen, keine Kompensation erforderlich</item>
+        <item>Filmvariationen: Schwarz-Weiß- und Farbfilme haben deutlich unterschiedliche Charakteristiken</item>
+        <item>Extremfälle: Einige Filme erfordern bei extrem langen Belichtungen mehrfache Kompensation</item>
+        <item>Faustregel: Bei 1s gemessener Belichtung ist die Kompensation minimal; ab 10s steigt sie deutlich</item>
+    </string-array>
 </resources>
