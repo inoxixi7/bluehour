@@ -14,14 +14,14 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconToggleButton
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedCard
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,9 +31,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -42,7 +43,6 @@ import bluehour.app.ui.common.LabeledSlider
 import bluehour.app.ui.common.TitleWithHelp
 import bluehour.app.ui.common.durationUnits
 import bluehour.app.ui.reciprocity.ReciprocityInput
-import bluehour.core.ExposureLocks
 import bluehour.core.ExposureParam
 import bluehour.core.ExposureValues
 import bluehour.core.PhotographyData
@@ -50,9 +50,14 @@ import bluehour.core.calculateEV
 import bluehour.core.calculateNDShutter
 import bluehour.core.formatShutterSpeed
 import bluehour.core.shutterValues
+import bluehour.core.solveExposure
 import java.util.Locale
+import kotlin.math.abs
+import kotlin.math.round
 
 private val DEFAULT_VALUES = ExposureValues(aperture = 8.0, shutter = 1.0 / 4, iso = 100.0)
+private const val EV_MIN = -6.0
+private const val EV_MAX = 20.0
 
 private val valuesSaver = listSaver<ExposureValues, Double>(
     save = { listOf(it.aperture, it.shutter, it.iso) },
@@ -60,8 +65,8 @@ private val valuesSaver = listSaver<ExposureValues, Double>(
 )
 
 /**
- * 曝光计算：光圈 / 快门 / ISO 可分别锁定，改动一个参数时由未锁定的参数补偿；
- * 可锁定当前 EV 或选择场景（目标 EV），并计算加 ND 滤镜后的快门
+ * 曝光计算：EV 是场景亮度，调参数时保持不变；光圈 / 快门 / ISO 中选一个自动计算
+ * （相当于相机的光圈优先 / 快门优先 / 自动 ISO），另外两个手动调。并计算加 ND 滤镜后的快门
  */
 @Composable
 fun ExposureScreen(modifier: Modifier = Modifier, onOpenReciprocity: (ReciprocityInput) -> Unit = {}) {
@@ -70,35 +75,30 @@ fun ExposureScreen(modifier: Modifier = Modifier, onOpenReciprocity: (Reciprocit
     val sceneNames = stringArrayResource(R.array.ev_scenes)
     check(sceneNames.size == data.evScenes.size) { "ev_scenes 与 photography.json 的 evScenes 数量不一致" }
 
+    // 手动参数的值；自动参数的值由 solveExposure 算出
     var values by rememberSaveable(stateSaver = valuesSaver) { mutableStateOf(DEFAULT_VALUES) }
-    // 默认只锁定 ISO（胶片模式友好）
-    var locked by rememberSaveable { mutableStateOf<Set<ExposureParam>>(linkedSetOf(ExposureParam.Iso)) }
-    // 锁定的目标 EV；null 表示未锁定
-    var targetEV by rememberSaveable { mutableStateOf<Double?>(null) }
+    // 场景亮度，调参数时保持不变
+    var ev by rememberSaveable { mutableDoubleStateOf(calculateEV(DEFAULT_VALUES)) }
+    // 自动计算的参数，默认快门（相当于光圈优先）
+    var autoParam by rememberSaveable { mutableStateOf(ExposureParam.Shutter) }
     // 0 表示未选场景，1..n 对应 evScenes
     var sceneIndex by rememberSaveable { mutableIntStateOf(0) }
     // 0 表示不用 ND，1..n 对应 ndFilters
     var ndIndex by rememberSaveable { mutableIntStateOf(0) }
 
-    val evLocked = targetEV != null
-    val currentEV = calculateEV(values)
+    val solved = solveExposure(ev, autoParam, values, data)
+    val shown = solved.values
     val nd = data.ndFilters.getOrNull(ndIndex - 1)
-    val ndShutter = calculateNDShutter(values.shutter, (nd?.stops ?: 0).toDouble())
-
-    fun unlockEV() {
-        targetEV = null
-        sceneIndex = 0
-    }
+    val ndShutter = calculateNDShutter(shown.shutter, (nd?.stops ?: 0).toDouble())
 
     fun selectScene(index: Int) {
-        if (index == 0 || index == sceneIndex) {
-            unlockEV()
-            return
-        }
-        val scene = data.evScenes[index - 1]
         sceneIndex = index
-        targetEV = scene.ev
-        values = ExposureLocks.applyTargetEV(values, scene.ev, locked, data)
+        if (index > 0) ev = data.evScenes[index - 1].ev
+    }
+
+    fun stepEv(delta: Int) {
+        ev = (round(ev) + delta).coerceIn(EV_MIN, EV_MAX)
+        sceneIndex = 0
     }
 
     Column(
@@ -139,29 +139,38 @@ fun ExposureScreen(modifier: Modifier = Modifier, onOpenReciprocity: (Reciprocit
             )
         }
 
-        // EV 与锁定
+        // 场景亮度
         Card(Modifier.fillMaxWidth()) {
             Row(Modifier.padding(16.dp), verticalAlignment = Alignment.CenterVertically) {
                 Column(Modifier.weight(1f)) {
                     Text("EV", style = MaterialTheme.typography.labelLarge)
                     Text(
-                        String.format(Locale.ROOT, "%.1f", currentEV),
+                        String.format(Locale.ROOT, "%.1f", ev),
                         style = MaterialTheme.typography.headlineMedium,
                         fontWeight = FontWeight.SemiBold,
                     )
                 }
-                if (evLocked) {
-                    OutlinedButton(onClick = ::unlockEV) {
-                        Icon(painterResource(R.drawable.ic_lock), contentDescription = null)
-                        Text(stringResource(R.string.unlock_ev), Modifier.padding(start = 8.dp))
-                    }
-                } else {
-                    OutlinedButton(onClick = { targetEV = currentEV }) {
-                        Icon(painterResource(R.drawable.ic_lock_open), contentDescription = null)
-                        Text(stringResource(R.string.lock_ev), Modifier.padding(start = 8.dp))
+                listOf(-1 to R.string.ev_decrease, 1 to R.string.ev_increase).forEach { (delta, label) ->
+                    val description = stringResource(label)
+                    IconButton(
+                        onClick = { stepEv(delta) },
+                        modifier = Modifier.semantics { contentDescription = description },
+                    ) {
+                        Text(if (delta < 0) "−" else "+", style = MaterialTheme.typography.headlineSmall)
                     }
                 }
             }
+        }
+
+        if (solved.outOfRangeStops != 0.0) {
+            Text(
+                stringResource(
+                    if (solved.outOfRangeStops > 0) R.string.exposure_overexposed else R.string.exposure_underexposed,
+                    abs(solved.outOfRangeStops).plain(),
+                ),
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodyMedium,
+            )
         }
 
         // 光圈 / 快门 / ISO
@@ -171,12 +180,10 @@ fun ExposureScreen(modifier: Modifier = Modifier, onOpenReciprocity: (Reciprocit
                 ExposureParam.Shutter -> data.shutterValues
                 ExposureParam.Iso -> data.isos
             }
-            val value = values[param]
-            val isLocked = param in locked
-            val isAuto = ExposureLocks.isAutoAdjusted(param, locked, evLocked)
+            val value = shown[param]
+            val isAuto = param == autoParam
             LabeledSlider(
-                label = stringResource(paramLabel(param)) +
-                    if (isAuto) " · ${stringResource(R.string.will_adjust)}" else "",
+                label = stringResource(paramLabel(param)),
                 valueText = when (param) {
                     ExposureParam.Aperture -> "f/${value.plain()}"
                     ExposureParam.Shutter -> formatShutterSpeed(value, units)
@@ -184,25 +191,20 @@ fun ExposureScreen(modifier: Modifier = Modifier, onOpenReciprocity: (Reciprocit
                 },
                 index = options.indexOf(value).coerceAtLeast(0),
                 count = options.size,
-                onChange = {
-                    values = ExposureLocks.applyParamChange(values, param, options[it], locked, targetEV, data)
-                },
-                valueColor = when {
-                    isAuto -> MaterialTheme.colorScheme.tertiary
-                    isLocked -> MaterialTheme.colorScheme.primary
-                    else -> Color.Unspecified
-                },
+                onChange = { values = shown.with(param, options[it]) },
+                valueColor = if (isAuto) MaterialTheme.colorScheme.tertiary else Color.Unspecified,
+                // 自动参数只显示结果，不能拖动
+                enabled = !isAuto,
                 trailing = {
-                    IconToggleButton(
-                        checked = isLocked,
-                        onCheckedChange = { locked = ExposureLocks.toggleParamLock(locked, param, evLocked) },
-                    ) {
-                        Icon(
-                            painterResource(if (isLocked) R.drawable.ic_lock else R.drawable.ic_lock_open),
-                            contentDescription = stringResource(if (isLocked) R.string.unlock_ev else R.string.lock_ev),
-                            tint = if (isLocked) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurfaceVariant,
-                        )
-                    }
+                    FilterChip(
+                        selected = isAuto,
+                        onClick = {
+                            values = shown
+                            autoParam = param
+                        },
+                        label = { Text(stringResource(R.string.exposure_auto)) },
+                        modifier = Modifier.padding(start = 8.dp),
+                    )
                 },
             )
         }
@@ -222,7 +224,7 @@ fun ExposureScreen(modifier: Modifier = Modifier, onOpenReciprocity: (Reciprocit
         }
 
         Button(
-            onClick = { onOpenReciprocity(ReciprocityInput(values.shutter, nd?.stops ?: 0)) },
+            onClick = { onOpenReciprocity(ReciprocityInput(shown.shutter, nd?.stops ?: 0)) },
             modifier = Modifier.fillMaxWidth(),
         ) {
             Text(stringResource(R.string.to_reciprocity))

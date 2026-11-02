@@ -2,10 +2,9 @@ import { RECIPROCITY_PROFILES } from '../../constants/Photography';
 import {
   applyReciprocityCorrection,
   calculateEV,
-  calculateEquivalentExposure,
-  calculateEquivalentExposureWithEV,
   calculateNDShutter,
   calculateReciprocity,
+  solveExposure,
 } from '../photographyCalculations';
 
 const profile = (id: string) => {
@@ -25,36 +24,34 @@ describe('calculateEV', () => {
   });
 });
 
-describe('calculateEquivalentExposureWithEV', () => {
-  it('solves the shutter speed for a target EV at ISO 400', () => {
-    const result = calculateEquivalentExposureWithEV(15, 'aperture', 16, 'iso', {
+describe('solveExposure', () => {
+  it('solves the shutter for sunny 16 (aperture priority)', () => {
+    const { values, outOfRangeStops } = solveExposure(15, 'shutter', {
       aperture: 16,
-      shutter: 1 / 30,
+      shutter: 1,
       iso: 400,
     });
-    expect(result?.shutter).toBe(1 / 500);
+    expect(values).toEqual({ aperture: 16, shutter: 1 / 500, iso: 400 });
+    expect(outOfRangeStops).toBe(0);
   });
 
-  it('returns null when the target cannot be reached', () => {
-    const result = calculateEquivalentExposureWithEV(20, 'aperture', 1.4, 'iso', {
-      aperture: 1.4,
-      shutter: 1,
-      iso: 25600,
-    });
-    expect(result).toBeNull();
-  });
-});
-
-describe('calculateEquivalentExposure', () => {
-  it('shortens the shutter by one stop when ISO doubles', () => {
-    const result = calculateEquivalentExposure(
-      { aperture: 8, shutter: 1 / 125, iso: 100 },
-      'iso',
-      200,
-      'aperture'
+  it('solves the aperture (shutter priority) and ISO (auto ISO)', () => {
+    expect(
+      solveExposure(15, 'aperture', { aperture: 2, shutter: 1 / 125, iso: 100 }).values.aperture
+    ).toBe(16);
+    expect(solveExposure(15, 'iso', { aperture: 16, shutter: 1 / 250, iso: 100 }).values.iso).toBe(
+      200
     );
-    expect(result.shutter).toBe(1 / 250);
-    expect(result.aperture).toBe(8);
+  });
+
+  it('clamps to the range and reports the remaining error', () => {
+    // EV 20 at f/1.4 ISO 25600 would need far shorter than 1/8000 s: overexposed
+    const bright = solveExposure(20, 'shutter', { aperture: 1.4, shutter: 1, iso: 25600 });
+    expect(bright.values.shutter).toBe(1 / 8000);
+    expect(bright.outOfRangeStops).toBeGreaterThan(0);
+    // EV -10 at f/32 ISO 100 needs about 12 days, past the 48h maximum: underexposed
+    const dark = solveExposure(-10, 'shutter', { aperture: 32, shutter: 1, iso: 100 });
+    expect(dark.outOfRangeStops).toBeLessThan(0);
   });
 });
 

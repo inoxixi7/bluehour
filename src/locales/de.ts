@@ -445,8 +445,9 @@ export default {
       aperture: 'Blende',
       shutter: 'Verschlusszeit',
       iso: 'ISO',
-      lock: 'Sperren',
-      unlock: 'Entsperren',
+      auto: 'Auto',
+      overexposed: 'Außerhalb des Bereichs: {{stops}} Blenden überbelichtet',
+      underexposed: 'Außerhalb des Bereichs: {{stops}} Blenden unterbelichtet',
       toReciprocity: 'Reziprozität berechnen',
       reciprocitySection: 'Film-Schwarzschild-Effekt-Profile',
       reciprocity: {
@@ -624,7 +625,6 @@ export default {
         countdown: 'Countdown',
         bulb: 'Bulb-Timer',
       },
-      willAdjust: 'Wird automatisch angepasst',
     },
   },
 
@@ -835,7 +835,9 @@ export default {
     section5: {
       title: '5. Belichtungstimer',
       content: [
-        'Bietet einen Countdown-Timer basierend auf der endgültigen Belichtungszeit (einschließlich ND- und Schwarzschildeffekt-Anpassungen), ideal für Langzeitbelichtungen.',
+        'EV ist die Helligkeit der Szene. Wähle eine Szenenvorgabe oder passe den EV mit − und + an dein Licht an.',
+        'Tippe bei einem Parameter auf „Auto“, damit er berechnet wird – wie Zeitautomatik (Auto-Belichtungszeit), Blendenautomatik (Auto-Blende) oder Auto-ISO. Die anderen beiden stellst du frei ein.',
+        'Liegt der berechnete Wert außerhalb des verfügbaren Bereichs, bleibt er am Grenzwert stehen und es wird angezeigt, um wie viele Blenden über- oder unterbelichtet wird.',
       ],
     },
   },

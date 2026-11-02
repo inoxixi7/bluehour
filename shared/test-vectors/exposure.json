@@ -1,5 +1,5 @@
 {
-  "description": "calculateEV / calculateNDShutter / calculateEquivalentExposure / calculateEquivalentExposureWithEV（result 为 null 表示无法达到目标 EV）",
+  "description": "calculateEV / calculateNDShutter / solveExposure",
   "ev": [
     {
       "aperture": 1.4,
@@ -804,4312 +804,924 @@
       "shutter": 4096
     }
   ],
-  "equivalent": [
+  "solve": [
     {
-      "base": {
+      "ev": -4,
+      "auto": "aperture",
+      "values": {
         "aperture": 8,
         "shutter": 0.008,
         "iso": 100
       },
-      "changedParam": "aperture",
-      "newValue": 1.4,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 1.4,
-        "shutter": 0.008,
-        "iso": 50,
-        "ev": 13
+        "values": {
+          "aperture": 1,
+          "shutter": 0.008,
+          "iso": 100
+        },
+        "outOfRangeStops": -11
       }
     },
     {
-      "base": {
+      "ev": -4,
+      "auto": "shutter",
+      "values": {
         "aperture": 8,
         "shutter": 0.008,
         "iso": 100
       },
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 4,
-        "shutter": 0.008,
-        "iso": 50,
-        "ev": 13
+        "values": {
+          "aperture": 8,
+          "shutter": 900,
+          "iso": 100
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": -4,
+      "auto": "iso",
+      "values": {
         "aperture": 8,
         "shutter": 0.008,
         "iso": 100
       },
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 11,
-        "shutter": 0.008,
-        "iso": 200,
-        "ev": 13
+        "values": {
+          "aperture": 8,
+          "shutter": 0.008,
+          "iso": 25600
+        },
+        "outOfRangeStops": -9
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": -4,
+      "auto": "aperture",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "aperture",
-      "newValue": 22,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 22,
-        "shutter": 0.008,
-        "iso": 800,
-        "ev": 13
+        "values": {
+          "aperture": 1,
+          "shutter": 0.016666666666666666,
+          "iso": 400
+        },
+        "outOfRangeStops": -7.9
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": -4,
+      "auto": "shutter",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "aperture",
-      "newValue": 1.4,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 1.4,
-        "shutter": 0.00025,
-        "iso": 100,
-        "ev": 13
+        "values": {
+          "aperture": 2.8,
+          "shutter": 30,
+          "iso": 400
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": -4,
+      "auto": "iso",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 4,
-        "shutter": 0.002,
-        "iso": 100,
-        "ev": 13
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.016666666666666666,
+          "iso": 25600
+        },
+        "outOfRangeStops": -4.9
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": -4,
+      "auto": "aperture",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 11,
-        "shutter": 0.016666666666666666,
-        "iso": 100,
-        "ev": 13
+        "values": {
+          "aperture": 1,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": -0.1
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": -4,
+      "auto": "shutter",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "aperture",
-      "newValue": 22,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 22,
-        "shutter": 0.06666666666666667,
-        "iso": 100,
-        "ev": 13
+        "values": {
+          "aperture": 16,
+          "shutter": 7200,
+          "iso": 50
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": -4,
+      "auto": "iso",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "shutter",
-      "newValue": 0.00025,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 8,
-        "shutter": 0.00025,
-        "iso": 3200,
-        "ev": 13
+        "values": {
+          "aperture": 16,
+          "shutter": 30,
+          "iso": 12800
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": 0,
+      "auto": "aperture",
+      "values": {
         "aperture": 8,
         "shutter": 0.008,
         "iso": 100
       },
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 8,
-        "shutter": 0.03333333333333333,
-        "iso": 50,
-        "ev": 13
+        "values": {
+          "aperture": 1,
+          "shutter": 0.008,
+          "iso": 100
+        },
+        "outOfRangeStops": -7
       }
     },
     {
-      "base": {
+      "ev": 0,
+      "auto": "shutter",
+      "values": {
         "aperture": 8,
         "shutter": 0.008,
         "iso": 100
       },
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 8,
-        "shutter": 2,
-        "iso": 50,
-        "ev": 13
+        "values": {
+          "aperture": 8,
+          "shutter": 60,
+          "iso": 100
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": 0,
+      "auto": "iso",
+      "values": {
         "aperture": 8,
         "shutter": 0.008,
         "iso": 100
       },
-      "changedParam": "shutter",
-      "newValue": 240,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 8,
-        "shutter": 240,
-        "iso": 50,
-        "ev": 13
+        "values": {
+          "aperture": 8,
+          "shutter": 0.008,
+          "iso": 25600
+        },
+        "outOfRangeStops": -5
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": 0,
+      "auto": "aperture",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "shutter",
-      "newValue": 0.00025,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 1.4,
-        "shutter": 0.00025,
-        "iso": 100,
-        "ev": 13
+        "values": {
+          "aperture": 1,
+          "shutter": 0.016666666666666666,
+          "iso": 400
+        },
+        "outOfRangeStops": -3.9
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": 0,
+      "auto": "shutter",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 16,
-        "shutter": 0.03333333333333333,
-        "iso": 100,
-        "ev": 13
+        "values": {
+          "aperture": 2.8,
+          "shutter": 2,
+          "iso": 400
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": 0,
+      "auto": "iso",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 32,
-        "shutter": 2,
-        "iso": 100,
-        "ev": 13
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.016666666666666666,
+          "iso": 25600
+        },
+        "outOfRangeStops": -0.9
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": 0,
+      "auto": "aperture",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "shutter",
-      "newValue": 240,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 32,
-        "shutter": 240,
-        "iso": 100,
-        "ev": 13
+        "values": {
+          "aperture": 4,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": 0,
+      "auto": "shutter",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "iso",
-      "newValue": 50,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 8,
-        "shutter": 0.016666666666666666,
-        "iso": 50,
-        "ev": 13
+        "values": {
+          "aperture": 16,
+          "shutter": 480,
+          "iso": 50
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": 0,
+      "auto": "iso",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 8,
-        "shutter": 0.004,
-        "iso": 200,
-        "ev": 13
+        "values": {
+          "aperture": 16,
+          "shutter": 30,
+          "iso": 800
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": 8,
+      "auto": "aperture",
+      "values": {
         "aperture": 8,
         "shutter": 0.008,
         "iso": 100
       },
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 8,
-        "shutter": 0.0005,
-        "iso": 1600,
-        "ev": 13
+        "values": {
+          "aperture": 1.4,
+          "shutter": 0.008,
+          "iso": 100
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": 8,
+      "auto": "shutter",
+      "values": {
         "aperture": 8,
         "shutter": 0.008,
         "iso": 100
       },
-      "changedParam": "iso",
-      "newValue": 12800,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 8,
-        "shutter": 0.000125,
-        "iso": 12800,
-        "ev": 13
+        "values": {
+          "aperture": 8,
+          "shutter": 0.25,
+          "iso": 100
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": 8,
+      "auto": "iso",
+      "values": {
         "aperture": 8,
         "shutter": 0.008,
         "iso": 100
       },
-      "changedParam": "iso",
-      "newValue": 50,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 5.6,
-        "shutter": 0.008,
-        "iso": 50,
-        "ev": 13
+        "values": {
+          "aperture": 8,
+          "shutter": 0.008,
+          "iso": 3200
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": 8,
+      "auto": "aperture",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 11,
-        "shutter": 0.008,
-        "iso": 200,
-        "ev": 13
+        "values": {
+          "aperture": 4,
+          "shutter": 0.016666666666666666,
+          "iso": 400
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": 8,
+      "auto": "shutter",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 32,
-        "shutter": 0.008,
-        "iso": 1600,
-        "ev": 13
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.008,
+          "iso": 400
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
+      "ev": 8,
+      "auto": "iso",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "iso",
-      "newValue": 12800,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 32,
-        "shutter": 0.008,
-        "iso": 12800,
-        "ev": 13
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.016666666666666666,
+          "iso": 200
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 8,
+      "auto": "aperture",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "aperture",
-      "newValue": 1.4,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 1.4,
-        "shutter": 0.016666666666666666,
-        "iso": 100,
-        "ev": 6.9
+        "values": {
+          "aperture": 32,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": 1.9
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 8,
+      "auto": "shutter",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 4,
-        "shutter": 0.016666666666666666,
-        "iso": 800,
-        "ev": 6.9
+        "values": {
+          "aperture": 16,
+          "shutter": 2,
+          "iso": 50
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 8,
+      "auto": "iso",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 11,
-        "shutter": 0.016666666666666666,
-        "iso": 6400,
-        "ev": 6.9
+        "values": {
+          "aperture": 16,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": 3.9
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 12,
+      "auto": "aperture",
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
       },
-      "changedParam": "aperture",
-      "newValue": 22,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 22,
-        "shutter": 0.016666666666666666,
-        "iso": 25600,
-        "ev": 6.9
+        "values": {
+          "aperture": 5.6,
+          "shutter": 0.008,
+          "iso": 100
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 12,
+      "auto": "shutter",
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
       },
-      "changedParam": "aperture",
-      "newValue": 1.4,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 1.4,
-        "shutter": 0.004,
-        "iso": 400,
-        "ev": 6.9
+        "values": {
+          "aperture": 8,
+          "shutter": 0.016666666666666666,
+          "iso": 100
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 12,
+      "auto": "iso",
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
       },
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 4,
-        "shutter": 0.03333333333333333,
-        "iso": 400,
-        "ev": 6.9
+        "values": {
+          "aperture": 8,
+          "shutter": 0.008,
+          "iso": 200
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": 12,
+      "auto": "aperture",
+      "values": {
         "aperture": 2.8,
         "shutter": 0.016666666666666666,
         "iso": 400
       },
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 11,
-        "shutter": 0.25,
-        "iso": 400,
-        "ev": 6.9
+        "values": {
+          "aperture": 16,
+          "shutter": 0.016666666666666666,
+          "iso": 400
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": 12,
+      "auto": "shutter",
+      "values": {
         "aperture": 2.8,
         "shutter": 0.016666666666666666,
         "iso": 400
       },
-      "changedParam": "aperture",
-      "newValue": 22,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 22,
-        "shutter": 1,
-        "iso": 400,
-        "ev": 6.9
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.0005,
+          "iso": 400
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": 12,
+      "auto": "iso",
+      "values": {
         "aperture": 2.8,
         "shutter": 0.016666666666666666,
         "iso": 400
       },
-      "changedParam": "shutter",
-      "newValue": 0.00025,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 2.8,
-        "shutter": 0.00025,
-        "iso": 25600,
-        "ev": 6.9
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.016666666666666666,
+          "iso": 50
+        },
+        "outOfRangeStops": 2.1
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 12,
+      "auto": "aperture",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 2.8,
-        "shutter": 0.03333333333333333,
-        "iso": 200,
-        "ev": 6.9
+        "values": {
+          "aperture": 32,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": 5.9
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 12,
+      "auto": "shutter",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 2.8,
-        "shutter": 2,
-        "iso": 50,
-        "ev": 6.9
+        "values": {
+          "aperture": 16,
+          "shutter": 0.125,
+          "iso": 50
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 12,
+      "auto": "iso",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "shutter",
-      "newValue": 240,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 2.8,
-        "shutter": 240,
-        "iso": 50,
-        "ev": 6.9
+        "values": {
+          "aperture": 16,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": 7.9
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 15,
+      "auto": "aperture",
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
       },
-      "changedParam": "shutter",
-      "newValue": 0.00025,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 1,
-        "shutter": 0.00025,
-        "iso": 400,
-        "ev": 6.9
+        "values": {
+          "aperture": 16,
+          "shutter": 0.008,
+          "iso": 100
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 15,
+      "auto": "shutter",
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
       },
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 4,
-        "shutter": 0.03333333333333333,
-        "iso": 400,
-        "ev": 6.9
+        "values": {
+          "aperture": 8,
+          "shutter": 0.002,
+          "iso": 100
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 15,
+      "auto": "iso",
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
       },
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 32,
-        "shutter": 2,
-        "iso": 400,
-        "ev": 6.9
+        "values": {
+          "aperture": 8,
+          "shutter": 0.008,
+          "iso": 50
+        },
+        "outOfRangeStops": 1
       }
     },
     {
-      "base": {
+      "ev": 15,
+      "auto": "aperture",
+      "values": {
         "aperture": 2.8,
         "shutter": 0.016666666666666666,
         "iso": 400
       },
-      "changedParam": "shutter",
-      "newValue": 240,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 32,
-        "shutter": 240,
-        "iso": 400,
-        "ev": 6.9
+        "values": {
+          "aperture": 32,
+          "shutter": 0.016666666666666666,
+          "iso": 400
+        },
+        "outOfRangeStops": 1.1
       }
     },
     {
-      "base": {
+      "ev": 15,
+      "auto": "shutter",
+      "values": {
         "aperture": 2.8,
         "shutter": 0.016666666666666666,
         "iso": 400
       },
-      "changedParam": "iso",
-      "newValue": 50,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 2.8,
-        "shutter": 0.125,
-        "iso": 50,
-        "ev": 6.9
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.000125,
+          "iso": 400
+        },
+        "outOfRangeStops": 1.1
       }
     },
     {
-      "base": {
+      "ev": 15,
+      "auto": "iso",
+      "values": {
         "aperture": 2.8,
         "shutter": 0.016666666666666666,
         "iso": 400
       },
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 2.8,
-        "shutter": 0.03333333333333333,
-        "iso": 200,
-        "ev": 6.9
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.016666666666666666,
+          "iso": 50
+        },
+        "outOfRangeStops": 5.1
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 15,
+      "auto": "aperture",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 2.8,
-        "shutter": 0.004,
-        "iso": 1600,
-        "ev": 6.9
+        "values": {
+          "aperture": 32,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": 8.9
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 15,
+      "auto": "shutter",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "iso",
-      "newValue": 12800,
-      "lockedParam": "aperture",
       "result": {
-        "aperture": 2.8,
-        "shutter": 0.0005,
-        "iso": 12800,
-        "ev": 6.9
+        "values": {
+          "aperture": 16,
+          "shutter": 0.016666666666666666,
+          "iso": 50
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 15,
+      "auto": "iso",
+      "values": {
+        "aperture": 16,
+        "shutter": 30,
+        "iso": 50
       },
-      "changedParam": "iso",
-      "newValue": 50,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 1,
-        "shutter": 0.016666666666666666,
-        "iso": 50,
-        "ev": 6.9
+        "values": {
+          "aperture": 16,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": 10.9
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 20,
+      "auto": "aperture",
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
       },
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 2,
-        "shutter": 0.016666666666666666,
-        "iso": 200,
-        "ev": 6.9
+        "values": {
+          "aperture": 32,
+          "shutter": 0.008,
+          "iso": 100
+        },
+        "outOfRangeStops": 3
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 20,
+      "auto": "shutter",
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
       },
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 5.6,
-        "shutter": 0.016666666666666666,
-        "iso": 1600,
-        "ev": 6.9
+        "values": {
+          "aperture": 8,
+          "shutter": 0.000125,
+          "iso": 100
+        },
+        "outOfRangeStops": 1
       }
     },
     {
-      "base": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
+      "ev": 20,
+      "auto": "iso",
+      "values": {
+        "aperture": 8,
+        "shutter": 0.008,
+        "iso": 100
       },
-      "changedParam": "iso",
-      "newValue": 12800,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 16,
-        "shutter": 0.016666666666666666,
-        "iso": 12800,
-        "ev": 6.9
+        "values": {
+          "aperture": 8,
+          "shutter": 0.008,
+          "iso": 50
+        },
+        "outOfRangeStops": 6
       }
     },
     {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
+      "ev": 20,
+      "auto": "aperture",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "aperture",
-      "newValue": 1.4,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 1.4,
-        "shutter": 30,
-        "iso": 50,
-        "ev": 4.1
+        "values": {
+          "aperture": 32,
+          "shutter": 0.016666666666666666,
+          "iso": 400
+        },
+        "outOfRangeStops": 6.1
       }
     },
     {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
+      "ev": 20,
+      "auto": "shutter",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 4,
-        "shutter": 30,
-        "iso": 50,
-        "ev": 4.1
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.000125,
+          "iso": 400
+        },
+        "outOfRangeStops": 6.1
       }
     },
     {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
+      "ev": 20,
+      "auto": "iso",
+      "values": {
+        "aperture": 2.8,
+        "shutter": 0.016666666666666666,
+        "iso": 400
       },
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 11,
-        "shutter": 30,
-        "iso": 50,
-        "ev": 4.1
+        "values": {
+          "aperture": 2.8,
+          "shutter": 0.016666666666666666,
+          "iso": 50
+        },
+        "outOfRangeStops": 10.1
       }
     },
     {
-      "base": {
+      "ev": 20,
+      "auto": "aperture",
+      "values": {
         "aperture": 16,
         "shutter": 30,
         "iso": 50
       },
-      "changedParam": "aperture",
-      "newValue": 22,
-      "lockedParam": "shutter",
       "result": {
-        "aperture": 22,
-        "shutter": 30,
-        "iso": 100,
-        "ev": 4.1
+        "values": {
+          "aperture": 32,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": 13.9
       }
     },
     {
-      "base": {
+      "ev": 20,
+      "auto": "shutter",
+      "values": {
         "aperture": 16,
         "shutter": 30,
         "iso": 50
       },
-      "changedParam": "aperture",
-      "newValue": 1.4,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 1.4,
-        "shutter": 0.25,
-        "iso": 50,
-        "ev": 4.1
+        "values": {
+          "aperture": 16,
+          "shutter": 0.0005,
+          "iso": 50
+        },
+        "outOfRangeStops": 0
       }
     },
     {
-      "base": {
+      "ev": 20,
+      "auto": "iso",
+      "values": {
         "aperture": 16,
         "shutter": 30,
         "iso": 50
       },
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
       "result": {
-        "aperture": 4,
-        "shutter": 2,
-        "iso": 50,
-        "ev": 4.1
+        "values": {
+          "aperture": 16,
+          "shutter": 30,
+          "iso": 50
+        },
+        "outOfRangeStops": 15.9
       }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "result": {
-        "aperture": 11,
-        "shutter": 15,
-        "iso": 50,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "aperture",
-      "newValue": 22,
-      "lockedParam": "iso",
-      "result": {
-        "aperture": 22,
-        "shutter": 60,
-        "iso": 50,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "shutter",
-      "newValue": 0.00025,
-      "lockedParam": "aperture",
-      "result": {
-        "aperture": 16,
-        "shutter": 0.00025,
-        "iso": 25600,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "result": {
-        "aperture": 16,
-        "shutter": 0.03333333333333333,
-        "iso": 25600,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "result": {
-        "aperture": 16,
-        "shutter": 2,
-        "iso": 800,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "shutter",
-      "newValue": 240,
-      "lockedParam": "aperture",
-      "result": {
-        "aperture": 16,
-        "shutter": 240,
-        "iso": 50,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "shutter",
-      "newValue": 0.00025,
-      "lockedParam": "iso",
-      "result": {
-        "aperture": 1,
-        "shutter": 0.00025,
-        "iso": 50,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "result": {
-        "aperture": 1,
-        "shutter": 0.03333333333333333,
-        "iso": 50,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "result": {
-        "aperture": 4,
-        "shutter": 2,
-        "iso": 50,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "shutter",
-      "newValue": 240,
-      "lockedParam": "iso",
-      "result": {
-        "aperture": 32,
-        "shutter": 240,
-        "iso": 50,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "iso",
-      "newValue": 50,
-      "lockedParam": "aperture",
-      "result": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "result": {
-        "aperture": 16,
-        "shutter": 8,
-        "iso": 200,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "result": {
-        "aperture": 16,
-        "shutter": 1,
-        "iso": 1600,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "iso",
-      "newValue": 12800,
-      "lockedParam": "aperture",
-      "result": {
-        "aperture": 16,
-        "shutter": 0.125,
-        "iso": 12800,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "iso",
-      "newValue": 50,
-      "lockedParam": "shutter",
-      "result": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "result": {
-        "aperture": 32,
-        "shutter": 30,
-        "iso": 200,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "result": {
-        "aperture": 32,
-        "shutter": 30,
-        "iso": 1600,
-        "ev": 4.1
-      }
-    },
-    {
-      "base": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "changedParam": "iso",
-      "newValue": 12800,
-      "lockedParam": "shutter",
-      "result": {
-        "aperture": 32,
-        "shutter": 30,
-        "iso": 12800,
-        "ev": 4.1
-      }
-    }
-  ],
-  "equivalentWithEV": [
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 240,
-        "iso": 100,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 1800,
-        "iso": 100,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 480,
-        "iso": 200,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 60,
-        "iso": 1600,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 60,
-        "iso": 400,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 480,
-        "iso": 400,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 2,
-        "iso": 6400,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 60,
-        "iso": 200,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 8,
-        "iso": 1600,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 30,
-        "iso": 800,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 30,
-        "iso": 6400,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 480,
-        "iso": 50,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 3600,
-        "iso": 50,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 1800,
-        "iso": 200,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 240,
-        "iso": 1600,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 2,
-        "shutter": 30,
-        "iso": 200,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": -4,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 5.6,
-        "shutter": 30,
-        "iso": 1600,
-        "ev": -4
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 15,
-        "iso": 100,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 120,
-        "iso": 100,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 2,
-        "iso": 3200,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 1.4,
-        "shutter": 2,
-        "iso": 100,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 30,
-        "iso": 200,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 4,
-        "iso": 1600,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 4,
-        "iso": 400,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 30,
-        "iso": 400,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.03333333333333333,
-        "iso": 25600,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 2,
-        "iso": 400,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 2,
-        "iso": 400,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 4,
-        "iso": 200,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.5,
-        "iso": 1600,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 30,
-        "iso": 50,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 30,
-        "iso": 400,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 30,
-        "iso": 50,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 240,
-        "iso": 50,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 2,
-        "iso": 12800,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 1,
-        "shutter": 2,
-        "iso": 50,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 120,
-        "iso": 200,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 15,
-        "iso": 1600,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 30,
-        "iso": 200,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 0,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 22,
-        "shutter": 30,
-        "iso": 1600,
-        "ev": 0
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.008,
-        "iso": 800,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.008,
-        "iso": 6400,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.06666666666666667,
-        "iso": 100,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.5,
-        "iso": 100,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.03333333333333333,
-        "iso": 800,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.03333333333333333,
-        "iso": 100,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 22,
-        "shutter": 2,
-        "iso": 100,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.125,
-        "iso": 200,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.016666666666666666,
-        "iso": 1600,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 2,
-        "shutter": 0.008,
-        "iso": 200,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 5.6,
-        "shutter": 0.008,
-        "iso": 1600,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.016666666666666666,
-        "iso": 400,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.016666666666666666,
-        "iso": 3200,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.016666666666666666,
-        "iso": 400,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.125,
-        "iso": 400,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.03333333333333333,
-        "iso": 100,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 5.6,
-        "shutter": 0.03333333333333333,
-        "iso": 400,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 200,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.002,
-        "iso": 1600,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 200,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.016666666666666666,
-        "iso": 1600,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.125,
-        "iso": 50,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 1,
-        "iso": 50,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 0.03333333333333333,
-        "iso": 3200,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 2,
-        "iso": 50,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 2,
-        "shutter": 0.03333333333333333,
-        "iso": 50,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 2,
-        "iso": 50,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 0.5,
-        "iso": 200,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 0.06666666666666667,
-        "iso": 1600,
-        "ev": 8
-      }
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 8,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.008,
-        "iso": 50,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.008,
-        "iso": 400,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.004,
-        "iso": 100,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.03333333333333333,
-        "iso": 100,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.03333333333333333,
-        "iso": 50,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.03333333333333333,
-        "iso": 100,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 200,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.001,
-        "iso": 1600,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 200,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 22,
-        "shutter": 0.008,
-        "iso": 1600,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.016666666666666666,
-        "iso": 160,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.001,
-        "iso": 400,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.008,
-        "iso": 400,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 22,
-        "shutter": 0.03333333333333333,
-        "iso": 400,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.001,
-        "iso": 200,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.000125,
-        "iso": 1600,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.016666666666666666,
-        "iso": 200,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 32,
-        "shutter": 0.016666666666666666,
-        "iso": 1600,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.008,
-        "iso": 50,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.06666666666666667,
-        "iso": 50,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 0.03333333333333333,
-        "iso": 200,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.03333333333333333,
-        "iso": 50,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 0.03333333333333333,
-        "iso": 200,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 0.004,
-        "iso": 1600,
-        "ev": 12
-      }
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 12,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.008,
-        "iso": 50,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.0005,
-        "iso": 100,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.004,
-        "iso": 100,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 32,
-        "shutter": 0.03333333333333333,
-        "iso": 100,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.001,
-        "iso": 200,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 8,
-        "shutter": 0.000125,
-        "iso": 1600,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 22,
-        "shutter": 0.008,
-        "iso": 200,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.000125,
-        "iso": 400,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.001,
-        "iso": 400,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 2.8,
-        "shutter": 0.000125,
-        "iso": 200,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": {
-        "aperture": 32,
-        "shutter": 0.016666666666666666,
-        "iso": 200,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 4,
-        "shutter": 0.001,
-        "iso": 50,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.008,
-        "iso": 50,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 22,
-        "shutter": 0.03333333333333333,
-        "iso": 50,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 0.004,
-        "iso": 200,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 0.0005,
-        "iso": 1600,
-        "ev": 15
-      }
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 15,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.000125,
-        "iso": 100,
-        "ev": 20
-      }
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 8,
-        "shutter": 0.008,
-        "iso": 100
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 2.8,
-        "shutter": 0.016666666666666666,
-        "iso": 400
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 4,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "aperture",
-      "newValue": 11,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 11,
-        "shutter": 0.00025,
-        "iso": 50,
-        "ev": 20
-      }
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 0.03333333333333333,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "shutter",
-      "newValue": 2,
-      "lockedParam": "iso",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": {
-        "aperture": 16,
-        "shutter": 0.000125,
-        "iso": 200,
-        "ev": 20
-      }
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "aperture",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 200,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
-    },
-    {
-      "targetEV": 20,
-      "changedParam": "iso",
-      "newValue": 1600,
-      "lockedParam": "shutter",
-      "current": {
-        "aperture": 16,
-        "shutter": 30,
-        "iso": 50
-      },
-      "result": null
     }
   ]
 }

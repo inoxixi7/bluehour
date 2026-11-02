@@ -14,166 +14,50 @@ export const calculateEV = (aperture: number, shutter: number, iso: number): num
   return Math.round(ev * 10) / 10; // 保留一位小数
 };
 
-/**
- * 计算档位差
- * stops = log2(value2 / value1)
- */
-export const calculateStops = (value1: number, value2: number): number => {
-  return Math.log2(value2 / value1);
-};
+export type ExposureParam = 'aperture' | 'shutter' | 'iso';
 
-/**
- * EV 等效曝光计算
- * 当改变一个参数时，计算保持相同 EV 所需的其他参数值
- */
-export interface EVEquivalentResult {
+export interface ExposureValues {
   aperture: number;
   shutter: number;
   iso: number;
-  ev: number;
+}
+
+export interface SolvedExposure {
+  values: ExposureValues;
+  /** 超出标准值范围时剩余的曝光偏差（档），正数为过曝、负数为欠曝；在范围内为 0 */
+  outOfRangeStops: number;
 }
 
 /**
- * 根据锁定的参数计算等效曝光
- * @param baseSettings 基准曝光设置
- * @param changedParam 改变的参数名
- * @param newValue 新的参数值
- * @param lockedParam 锁定的参数名（另一个不变的参数）
+ * 按场景亮度 ev 计算自动参数 auto，另外两个参数保持 values 中的值（对应相机的光圈优先 / 快门优先 / 自动 ISO）
+ * 超出标准值范围时取最接近的极值，并在 outOfRangeStops 中给出偏差
  */
-export const calculateEquivalentExposure = (
-  baseSettings: { aperture: number; shutter: number; iso: number },
-  changedParam: 'aperture' | 'shutter' | 'iso',
-  newValue: number,
-  lockedParam: 'aperture' | 'shutter' | 'iso'
-): EVEquivalentResult => {
-  const baseEV = calculateEV(baseSettings.aperture, baseSettings.shutter, baseSettings.iso);
+export const solveExposure = (
+  ev: number,
+  auto: ExposureParam,
+  values: ExposureValues
+): SolvedExposure => {
+  const { aperture, shutter, iso } = values;
+  // EV = log2(N² / t) − log2(ISO / 100)
+  const evAtIso = ev + Math.log2(iso / 100);
+  const [range, raw, closest] =
+    auto === 'aperture'
+      ? [APERTURE_VALUES, Math.sqrt(shutter * Math.pow(2, evAtIso)), findClosestAperture]
+      : auto === 'shutter'
+        ? [STANDARD_SHUTTERS, (aperture * aperture) / Math.pow(2, evAtIso), findClosestShutter]
+        : [
+            ISO_VALUES,
+            100 * Math.pow(2, Math.log2((aperture * aperture) / shutter) - ev),
+            findClosestISO,
+          ];
 
-  const result: EVEquivalentResult = {
-    aperture: baseSettings.aperture,
-    shutter: baseSettings.shutter,
-    iso: baseSettings.iso,
-    ev: baseEV,
-  };
-
-  // 更新改变的参数
-  result[changedParam] = newValue;
-
-  // 计算档位差 (stops > 0 表示变暗了，需要补偿增加曝光)
-  let stops = 0;
-  switch (changedParam) {
-    case 'aperture':
-      // log2(new^2 / base^2) -> 变大光圈值(f/2.8->f/4) -> 变暗 -> stops > 0
-      stops = calculateStops(baseSettings.aperture * baseSettings.aperture, newValue * newValue);
-      break;
-    case 'shutter':
-      // log2(base / new) -> 变长快门(1s->2s) -> 变亮 -> stops < 0
-      stops = calculateStops(newValue, baseSettings.shutter);
-      break;
-    case 'iso':
-      // log2(base / new) -> 变大ISO(100->200) -> 变亮 -> stops < 0
-      stops = calculateStops(newValue, baseSettings.iso);
-      break;
-  }
-
-  // 确定需要调整的参数（除了改变的和锁定的之外的那个）
-  const paramsArray: ('aperture' | 'shutter' | 'iso')[] = ['aperture', 'shutter', 'iso'];
-  const adjustParam = paramsArray.find(p => p !== changedParam && p !== lockedParam)!;
-
-  // 应用补偿
-  // stops > 0 (变暗了) -> 需要增加曝光
-  // stops < 0 (变亮了) -> 需要减少曝光
-  switch (adjustParam) {
-    case 'aperture':
-      // 光圈值越小越亮，所以指数为负
-      // 需要增加曝光(stops>0) -> 2^(-positive) < 1 -> 光圈值变小 -> 正确
-      const newAperture = baseSettings.aperture * Math.pow(2, -stops / 2);
-      result.aperture = findClosestAperture(newAperture);
-      break;
-    case 'shutter':
-      // 快门值越大越亮，所以指数为正
-      // 需要增加曝光(stops>0) -> 2^(positive) > 1 -> 快门时间变长 -> 正确
-      const newShutter = baseSettings.shutter * Math.pow(2, stops);
-      result.shutter = findClosestShutter(newShutter);
-      break;
-    case 'iso':
-      // ISO值越大越亮，所以指数为正
-      // 需要增加曝光(stops>0) -> 2^(positive) > 1 -> ISO变大 -> 正确
-      const newISO = baseSettings.iso * Math.pow(2, stops);
-      result.iso = findClosestISO(newISO);
-      break;
-  }
-
-  return result;
-};
-
-/**
- * 根据目标 EV 值和已知参数计算等效曝光
- * 用于 EV 锁定模式
- * @param targetEV 目标 EV 值
- * @param changedParam 改变的参数名
- * @param newValue 新的参数值
- * @param lockedParam 锁定的参数名
- * @returns 计算结果，如果无法达到目标 EV 则返回 null
- */
-export const calculateEquivalentExposureWithEV = (
-  targetEV: number,
-  changedParam: 'aperture' | 'shutter' | 'iso',
-  newValue: number,
-  lockedParam: 'aperture' | 'shutter' | 'iso',
-  currentValues: { aperture: number; shutter: number; iso: number }
-): EVEquivalentResult | null => {
-  // 确定需要调整的参数
-  const paramsArray: ('aperture' | 'shutter' | 'iso')[] = ['aperture', 'shutter', 'iso'];
-  const adjustParam = paramsArray.find(p => p !== changedParam && p !== lockedParam)!;
-
-  let aperture: number = currentValues.aperture;
-  let shutter: number = currentValues.shutter;
-  let iso: number = currentValues.iso;
-
-  // 设置改变的参数
-  if (changedParam === 'aperture') {
-    aperture = newValue;
-  } else if (changedParam === 'shutter') {
-    shutter = newValue;
-  } else if (changedParam === 'iso') {
-    iso = newValue;
-  }
-
-  // 锁定的参数保持不变(已经从 currentValues 设置了)
-
-  // EV = log2(N² / t) − log2(ISO / 100)  =>  log2(N² / t) = EV + log2(ISO / 100)
-  // 超出标准值范围半档以上视为无法达到目标 EV
-  const exceedsRange = (values: readonly number[], raw: number, stopScale = 1) =>
-    stopScale * Math.log2(values[0] / raw) > 0.5 ||
-    stopScale * Math.log2(raw / values[values.length - 1]) > 0.5;
-
-  if (adjustParam === 'aperture') {
-    const raw = Math.sqrt(shutter * Math.pow(2, targetEV + Math.log2(iso / 100)));
-    // 光圈每档对应 F 值 √2 倍，因此档数 = 2·log2
-    if (exceedsRange(APERTURE_VALUES, raw, 2)) {
-      return null;
-    }
-    aperture = findClosestAperture(raw);
-  } else if (adjustParam === 'shutter') {
-    const raw = (aperture * aperture) / Math.pow(2, targetEV + Math.log2(iso / 100));
-    if (exceedsRange(STANDARD_SHUTTERS, raw)) {
-      return null;
-    }
-    shutter = findClosestShutter(raw);
-  } else {
-    const raw = 100 * Math.pow(2, Math.log2((aperture * aperture) / shutter) - targetEV);
-    if (exceedsRange(ISO_VALUES, raw)) {
-      return null;
-    }
-    iso = findClosestISO(raw);
-  }
-
-  return {
-    aperture,
-    shutter,
-    iso,
-    ev: targetEV,
-  };
+  const result = { ...values, [auto]: closest(raw) };
+  const inRange = raw >= Math.min(...range) && raw <= Math.max(...range);
+  const actualEV =
+    Math.log2((result.aperture * result.aperture) / result.shutter) - Math.log2(result.iso / 100);
+  // `|| 0` 去掉 -0
+  const outOfRangeStops = inRange ? 0 : Math.round((ev - actualEV) * 10) / 10 || 0;
+  return { values: result, outOfRangeStops };
 };
 
 /**

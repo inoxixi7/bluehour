@@ -39,14 +39,12 @@ fun JsonObject.l(key: String): Long = getValue(key).jsonPrimitive.long
 fun JsonObject.b(key: String): Boolean = getValue(key).jsonPrimitive.boolean
 fun JsonObject.s(key: String): String = getValue(key).jsonPrimitive.content
 fun JsonObject.o(key: String): JsonObject = getValue(key).jsonObject
-fun JsonObject.isNull(key: String): Boolean = get(key) is JsonNull
 fun JsonObject.arr(key: String): JsonArray = getValue(key).jsonArray
 
 fun JsonElement.toParam(): ExposureParam =
     ExposureParam.entries.first { it.name.equals(jsonPrimitive.content, ignoreCase = true) }
 
 fun JsonObject.param(key: String): ExposureParam = getValue(key).toParam()
-fun JsonObject.params(key: String): LinkedHashSet<ExposureParam> = arr(key).mapTo(LinkedHashSet()) { it.toParam() }
 fun JsonObject.exposure(key: String): ExposureValues = o(key).let { ExposureValues(it.d("aperture"), it.d("shutter"), it.d("iso")) }
 
 /** 相对误差（数值接近 0 时用绝对误差） */

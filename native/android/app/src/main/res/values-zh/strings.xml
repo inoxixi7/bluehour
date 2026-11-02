@@ -56,9 +56,11 @@
     <string name="param_aperture">光圈</string>
     <string name="param_shutter">快门</string>
     <string name="param_iso">ISO</string>
-    <string name="lock_ev">锁定</string>
-    <string name="unlock_ev">解锁</string>
-    <string name="will_adjust">会自动调整</string>
+    <string name="exposure_auto">自动</string>
+    <string name="exposure_overexposed">超出范围：过曝 %1$s 档</string>
+    <string name="exposure_underexposed">超出范围：欠曝 %1$s 档</string>
+    <string name="ev_decrease">降低 EV</string>
+    <string name="ev_increase">提高 EV</string>
     <string name="result_nd">加 ND 后</string>
     <string name="to_reciprocity">计算倒易律</string>
     <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
@@ -100,9 +102,9 @@
     <!-- 每节第一项为标题 -->
     <string-array name="help_exposure_section1">
         <item>1. 基础曝光参数</item>
-        <item>光圈 (Aperture)、快门 (Shutter)、ISO：自由调整三大曝光要素。</item>
-        <item>智能锁定：点击参数旁的锁图标，可锁定该参数。调整其他数值时，系统会自动计算未锁定的参数，以保持曝光值 (EV) 平衡。</item>
-        <item>EV 锁定：锁定当前曝光值 (EV)，调整任意参数时，其他参数会自动联动变化。</item>
+        <item>EV 代表场景的亮度。选择场景预设，或用 − / + 调整 EV，使其与现场光线一致。</item>
+        <item>在一个参数上点「自动」，由它自动计算，相当于光圈优先（快门自动）、快门优先（光圈自动）或自动 ISO。另外两个参数可以自由调整。</item>
+        <item>如果算出的值超出可用范围，会停在极限值，并显示过曝或欠曝了多少档。</item>
     </string-array>
     <string-array name="help_exposure_section2">
         <item>2. 场景 EV 参考</item>

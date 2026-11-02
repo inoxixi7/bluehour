@@ -18,16 +18,17 @@ import {
   ND_FILTERS,
   EV_SCENES,
 } from '../../constants/Photography';
-import { calculateEV, calculateNDShutter } from '../../utils/photographyCalculations';
 import {
-  applyParamChange,
-  applyTargetEV,
+  calculateEV,
+  calculateNDShutter,
   ExposureParam,
   ExposureValues,
-  isAutoAdjusted,
-  toggleParamLock,
-} from '../../utils/exposureLocks';
+  solveExposure,
+} from '../../utils/photographyCalculations';
 import { formatEV, formatShutterSpeed } from '../../utils/formatters';
+
+const EV_MIN = -6;
+const EV_MAX = 20;
 
 const ExposureCalcScreen: React.FC = () => {
   const { theme } = useTheme();
@@ -35,18 +36,12 @@ const ExposureCalcScreen: React.FC = () => {
   const navigation = useNavigation<RootStackNavigationProp>();
 
   const [helpModalVisible, setHelpModalVisible] = useState(false);
+  // 手动参数的值；自动参数的值由 solveExposure 算出
   const [values, setValues] = useState<ExposureValues>({ aperture: 8, shutter: 1 / 4, iso: 100 });
-  const { aperture, shutter, iso } = values;
-
-  // 独立锁定状态：每个参数可以独立锁定
-  // 胶片模式下 ISO 锁定，用户可选择锁定光圈或快门
-  const [lockedParams, setLockedParams] = useState<Set<ExposureParam>>(
-    new Set(['iso']) // 默认只锁定 ISO（胶片模式友好）
-  );
-
-  // EV锁定（场景亮度锁定）
-  const [targetEV, setTargetEV] = useState<number | null>(null);
-  const [evLocked, setEvLocked] = useState(false);
+  // 场景亮度，调参数时保持不变
+  const [ev, setEv] = useState(() => calculateEV(8, 1 / 4, 100));
+  // 自动计算的参数，默认快门（相当于光圈优先）
+  const [autoParam, setAutoParam] = useState<ExposureParam>('shutter');
   const [selectedSceneIndex, setSelectedSceneIndex] = useState<number | null>(null);
 
   const [ndStops, setNdStops] = useState(0);
@@ -72,7 +67,8 @@ const ExposureCalcScreen: React.FC = () => {
     [t]
   );
 
-  const currentEV = useMemo(() => calculateEV(aperture, shutter, iso), [aperture, shutter, iso]);
+  const solved = useMemo(() => solveExposure(ev, autoParam, values), [ev, autoParam, values]);
+  const { aperture, shutter, iso } = solved.values;
   const ndAdjustedShutter = useMemo(() => calculateNDShutter(shutter, ndStops), [shutter, ndStops]);
 
   React.useLayoutEffect(() => {
@@ -87,38 +83,26 @@ const ExposureCalcScreen: React.FC = () => {
   }, [navigation, theme.colors.primary, t]);
 
   const handleParamChange = (param: ExposureParam, value: number) => {
-    setValues(applyParamChange(values, param, value, lockedParams, evLocked ? targetEV : null));
+    setValues({ ...solved.values, [param]: value });
   };
 
-  // 处理ND滤镜改变
-  // ND 滤镜只影响最终快门速度，不改变测光得到的 EV 或其他参数
-  const handleNdChange = (stops: number) => {
-    setNdStops(stops);
+  const selectAutoParam = (param: ExposureParam) => {
+    setValues(solved.values);
+    setAutoParam(param);
+  };
+
+  const stepEv = (delta: number) => {
+    setEv(prev => Math.min(EV_MAX, Math.max(EV_MIN, Math.round(prev + delta))));
+    setSelectedSceneIndex(null);
   };
 
   const handleSceneSelect = (sceneIndex: number) => {
     if (sceneIndex === -1) {
-      // 取消场景选择
       setSelectedSceneIndex(null);
-      setEvLocked(false);
-      setTargetEV(null);
       return;
     }
-
-    const scene = sceneCards[sceneIndex];
-
-    if (selectedSceneIndex === sceneIndex && evLocked) {
-      // 如果再次点击同一个场景，取消EV锁定
-      setSelectedSceneIndex(null);
-      setEvLocked(false);
-      setTargetEV(null);
-    } else {
-      // 选择新场景：锁定目标 EV，并按当前锁定的参数计算出达到它的组合
-      setSelectedSceneIndex(sceneIndex);
-      setTargetEV(scene.ev);
-      setEvLocked(true);
-      setValues(applyTargetEV(values, scene.ev, lockedParams));
-    }
+    setSelectedSceneIndex(sceneIndex);
+    setEv(sceneCards[sceneIndex].ev);
   };
 
   const renderParamPicker = (
@@ -126,9 +110,7 @@ const ExposureCalcScreen: React.FC = () => {
     value: number,
     items: { label: string; value: number }[]
   ) => {
-    const isLocked = lockedParams.has(param);
-    const isAuto = isAutoAdjusted(param, lockedParams, evLocked);
-    const toggleLock = () => setLockedParams(prev => toggleParamLock(prev, param, evLocked));
+    const isAuto = param === autoParam;
 
     return (
       <View style={styles.paramBlock}>
@@ -137,34 +119,30 @@ const ExposureCalcScreen: React.FC = () => {
             {t(`calculator.exposureLab.${param}`)}
           </Text>
           <Touchable
-            onPress={toggleLock}
-            style={[styles.lockButton, isLocked && styles.lockButtonActive]}
+            onPress={() => selectAutoParam(param)}
+            style={[
+              styles.autoChip,
+              isAuto
+                ? { backgroundColor: theme.colors.accent, borderColor: theme.colors.accent }
+                : { borderColor: theme.colors.border },
+            ]}
           >
-            <Ionicons
-              name={isLocked ? 'lock-closed' : 'lock-open-outline'}
-              size={16}
-              color={isLocked ? theme.colors.primary : theme.colors.textSecondary}
-            />
+            <Text
+              style={[styles.autoChipText, { color: isAuto ? '#fff' : theme.colors.textSecondary }]}
+            >
+              {t('calculator.exposureLab.auto')}
+            </Text>
           </Touchable>
         </View>
 
-        <View style={styles.pickerContainer}>
-          {isAuto && (
-            <View style={styles.autoBadge}>
-              <Ionicons name="stats-chart" size={12} color={theme.colors.textSecondary} />
-              <Text style={[styles.autoText, { color: theme.colors.textSecondary }]}>
-                {t('calculator.exposureLab.willAdjust')}
-              </Text>
-            </View>
-          )}
+        {/* 自动参数只显示结果，不能拖动 */}
+        <View style={styles.pickerContainer} pointerEvents={isAuto ? 'none' : 'auto'}>
           <HorizontalScrollPicker
             label=""
             options={items}
             selectedValue={value}
             onValueChange={val => handleParamChange(param, val)}
-            textColor={
-              isAuto ? theme.colors.accent : isLocked ? theme.colors.primary : theme.colors.text
-            }
+            textColor={isAuto ? theme.colors.accent : theme.colors.text}
             accentColor={theme.colors.primary}
             disabledColor={theme.colors.textSecondary}
           />
@@ -201,7 +179,7 @@ const ExposureCalcScreen: React.FC = () => {
           <Dropdown
             options={ndOptions.map(o => ({ label: o.name, value: o.stops }))}
             selectedValue={ndStops}
-            onValueChange={handleNdChange}
+            onValueChange={setNdStops}
             placeholder={t('calculator.exposureLab.ndNone')}
             textColor={colors.text}
             backgroundColor={colors.card}
@@ -215,35 +193,31 @@ const ExposureCalcScreen: React.FC = () => {
       <Card style={[styles.evBadge, { backgroundColor: colors.card }]}>
         <View>
           <Text style={[styles.evBadgeLabel, { color: colors.textSecondary }]}>EV</Text>
-          <Text style={[styles.evBadgeValue, { color: colors.text }]}>{formatEV(currentEV)}</Text>
+          <Text style={[styles.evBadgeValue, { color: colors.text }]}>{formatEV(ev)}</Text>
         </View>
-        {evLocked ? (
-          <Touchable
-            onPress={() => {
-              setEvLocked(false);
-              setTargetEV(null);
-              setSelectedSceneIndex(null);
-            }}
-            style={[styles.unlockButton, { borderColor: colors.error }]}
-          >
-            <Text style={[styles.unlockText, { color: colors.error }]}>
-              {t('calculator.exposureLab.unlock')}
-            </Text>
-          </Touchable>
-        ) : (
-          <Touchable
-            onPress={() => {
-              setTargetEV(currentEV);
-              setEvLocked(true);
-            }}
-            style={[styles.unlockButton, { borderColor: colors.success }]}
-          >
-            <Text style={[styles.unlockText, { color: colors.success }]}>
-              {t('calculator.exposureLab.lock')}
-            </Text>
-          </Touchable>
-        )}
+        <View style={styles.evButtons}>
+          {[-1, 1].map(delta => (
+            <Touchable
+              key={delta}
+              onPress={() => stepEv(delta)}
+              style={[styles.evButton, { borderColor: colors.border }]}
+            >
+              <Ionicons name={delta < 0 ? 'remove' : 'add'} size={20} color={colors.text} />
+            </Touchable>
+          ))}
+        </View>
       </Card>
+
+      {solved.outOfRangeStops !== 0 && (
+        <Text style={[styles.warning, { color: colors.error }]}>
+          {t(
+            solved.outOfRangeStops > 0
+              ? 'calculator.exposureLab.overexposed'
+              : 'calculator.exposureLab.underexposed',
+            { stops: Math.abs(solved.outOfRangeStops) }
+          )}
+        </Text>
+      )}
 
       {/* Parameters */}
       <View style={styles.sectionCardContent}>
@@ -371,15 +345,20 @@ const styles = StyleSheet.create({
     fontSize: Layout.fontSize.xl,
     fontWeight: '700',
   },
-  unlockButton: {
-    paddingVertical: Layout.spacing.xs,
-    paddingHorizontal: Layout.spacing.sm,
+  evButtons: {
+    flexDirection: 'row',
+    gap: Layout.spacing.sm,
+  },
+  evButton: {
+    padding: Layout.spacing.xs,
     borderWidth: 1,
     borderRadius: Layout.borderRadius.sm,
   },
-  unlockText: {
+  warning: {
     fontSize: Layout.fontSize.sm,
-    fontWeight: '600',
+    marginTop: -Layout.spacing.sm,
+    marginBottom: Layout.spacing.md,
+    paddingHorizontal: Layout.spacing.xs,
   },
   sectionTitle: {
     fontSize: Layout.fontSize.lg,
@@ -405,35 +384,20 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     letterSpacing: 0.5,
   },
-  lockButton: {
-    padding: 4,
-    borderRadius: 16,
-    backgroundColor: 'transparent',
+  autoChip: {
+    paddingVertical: 2,
+    paddingHorizontal: Layout.spacing.sm,
+    borderWidth: 1,
+    borderRadius: 12,
   },
-  lockButtonActive: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
+  autoChipText: {
+    fontSize: Layout.fontSize.sm,
+    fontWeight: '600',
   },
   pickerContainer: {
     height: 80,
     justifyContent: 'center',
     position: 'relative',
-  },
-  autoBadge: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    zIndex: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    backgroundColor: 'rgba(128,128,128,0.1)',
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 4,
-  },
-  autoText: {
-    fontSize: 10,
-    fontStyle: 'italic',
   },
   resultCard: {
     marginBottom: Layout.spacing.md,

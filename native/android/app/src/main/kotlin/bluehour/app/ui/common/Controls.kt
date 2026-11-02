@@ -16,7 +16,7 @@ import bluehour.app.R
 import bluehour.core.DurationUnits
 import kotlin.math.roundToInt
 
-/** 在一组离散值中选择（index 为 0..count-1），标题行可附加 trailing 内容 */
+/** 在一组离散值中选择（index 为 0..count-1），标题行可附加 trailing 内容；enabled 为 false 时只显示 */
 @Composable
 fun LabeledSlider(
     label: String,
@@ -25,6 +25,7 @@ fun LabeledSlider(
     count: Int,
     onChange: (Int) -> Unit,
     valueColor: Color = Color.Unspecified,
+    enabled: Boolean = true,
     trailing: @Composable () -> Unit = {},
 ) {
     Column {
@@ -38,6 +39,7 @@ fun LabeledSlider(
             onValueChange = { onChange(it.roundToInt().coerceIn(0, count - 1)) },
             valueRange = 0f..(count - 1).toFloat(),
             steps = (count - 2).coerceAtLeast(0),
+            enabled = enabled,
             // 默认未选段用 secondaryContainer（暖棕），在深蓝背景上太突兀
             colors = SliderDefaults.colors(
                 inactiveTrackColor = MaterialTheme.colorScheme.surfaceContainerHighest,

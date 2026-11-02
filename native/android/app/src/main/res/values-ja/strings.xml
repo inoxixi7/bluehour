@@ -56,9 +56,11 @@
     <string name="param_aperture">絞り</string>
     <string name="param_shutter">シャッター</string>
     <string name="param_iso">ISO</string>
-    <string name="lock_ev">ロック</string>
-    <string name="unlock_ev">ロック解除</string>
-    <string name="will_adjust">自動調整されます</string>
+    <string name="exposure_auto">自動</string>
+    <string name="exposure_overexposed">範囲外：%1$s 段の露出オーバー</string>
+    <string name="exposure_underexposed">範囲外：%1$s 段の露出アンダー</string>
+    <string name="ev_decrease">EV を下げる</string>
+    <string name="ev_increase">EV を上げる</string>
     <string name="result_nd">ND適用後のシャッター</string>
     <string name="to_reciprocity">相反則を計算</string>
     <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
@@ -100,9 +102,9 @@
     <!-- 每节第一项为标题 -->
     <string-array name="help_exposure_section1">
         <item>1. 基本露出パラメータ</item>
-        <item>絞り (Aperture)、シャッタースピード (Shutter)、ISO：露出の3要素を自由に調整できます。</item>
-        <item>スマートロック：パラメータ横の鍵アイコンをタップしてロックします。他の値を調整すると、露出値 (EV) を維持するように、ロックされていないパラメータが自動計算されます。</item>
-        <item>EVロック：現在の露出値 (EV) を固定します。任意のパラメータを調整すると、他のパラメータが連動して変化します。</item>
+        <item>EV はシーンの明るさです。シーンプリセットを選ぶか、− / + で EV を現場の光に合わせます。</item>
+        <item>いずれかのパラメータで「自動」をタップすると、その値が自動計算されます。絞り優先（シャッター自動）、シャッター優先（絞り自動）、ISO オートに相当し、残りの 2 つは自由に調整できます。</item>
+        <item>計算値が範囲を超えた場合は限界値で止まり、何段オーバー／アンダーかを表示します。</item>
     </string-array>
     <string-array name="help_exposure_section2">
         <item>2. シーン別EV参考</item>

@@ -57,9 +57,11 @@
     <string name="param_aperture">Aperture</string>
     <string name="param_shutter">Shutter</string>
     <string name="param_iso">ISO</string>
-    <string name="lock_ev">Lock</string>
-    <string name="unlock_ev">Unlock</string>
-    <string name="will_adjust">Will auto-adjust</string>
+    <string name="exposure_auto">Auto</string>
+    <string name="exposure_overexposed">Out of range: %1$s stops overexposed</string>
+    <string name="exposure_underexposed">Out of range: %1$s stops underexposed</string>
+    <string name="ev_decrease">Decrease EV</string>
+    <string name="ev_increase">Increase EV</string>
     <string name="result_nd">After ND filter</string>
     <string name="to_reciprocity">Calculate Reciprocity</string>
     <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
@@ -101,9 +103,9 @@
     <!-- 每节第一项为标题 -->
     <string-array name="help_exposure_section1">
         <item>1. Basic Exposure Parameters</item>
-        <item>Aperture, Shutter, ISO: Freely adjust the three pillars of exposure.</item>
-        <item>Smart Lock: Tap the lock icon next to a parameter to lock it. When adjusting other values, the system automatically calculates the unlocked parameter to maintain Exposure Value (EV) balance.</item>
-        <item>EV Lock: Lock the current Exposure Value (EV). Adjusting any parameter will automatically update the others to match.</item>
+        <item>EV is the brightness of the scene. Pick a scene preset or adjust EV with − and + to match your light.</item>
+        <item>Tap Auto on one parameter to have it calculated, like aperture priority (auto shutter), shutter priority (auto aperture) or auto ISO. Adjust the other two freely.</item>
+        <item>If the calculated value runs past the available range, it stops at the limit and the screen shows how many stops over- or underexposed you are.</item>
     </string-array>
     <string-array name="help_exposure_section2">
         <item>2. Scene EV Reference</item>
