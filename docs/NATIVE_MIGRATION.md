@@ -8,7 +8,7 @@ BlueHour 正在从 Expo / React Native 迁移到原生：Android 用 Kotlin + Je
 | 部分                  | 状态      | 说明                                                                                             |
 | --------------------- | --------- | ------------------------------------------------------------------------------------------------ |
 | `shared/`             | ✅ 完成   | 由 TypeScript 代码生成的胶片数据与测试向量（`npm run shared:update`），见 `shared/README.md`     |
-| `native/android/core` | ✅ 完成   | 纯 Kotlin 计算逻辑：倒易率、EV 与自动参数、太阳位置、光线阶段、格式化；已用测试向量逐条验证 |
+| `native/android/core` | ✅ 完成   | 纯 Kotlin 计算逻辑：倒易率、EV 与自动参数、太阳位置、光线阶段、格式化；已用测试向量逐条验证      |
 | `native/android/app`  | 🚧 进行中 | 蓝调时刻、曝光、倒易率（含 B 门计时器）、设置（主题、语言、黄金时刻提醒）均可用                  |
 | CI                    | ✅ 完成   | `android` 任务：core 测试、构建调试 APK（Artifacts 中可下载 `bluehour-debug-apk`）、Android lint |
 | iOS（SwiftUI）        | ⏳ 未开始 | 计划同样用 `shared/test-vectors` 验证计算结果                                                    |
