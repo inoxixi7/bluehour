@@ -164,5 +164,6 @@
     <string name="golden_notification_title">Golden hour starting soon</string>
     <string name="golden_notification_body">Golden hour starts in 30 minutes (%1$s). Get your gear ready.</string>
     <string name="settings_version">Version</string>
+    <string name="settings_feedback">Feedback &amp; Support</string>
     <string name="exact_alarm_hint">Allow “Alarms &amp; reminders” so reminders arrive on time.</string>
 </resources>

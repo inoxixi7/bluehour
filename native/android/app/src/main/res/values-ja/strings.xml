@@ -163,5 +163,6 @@
     <string name="golden_notification_title">まもなくゴールデンアワー</string>
     <string name="golden_notification_body">30分後にゴールデンアワーが始まります（%1$s）。機材を準備してください。</string>
     <string name="settings_version">バージョン</string>
+    <string name="settings_feedback">フィードバックとサポート</string>
     <string name="exact_alarm_hint">「アラームとリマインダー」を許可すると、時間どおりに通知されます。</string>
 </resources>

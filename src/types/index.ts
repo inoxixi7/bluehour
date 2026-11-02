@@ -16,16 +16,6 @@ export interface ExposureSettings {
   iso: number; // ISO 感光度
 }
 
-// 景深计算结果
-export interface DepthOfFieldResult {
-  nearLimit: number; // 清晰范围近点 (米)
-  farLimit: number; // 清晰范围远点 (米)
-  totalDoF: number; // 总景深 (米)
-  hyperFocalDistance: number; // 超焦距 (米)
-  inFrontOfSubject: number; // 对焦点前的景深
-  behindSubject: number; // 对焦点后的景深
-}
-
 // ND 滤镜计算结果
 export interface NDCalculationResult {
   originalShutter: number;

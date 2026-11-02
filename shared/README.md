@@ -16,7 +16,6 @@ npm run shared:update
 | `test-vectors/reciprocity.json` | 每款胶片在不同测光时间下的校正结果                                    |
 | `test-vectors/exposure.json`    | EV、ND 快门、按场景 EV 计算自动参数（solveExposure）                  |
 | `test-vectors/sun.json`         | 太阳高度角、本地计算的日出日落 / 晨昏蒙影、黄金与蓝调时刻（UTC 毫秒） |
-| `test-vectors/optics.json`      | 景深与超焦距                                                          |
 | `test-vectors/formatters.json`  | 补偿档数与快门时间的格式化                                            |
 
 原生实现必须在容差内复现这些结果：数值为相对误差 1e-9；

@@ -3,7 +3,6 @@ package bluehour.core
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonElement
-import kotlinx.serialization.json.JsonNull
 import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.boolean
 import kotlinx.serialization.json.double
@@ -34,7 +33,6 @@ object TestVectors {
 }
 
 fun JsonObject.d(key: String): Double = getValue(key).jsonPrimitive.double
-fun JsonObject.dOrNull(key: String): Double? = get(key).takeUnless { it == null || it is JsonNull }?.jsonPrimitive?.double
 fun JsonObject.l(key: String): Long = getValue(key).jsonPrimitive.long
 fun JsonObject.b(key: String): Boolean = getValue(key).jsonPrimitive.boolean
 fun JsonObject.s(key: String): String = getValue(key).jsonPrimitive.content
