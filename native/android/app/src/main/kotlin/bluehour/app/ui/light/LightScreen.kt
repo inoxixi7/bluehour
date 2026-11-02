@@ -7,16 +7,21 @@ import android.provider.Settings
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.LinearProgressIndicator
@@ -36,6 +41,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,6 +49,7 @@ import androidx.compose.ui.unit.dp
 import bluehour.app.AppSettings
 import bluehour.app.R
 import bluehour.app.reminder.GoldenHourReminders
+import bluehour.app.ui.common.ScreenTitle
 import bluehour.core.BlueHourWindowId
 import bluehour.core.LightPhaseId
 import bluehour.core.LightPhases
@@ -115,7 +122,7 @@ fun LightScreen(modifier: Modifier = Modifier) {
             .padding(16.dp),
         verticalArrangement = Arrangement.spacedBy(16.dp),
     ) {
-        Text(stringResource(R.string.light_title), style = MaterialTheme.typography.headlineMedium)
+        ScreenTitle(stringResource(R.string.light_title))
 
         when (status) {
             LocationStatus.NeedPermission -> Message(R.string.location_rationale) {
@@ -190,16 +197,28 @@ private fun SunSchedule(lat: Double, lng: Double, onRefresh: () -> Unit) {
     }
 
     if (state != null) {
-        Card(Modifier.fillMaxWidth()) {
+        val golden = state.current.id == LightPhaseId.MorningGoldenHour || state.current.id == LightPhaseId.EveningGoldenHour
+        val colors = MaterialTheme.colorScheme
+        Card(
+            Modifier.fillMaxWidth(),
+            colors = CardDefaults.cardColors(
+                containerColor = if (golden) colors.secondaryContainer else colors.primaryContainer,
+                contentColor = if (golden) colors.onSecondaryContainer else colors.onPrimaryContainer,
+            ),
+        ) {
             Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 Text(stringResource(R.string.current_phase), style = MaterialTheme.typography.labelLarge)
                 Text(
                     stringResource(phaseLabel(state.current.id)),
                     style = MaterialTheme.typography.headlineSmall,
                     fontWeight = FontWeight.SemiBold,
-                    color = MaterialTheme.colorScheme.primary,
                 )
-                LinearProgressIndicator(progress = { state.progress.toFloat() }, modifier = Modifier.fillMaxWidth())
+                LinearProgressIndicator(
+                    progress = { state.progress.toFloat() },
+                    modifier = Modifier.fillMaxWidth(),
+                    color = if (golden) colors.secondary else colors.primary,
+                    trackColor = colors.surface.copy(alpha = 0.5f),
+                )
                 Text(
                     stringResource(
                         R.string.phase_ends_in,
@@ -212,7 +231,7 @@ private fun SunSchedule(lat: Double, lng: Double, onRefresh: () -> Unit) {
         }
     }
 
-    OutlinedCard(Modifier.fillMaxWidth()) {
+    Card(Modifier.fillMaxWidth()) {
         Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
             Text(stringResource(R.string.next_blue_hour), style = MaterialTheme.typography.labelLarge)
             val label = when (nextBlue.id) {
@@ -222,7 +241,11 @@ private fun SunSchedule(lat: Double, lng: Double, onRefresh: () -> Unit) {
                     "${stringResource(R.string.tomorrow)} · ${stringResource(R.string.phase_morning_blue)}"
             }
             Text(label, style = MaterialTheme.typography.titleMedium)
-            Text(range(nextBlue.start, nextBlue.end), style = MaterialTheme.typography.headlineSmall)
+            Text(
+                range(nextBlue.start, nextBlue.end),
+                style = MaterialTheme.typography.headlineSmall,
+                color = MaterialTheme.colorScheme.primary,
+            )
         }
     }
 
@@ -232,20 +255,26 @@ private fun SunSchedule(lat: Double, lng: Double, onRefresh: () -> Unit) {
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(bottom = 8.dp),
         )
-        ScheduleRow(R.string.phase_morning_blue, range(hours.morningBlueHourStart, hours.morningBlueHourEnd))
+        ScheduleRow(R.string.phase_morning_blue, range(hours.morningBlueHourStart, hours.morningBlueHourEnd), accent = MaterialTheme.colorScheme.primary)
         ScheduleRow(R.string.sunrise, time(sun.sunrise))
-        ScheduleRow(R.string.phase_morning_golden, range(hours.morningGoldenHourStart, hours.morningGoldenHourEnd))
+        ScheduleRow(R.string.phase_morning_golden, range(hours.morningGoldenHourStart, hours.morningGoldenHourEnd), accent = MaterialTheme.colorScheme.secondary)
         ScheduleRow(R.string.solar_noon, time(sun.solarNoon))
-        ScheduleRow(R.string.phase_evening_golden, range(hours.eveningGoldenHourStart, hours.eveningGoldenHourEnd))
+        ScheduleRow(R.string.phase_evening_golden, range(hours.eveningGoldenHourStart, hours.eveningGoldenHourEnd), accent = MaterialTheme.colorScheme.secondary)
         ScheduleRow(R.string.sunset, time(sun.sunset))
-        ScheduleRow(R.string.phase_evening_blue, range(hours.eveningBlueHourStart, hours.eveningBlueHourEnd))
+        ScheduleRow(R.string.phase_evening_blue, range(hours.eveningBlueHourStart, hours.eveningBlueHourEnd), accent = MaterialTheme.colorScheme.primary)
         ScheduleRow(R.string.day_length, duration((sun.dayLengthSeconds / 60).toLong()), divider = false)
     }
 }
 
 @Composable
-private fun ScheduleRow(@StringRes label: Int, value: String, divider: Boolean = true) {
-    Row(Modifier.fillMaxWidth().padding(vertical = 12.dp)) {
+private fun ScheduleRow(@StringRes label: Int, value: String, divider: Boolean = true, accent: Color = Color.Transparent) {
+    Row(
+        Modifier.fillMaxWidth().padding(vertical = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        // 蓝调 / 黄金时刻的色条，与图标色带对应
+        Box(Modifier.size(width = 4.dp, height = 20.dp).background(accent, RoundedCornerShape(2.dp)))
         Text(stringResource(label), style = MaterialTheme.typography.bodyLarge, modifier = Modifier.weight(1f))
         Text(value, style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.Medium)
     }

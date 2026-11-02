@@ -4,8 +4,10 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -49,6 +51,12 @@ fun BlueHourApp(themeMode: ThemeMode, onThemeChange: (ThemeMode) -> Unit) {
                         onClick = { selected = tab },
                         icon = { Icon(painterResource(tab.icon), contentDescription = null) },
                         label = { Text(stringResource(tab.label)) },
+                        // 选中态用蓝调色，金色留给黄金时刻
+                        colors = NavigationBarItemDefaults.colors(
+                            selectedIconColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                            selectedTextColor = MaterialTheme.colorScheme.primary,
+                            indicatorColor = MaterialTheme.colorScheme.primaryContainer,
+                        ),
                     )
                 }
             }

@@ -44,6 +44,7 @@ import bluehour.app.AppSettings
 import bluehour.app.R
 import bluehour.app.ThemeMode
 import bluehour.app.reminder.GoldenHourReminders
+import bluehour.app.ui.common.ScreenTitle
 
 /**
  * 设置：语言（Android 13+ 交给系统的应用语言设置）、主题、黄金时刻提醒
@@ -82,11 +83,7 @@ fun SettingsScreen(themeMode: ThemeMode, onThemeChange: (ThemeMode) -> Unit, mod
             .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        Text(
-            stringResource(R.string.tab_settings),
-            style = MaterialTheme.typography.headlineMedium,
-            modifier = Modifier.padding(horizontal = 16.dp),
-        )
+        ScreenTitle(stringResource(R.string.tab_settings), Modifier.padding(horizontal = 16.dp))
 
         SectionTitle(R.string.settings_preferences)
         // 应用内切换语言需要 AppCompat；Android 13 起系统提供每个应用的语言设置
