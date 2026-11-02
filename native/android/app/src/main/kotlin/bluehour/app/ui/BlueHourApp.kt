@@ -19,19 +19,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import bluehour.app.R
+import bluehour.app.ThemeMode
 import bluehour.app.ui.exposure.ExposureScreen
 import bluehour.app.ui.light.LightScreen
 import bluehour.app.ui.reciprocity.ReciprocityInput
 import bluehour.app.ui.reciprocity.ReciprocityScreen
+import bluehour.app.ui.settings.SettingsScreen
 
 private enum class Tab(@StringRes val label: Int, @DrawableRes val icon: Int) {
     Light(R.string.tab_light, R.drawable.ic_tab_light),
     Exposure(R.string.tab_exposure, R.drawable.ic_tab_exposure),
     Reciprocity(R.string.tab_reciprocity, R.drawable.ic_tab_reciprocity),
+    Settings(R.string.tab_settings, R.drawable.ic_tab_settings),
 }
 
 @Composable
-fun BlueHourApp() {
+fun BlueHourApp(themeMode: ThemeMode, onThemeChange: (ThemeMode) -> Unit) {
     var selected by rememberSaveable { mutableStateOf(Tab.Light) }
     // 切换标签时保留各页面的状态
     val stateHolder = rememberSaveableStateHolder()
@@ -60,6 +63,7 @@ fun BlueHourApp() {
                     selected = Tab.Reciprocity
                 })
                 Tab.Reciprocity -> ReciprocityScreen(modifier, reciprocityInput, onInputConsumed = { reciprocityInput = null })
+                Tab.Settings -> SettingsScreen(themeMode, onThemeChange, modifier)
             }
         }
     }
