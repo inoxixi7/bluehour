@@ -1,51 +1,78 @@
 package bluehour.app.ui.theme
 
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 
-// 品牌色：蓝调时刻的深蓝与黄金时刻的暖橙
-private val BlueHour = Color(0xFF3D5A98)
-private val BlueHourLight = Color(0xFFAFC6FF)
-private val GoldenHour = Color(0xFFB4651E)
-private val GoldenHourLight = Color(0xFFFFB77C)
+/** 图标上的暮光色带，从夜空到黄金时刻（与 assets/images/logo.svg 一致） */
+object Twilight {
+    val Night = Color(0xFF1A1A2E)
+    val Dusk = Color(0xFF263A6E)
+    val Blue = Color(0xFF3D5A98)
+    val BlueLight = Color(0xFFAFC6FF)
+    val Gold = Color(0xFFFFB77C)
+    val Amber = Color(0xFFE8955A)
+    val Ember = Color(0xFFB4651E)
+}
 
 private val LightColors = lightColorScheme(
-    primary = BlueHour,
-    secondary = GoldenHour,
+    primary = Twilight.Blue,
+    onPrimary = Color.White,
+    primaryContainer = Color(0xFFDCE4FF),
+    onPrimaryContainer = Twilight.Dusk,
+    secondary = Twilight.Ember,
+    onSecondary = Color.White,
+    secondaryContainer = Color(0xFFFFE2CC),
+    onSecondaryContainer = Color(0xFF5A2E06),
+    tertiary = Color(0xFF9A4F1A),
+    background = Color(0xFFF7F7FC),
+    onBackground = Twilight.Night,
+    surface = Color(0xFFF7F7FC),
+    onSurface = Twilight.Night,
+    surfaceVariant = Color(0xFFE3E5F2),
+    onSurfaceVariant = Color(0xFF4A4D63),
+    surfaceContainerLowest = Color.White,
+    surfaceContainerLow = Color(0xFFF1F2F9),
+    surfaceContainer = Color(0xFFEBEDF6),
+    surfaceContainerHigh = Color(0xFFE5E7F2),
+    surfaceContainerHighest = Color(0xFFDFE2EF),
+    outline = Color(0xFF777A93),
+    outlineVariant = Color(0xFFC8CBDC),
 )
 
 private val DarkColors = darkColorScheme(
-    primary = BlueHourLight,
-    secondary = GoldenHourLight,
-    background = Color(0xFF12131A),
-    surface = Color(0xFF12131A),
+    primary = Twilight.BlueLight,
+    onPrimary = Color(0xFF0E2A63),
+    primaryContainer = Twilight.Dusk,
+    onPrimaryContainer = Color(0xFFDCE4FF),
+    secondary = Twilight.Gold,
+    onSecondary = Color(0xFF4A2504),
+    secondaryContainer = Color(0xFF6A3A12),
+    onSecondaryContainer = Color(0xFFFFE2CC),
+    tertiary = Twilight.Amber,
+    background = Twilight.Night,
+    onBackground = Color(0xFFE4E5F2),
+    surface = Twilight.Night,
+    onSurface = Color(0xFFE4E5F2),
+    surfaceVariant = Color(0xFF2C2F4A),
+    onSurfaceVariant = Color(0xFFB9BCD3),
+    surfaceContainerLowest = Color(0xFF141424),
+    surfaceContainerLow = Color(0xFF1F2036),
+    surfaceContainer = Color(0xFF23253D),
+    surfaceContainerHigh = Color(0xFF2A2C46),
+    surfaceContainerHighest = Color(0xFF32354F),
+    outline = Color(0xFF8A8DA6),
+    outlineVariant = Color(0xFF3A3D58),
 )
 
-/**
- * Android 12+ 使用系统动态取色（Material You），更早的系统使用品牌色
- */
+/** 固定使用图标的品牌色（不用 Material You 动态取色，否则会被壁纸颜色覆盖） */
 @Composable
 fun BlueHourTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = true,
     content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
-        darkTheme -> DarkColors
-        else -> LightColors
-    }
-
-    MaterialTheme(colorScheme = colorScheme, content = content)
+    MaterialTheme(colorScheme = if (darkTheme) DarkColors else LightColors, content = content)
 }
