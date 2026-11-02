@@ -415,8 +415,9 @@ export default {
       aperture: 'Aperture',
       shutter: 'Shutter',
       iso: 'ISO',
-      lock: 'Lock',
-      unlock: 'Unlock',
+      auto: 'Auto',
+      overexposed: 'Out of range: {{stops}} stops overexposed',
+      underexposed: 'Out of range: {{stops}} stops underexposed',
       toReciprocity: 'Calculate Reciprocity',
       reciprocitySection: 'Film reciprocity profiles',
       reciprocity: {
@@ -601,7 +602,6 @@ export default {
         countdown: 'Countdown',
         bulb: 'Bulb Timer',
       },
-      willAdjust: 'Will auto-adjust',
       preset: 'Camera Preset',
       noPreset: 'No Preset',
       noScene: 'No Scene',
@@ -804,7 +804,9 @@ export default {
     section5: {
       title: '5. Exposure Timer',
       content: [
-        'Provides a countdown timer based on the final calculated exposure time (including ND and reciprocity adjustments), useful for long exposure shots.',
+        'EV is the brightness of the scene. Pick a scene preset or adjust EV with − and + to match your light.',
+        'Tap Auto on one parameter to have it calculated, like aperture priority (auto shutter), shutter priority (auto aperture) or auto ISO. Adjust the other two freely.',
+        'If the calculated value runs past the available range, it stops at the limit and the screen shows how many stops over- or underexposed you are.',
       ],
     },
   },

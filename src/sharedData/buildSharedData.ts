@@ -16,24 +16,17 @@ import {
   ND_FILTERS,
   SHUTTER_SPEEDS,
 } from '../constants/Photography';
-import {
-  ExposureParam,
-  ExposureValues,
-  applyParamChange,
-  applyTargetEV,
-  isAutoAdjusted,
-  toggleParamLock,
-} from '../utils/exposureLocks';
 import i18n from '../locales/i18n';
 import { formatExtraStops, formatShutterSpeed } from '../utils/formatters';
 import {
   calculateDepthOfField,
   calculateEV,
-  calculateEquivalentExposure,
-  calculateEquivalentExposureWithEV,
   calculateHyperFocalDistance,
   calculateNDShutter,
   calculateReciprocity,
+  ExposureParam,
+  ExposureValues,
+  solveExposure,
 } from '../utils/photographyCalculations';
 import {
   calculateGoldenAndBlueHours,
@@ -54,18 +47,6 @@ const PARAMS: readonly ExposureParam[] = ['aperture', 'shutter', 'iso'];
 
 /** JSON 不能表示 Infinity，用 null 代替 */
 const finiteOrNull = (value: number): number | null => (Number.isFinite(value) ? value : null);
-
-/** 所有锁定组合（保持 aperture → shutter → iso 的顺序） */
-const LOCK_SUBSETS: ExposureParam[][] = [
-  [],
-  ['aperture'],
-  ['shutter'],
-  ['iso'],
-  ['aperture', 'shutter'],
-  ['aperture', 'iso'],
-  ['shutter', 'iso'],
-  ['aperture', 'shutter', 'iso'],
-];
 
 // ---- 数据 ----
 
@@ -116,12 +97,6 @@ const BASE_SETTINGS: ExposureValues[] = [
   { aperture: 16, shutter: 30, iso: 50 },
 ];
 
-const NEW_VALUES: Record<ExposureParam, number[]> = {
-  aperture: [1.4, 4, 11, 22],
-  shutter: [1 / 4000, 1 / 30, 2, 240],
-  iso: [50, 200, 1600, 12800],
-};
-
 const buildExposureVectors = () => {
   const ev = [1.4, 2.8, 5.6, 8, 16, 22].flatMap(aperture =>
     [1 / 1000, 1 / 60, 1 / 4, 1, 30].flatMap(shutter =>
@@ -142,115 +117,17 @@ const buildExposureVectors = () => {
     }))
   );
 
-  const equivalent = BASE_SETTINGS.flatMap(base =>
-    PARAMS.flatMap(changedParam =>
-      PARAMS.filter(p => p !== changedParam).flatMap(lockedParam =>
-        NEW_VALUES[changedParam].map(newValue => ({
-          base,
-          changedParam,
-          newValue,
-          lockedParam,
-          result: calculateEquivalentExposure(base, changedParam, newValue, lockedParam),
-        }))
-      )
-    )
-  );
-
-  const equivalentWithEV = [-4, 0, 8, 12, 15, 20].flatMap(targetEV =>
-    BASE_SETTINGS.flatMap(current =>
-      PARAMS.flatMap(changedParam =>
-        PARAMS.filter(p => p !== changedParam).flatMap(lockedParam =>
-          NEW_VALUES[changedParam].slice(1, 3).map(newValue => ({
-            targetEV,
-            changedParam,
-            newValue,
-            lockedParam,
-            current,
-            result: calculateEquivalentExposureWithEV(
-              targetEV,
-              changedParam,
-              newValue,
-              lockedParam,
-              current
-            ),
-          }))
-        )
-      )
+  const solve = [-4, 0, 8, 12, 15, 20].flatMap(ev =>
+    BASE_SETTINGS.flatMap(values =>
+      PARAMS.map(auto => ({ ev, auto, values, result: solveExposure(ev, auto, values) }))
     )
   );
 
   return {
-    description:
-      'calculateEV / calculateNDShutter / calculateEquivalentExposure / calculateEquivalentExposureWithEV（result 为 null 表示无法达到目标 EV）',
+    description: 'calculateEV / calculateNDShutter / solveExposure',
     ev,
     ndShutter,
-    equivalent,
-    equivalentWithEV,
-  };
-};
-
-const buildExposureLockVectors = () => {
-  const applyParamChangeCases = BASE_SETTINGS.slice(0, 2).flatMap(values =>
-    LOCK_SUBSETS.filter(locked => locked.length < 3).flatMap(locked =>
-      [null, 10].flatMap(targetEV =>
-        PARAMS.flatMap(param =>
-          NEW_VALUES[param].slice(1, 3).map(value => ({
-            values,
-            param,
-            value,
-            locked,
-            targetEV,
-            result: applyParamChange(values, param, value, new Set(locked), targetEV),
-          }))
-        )
-      )
-    )
-  );
-
-  const applyTargetEVCases = BASE_SETTINGS.flatMap(values =>
-    LOCK_SUBSETS.filter(locked => locked.length < 3).flatMap(locked =>
-      [-2, 5, 11, 16].map(targetEV => ({
-        values,
-        targetEV,
-        locked,
-        result: applyTargetEV(values, targetEV, new Set(locked)),
-      }))
-    )
-  );
-
-  const isAutoAdjustedCases = LOCK_SUBSETS.flatMap(locked =>
-    [false, true].flatMap(evLocked =>
-      PARAMS.map(param => ({
-        param,
-        locked,
-        evLocked,
-        result: isAutoAdjusted(param, new Set(locked), evLocked),
-      }))
-    )
-  );
-
-  // toggleParamLock 的结果与集合的插入顺序有关，因此输入、输出都按插入顺序记录
-  const lockOrders = LOCK_SUBSETS.filter(locked => locked.length < 3).flatMap(locked =>
-    locked.length === 2 ? [locked, [...locked].reverse()] : [locked]
-  );
-  const toggleParamLockCases = lockOrders.flatMap(locked =>
-    [false, true].flatMap(evLocked =>
-      PARAMS.map(param => ({
-        locked,
-        param,
-        evLocked,
-        result: Array.from(toggleParamLock(new Set(locked), param, evLocked)),
-      }))
-    )
-  );
-
-  return {
-    description:
-      'exposureLocks.ts：locked 为按插入顺序排列的锁定参数；toggleParamLock 的 result 也按插入顺序',
-    applyParamChange: applyParamChangeCases,
-    applyTargetEV: applyTargetEVCases,
-    isAutoAdjusted: isAutoAdjustedCases,
-    toggleParamLock: toggleParamLockCases,
+    solve,
   };
 };
 
@@ -469,7 +346,6 @@ export const buildSharedFiles = (): Record<string, unknown> => ({
   'data/photography.json': buildPhotography(),
   'test-vectors/reciprocity.json': buildReciprocityVectors(),
   'test-vectors/exposure.json': buildExposureVectors(),
-  'test-vectors/exposure-locks.json': buildExposureLockVectors(),
   'test-vectors/sun.json': buildSunVectors(),
   'test-vectors/light-phases.json': buildLightPhaseVectors(),
   'test-vectors/optics.json': buildOpticsVectors(),

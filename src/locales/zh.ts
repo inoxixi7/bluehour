@@ -409,8 +409,9 @@ export default {
       aperture: '光圈',
       shutter: '快门',
       iso: 'ISO',
-      lock: '锁定',
-      unlock: '解锁',
+      auto: '自动',
+      overexposed: '超出范围：过曝 {{stops}} 档',
+      underexposed: '超出范围：欠曝 {{stops}} 档',
       toReciprocity: '计算倒易律',
       reciprocitySection: '胶片倒易律',
       reciprocity: {
@@ -595,7 +596,6 @@ export default {
         countdown: '倒计时',
         bulb: 'B门计时',
       },
-      willAdjust: '会自动调整',
       preset: '相机预设',
       noPreset: '无预设',
       noScene: '无场景',
@@ -795,7 +795,9 @@ export default {
     section5: {
       title: '5. 曝光计时器',
       content: [
-        '根据计算出的最终曝光时间（已包含 ND 减光和倒易律补偿），提供倒计时功能，方便进行长曝光拍摄。',
+        'EV 代表场景的亮度。选择场景预设，或用 − / + 调整 EV，使其与现场光线一致。',
+        '在一个参数上点「自动」，由它自动计算，相当于光圈优先（快门自动）、快门优先（光圈自动）或自动 ISO。另外两个参数可以自由调整。',
+        '如果算出的值超出可用范围，会停在极限值，并显示过曝或欠曝了多少档。',
       ],
     },
   },

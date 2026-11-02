@@ -61,60 +61,15 @@ class ExposureVectorsTest {
     }
 
     @Test
-    fun `等效曝光`() = verifyAll("calculateEquivalentExposure", cases("equivalent")) { case ->
-        val result = calculateEquivalentExposure(
-            case.exposure("base"), case.param("changedParam"), case.d("newValue"), case.param("lockedParam"),
-        )
+    fun `自动参数`() = verifyAll("solveExposure", cases("solve")) { case ->
+        val result = solveExposure(case.d("ev"), case.param("auto"), case.exposure("values"))
         val expected = case.o("result")
-        valuesMismatch(result.values, case.exposure("result"))
-            ?: if (close(result.ev, expected.d("ev"))) null else "ev 期望 ${expected.d("ev")}，实际 ${result.ev}"
-    }
-
-    @Test
-    fun `锁定 EV 的等效曝光`() = verifyAll("calculateEquivalentExposureWithEV", cases("equivalentWithEV")) { case ->
-        val result = calculateEquivalentExposureWithEV(
-            case.d("targetEV"), case.param("changedParam"), case.d("newValue"), case.param("lockedParam"),
-            case.exposure("current"),
-        )
-        when {
-            case.isNull("result") -> if (result == null) null else "期望 null，实际 $result"
-            result == null -> "期望 ${case.o("result")}，实际 null"
-            else -> valuesMismatch(result.values, case.exposure("result"))
-        }
-    }
-}
-
-class ExposureLocksVectorsTest {
-    private val file = TestVectors.load("exposure-locks.json")
-    private fun cases(key: String) = file.arr(key).map { it.jsonObject }
-
-    @Test
-    fun applyParamChange() = verifyAll("applyParamChange", cases("applyParamChange")) { case ->
-        val result = ExposureLocks.applyParamChange(
-            case.exposure("values"), case.param("param"), case.d("value"), case.params("locked"),
-            case.dOrNull("targetEV"),
-        )
-        valuesMismatch(result, case.exposure("result"))
-    }
-
-    @Test
-    fun applyTargetEV() = verifyAll("applyTargetEV", cases("applyTargetEV")) { case ->
-        val result = ExposureLocks.applyTargetEV(case.exposure("values"), case.d("targetEV"), case.params("locked"))
-        valuesMismatch(result, case.exposure("result"))
-    }
-
-    @Test
-    fun isAutoAdjusted() = verifyAll("isAutoAdjusted", cases("isAutoAdjusted")) { case ->
-        val result = ExposureLocks.isAutoAdjusted(case.param("param"), case.params("locked"), case.b("evLocked"))
-        if (result == case.b("result")) null else "期望 ${case.b("result")}，实际 $result"
-    }
-
-    @Test
-    fun toggleParamLock() = verifyAll("toggleParamLock", cases("toggleParamLock")) { case ->
-        val result = ExposureLocks.toggleParamLock(case.params("locked"), case.param("param"), case.b("evLocked"))
-        val expected = case.params("result")
-        // 比较顺序：后续的 toggle 依赖插入顺序
-        if (result.toList() == expected.toList()) null else "期望 $expected，实际 $result"
+        valuesMismatch(result.values, expected.exposure("values"))
+            ?: if (close(result.outOfRangeStops, expected.d("outOfRangeStops"))) {
+                null
+            } else {
+                "outOfRangeStops 期望 ${expected.d("outOfRangeStops")}，实际 ${result.outOfRangeStops}"
+            }
     }
 }
 

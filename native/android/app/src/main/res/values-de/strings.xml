@@ -56,9 +56,11 @@
     <string name="param_aperture">Blende</string>
     <string name="param_shutter">Verschlusszeit</string>
     <string name="param_iso">ISO</string>
-    <string name="lock_ev">Sperren</string>
-    <string name="unlock_ev">Entsperren</string>
-    <string name="will_adjust">Wird automatisch angepasst</string>
+    <string name="exposure_auto">Auto</string>
+    <string name="exposure_overexposed">Außerhalb des Bereichs: %1$s Blenden überbelichtet</string>
+    <string name="exposure_underexposed">Außerhalb des Bereichs: %1$s Blenden unterbelichtet</string>
+    <string name="ev_decrease">EV verringern</string>
+    <string name="ev_increase">EV erhöhen</string>
     <string name="result_nd">Nach ND-Filter</string>
     <string name="to_reciprocity">Reziprozität berechnen</string>
     <!-- 顺序与 shared/data/photography.json 的 evScenes 一致 -->
@@ -100,9 +102,9 @@
     <!-- 每节第一项为标题 -->
     <string-array name="help_exposure_section1">
         <item>1. Grundlegende Belichtungsparameter</item>
-        <item>Blende (Aperture), Verschlusszeit (Shutter), ISO: Passen Sie die drei Grundpfeiler der Belichtung frei an.</item>
-        <item>Smart Lock: Tippen Sie auf das Schloss-Symbol neben einem Parameter, um ihn zu sperren. Wenn Sie andere Werte anpassen, berechnet das System automatisch den nicht gesperrten Parameter, um den Lichtwert (EV) beizubehalten.</item>
-        <item>EV Lock: Sperren Sie den aktuellen Lichtwert (EV). Bei Anpassung eines Parameters werden die anderen automatisch aktualisiert.</item>
+        <item>EV ist die Helligkeit der Szene. Wähle eine Szenenvorgabe oder passe den EV mit − und + an dein Licht an.</item>
+        <item>Tippe bei einem Parameter auf „Auto“, damit er berechnet wird – wie Zeitautomatik (Auto-Belichtungszeit), Blendenautomatik (Auto-Blende) oder Auto-ISO. Die anderen beiden stellst du frei ein.</item>
+        <item>Liegt der berechnete Wert außerhalb des verfügbaren Bereichs, bleibt er am Grenzwert stehen und es wird angezeigt, um wie viele Blenden über- oder unterbelichtet wird.</item>
     </string-array>
     <string-array name="help_exposure_section2">
         <item>2. Szenen-EV-Referenz</item>
