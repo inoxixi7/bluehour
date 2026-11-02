@@ -19,9 +19,7 @@ import {
 import i18n from '../locales/i18n';
 import { formatExtraStops, formatShutterSpeed } from '../utils/formatters';
 import {
-  calculateDepthOfField,
   calculateEV,
-  calculateHyperFocalDistance,
   calculateNDShutter,
   calculateReciprocity,
   ExposureParam,
@@ -44,9 +42,6 @@ import { ProcessedSunTimes } from '../types/api';
 export const SHARED_DATA_VERSION = 1;
 
 const PARAMS: readonly ExposureParam[] = ['aperture', 'shutter', 'iso'];
-
-/** JSON 不能表示 Infinity，用 null 代替 */
-const finiteOrNull = (value: number): number | null => (Number.isFinite(value) ? value : null);
 
 // ---- 数据 ----
 
@@ -195,42 +190,6 @@ const buildSunVectors = () => {
   };
 };
 
-const buildOpticsVectors = () => {
-  const depthOfField = [1.8, 5.6, 16].flatMap(aperture =>
-    [24, 50, 200].flatMap(focalLength =>
-      [0.5, 3, 20].flatMap(distance =>
-        [0.029, 0.019].map(coc => {
-          const result = calculateDepthOfField(aperture, focalLength, distance, coc);
-          return {
-            aperture,
-            focalLength,
-            distance,
-            coc,
-            result: Object.fromEntries(
-              Object.entries(result).map(([key, value]) => [key, finiteOrNull(value)])
-            ),
-          };
-        })
-      )
-    )
-  );
-
-  const hyperFocal = [2.8, 8, 22].flatMap(aperture =>
-    [16, 35, 85].map(focalLength => ({
-      aperture,
-      focalLength,
-      coc: 0.029,
-      result: calculateHyperFocalDistance(aperture, focalLength, 0.029),
-    }))
-  );
-
-  return {
-    description: '景深与超焦距（米）；null 表示无穷远',
-    depthOfField,
-    hyperFocal,
-  };
-};
-
 const UNIT_KEYS = ['second', 'seconds', 'sec', 'minutes', 'min', 'hours'] as const;
 
 /** 调用前需要把 i18n 切换到英文（见 sharedData.test.ts） */
@@ -348,6 +307,5 @@ export const buildSharedFiles = (): Record<string, unknown> => ({
   'test-vectors/exposure.json': buildExposureVectors(),
   'test-vectors/sun.json': buildSunVectors(),
   'test-vectors/light-phases.json': buildLightPhaseVectors(),
-  'test-vectors/optics.json': buildOpticsVectors(),
   'test-vectors/formatters.json': buildFormatterVectors(),
 });

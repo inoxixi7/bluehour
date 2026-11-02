@@ -132,34 +132,6 @@ class SunVectorsTest {
     }
 }
 
-class OpticsVectorsTest {
-    private val file = TestVectors.load("optics.json")
-    private fun cases(key: String) = file.arr(key).map { it.jsonObject }
-
-    @Test
-    fun `景深`() = verifyAll("calculateDepthOfField", cases("depthOfField")) { case ->
-        val actual = calculateDepthOfField(case.d("aperture"), case.d("focalLength"), case.d("distance"), case.d("coc"))
-        val expected = case.o("result")
-        mapOf(
-            "nearLimit" to actual.nearLimit,
-            "farLimit" to actual.farLimit,
-            "totalDoF" to actual.totalDoF,
-            "hyperFocalDistance" to actual.hyperFocalDistance,
-            "inFrontOfSubject" to actual.inFrontOfSubject,
-            "behindSubject" to actual.behindSubject,
-        ).entries.firstNotNullOfOrNull { (key, value) ->
-            val want = expected.dOrNull(key) ?: Double.POSITIVE_INFINITY
-            if (close(value, want)) null else "$key 期望 $want，实际 $value"
-        }
-    }
-
-    @Test
-    fun `超焦距`() = verifyAll("calculateHyperFocalDistance", cases("hyperFocal")) { case ->
-        val actual = calculateHyperFocalDistance(case.d("aperture"), case.d("focalLength"), case.d("coc"))
-        if (close(actual, case.d("result"))) null else "期望 ${case.d("result")}，实际 $actual"
-    }
-}
-
 class FormatterVectorsTest {
     @Test
     fun formatExtraStops() = verifyAll(

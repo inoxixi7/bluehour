@@ -38,6 +38,7 @@ import androidx.compose.ui.platform.LocalLocale
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import bluehour.app.AppSettings
@@ -158,6 +159,13 @@ fun SettingsScreen(themeMode: ThemeMode, onThemeChange: (ThemeMode) -> Unit, mod
         }
 
         HorizontalDivider(Modifier.padding(vertical = 8.dp))
+        ListItem(
+            headlineContent = { Text(stringResource(R.string.settings_feedback)) },
+            supportingContent = { Text("GitHub") },
+            modifier = Modifier.clickable {
+                context.startActivity(Intent(Intent.ACTION_VIEW, "https://github.com/inoxixi7/bluehour/issues".toUri()))
+            },
+        )
         ListItem(
             headlineContent = { Text(stringResource(R.string.settings_version)) },
             supportingContent = {
